@@ -1,0 +1,23 @@
+# 分享链接配置
+
+用于配置分享链接，默认为当前页面地址，编辑和预览地址不同或其他场景下，可以通过配置 `shareUrl` 来指定分享链接。
+
+## 默认配置
+
+```js
+{
+  shareUrl: location?.href || '',
+}
+```
+
+## 配置项说明
+
+### shareUrl
+
+**说明**：分享链接。
+
+**类型**：`String`
+
+**默认值**：`location?.href || ''`
+
+**配置项**：合法的 [URL](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL) 值。

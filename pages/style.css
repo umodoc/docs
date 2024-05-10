@@ -1,0 +1,102 @@
+body {
+	font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+.nextra-nav-container a {
+	font-size: 14px;
+}
+.nextra-search {
+	margin: 10px 0;
+}
+.no-result {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	height: 100px;
+	color: #999;
+}
+.nextra-search-results {
+	border-radius: 5px !important;
+}
+.nextra-toc {
+	z-index: 10;
+}
+.nextra-toc-footer {
+	z-index: 11;
+	background-color: var(--nextra-bg);
+}
+.nextra-breadcrumb {
+	margin-bottom: 40px;
+}
+.nextra-content a:not(._flex) {
+	display: inline-block;
+	margin: 0 0.3rem;
+}
+.nextra-content h1 {
+	font-size: 28px;
+}
+.nextra-content h2 {
+	font-size: 22px;
+	line-height: 2;
+}
+.nextra-content h3 {
+	font-size: 18px;
+}
+.nextra-content h4 {
+	font-size: 16px;
+}
+.nextra-content p {
+	margin-top: 0.75rem;
+}
+
+.nextra-content ._list-disc {
+	margin: 1rem 0 1rem 1rem;
+}
+
+.nextra-content h2 label {
+	font-size: 1rem;
+	margin-left: 1rem;
+	background-color: rgba(209, 213, 219, 0.2);
+	border-radius: 3px;
+	padding: 0 0.5rem;
+	float: right;
+	margin-top: 0.4rem;
+}
+.nextra-code pre {
+	max-height: 400px;
+	overflow: auto;
+}
+.nextra-code button {
+	background-color: var(--nextra-bg);
+}
+.faq-box {
+	margin-top: 2rem;
+	background-color: rgb(250, 250, 250);
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+.faq-box .faq-title {
+	font-size: 18px;
+}
+.faq-box .faq-content {
+	padding: 0.8rem 0.8rem 0;
+}
+.contains-task-list {
+	line-height: 2rem;
+	margin-top: 0.75rem;
+}
+._rounded-lg {
+	border-radius: 3px;
+}
+._rounded-md {
+	border-radius: 4px;
+}
+._rounded-xl {
+	border-radius: 5px;
+}
+.even\:_bg-gray-100:nth-child(2n) {
+	background-color: rgba(243, 244, 246, 0.6);
+}
+._bg-black\/80 {
+	background-color: rgba(255, 255, 266, 0.98);
+}

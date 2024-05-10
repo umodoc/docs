@@ -1,0 +1,167 @@
+import { Tabs } from 'nextra/components'
+
+# 文档配置
+
+用于配置 Umo Editor 文档区域及文档名称的显示和行为。
+
+## 默认配置
+
+```js
+{
+  document: {
+    title: '未命名文档',
+    content: '',
+    placeholder: '请输入文档内容...',
+    enableSpellcheck: true,
+    enableMarkdown: true,
+    enableBubbleMenu: true,
+    readOnly: false,
+    autofocus: true,
+    characterLimit: 0,
+    typographyRules: {},
+  },
+}
+```
+
+## 配置项说明
+
+### document.title
+
+**说明**：文档标题，用于导出的文件名称等，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置或修改文档标题。
+
+**类型**：`String`
+
+**默认值**：`未命名文档`
+
+### document.content
+
+**说明**：初始的文档内容，用户可修改，您可以通过 [setContent 方法](../methods#setcontent) 来动态设置或修改文档内容。
+
+**类型**：`String`
+
+**默认值**：空
+
+### document.placeholder
+
+**说明**：文档内容为空时的占位符。
+
+**类型**：`String`
+
+**默认值**：`请输入文档内容...`
+
+### document.enableSpellcheck
+
+**说明**：是否启用浏览器拼写检查，启用时用户可手动关闭，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否启用浏览器拼写检查。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.enableMarkdown
+
+**说明**：是否启用 Markdown 语法，启用时用户可手动关闭，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否启用  Markdown 语法。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.enableBubbleMenu
+
+**说明**：是否启用气泡菜单，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否显示气泡菜单。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.readOnly
+
+**说明**：文档是否只读，为 `true` 时用户无法编辑当前文档，您可以通过 [setReadOnly 方法](../methods#setreadonly) 来文档是否只读。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### document.autofocus
+
+**说明**：文档是否自动获得光标焦点，您可以通过 [focus 方法](../methods#focus) 来设置文档是否获得光标焦点。
+
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.characterLimit
+
+**说明**：文档字数限制，为 `0` 时不限制字数。
+
+**类型**：`Number`
+
+**默认值**：`0`
+
+### document.typographyRules
+
+**说明**：文档排版规则。
+
+**类型**：`Object`
+
+**默认值**：`{}`
+
+**配置项**:
+
+| 名称 | 描述 | 默认是否启用 |
+| :--- | :---: | :---: |
+| emDash | 将双破折号 -- 转换为长破折号 —。 | ✅ 启用 |
+| ellipsis | 将三个点 ... 转换为省略号 …。 | ✅ 启用 |
+| openDoubleQuote | “智能”左双引号。 | ✅ 启用 |
+| closeDoubleQuote | “智能”右双引号。 | ✅ 启用 |
+| openSingleQuote | ‘智能’左单引号。 | ✅ 启用 |
+| closeSingleQuote | ‘智能’右单引号。 | ✅ 启用 |
+| leftArrow | 将 &lt;- 转换为左箭头 ←。 | ✅ 启用 |
+| rightArrow | 将 ‐&gt; 转换为右箭头 →。 | ✅ 启用 |
+| copyright | 将 (c) 转换为版权符号 ©。 | ✅ 启用 |
+| registeredTrademark | 将 (r) 转换为注册商标符号 ®。 | ✅ 启用 |
+| trademark | 将 (tm) 转换为商标符号 ™。 | ✅ 启用 |
+| servicemark | 将 (sm) 转换为服务商标符号 ℠。 | ✅ 启用 |
+| oneHalf | 将 1/2 转换为一半 ½。 | ✅ 启用 |
+| oneQuarter | 将 1/4 转换为四分之一 ¼。 | ✅ 启用 |
+| threeQuarters | 将 3/4 转换为四分之三 ¾。 | ✅ 启用 |
+| plusMinus | 将 +/- 转换为正负号 ±。 | ✅ 启用 |
+| notEqual | 将 != 转换为不等号 ≠。 | ✅ 启用 |
+| laquo | 将 &lt;&lt; 转换为左双尖角引号 «。 | ✅ 启用 |
+| raquo | 将 &gt;&gt; 转换为右双尖角引号 »。 | ✅ 启用 |
+| multiplication | 将 2 * 3 或 2x3 转换为乘号 2×3。 | ✅ 启用 |
+| superscriptTwo | 将 ^2 转换为上标二 ²。 | ✅ 启用 |
+| superscriptThree | 将 ^3 转换为上标三 ³。 | ✅ 启用 |
+
+如果要禁用某项，将该项设置为 `false` 即可，如：
+
+<Tabs items={['全局配置', 'SFC 配置']}>
+<Tabs.Tab>
+```js
+{
+  document:{
+    typographyRules: {
+      emDash: false
+    }
+  }
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    :document="{
+      typographyRules: {
+        emDash: false
+      }
+    }" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umodoc/editor'
+</script>
+```
+</Tabs.Tab>
+</Tabs>

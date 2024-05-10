@@ -1,0 +1,39 @@
+# diagrams 图表配置
+
+[diagrams.net](https://app.diagrams.net/) 是一个流行的在线图表和流程图工具网站，它提供了一个简单易用的界面来创建各种类型的图表。其主要特点是免费和开源、支持多种图表类型并尊重用户的隐私。
+
+Umo Editor 集成了 diagrams.net 的 API，允许用户在 Umo Editor 中创建图表。
+
+您也可以单独部署 diagrams.net，并修改 Umo Editor 的配置以使用您自己的 diagrams.net。
+
+## 默认配置
+
+```js
+{
+  diagrams: {
+    domain: 'https://embed.diagrams.net',
+    // https://www.drawio.com/doc/faq/supported-url-parameters
+    params: {},
+  },
+}
+```
+
+## 配置项说明
+
+### diagrams.domain
+
+**说明**：配置 embed.diagrams.net 的域名。
+
+**类型**：`String`
+
+**默认值**：`https://embed.diagrams.net`。
+
+**可选值**：`https://embed.diagrams.net` 或自托管 diagrams.net 服务的 URL。
+
+### diagrams.params
+
+**说明**：配置 `diagrams.domain` 的 URL 参数。
+
+**类型**：`String`
+
+**配置项**：参考：https://www.drawio.com/doc/faq/supported-url-parameters ，以 `Object` 形式配置。

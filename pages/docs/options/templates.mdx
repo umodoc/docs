@@ -1,0 +1,79 @@
+import { Tabs } from 'nextra/components'
+
+# 文档模板配置
+
+用于预置文档模板，预置后用户可选择预置的模板快速插入到文档，如工作日志、项目计划、会议记录等。
+
+## 默认配置
+
+```js
+{
+  templates: [],
+}
+```
+
+## 配置项说明
+
+### templates
+
+**说明**：预置模板后，用户选择预置的模板快速插入到文档。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+**配置项**:
+
+- `name`: String，模板名称，长度 12 字符以内为宜。
+- `description`: String，模板简介，长度 60 字符以内为宜。
+- `content`: 模板内容，合法的 HTML 格式或其他合法的 [Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+
+**示例**:
+
+<Tabs items={['全局配置', 'SFC 配置']}>
+<Tabs.Tab>
+```js
+{
+  templates: [
+    {
+      title: '工作任务',
+      description: '工作任务模板',
+      content: '<p>工作任务</p>',
+    },
+    {
+      title: '工作周报',
+      description: '工作周报模板',
+      content: '<h2>工作任务</h2>',
+    },
+  ]
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    :templates="templates" 
+  />
+</template>
+ 
+<script setup>
+import { ref } from 'vue'
+import { UmoEditor } from '@umodoc/editor'
+
+const templates = ref([
+    {
+      title: '工作任务',
+      description: '工作任务模板',
+      content: '<p>工作任务</p>',
+    },
+    {
+      title: '工作周报',
+      description: '工作周报模板',
+      content: '<h2>工作任务</h2>',
+    },
+  ])
+</script>
+```
+</Tabs.Tab>
+</Tabs>

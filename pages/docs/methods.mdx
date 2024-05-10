@@ -1,0 +1,204 @@
+# 方法列表
+
+本节介绍 Umo Editor 的方法，通过 Umo Editor 提供的方法，可以对 Umo Editor 进行一些常规操作。您可以访问 https://demo.umodoc.com/editor?tab=events ，点击对应的方法按钮，查看方法的使用。
+
+## 示例
+
+```vue
+<template>
+  <umo-editor
+    ref="editorRef"
+    v-bind="options"
+  />
+  <button @click="getOptions">获取配置</button>
+</template>
+ 
+<script setup>
+  import { ref } from 'vue';
+  import { UmoEditor } from '@umodoc/editor';
+
+  const editorRef = ref(null);
+  const options = ref({
+    // 配置项
+    // ...
+  })
+
+  const getOptions = () => {
+    const options = editorRef.value.getOptions();
+    console.log(options);
+  }
+</script>
+```
+
+## 方法说明
+
+### getOptions
+
+**说明**：获取 Umo Editor 的配置。
+
+**参数**：无
+
+**返回值**：Object，包含，包含 Umo Editor 的配置。
+
+### setOptions
+
+**说明**：设置 Umo Editor 的配置。
+
+**参数**：Object，包含 Umo Editor 的配置。
+
+**返回值**：Object，包含，包含 Umo Editor 的配置。
+
+### setToolbar
+
+**说明**：设置 Umo Editor 的工具栏类型。
+
+**参数**：\{ mode, show \}
+
+- `mode`：String，工具栏类型，可选值为 `robbin`、`classic`。
+- `show`：Boolean，是否显示工具栏。
+
+**返回值**：无。
+
+### setPage
+
+**说明**：设置 Umo Editor 的页面信息。
+
+**参数**：Object，包含要设置的页面信息。
+
+- `size`：String，页面大小，应为 `dicts.pageSizes` 中提供的 `label` 值，如 A4。
+- `orientation`：String，页面方向，可选值为 `horizontal`、`vertical`。
+- `background`：String，页面背景，合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。。
+- `showBreakMarks`：Boolean，是否显示换行符。
+
+**返回值**：无。
+
+### setWatermark
+
+**说明**：设置 Umo Editor 的水印信息。
+
+**参数**：Object，包含要设置的水印信息。
+
+- `type`: String，水印类型，可选值为：`compact`、`spacious`。
+- `alpha`: Number，水印透明度，可选值为：0-1。
+- `fontColor`: String，字体颜色，可选值为：合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value) 值。
+- `fontSize`: Number，字体大小，单位为 px。
+- `fontFamily`: Number，字体，合法的 [CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family) 值。
+- `fontWeight`: Sring，字体粗细，可选值为：`normal`、`bold`、`bolder`。
+- `text`: String，水印内容，建议不超过 30 个字符。
+
+**返回值**：无。
+
+### setDocument
+
+**说明**：设置 Umo Editor 的文档信息。
+
+**参数**：Object，包含要设置的文档信息。
+
+- `title`: String，文档标题。
+- `bubbleMenu`: Boolean，是否启用气泡菜单。
+- `markdown`: Boolean，是否启用 Markdown 语法。
+- `spellcheck`: Boolean，是否启用浏览器拼写检查。
+
+**返回值**：无。
+
+### setContent
+
+**说明**：设置 Umo Editor 的内容。
+
+**参数**：合法的 HTML 格式或其他合法的 [Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+
+**返回值**：无。
+
+### getContent
+
+**说明**：获取 Umo Editor 的内容。
+
+**参数**：String，可选值为 `html`、`json`、`text`。
+
+**返回值**：`html`、`json`、`text`。
+
+### getContentExcerpt
+
+**说明**：获取 Umo Editor 的内容摘要。
+
+**参数**：
+
+- `charLimit`：Number，摘要长度，默认为 100 个字符。
+- `more`：String，摘要结尾，默认为 ` ...`。
+
+**返回值**：文档摘要。
+
+### getHTML
+
+**说明**：获取 Umo Editor 的 HTML 内容。
+
+**参数**：无。
+
+**返回值**：`html`。
+
+### getJSON
+
+**说明**：获取 Umo Editor 的 JSON 内容。
+
+**参数**：无。
+
+**返回值**：`JSON`。
+
+### getText
+
+**说明**：获取 Umo Editor 的文本内容。
+
+**参数**：无。
+
+**返回值**：文本。
+
+### getImage
+
+**说明**：获取 Umo Editor 的页面截图。
+
+**参数**：String，可选值为 `blob`、`jpeg`、`png`。
+
+**返回值**：图片信息。
+
+### saveContent
+
+**说明**：保存 Umo Editor 的内容。
+
+**参数**：无。
+
+**返回值**：无。
+
+### getEditor
+
+**说明**：获取 Editor 的实例。
+
+**参数**：无。
+
+**返回值**：Tiptap Editor 实例。
+
+### setReadOnly
+
+**说明**：设置 Umo Editor 的只读状态。
+
+**参数**：Boolean，是否只读。
+
+**返回值**：无。
+
+### focus
+
+**说明**：使 Umo Editor 获取焦点。
+
+**参数**：无。
+
+**返回值**：无。
+
+### blur
+
+**说明**：使 Umo Editor 失去焦点。
+
+**参数**：无。
+
+**返回值**：无。
+
+
+

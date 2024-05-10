@@ -1,0 +1,27 @@
+{
+	"name": "editor-docs",
+	"version": "1.0.0",
+	"description": "Umo Editor 文档 | Umo Editor Documentation",
+	"license": "SEE LICENSE IN https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans",
+	"type": "module",
+	"author": {
+		"name": "umodoc",
+		"email": "contact@umodoc.com",
+		"url": "https://umodoc.com"
+	},
+	"homepage": "https://editor.umodoc.com/docs",
+	"scripts": {
+		"dev": "next -p 9002",
+		"build": "next build",
+		"start": "next start",
+		"export": "next export"
+	},
+	"dependencies": {
+		"next": "^14.2.3",
+		"nextra": "^3.0.0-alpha.24",
+		"nextra-theme-docs": "^3.0.0-alpha.24",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"typescript": "^5.4.5"
+	}
+}

@@ -1,0 +1,36 @@
+# 文件上传配置
+
+用于配置文件上传相关配置。包含允许的文件类型、文件大小限制等。对于文件上传的方法和文件删除的方法，请参阅 [方法](/docs/events) 章节。
+
+## 默认配置
+
+```js
+{
+  file: {
+    allowedMimeTypes: [],
+    maxSize: 1024 * 1024 * 100, // 100M
+  },
+}
+```
+
+## 配置项说明
+
+### file.allowedMimeTypes
+
+**说明**：允许上传的文件类型，空数组表示允许所有文件类型。
+
+**类型**：`Array`
+
+**默认值**：`[]`。
+
+**可选值**：
+
+合法的 [MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types) 值。
+
+除此之外，如果要上传同一类型的文件，可以使用 * 来简化配置，如允许上传所有图片，可配置为 `['image/*']`。
+
+### file.maxSize
+
+**说明**：允许上传文件的最大大小，单位为字节(B)。
+
+**类型**：`Number`
