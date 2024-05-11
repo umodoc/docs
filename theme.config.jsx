@@ -1,7 +1,7 @@
 import { useConfig } from 'nextra-theme-docs'
 
 export default {
-  docsRepositoryBase:'https://github.com/shuding/nextra',
+  docsRepositoryBase:'https://github.com/umodoc/docs',
   head(){ 
     const { title, frontMatter } = useConfig()
     return (
