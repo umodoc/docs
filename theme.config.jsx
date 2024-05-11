@@ -50,10 +50,11 @@ export default {
     backToTop:false
   },
   feedback: {
-    content:'在线提问 & 意见反馈 →'
+    content: '在线提问 & 意见反馈 →',
+    useLink:()=>'https://github.com/umodoc/editor/issues/new/choose'
   },
   editLink: {
-    content:'在 Github 上编辑此页 →'
+    content: '在 Github 上编辑此页 →',
   },
   footer: false,
   themeSwitch: {
