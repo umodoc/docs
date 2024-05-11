@@ -9,6 +9,7 @@ export default {
         <title>{title} - Umo Editor 在线文档</title>
         <link rel="icon" href="/images/favicon.png" />
         <meta name="description" content={frontMatter.description} />
+        <meta name="msvalidate.01" content="238678E9B05B3DE2E35D891334FC842E" />
         <script type="text/javascript" dangerouslySetInnerHTML={{
           __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "m4og8bmozy");`}} />
       </>
