@@ -8,15 +8,15 @@ Umo-Editor 是一个基于 Vue3 的文档编辑器。
 ### 使用 NPM 安装
 
 ```sh npm2yarn
-npm i @umodoc/editor
+npm i @umoteam/editor
 ```
 
 ### 通过 浏览器引入 安装
 
 ```html
 <script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/@umodoc/editor/dist/umd/umo-editor.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@umodoc/editor/dist/umd/style.css" />
+<script src="https://unpkg.com/@umoteam/editor/dist/umd/umo-editor.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@umoteam/editor/dist/umd/style.css" />
 ...
 <script>
   const app = Vue.createApp();
@@ -35,7 +35,7 @@ npm i @umodoc/editor
 ### 全局安装
 ```js filename="main.js"
 import { createApp } from 'vue';
-import { useUmoEditor } from '@umodoc/editor';
+import { useUmoEditor } from '@umoteam/editor';
 
 const app = createApp(App);
 app.use(useUmoEditor, {
@@ -63,7 +63,7 @@ app.mount('#app');
 // 使用组合式 API
 <script setup>
   import { ref } from 'vue'
-  import { UmoEditor } from '@umodoc/editor';
+  import { UmoEditor } from '@umoteam/editor';
 
   const options = ref({
     // 配置项
@@ -73,7 +73,7 @@ app.mount('#app');
 
 // 或使用选项式 API
 <script>
-  import { UmoEditor } from '@umodoc/editor';
+  import { UmoEditor } from '@umoteam/editor';
 
   export default {
     components: {
@@ -103,7 +103,7 @@ Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<clien
 </template>
 
 <script setup>
-  import { UmoEditor } from '@umodoc/editor';
+  import { UmoEditor } from '@umoteam/editor';
 
   const options = ref({
     // 配置项
