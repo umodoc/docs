@@ -1,7 +1,7 @@
 import { useConfig } from 'nextra-theme-docs'
 
 export default {
-  docsRepositoryBase:'https://github.com/umodoc/docs',
+  docsRepositoryBase:'https://github.com/umodoc/docs/tree/main',
   head(){ 
     const { title, frontMatter } = useConfig()
     return (
