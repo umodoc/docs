@@ -1,15 +1,15 @@
-import { FileTree } from 'nextra/components'
+import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
 
 # CDN 配置
 
-用于配置 CDN 路径。为了减小 Umo Editor 核心包的体积和提升加载速度，Umo Editor 使用 CDN 引入部分静态资源，这些静态资源包含第三方 JS 插件、图片、图标资源等。
+用于配置 CDN 路径。为了减小 Umo Editor 核心包的体积和提升加载速度，Umo Editor 通过配置 CDN 引入部分静态资源，这些静态资源包含第三方模块、图片、图标资源等。
 
 ## 默认配置
 
 ```js
 {
-  cdnUrl: 'https://unpkg.com/@umoteam/editor@latest/dist/umd',
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
 }
 ```
 
@@ -18,42 +18,48 @@ import { Callout } from 'nextra/components'
 ```js
 {
   // 使用 unpkg.com
-  cdnUrl: 'https://unpkg.com/@umoteam/editor@latest/dist/umd',
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
   // 或使用 jsdelivr.net
-  // cdnUrl: 'https://cdn.jsdelivr.net/npm/@umoteam/editor@latest/dist/umd',
+  // cdnUrl: 'https://cdn.jsdelivr.net/npm/@umoteam/editor-external@latest',
 }
 ```
 
 ## 使用本地资源
 
-对于内网环境，或者对想进一步提高加载速度等场景，您可以下载对应版本的静态资源后，解压放置到合适的位置，并正确的配置 `cdnUrl`，注意不要以 `/` 结尾。
+对想进一步提高加载速度，或者内网环境等场景，您可以将 `node_modules/@umoteam/editor-external/` 文件夹下的文件拷贝到 `public/` 下，并设置 `cdnUrl` 为 `location.origin` 即可。
 
-- [Umo Editor v1.0.x - CDN 资源下载](https://cdn.umodoc.com/cdn%2FUmo%20Editor%20v1.0.x%20-%20CDN%20%E8%B5%84%E6%BA%90.zip)；
+您可以在项目**根目录下**，通过以下命令快速拷贝文件：
 
-下载并解压后的文件夹结构如下：
-<FileTree>
-  <FileTree.Folder name="icons" defaultOpen>
-    <FileTree.Folder name="files">
-      <FileTree.File name="*.svg" />
-    </FileTree.Folder>
-  </FileTree.Folder>
-  <FileTree.Folder name="libs" defaultOpen>
-    <FileTree.Folder name="imgly" />
-    <FileTree.Folder name="katex" />
-    <FileTree.Folder name="monaco-editor" />
-    <FileTree.File name="jsbarcode.all.min.js" />
-    <FileTree.File name="mermaid.min.js" />
-    <FileTree.File name="plyr.min.js" />
-    <FileTree.File name="qrcode-svg.min.js" />
-    <FileTree.File name="vue.min.js" />
-  </FileTree.Folder>
-</FileTree>
+<Tabs items={['Windows', 'Linux / MacOS / Others']}>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs
+mkdir -p public/icons
+mkdir -p public/static
+xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
+xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
+xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs
+mkdir -p public/icons
+mkdir -p public/static
+cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
+cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
+cp -r node_modules/@umoteam/editor-external/static/* public/static/
+```
+</Tabs.Tab>
+</Tabs>
 
 <Callout type="warning" emoji="⚠️">
-**测试方法**： 通过 `您配置的路径/vue.min.js` 能正确的访问到 `vue.min.js` 文件即可。
+**注意**：每次更新 `@umoteam/editor` 版本后，请及时复制最新的 `@umoteam/editor-external` 到 `public` 目录下。
 </Callout>
 
-
+<Callout type="info">
+您也可以将 `node_modules/@umoteam/editor-external/` 文件夹下的文件放置到合适的位置，并正确的配置 `cdnUrl`，注意不要以 `/` 结尾。
+</Callout>
 
 ## 配置项说明
 
@@ -63,6 +69,6 @@ import { Callout } from 'nextra/components'
 
 **类型**：`String`
 
-**默认值**：`https://unpkg.com/@umoteam/editor@latest`
+**默认值**：`https://unpkg.com/@umoteam/editor-external@latest`
 
 **配置项**：合法的 [URL](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL) 值，不要以 `/` 结尾。

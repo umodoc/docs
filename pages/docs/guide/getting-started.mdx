@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # 快速开始
 
 Umo-Editor 是一个基于 Vue3 的文档编辑器。
@@ -15,6 +17,13 @@ npm i @umoteam/editor
 
 ```html
 <script src="https://unpkg.com/vue"></script>
+<!-- 按需引入所需依赖 -->
+<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/mermaid.min.js"></script>
+<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/katex/katex.min.js"></script>
+<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/plyr.min.js"></script>
+<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/qrcode-svg.min.js"></script>
+<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/jsbarcode.all.min.js"></script>
+<!-- 引入 Umo Editor -->
 <script src="https://unpkg.com/@umoteam/editor/dist/umd/umo-editor.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/@umoteam/editor/dist/umd/style.css" />
 ...
@@ -27,6 +36,9 @@ npm i @umoteam/editor
   app.mount('#app');
 </script>
 ```
+<Callout type="info">
+以上文件路径可以使用 CDN 配置为本地资源，详见 [CDN 配置 - 使用本地资源](../options/cdn#使用本地资源)。
+</Callout>
 
 ## 使用
 

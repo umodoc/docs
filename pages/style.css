@@ -5,7 +5,7 @@ body {
 	font-size: 14px;
 }
 .nextra-search {
-	margin: 10px 0;
+	margin: 10px 0 10px 10px;
 }
 .no-result {
 	display: flex;
@@ -21,9 +21,12 @@ body {
 .nextra-toc {
 	z-index: 10;
 }
+.nextra-toc .badge {
+	display: none !important;
+}
 .nextra-toc-footer {
 	z-index: 11;
-	background-color: var(--nextra-bg);
+	background-color: rgb(var(--nextra-bg));
 }
 .nextra-breadcrumb {
 	margin-bottom: 40px;
@@ -53,14 +56,9 @@ body {
 	margin: 1rem 0 1rem 1rem;
 }
 
-.nextra-content h2 label {
-	font-size: 1rem;
-	margin-left: 1rem;
-	background-color: rgba(209, 213, 219, 0.2);
-	border-radius: 3px;
-	padding: 0 0.5rem;
+.nextra-content h2 .badge {
 	float: right;
-	margin-top: 0.4rem;
+	margin-top: 0.5rem;
 }
 .nextra-code pre {
 	max-height: 400px;
@@ -101,6 +99,9 @@ body {
 	background-color: rgba(255, 255, 266, 0.98);
 }
 @media screen and (max-width: 768px) {
+	.nextra-search {
+		margin-left: 0;
+	}
 	.nextra-search-results {
 		background-color: #fff;
 	}
