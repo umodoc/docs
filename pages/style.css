@@ -68,7 +68,7 @@ body {
 	background-color: var(--nextra-bg);
 }
 .faq-box {
-	margin-top: 2rem;
+	margin: 1rem 0;
 	background-color: rgb(250, 250, 250);
 	padding: 0.5rem;
 	border-radius: 0.5rem;
