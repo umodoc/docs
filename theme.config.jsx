@@ -12,6 +12,14 @@ export default {
         <meta name="msvalidate.01" content="238678E9B05B3DE2E35D891334FC842E" />
         <script type="text/javascript" dangerouslySetInnerHTML={{
           __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "m4og8bmozy");`}} />
+        <script dangerouslySetInnerHTML={{
+          __html: `var _hmt = _hmt || [];
+          (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0b5bf47aaa03f9e14c09583fafbbb76e";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();`}} />
       </>
     )
   },
