@@ -1,4 +1,5 @@
 import { Tabs } from 'nextra/components'
+import { Badge } from '/components/badge'
 
 # 文档配置
 
@@ -15,6 +16,7 @@ import { Tabs } from 'nextra/components'
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
+    enableBlockMenu: true, // v1.3.0 新增
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
@@ -68,6 +70,14 @@ import { Tabs } from 'nextra/components'
 ### document.enableBubbleMenu
 
 **说明**：是否启用气泡菜单，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否显示气泡菜单。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.enableBlockMenu <Badge theme="success">v1.3.0 新增</Badge>
+
+**说明**：是否启用块级菜单，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否显示块级菜单。
 
 **类型**：`Boolean`
 
