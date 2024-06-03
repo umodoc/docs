@@ -24,5 +24,10 @@ export default {
 	options: '配置项',
 	events: '事件列表',
 	methods: '方法列表',
-	layer: '弹层组件'
+	layer: '弹层组件',
+	'--extensions': {
+		type: 'separator',
+		title: '自定义插件'
+	},
+	extensions: '插件说明'
 };

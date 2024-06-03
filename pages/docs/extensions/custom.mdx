@@ -1,0 +1,26 @@
+# 编写自定义插件
+
+在 Umo Editor 中，您可以使用 JS 来定义插件，也可以使用 Vue3 组件来定义插件。
+
+## 使用 JavaScript 编写自定义插件
+
+见 Tiptap 官方教程：https://tiptap.dev/docs/editor/guide/custom-extensions 。
+
+## 使用 Vue3 编写节点视图插件
+见 Tiptap 官方教程：https://tiptap.dev/docs/editor/guide/node-views/vue 。
+
+## 使用 JavaScript 编写节点视图插件
+见 Tiptap 官方教程：https://tiptap.dev/docs/editor/guide/node-views/js 。
+
+## 使用自定义插件
+
+假设您已经编写了一个自定义插件 `MyCustomExtension`，您可以在 `extensions` 配置中注册该插件，如下：
+
+```js
+const defaultOptions = {
+  extensions: [
+    MyCustomExtension,
+  ],
+}
+```
+详见 [自定义插件配置](../options/extensions) 。

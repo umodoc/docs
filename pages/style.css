@@ -60,6 +60,11 @@ body {
 	float: right;
 	margin-top: 0.5rem;
 }
+
+.nextra-content table {
+	display: table !important;
+	width: 100%;
+}
 .nextra-code pre {
 	max-height: 400px;
 	overflow: auto;

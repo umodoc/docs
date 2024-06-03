@@ -1,3 +1,5 @@
+import { Badge } from '/components/badge'
+
 # 默认配置
 
 Umo Editor 默认配置，您可以访问 https://demo.umodoc.com/editor 来在线修改和实时预览部分配置。
@@ -150,6 +152,10 @@ const defaultOptions = {
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
+    autoSave: { // v1.4.0 新增
+      enabled: true,
+      interval: 300000,
+    },
   },
   templates: [],
   cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
@@ -163,6 +169,7 @@ const defaultOptions = {
     allowedMimeTypes: [],
     maxSize: 1024 * 1024 * 100, // 100M
   },
+  extensions:[], // v1.4.0 新增
   async onSave(content, page, document) {
     throw new Error('Key "onSave": Please set the save method')
   },
@@ -196,6 +203,7 @@ Umo Editor 的配置项主要分为以下几部分：
 - `shareUrl`：String，分享链接配置，需为合法的 URL，详见 [分享配置](./share)。
 - `diagrams`：Object，Diagrams 图表配置，详见 [Diagrams 图表配置](./diagrams)。
 - `file`：Object，文件上传配置，详见 [文件上传配置](./file)。
+- `extensions`：Array [自定义插件](./extensions)。 <Badge theme="success">v1.4.0 新增</Badge>
 - `onSave(content, page, document)`：Async Function，文档保存方法，应返回 Promise，详见 [方法配置](/docs/options/methods#onSave)。
 - `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见 [方法配置](/docs/options/methods#onFileUpload)。
 - `onFileDelete(id, url)`：Function，文件删除方法，详见 [方法配置](/docs/options/methods#onFileDelete)。

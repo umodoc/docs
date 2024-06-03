@@ -9,5 +9,6 @@ export default {
 	share: '分享配置',
 	diagrams: 'Diagrams 图表配置',
 	file: '文件上传配置',
+	extensions: '自定义插件配置',
 	methods: '方法配置'
 };

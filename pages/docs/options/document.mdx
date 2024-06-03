@@ -21,6 +21,10 @@ import { Badge } from '/components/badge'
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
+    autoSave: { // v1.4.0 新增
+      enabled: true,
+      interval: 300000,
+    },
   },
 }
 ```
@@ -175,3 +179,13 @@ import { UmoEditor } from '@umoteam/editor'
 ```
 </Tabs.Tab>
 </Tabs>
+
+### document.autoSave <Badge theme="success">v1.4.0 新增</Badge> [#autosave]
+
+**说明**：文档自动保存配置，您可以通过 [setDocument 方法](/methods#setdocument) 来动态设置或修改此配置。
+
+**类型**：`Object`
+
+**配置项**:
+- `enabled`: Boolean，是否启用自动保存，默认值为 `true`。
+- `interval`: Number，自动保存的间隔时间，单位为毫秒，默认值为 `300000`（5 分钟）。
