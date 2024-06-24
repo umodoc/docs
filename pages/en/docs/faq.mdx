@@ -1,0 +1,37 @@
+# Frequently Asked Questions
+
+Below are some common issues encountered when using Umo Editor. If your problem is not listed below, please try to [join the community](/en/docs/#join-the-community).
+
+export function FAQBox({ title, children }) {
+  return (
+    <details
+      open
+      className="faq-box"
+    >
+      <summary>
+        <strong className="faq-title">{title}</strong>
+      </summary>
+      <div className="faq-content">{children}</div>
+    </details>
+  )
+}
+
+<FAQBox title="I have correctly installed and configured Umo Editor, but it does not display.">
+Please check the following:
+
+1. Does the parent element of `<umo-editor />` have a height, or is there a style `overflow: hidden`;
+2. Check if the browser is supported, see [Browser Support](/en/docs/#browser-support);
+3. Right-click to inspect the element and check if the DOM node of Umo Editor is loaded;
+4. Check the browser's Console panel for any error messages;
+5. Verify that the `cdnUrl` configuration for `<umo-editor />` is correct and that the `cdnUrl` is accessible.
+</FAQBox>
+
+<FAQBox title="The interface is displayed incorrectly, and some styles are missing?">
+In order to reduce the size of the Umo Editor core package and improve loading speed, Umo Editor uses a CDN to introduce some static resources through configuration, which include third-party modules, images, icon resources, etc.
+
+Since Umo Editor uses [Unpkg](https://unpkg.com) as the default CDN, but Unpkg may be slow or inaccessible in some regions, you can modify the CDN through [CDN Configuration - Using Local Resources](../options/cdn#using-local-resources) to improve loading speed.
+</FAQBox>
+
+<FAQBox title="npm installation error提示Error 404?">
+See [Issues #5](https://github.com/umodoc/editor/issues/5).
+</FAQBox>

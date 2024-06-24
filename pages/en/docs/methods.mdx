@@ -1,0 +1,236 @@
+import { Badge } from '/components/badge'
+
+# Methods
+
+This section introduces the methods of Umo Editor, through which you can perform routine operations on Umo Editor. You can visit https://demo.umodoc.com/editor?tab=events&lang=en, click the corresponding method buttons to see how to use the methods.
+
+## Example
+
+```vue
+<template>
+  <umo-editor
+    ref="editorRef"
+    v-bind="options"
+  />
+  <button @click="getOptions">Get Configuration</button>
+</template>
+ 
+<script setup>
+  import { ref } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
+
+  const editorRef = ref(null);
+  const options = ref({
+    // Configuration options
+    // ...
+  })
+
+  const getOptions = () => {
+    const options = editorRef.value.getOptions();
+    console.log(options);
+  }
+</script>
+```
+
+## Method Description
+
+### getOptions
+
+**Description**: Retrieves the configuration of Umo Editor.
+
+**Parameters**: None
+
+**Return Value**: `Object` , containing the configuration of Umo Editor.
+
+### setOptions
+
+**Description**: Sets the configuration of Umo Editor.
+
+**Parameters**: `Object` , containing the configuration of Umo Editor.
+
+**Return Value**: `Object` , containing the configuration of Umo Editor.
+
+### setToolbar
+
+**Description**: Sets the toolbar type of Umo Editor.
+
+**Parameters**: `{ mode, show `}
+
+- `mode`: String, toolbar type, with options `robbin`, `classic`.
+- `show`: Boolean, whether to show the toolbar.
+
+**Return Value**: None.
+
+### setPage
+
+**Description**: Sets the page information of Umo Editor.
+
+**Parameters**: `Object` , containing the page information to be set.
+
+- `size`: String, page size, should be the `label` value provided in `dicts.pageSizes`, such as A4.
+- `orientation`: String, page orientation, options are `portrait`, `landscape`.
+- `background`: String, page background, a valid [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
+- `showBreakMarks`: Boolean, whether to show line breaks.
+
+**Return Value**: None.
+
+### setWatermark
+
+**Description**: Sets the watermark information of Umo Editor.
+
+**Parameters**: `Object` , containing the watermark information to be set.
+
+- `type`: String, watermark type, options are `compact`, `spacious`.
+- `alpha`: Number, watermark transparency, options are 0-1.
+- `fontColor`: String, font color, a valid [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
+- `fontSize`: Number, font size in pixels.
+- `fontFamily`: String, font family, a valid [CSS font-family value](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family).
+- `fontWeight`: String, font weight, options are `normal`, `bold`, `bolder`.
+- `text`: String, watermark text, recommended to be no more than 30 characters.
+
+**Return Value**: None.
+
+### setDocument
+
+**Description**: Sets the document information of Umo Editor.
+
+**Parameters**: `Object` , containing the document information to be set.
+
+- `title`: String, document title.
+- `bubbleMenu`: Boolean, whether to enable the bubble menu.
+- `blockMenu`: Boolean, whether to enable the block menu.
+- `markdown`: Boolean, whether to enable Markdown syntax.
+- `spellcheck`: Boolean, whether to enable browser spell check.
+
+**Return Value**: None.
+
+### setContent
+
+**Description**: Sets the content of Umo Editor.
+
+**Parameters**: Valid HTML format or other valid [Tiptap document formats](https://tiptap.dev/docs/editor/guide/output).
+
+**Return Value**: None.
+
+### setLocale 
+
+**Description**: Sets the display language of Umo Editor. <Badge theme="success">Added in v2.0.0</Badge>
+
+**Parameters**: `zh-CN` or `en-US`.
+
+**Return Value**: None.
+
+### getContent
+
+**Description**: Retrieves the content of Umo Editor.
+
+**Parameters**: String, options are `html`, `json`, `text` .
+
+**Return Value**: `html` , `json` , `text` .
+
+### getContentExcerpt
+
+**Description**: Retrieves a summary of the content in Umo Editor.
+
+**Parameters**:
+
+- `charLimit`: Number, summary length, default is 100 characters.
+- `more`: String, summary ending, default is ` ...`.
+
+**Return Value**: Document summary.
+
+### getHTML
+
+**Description**: Retrieves the HTML content of Umo Editor.
+
+**Parameters**: None.
+
+**Return Value**: `html`.
+
+### getJSON
+
+**Description**: Retrieves the JSON content of Umo Editor.
+
+**Parameters**: None.
+
+**Return Value**: `JSON`.
+
+### getText
+
+**Description**: Retrieves the text content of Umo Editor.
+
+**Parameters**: None.
+
+**Return Value**: Text.
+
+### getImage
+
+**Description**: Retrieves a screenshot of the page in Umo Editor.
+
+**Parameters**: String, options are `blob` , `jpeg` , `png` .
+
+**Return Value**: Image information.
+
+### saveContent
+
+**Description**: Saves the content of Umo Editor.
+
+**Parameters**: None.
+
+**Return Value**: None.
+
+### getEditor
+
+**Description**: Retrieves the instance of the Editor.
+
+**Parameters**: None.
+
+**Return Value**: Tiptap Editor instance.
+
+### getLocale 
+
+**Description**: Returns the display language of Umo Editor. <Badge theme="success">Added in v2.0.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: `zh-CN` or `en-US`.
+
+### getI18n 
+
+**Description**: Returns the [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html) instance. <Badge theme="success">Added in v2.0.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: `vue-i18n`.
+
+### setReadOnly
+
+**Description**: Sets the read-only state of Umo Editor.
+
+**Parameters**: Boolean, whether it is read-only.
+
+**Return Value**: None.
+
+### print
+
+**Description**: Prints the page. <Badge theme="success">Added in v1.1.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: None.
+
+### focus
+
+**Description**: Gives focus to Umo Editor.
+
+**Parameters**: None.
+
+**Return Value**: None.
+
+### blur
+
+**Description**: Removes focus from Umo Editor.
+
+**Parameters**: None.
+
+**Return Value**: None.

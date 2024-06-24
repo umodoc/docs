@@ -1,0 +1,172 @@
+import { Badge } from '/components/badge'
+
+# 事件列表
+
+本节将介绍 Umo Editor 的事件，通过事件可以监听 Umo Editor 的完整生命周期以及状态的变化，进行更多操作。您可以访问 https://demo.umodoc.com/editor?tab=events&lang=cn ，打开控制台 (DevTools › Console) 查看事件的触发情况。
+
+## 示例
+
+```vue {4-24}
+<template>
+  <umo-editor
+    v-bind="options"
+    @before-create="onBeforeCreate"
+    @created="onCreated"
+    @changed="onChanged"
+    @changed:selection="onChangedSelection"
+    @changed:transaction="onChangedTransaction"
+    @changed:menu="onChangedMenu"
+    @changed:toolbar="onChangedToolbar"
+    @changed:page-size="onChangedPageSize"
+    @changed:page-orientation="onChangedPageOrientation"
+    @changed:page-margin="onChangedPageMargin"
+    @changed:page-background="onChangedPageBackground"
+    @changed:page-zoom="onChangedZoom"
+    @changed:page-show-toc="onChangedPageShowToc"
+    @changed:page-preview="onChangedpreview"
+    @changed:page-watermark="onChangedPageWatermark"
+    @changed:locale="onChangedLocale"
+    @print="onPrint"
+    @focus="onFocus"
+    @blur="onBlur"
+    @saved="onSaved"
+    @destroy="onDestroy"
+  />
+</template>
+ 
+<script setup>
+  import { ref } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+
+  const onBeforeCreate = () => {
+    console.log('onBeforeCreate', '编辑器即将创建，无可用参数')
+  }
+  const onCreated = () => {
+    console.log('onCreated', '编辑器已创建，可用参数:', { editor })
+  }
+  const onChanged = () => {
+    console.log('onChanged', '编辑器内容已更新，可用参数:', { editor })
+  }
+  const onChangedSelection = () => {
+    console.log('onChanged:selection', '所选内容已发生变化，可用参数:', { editor })
+  }
+  const onChangedTransaction = () => {
+    console.log(
+      'onChanged:transaction',
+      '编辑器状态已发生变化，可用参数:', { editor, transaction },
+    )
+  }
+  const onChangedMenu = (currentMenu) => {
+    console.log(
+      'onChanged:menu',
+      '菜单栏状态发生变化，可用参数: currentMenu，当前菜单为', currentMenu,
+    )
+  }
+  const onChangedToolbar = ({ toolbar, oldToolbar }) => {
+    console.log(
+      'onChanged:toolbar',
+      '工具栏信息发生变化，可用参数:',  { toolbar, oldToolbar }
+    )
+  }
+  const onChangedPageSize = ({ pageSize, oldPageSize }) => {
+    console.log(
+      'onChanged:pageSize',
+      '页面大小信息发生变化，可用参数:',  { pageSize, oldPageSize }
+    )
+  }
+  const onChangedPageOrientation = ({ pageOrientation, oldPageOrientation }) => {
+    console.log(
+      'onChanged:pageOrientation',
+      '页面方向发生变化，可用参数:',  { pageOrientation, oldPageOrientation }
+    )
+  }
+  const onChangedPageMargin = ({ pageMargin, oldPageMargin }) => {
+    console.log(
+      'onChanged:pageMargin',
+      '页面边距信息发生变化，可用参数:',  { pageMargin, oldPageMargin },
+    )
+  }
+  const onChangedPageBackground = ({ pageBackground, oldPageBackground }) => {
+    console.log(
+      'onChanged:pageBackground',
+      '页面背景发生变化，可用参数:',  { pageBackground, oldPageBackground },
+    )
+  }
+  const onChangedZoom = ({ zoomLevel, oldZoomLevel }) => {
+    console.log(
+      'onChanged:pageZoom',
+      '页面缩放比例发生变化，可用参数:',  { zoomLevel, oldZoomLevel }
+    )
+  }
+  const onChangedPageShowToc = (showToc) => {
+    console.log(
+      'onChanged:pageShowToc',
+      '页面大纲面板显示状态发生变化，可用参数:',  showToc
+    )
+  }
+  const onChangedpreview = (enabled) => {
+    console.log(
+      'onChanged:pagePreview',
+      '页面预览模式发生变化，可用参数:',  enabled,
+    )
+  }
+  const onChangedPageWatermark = ({ pageWatermark, oldPageWatermark }) => {
+    console.log(
+      'onChanged:pageWatermark',
+      '页面水印信息发生变化，可用参数:',  { pageWatermark, oldPageWatermark }
+    )
+  }
+  const onChangedLocale = ({ locale, oldLocale }) => {
+    console.log(
+      'onChanged:locale',
+      '语言设置发生变化，可用参数:', { locale, oldLocale }
+    )
+  }
+  const onPrint = () => {
+    console.log('onPrint', '编辑器获得焦点，无可用参数')
+  }
+  const onFocus = () => {
+    console.log('onFocus', '编辑器获得焦点，可用参数:',  { editor, event })
+  }
+  const onBlur = () => {
+    console.log('onBlur', '编辑器失去焦点，可用参数:',  { editor, event })
+  }
+  const onSaved = () => {
+    console.log('onSaved', '文档已保存，无可用参数')
+  }
+  const onDestroy = () => {
+    console.log('onDestroy', '编辑器组件已销毁，无可用参数')
+  }
+</script>
+```
+
+## 事件说明
+
+| 事件名称 | 触发时机 / 说明 | 可用参数 |
+| --- | --- | --- |
+| beforeCreate | 编辑器即将创建 | - |
+| created | 编辑器已创建 | \{ editor \} |
+| changed | 编辑器内容已更新 | \{ editor \} |
+| changed:selection | 所选内容已发生变化 | \{ editor \} |
+| changed:transaction | 编辑器状态已发生变化 | \{ editor, transaction \} |
+| changed:menu | 菜单状态发生变化 | currentMenu |
+| changed:toolbar | 工具栏信息发生变化  | \{ toolbar, oldToolbar \} |
+| changed:pageSize | 页面大小信息发生变化  | \{ pageSize, oldPageSize \} |
+| changed:pageOrientation | 页面方向发生变化  | \{ pageOrientation, oldPageOrientation \} |
+| changed:pageMargin | 页面边距信息发生变化  | \{ pageMargin, oldPageMargin \} |
+| changed:pageBackground | 页面背景发生变化  | \{ pageBackground, oldPageBackground \} |
+| changed:pageZoom | 页面缩放比例发生变化  | \{ zoomLevel, oldZoomLevel \} |
+| changed:pageShowToc | 页面大纲面板显示状态发生变化  | showToc |
+| changed:pagePreview | 页面预览模式发生变化  | enabled |
+| changed:pageWatermark | 页面水印信息发生变化  | \{ pageWatermark, oldPageWatermark \} |
+| changed:locale | 语言设置发生变化 <Badge theme="success">v2.0.0 新增</Badge>  | \{ locale, oldLocale \} |
+| print | 页面打印 <Badge theme="success">v1.1.0 新增</Badge> | - |
+| focus | 编辑器获得焦点 | \{ editor, event \} |
+| blur | 编辑器失去焦点 | \{ editor, event \} |
+| saved | 文档已保存 | - |
+| destroy | 编辑器组件已销毁 | - |

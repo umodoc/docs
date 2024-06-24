@@ -1,0 +1,77 @@
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+# CDN Configuration
+
+This section is used to configure the CDN path. To reduce the size of the Umo Editor core package and improve loading speed, Umo Editor uses CDN to load some static resources, including third-party modules, images, icon resources, etc.
+
+## Default Configuration
+
+```js
+{
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest', 
+}
+```
+
+## Using Public CDN
+
+```js
+{
+  // Using unpkg.com
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest', 
+  // Or using jsdelivr.net
+  // cdnUrl: 'https://cdn.jsdelivr.net/npm/@umoteam/editor-external@latest', 
+}
+```
+
+## Using Local Resources
+
+For those who want to further improve loading speed or are in an intranet environment, you can copy the files in the `node_modules/@umoteam/editor-external/` folder to the `public/` directory and set `cdnUrl` to `location.origin`.
+
+You can quickly copy the files in the project's **root directory** with the following commands:
+
+<Tabs items={['Windows', 'Linux / MacOS / Others']}>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs
+mkdir -p public/icons
+mkdir -p public/static
+xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
+xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
+xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs
+mkdir -p public/icons
+mkdir -p public/static
+cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
+cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
+cp -r node_modules/@umoteam/editor-external/static/* public/static/
+```
+</Tabs.Tab>
+</Tabs>
+
+<Callout type="warning" emoji="⚠️">
+**Note**: After updating the version of `@umoteam/editor`, please update `@umoteam/editor-external` in sync and copy the latest `@umoteam/editor-external` to the `public` directory.
+
+Ensure synchronization with the version number of `@umoteam/editor-external`.
+</Callout>
+
+<Callout type="info">
+You can also place the files in the `node_modules/@umoteam/editor-external/` folder in an appropriate location and correctly configure the `cdnUrl`, making sure not to end with `/`.
+
+</Callout>
+
+## Configuration Item Description
+
+### cdnUrl
+
+**Description**: CDN path.
+
+**Type**: `String`
+
+**Default Value**: `https://unpkg.com/@umoteam/editor-external@latest`
+
+**Configuration Item**: A valid [URL](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL) value, should not end with `/`.

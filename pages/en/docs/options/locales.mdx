@@ -1,0 +1,39 @@
+# Custom Localization Configuration
+
+This section is used to configure localized language information, implemented based on [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html). You can use [`getI18n`](/en/docs/methods#geti18n) to retrieve `i18n` information. For more information on localization, refer to the [Methods](/en/docs/methods) and [Events](/en/docs/events).
+
+If you find any issues with the translation files, please refer to [Join the Community](/en/docs#join-the-community) to provide us with your valuable feedback and suggestions. If you need to add a custom language, feel free to submit an [Issue](https://github.com/umodoc/editor/issues) or [PR](https://github.com/umodoc/editor/pulls).
+
+## Default Configuration
+
+```js
+{
+  locale: 'zh-CN',
+  translations: {
+    en_US: {},
+    zh_CN: {},
+  },
+}
+```
+
+## Configuration Item Description
+
+### locale
+
+**Description**: The default language.
+
+**Type**: `String`
+
+**Default Value**: `zh-CN`.
+
+**Options**: `zh-CN`, `en_US`
+
+### translations
+
+**Description**: Custom translation information.
+
+**Type**: `Object`
+
+**Default Value**: `{ en_US: {}, zh_CN: {} }`.
+
+**Options**: See [Umo Editor Localization Files](https://github.com/umodoc/editor/blob/main/src/locales). The `translations` you configure will be merged with these default translation messages, which means you can override the default translations by configuring your `translations`.

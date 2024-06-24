@@ -1,0 +1,26 @@
+# Writing Custom Extensions
+
+In Umo Editor, you can define extensions using JavaScript or create extensions using Vue3 components.
+
+## Writing Custom Extensions with JavaScript
+
+See the Tiptap official tutorial: https://tiptap.dev/docs/editor/guide/custom-extensions.
+
+## Writing Node View Extensions with Vue3
+See the Tiptap official tutorial: https://tiptap.dev/docs/editor/guide/node-views/vue.
+
+## Writing Node View Extensions with JavaScript
+See the Tiptap official tutorial: https://tiptap.dev/docs/editor/guide/node-views/js.
+
+## Using Custom Extensions
+
+Assuming you have written a custom extension `MyCustomExtension`, you can register this extension in the `extensions` configuration as follows:
+
+```js
+const defaultOptions = {
+  extensions: [
+    MyCustomExtension,
+  ],
+}
+```
+For more details, see [Custom Extension Configuration](../options/extensions).

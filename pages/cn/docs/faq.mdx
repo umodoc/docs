@@ -1,0 +1,37 @@
+# 常见问题
+
+以下列举了一些使用 Umo Editor 时常见的问题，如果您遇到的问题不在以下列表中，请尝试 [加入社区](/docs/#加入社区)。
+
+export function FAQBox({ title, children }) {
+  return (
+    <details
+      open
+      className="faq-box"
+    >
+      <summary>
+        <strong className="faq-title">{title}</strong>
+      </summary>
+      <div className="faq-content">{children}</div>
+    </details>
+  )
+}
+
+<FAQBox title="我已经正确安装并配置了 Umo Editor，但是无法显示。">
+请检查以下几点：
+
+1. `<umo-editor />` 的父节点是否有高度，或者有样式 `overflow: hidden`；
+2. 检查浏览器是否支持，详见 [浏览器支持](/cn/docs/#浏览器支持)；
+3. 右键查看元素，检查是否加载了 Umo Editor 的 DOM 节点；
+4. 检查浏览器的 Console 面板，是否有报错信息；
+5. 检查是否正确配置了 `<umo-editor />` 的 `cdnUrl` 配置项，已经 `cdnUrl` 能否正常访问。
+</FAQBox>
+
+<FAQBox title="界面显示错乱，部分样式丢失？">
+为了减小 Umo Editor 核心包的体积和提升加载速度，Umo Editor 通过配置 CDN 引入部分静态资源，这些静态资源包含第三方模块、图片、图标资源等。
+
+由于 Umo Editor 采用 [Unpkg](https://unpkg.com) 作为默认 CDN，但是 Unpkg 国内访问可能较慢或者无法访问，您可以通过 [CDN配置 - 使用本地资源](../options/cdn#使用本地资源) 修改 CDN，以提高加载速度。
+</FAQBox>
+
+<FAQBox title="npm 安装提示Error 404？">
+见 [Issues #5](https://github.com/umodoc/editor/issues/5)。
+</FAQBox>

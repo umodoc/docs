@@ -1,0 +1,67 @@
+# Popup Component
+
+Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as the foundational component library. To facilitate developer usage, it provides encapsulated methods for common popup components such as Alert, Confirm, and Message. You can visit https://demo.umodoc.com/editor?tab=events&lang=en to view the examples by clicking the corresponding buttons.
+
+## Example
+```vue
+<template>
+  <umo-editor
+    ref="editorRef"
+    v-bind="options"
+  />
+  <button @click="useAlert">useAlert</button>
+  <button @click="useConfirm">useConfirm</button>
+  <button @click="useMessage">useMessage</button>
+</template>
+
+<script setup>
+  import { ref } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
+
+  const editorRef = ref(null);
+  const options = ref({
+    // Configuration options
+    // ...
+  })
+
+  // Using Alert
+  const useAlert = () => {
+    editorRef.value.useAlert({
+      theme: 'success',
+      header: 'Info',
+      body: 'Hello World',
+    })
+  }
+
+  // Using Confirm
+  const useConfirm = () => {
+    const confirm = editorRef.value.useConfirm({
+      theme: 'success',
+      header: 'Info',
+      body: 'Hello World',
+      onConfirm() {
+        confirm.destroy()
+      },
+    })
+  }
+
+  // Using Message
+  const useMessage = () => {
+    editorRef.value.useMessage('info', 'Hello World')
+  }
+</script>
+```
+
+## Component Usage Instructions
+
+### useAlert
+
+The Alert popup component, for details see https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api.
+
+### useConfirm
+
+The Confirm popup component, for details see https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api.
+
+### useMessage
+
+The Message popup component, for details see https://tdesign.tencent.com/vue-next/components/message-en?tab=api.

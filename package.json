@@ -1,8 +1,8 @@
 {
 	"name": "editor-docs",
 	"version": "1.0.0",
-	"description": "Umo Editor 文档 | Umo Editor Documentation",
-	"license": "SEE LICENSE IN https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans",
+	"description": "Umo Editor Documentation. Umo Editor 文档",
+	"license": "SEE LICENSE IN https://creativecommons.org/licenses/by-nc-sa/4.0",
 	"type": "module",
 	"author": {
 		"name": "umodoc",

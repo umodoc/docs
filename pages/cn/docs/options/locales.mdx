@@ -1,0 +1,39 @@
+# 自定义本地化语言配置
+
+用于配置本地化语言信息，基于 [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html) 实现，可使用 [`getI18n`](/cn/docs/methods#geti18n) 来获取 `i18n` 信息，浏览 [方法列表](/cn/docs/methods) 和 [事件列表](/cn/docs/events) 获取更多本地化相关信息。
+
+如果您发现翻译文件存在问题，请参考[加入社区](/cn/docs#加入社区)，向我们提出您宝贵的意见和建议。如果您需要添加自定义语言，欢迎向我们提交 [Issue](https://github.com/umodoc/editor/issues) 或 [PR](https://github.com/umodoc/editor/pulls)。
+
+## 默认配置
+
+```js
+{
+  locale: 'zh-CN',
+  translations: {
+    en_US: {},
+    zh_CN: {},
+  },
+}
+```
+
+## 配置项说明
+
+### locale
+
+**说明**：默认语言。
+
+**类型**：`String`
+
+**默认值**：`zh-CN`。
+
+**可选值**：`zh-CN` 、 `en_US`
+
+### translations
+
+**说明**：自定义翻译信息。
+
+**类型**：`Object`
+
+**默认值**：`{ en_US: {}, zh_CN: {} }`。
+
+**可选值**：见 https://github.com/umodoc/editor/blob/main/src/locales ，您配置的 `translations` 翻译信息会和这些默认的翻译信息进行合并，这意味着您可以通过配置 `translations` 来覆盖默认翻译信息。

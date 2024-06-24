@@ -1,0 +1,57 @@
+# 工具栏配置
+
+用于配置 Umo Editor 工具栏区域的显示和行为。
+
+## 默认配置
+
+```js
+{
+  toolbar: {
+    defaultMode: 'ribbon',
+    enableSourceEditor: true,
+    menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
+    disableMenuItems: [],
+  },
+}
+```
+
+## 配置项说明
+
+### toolbar.defaultMode
+
+**说明**：工具栏的默认模式，配置后用户仍可自主切换模式，且会保存到本地，默认使用用户选择的工具栏模式，但您仍然可以通过 [setToolbar 方法](../methods#settoolbar) 来强制修改工具栏模式。
+
+**类型**：`String`
+
+**默认值**：`ribbon`
+
+**可选值**：`ribbon`、`classic`
+
+### toolbar.enableSourceEditor
+
+**说明**：是否启用编辑器源码模式，在编辑器源码模式下，用户可编辑源码，预览效果，适合具备编程能力的开发人员使用，不建议向普通用户开放。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### toolbar.menus
+
+**说明**：要启用的工具栏菜单列表，默认全部启用，通过配置该项，可以禁用部分菜单，但是不支持禁用所有菜单且必须包含 `base` 菜单。
+
+**类型**：`Array`
+
+**默认值**：`['base', 'insert', 'table', 'tools', 'page', 'export']`
+
+**可选值**：`base`、`insert`、`table`、`tools`、`page`、`export`
+
+### toolbar.disableMenuItems
+
+**说明**：要禁用的菜单项，默认不禁用任何菜单项。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+**可选值**：`print`, `code`, `video`, `audio`, `file`, `chineseDate`, `emoji`, `math`, `signature`, `seal`, `diagrams`, `chineseCase`, `mermaid`,  `share`,  `embed`, ...
+

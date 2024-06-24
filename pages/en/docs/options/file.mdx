@@ -1,0 +1,36 @@
+# File Upload Configuration
+
+This section is used to configure file upload settings, including allowed file types and file size limits. For methods of file uploading and file deletion, please refer to the [Methods](/en/docs/events) section.
+
+## Default Configuration
+
+```js
+{
+  file: {
+    allowedMimeTypes: [],
+    maxSize: 1024 * 1024 * 100, // 100MB
+  },
+}
+```
+
+## Configuration Item Descriptions
+
+### file.allowedMimeTypes
+
+**Description**: The allowed file types for upload. An empty array indicates that all file types are allowed.
+
+**Type**: `Array`
+
+**Default Value**: `[]`.
+
+**Options**:
+
+Valid [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) values.
+
+Additionally, to upload files of the same type, you can use the * wildcard for simplified configuration. For example, to allow the upload of all image files, it can be configured as `['image/*']`.
+
+### file.maxSize
+
+**Description**: The maximum size allowed for uploaded files, in bytes (B).
+
+**Type**: `Number`.

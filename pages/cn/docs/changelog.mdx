@@ -1,0 +1,83 @@
+import { Badge } from '/components/badge'
+
+# 更新日志
+
+## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
+1. 添加多语言支持，目前已支持简体中文和 English，见 [`locales`](./options/locales)；
+2. 代码仓库中的目录、文件、代码结构调整和重构；
+3. 提供中英文开发文档和在线示例；
+4. 部分 API 发生变化，主要变更如下：
+    - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见 [页面配置](./options/page#pagedefaultorientation)；
+    - 新增 `locale` 和 `translations` 配置，见 [自定义本地化语言配置](./options/locales)；
+    - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见 [方法列表](./methods#getlocale)；
+    - 新增 `changed:locale` 事件，见 [事件列表](./events)。
+    - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见 [默认配置](./options/default)；
+5. 更新依赖项；
+6. 修复若干错误和问题；
+7. 优化部分细节。
+
+## 🚀 v1.4.1 \~ 2 <Badge>2024-06-13</Badge>
+添加 `npm` 安装说明等 @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5)。
+
+## 🚀 v1.4.0<Badge>2024-06-03</Badge>
+1. 添加自定义插件支持，见 [`extensions`](./options/extensions)；
+2. 添加自动保存参数，见 [`document.autoSave`](./options/document#autosave)；
+3. 修复页面大纲内容过多时显示错乱的 Bug @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2)。
+
+## 🚀 v1.3.1<Badge>2024-06-02</Badge>
+优化块级菜单相关的样式和显示。
+
+## 🚀 v1.3.0<Badge>2024-06-01</Badge>
+1. 添加块级菜单支持；
+2. 修复“增加缩进”和“减少缩进”不起作用的 Bug；
+3. 添加“引用”样式；
+4. 细节调整及优化。
+
+
+## 🚀 v1.2.2<Badge>2024-05-24</Badge>
+1. 打印设置使用本地缓存；
+2. 还原 [`cdnUrl`](../options/cdn) 的默认值；
+3. 简化菜单按钮配置，提高响应速度；
+4. 更新依赖项；
+
+## 🚀 v1.2.1<Badge>2024-05-24</Badge>
+和 `@umoteam/editor-external` 版本号保持同步。
+
+## 🚀 v1.2.0<Badge>2024-05-24</Badge>
+1. 添加打印设置；
+2. 减小打包体积。
+
+## 🚀 v1.2.0-beta.0 \~ 1<Badge>2024-05-23</Badge>
+1. 更新依赖项；
+2. 添加删除表格、表格行、表格列的确认删除框；
+3. 优化页面大纲，按大纲层级缩进显示；
+4. 修复插入链接弹框不显示标题的 Bug；
+5. 修复分割线气泡菜单显示错误的 Bug；
+6. 修改 [`cdnUrl`](../options/cdn) 的默认值；
+7. 优化细节。
+
+## 🚀 v1.1.2<Badge>2024-05-22</Badge>
+修复打印页面样式无法加载的 Bug 等。
+
+## 🚀 v1.1.1<Badge>2024-05-22</Badge>
+优化部分细节。
+
+## 🚀 v1.1.0<Badge>2024-05-22</Badge>
+1. 新增文档预览功能；
+2. 新增文档打印功能；
+3. 将 Umo Editor 所依赖的部分第三方模块单独发布成 [@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external) 包；
+4. 优化部分细节。
+
+
+## 🚀 v1.0.1 <Badge>2024-05-13</Badge>
+Umo Editor 第一个正式版本发布。
+
+## 🚀 v1.0.0-beta.2 \~ 7 <Badge>2024-05-12</Badge>
+
+1. 打包测试；
+2. 细节调整及优化；
+3. Bug 修复。
+
+## 🎉 v1.0.0-beta.1 <Badge>2024-05-10</Badge>
+
+Umo Editor 1.0.0 beta.1 发布。

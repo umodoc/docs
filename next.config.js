@@ -12,11 +12,15 @@ export default withNextra({
 		unoptimized: true
 	},
 	reactStrictMode: true,
+	i18n: {
+		locales: ['cn', 'en'],
+		defaultLocale: 'cn'
+	},
 	async redirects() {
 		return [
 			{
 				source: '/',
-				destination: '/docs',
+				destination: '/en/docs',
 				permanent: true
 			}
 		];

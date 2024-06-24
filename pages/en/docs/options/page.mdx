@@ -1,0 +1,84 @@
+# Page Configuration
+
+This section is used to configure the display and behavior of the Umo Editor page area.
+
+## Default Configuration
+
+```js
+{
+  page: {
+    defaultMargin: {
+      left: 3.18,
+      right: 3.18,
+      top: 2.54,
+      bottom: 2.54,
+    },
+    defaultOrientation: 'landscape',
+    defaultBackground: '#fff',
+    showBreakMarks: true,
+    watermark: {
+      type: 'compact',
+      alpha: 0.2,
+      fontColor: '#000',
+      fontSize: 16,
+      fontFamily: 'SimSun',
+      fontWeight: 'normal',
+      text: '',
+    },
+  },
+}
+```
+
+## Configuration Item Descriptions
+
+### page.defaultMargin
+
+**Description**: Default page margins, which users can modify, measured in centimeters (cm). You can dynamically modify the page margins using the [setPage](../methods#setpage).
+
+**Type**: `Object`
+
+**Default Value**: `{ left: 3.18, right: 3.18, top: 2.54, bottom: 2.54 }`
+
+### page.defaultOrientation
+
+**Description**: Default page orientation, which users can modify. You can dynamically modify the page orientation using the [setPage](../methods#setpage).
+
+**Type**: `String`
+
+**Default Value**: `horizontal` (prior to version 2.0.0, the default was `landscape`).
+
+**Options**: `'landscape'` and `'portrait'` (prior to version 2.0.0, the options were `horizontal` and `vertical`).
+
+### page.defaultBackground
+
+**Description**: Default page background color, which users can modify. You can dynamically modify the page background color using the [setPage](../methods#setpage).
+
+**Type**: `String`
+
+**Default Value**: `#fff`
+
+**Options**: Valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) values.
+
+### page.showBreakMarks
+
+**Description**: Whether to show line break marks by default, which users can modify. You can dynamically set whether to allow the display of line break marks using the [setPage](../methods#setpage).
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+### page.watermark
+
+**Description**: Default watermark settings, which users can modify. You can dynamically set or modify the page watermark using the [setWatermark](../methods#setwatermark).
+
+**Type**: `Object`
+
+**Configuration Items**:
+
+- `type`: `String`, the type of watermark, with options `compact` and `spacious`.
+- `alpha`: `Number`, the transparency of the watermark, with values ranging from 0 to 1.
+- `fontColor`: `String`, the font color, with valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) values.
+- `fontSize`: `Number`, the font size in pixels (px).
+- `fontFamily`: `String`, the font family, with valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) values.
+- `fontWeight`: `String`, the font weight, with options `normal`, `bold`, and `bolder`.
+- `text`: `String`, the watermark text, recommended to be no more than 30 characters.

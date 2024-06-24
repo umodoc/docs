@@ -1,0 +1,175 @@
+import { Tabs } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Document Configuration
+
+This section is used to configure the display and behavior of the Umo Editor document area and document name.
+
+## Default Configuration
+
+```js
+{
+  document: {
+    title: 'Untitled Document',
+    content: '',
+    placeholder: {
+      en_US: 'Please enter the document content...',
+      zh_CN: '请输入文档内容...',
+    },
+    enableSpellcheck: true,
+    enableMarkdown: true,
+    enableBubbleMenu: true,
+    enableBlockMenu: true, // Added in v1.3.0
+    readOnly: false,
+    autofocus: true,
+    characterLimit: 0,
+    typographyRules: {},
+    autoSave: { // Added in v1.4.0
+      enabled: true,
+      interval: 300000,
+    },
+  },
+}
+```
+
+## Configuration Item Descriptions
+
+### document.title
+
+**Description**: The document title, used for the file name when exporting, etc. You can dynamically set or modify the document title using the [setDocument](../methods#setdocument).
+
+**Type**: `String`
+
+**Default Value**: `Untitled Document`
+
+### document.content
+
+**Description**: The initial document content, which users can modify. You can dynamically set or modify the document content using the [setContent](../methods#setcontent).
+
+**Type**: `String`
+
+**Default Value**: Empty
+
+### document.placeholder
+
+**Description**: The placeholder displayed when the document content is empty.
+
+**Type**: `String` or `Object`
+
+**Default Value**: `Please enter the document content...`
+
+### document.enableSpellcheck
+
+**Description**: Whether to enable the browser's spellcheck feature. When enabled, users can manually turn it off. You can dynamically set whether to enable the browser's spellcheck feature using the [setDocument](../methods#setdocument).
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+### document.enableMarkdown
+
+**Description**: Whether to enable Markdown syntax. When enabled, users can manually turn it off. You can dynamically set whether to enable Markdown syntax using the [setDocument](../methods#setdocument).
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+### document.enableBubbleMenu
+
+**Description**: Whether to display the bubble menu. You can dynamically set whether to display the bubble menu using the [setDocument](../methods#setdocument).
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+### document.enableBlockMenu <Badge theme="success">v1.3.0 Added</Badge>
+
+**Description**: Whether to display the block menu. You can dynamically set whether to display the block menu using the [setDocument](../methods#setdocument).
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+### document.readOnly
+
+**Description**: Whether the document is read-only. If `true`, users cannot edit the current document. You can set whether the document is read-only using the [setReadOnly](../methods#setreadonly).
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+### document.autofocus
+
+**Description**: Whether the document automatically receives cursor focus.
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+### document.characterLimit
+
+**Description**: The character limit for the document. If `0`, there is no limit on the number of characters.
+
+**Type**: `Number`
+
+**Default Value**: `0`
+
+### document.typographyRules
+
+**Description**: Document typography rules.
+
+**Type**: `Object`
+
+**Default Value**: `{}`
+
+**Configuration Items**:
+
+| Name | Description | Default Enabled |
+| :--- | :---: | :---: |
+| emDash | Converts double hyphens -- to an em dash —. | ✅ Enabled |
+| ellipsis | Converts three dots ... to an ellipsis …. | ✅ Enabled |
+| openDoubleQuote | “Smart” left double quotes. | ✅ Enabled |
+| ... | ... | ... |
+
+To disable an item, set it to `false`. For example:
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+{
+  document: {
+    typographyRules: {
+      emDash: false
+    }
+  }
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    :document="{
+      typographyRules: {
+        emDash: false
+      }
+    }" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+### document.autoSave <Badge theme="success">v1.4.0 Added</Badge> [#autosave]
+
+**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [setDocument](/methods#setdocument).
+
+**Type**: `Object`
+
+**Configuration Items**:
+- `enabled`: `Boolean`, whether to enable auto-save, default is `true`.
+- `interval`: `Number`, the interval between auto-saves in milliseconds, default is `300000` (5 minutes).

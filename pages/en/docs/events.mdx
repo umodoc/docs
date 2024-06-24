@@ -1,0 +1,75 @@
+import { Badge } from '/components/badge'
+
+# Events
+
+This section will introduce the events of Umo Editor. Through events, you can listen to the complete lifecycle and state changes of Umo Editor for more operations. You can visit https://demo.umodoc.com/editor?tab=events&lang=en, open the console (DevTools › Console) to view the triggering of events.
+
+## Example
+
+```vue {4-24}
+<template>
+  <umo-editor
+    v-bind="options"
+    @before-create="onBeforeCreate"
+    @created="onCreated"
+    @changed="onChanged"
+    @changed:selection="onChangedSelection"
+    @changed:transaction="onChangedTransaction"
+    @changed:menu="onChangedMenu"
+    @changed:toolbar="onChangedToolbar"
+    @changed:page-size="onChangedPageSize"
+    @changed:page-orientation="onChangedPageOrientation"
+    @changed:page-margin="onChangedPageMargin"
+    @changed:page-background="onChangedPageBackground"
+    @changed:page-zoom="onChangedZoom"
+    @changed:page-show-toc="onChangedPageShowToc"
+    @changed:page-preview="onChangedPreview"
+    @changed:page-watermark="onChangedPageWatermark"
+    @changed:locale="onChangedLocale"
+    @print="onPrint"
+    @focus="onFocus"
+    @blur="onBlur"
+    @saved="onSaved"
+    @destroy="onDestroy"
+  />
+</template>
+ 
+<script setup>
+  import { ref \} from 'vue';
+  import { UmoEditor \} from '@umoteam/editor';
+
+  const options = ref({
+    // Configuration options
+    // ...
+  });
+
+  // Event handler functions go here ...
+  // onBeforeCreate, onCreated, onChanged, etc.
+</script>
+```
+
+## Event Description
+
+| Event Name | Trigger Timing / Description | Available Parameters |
+| --- | --- | --- |
+| beforeCreate | Editor is about to be created | - |
+| created | Editor has been created | \{ editor \} |
+| changed | Editor content has been updated | \{ editor \} |
+| changed:selection | Selected content has changed | \{ editor \} |
+| changed:transaction | Editor state has changed | \{ editor, transaction \} |
+| changed:menu | Menu state has changed | currentMenu |
+| changed:toolbar | Toolbar information has changed | \{ toolbar, oldToolbar \} |
+| changed:pageSize | Page size information has changed | \{ pageSize, oldPageSize \} |
+| changed:pageOrientation | Page orientation has changed | \{ pageOrientation, oldPageOrientation \} |
+| changed:pageMargin | Page margin information has changed | \{ pageMargin, oldPageMargin \} |
+| changed:pageBackground | Page background has changed | \{ pageBackground, oldPageBackground \} |
+| changed:pageZoom | Page zoom level has changed | \{ zoomLevel, oldZoomLevel \} |
+| changed:pageShowToc | Page outline panel display state has changed | showToc |
+| changed:pagePreview | Page preview mode has changed | enabled |
+| changed:pageWatermark | Page watermark information has changed | \{ pageWatermark, oldPageWatermark \} |
+| changed:locale | Language setting has changed <Badge theme="success">Added in v2.0.0</Badge> | \{ locale, oldLocale \} |
+| print | Page print <Badge theme="success">Added in v1.1.0</Badge> | - |
+| focus | Editor gains focus | \{ editor, event \} |
+| blur | Editor loses focus | \{ editor, event \} |
+| saved | Document has been saved | - |
+| destroy | Editor component has been destroyed | - |

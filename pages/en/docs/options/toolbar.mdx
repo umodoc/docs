@@ -1,0 +1,56 @@
+# Toolbar Configuration
+
+This section is used to configure the display and behavior of the Umo Editor toolbar area.
+
+## Default Configuration
+
+```js
+{
+  toolbar: {
+    defaultMode: 'ribbon',
+    enableSourceEditor: true,
+    menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
+    disableMenuItems: [],
+  },
+}
+```
+
+## Configuration Item Descriptions
+
+### toolbar.defaultMode
+
+**Description**: The default mode of the toolbar. After configuration, users can still switch modes manually, and the choice will be saved locally. By default, the toolbar mode chosen by the user is used, but you can still force the toolbar mode to be changed using the [setToolbar](../methods#settoolbar).
+
+**Type**: `String`
+
+**Default Value**: `ribbon`
+
+**Options**: `ribbon`, `classic`
+
+### toolbar.enableSourceEditor
+
+**Description**: Whether to enable the source code editing mode of the editor. In source code editing mode, users can edit the source code and preview the effects. It is suitable for developers with programming capabilities and is not recommended to be open to ordinary users.
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+### toolbar.menus
+
+**Description**: The list of toolbar menus to be enabled. By default, all menus are enabled. By configuring this item, you can disable some menus, but you cannot disable all menus and must include the `base` menu.
+
+**Type**: `Array`
+
+**Default Value**: `['base', 'insert', 'table', 'tools', 'page', 'export']`
+
+**Options**: `base`, `insert`, `table`, `tools`, `page`, `export`
+
+### toolbar.disableMenuItems
+
+**Description**: The menu items to be disabled. By default, no menu items are disabled.
+
+**Type**: `Array`
+
+**Default Value**: `[]`
+
+**Options**: `print`, `code`, `video`, `audio`, `file`, `chineseDate`, `emoji`, `math`, `signature`, `seal`, `diagrams`, `chineseCase`, `mermaid`, `share`, `embed`, ...

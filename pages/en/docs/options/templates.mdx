@@ -1,0 +1,79 @@
+import { Tabs } from 'nextra/components'
+
+# Document Template Configuration
+
+This section is used to preset document templates, which users can select to quickly insert into the document, such as work logs, project plans, meeting minutes, etc.
+
+## Default Configuration
+
+```js
+{
+  templates: [],
+}
+```
+
+## Configuration Item Descriptions
+
+### templates
+
+**Description**: After setting up the templates, users can select from the preset templates to quickly insert into the document.
+
+**Type**: `Array`
+
+**Default Value**: `[]`
+
+**Configuration Items**:
+
+- `name`: `String`, the name of the template, ideally within 12 characters.
+- `description`: `String`, a brief introduction to the template, ideally within 60 characters.
+- `content`: The template content, valid HTML format or other valid [Tiptap Output](https://tiptap.dev/docs/editor/guide/output).
+
+**Example**:
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+{
+  templates: [
+    {
+      name: 'Work Task',
+      description: 'Template for work tasks',
+      content: '<p>Work Task</p>',
+    },
+    {
+      name: 'Work Weekly Report',
+      description: 'Template for work weekly reports',
+      content: '<h2>Work Weekly Report</h2>',
+    },
+  ]
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    :templates="templates" 
+  />
+</template>
+ 
+<script setup>
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
+
+const templates = ref([
+  {
+    name: 'Work Task',
+    description: 'Template for work tasks',
+    content: '<p>Work Task</p>',
+  },
+  {
+    name: 'Work Weekly Report',
+    description: 'Template for work weekly reports',
+    content: '<h2>Work Weekly Report</h2>',
+  },
+])
+</script>
+```
+</Tabs.Tab>
+</Tabs>

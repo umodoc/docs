@@ -1,0 +1,84 @@
+# 页面配置
+
+用于配置 Umo Editor 页面区域的显示和行为。
+
+## 默认配置
+
+```js
+{
+  page: {
+    defaultMargin: {
+      left: 3.18,
+      right: 3.18,
+      top: 2.54,
+      bottom: 2.54,
+    },
+    defaultOrientation: 'portrait',
+    defaultBackground: '#fff',
+    showBreakMarks: true,
+    watermark: {
+      type: 'compact',
+      alpha: 0.2,
+      fontColor: '#000',
+      fontSize: 16,
+      fontFamily: 'SimSun',
+      fontWeight: 'normal',
+      text: '',
+    },
+  },
+}
+```
+
+## 配置项说明
+
+### page.defaultMargin
+
+**说明**：默认页边距，用户可以修改，单位为厘米(cm)，您可以通过 [setPage 方法](../methods#setpage) 来动态修改页面边距。
+
+**类型**：`Object`
+
+**默认值**：`{ left: 3.18, right: 3.18, top: 2.54, bottom: 2.54 }`
+
+### page.defaultOrientation
+
+**说明**：页面默认方向，用户可修改，您可以通过 [setPage 方法](../methods#setpage) 来动态修改页面方向。
+
+**类型**：`String`
+
+**默认值**：`portrait`，v2.0.0 版本之前为 `horizontal`。
+
+**可选值**：`portrait` 和 `landscape`，v2.0.0 版本之前为 `horizontal` 和 `vertical`
+
+### page.defaultBackground
+
+**说明**：页面默认背景颜色，用户可修改，您可以通过 [setPage 方法](../methods#setpage) 来动态修改页面背景颜色。
+
+**类型**：`String`
+
+**默认值**：`#fff`
+
+**可选值**：合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value) 值。
+
+### page.showBreakMarks
+
+**说明**：默认是否显示换行符，用户可修改，您可以通过 [setPage 方法](../methods#setpage) 来动态设置是否允许显示换行符。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### page.watermark
+
+**说明**：默认水印设置，用户可修改，您可以通过 [setWatermark 方法](../methods#setwatermark) 来动态设置或修改页面水印。
+
+**类型**：`Obejct`
+
+**配置项**：
+
+- `type`: String，水印类型，可选值为：`compact`、`spacious`。
+- `alpha`: Number，水印透明度，可选值为：0-1。
+- `fontColor`: String，字体颜色，可选值为：合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value) 值。
+- `fontSize`: Number，字体大小，单位为 px。
+- `fontFamily`: Number，字体，合法的 [CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family) 值。
+- `fontWeight`: Sring，字体粗细，可选值为：`normal`、`bold`、`bolder`。
+- `text`: String，水印内容，建议不超过 30 个字符。

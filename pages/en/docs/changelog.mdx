@@ -1,0 +1,81 @@
+import { Badge } from '/components/badge'
+
+# Changelog
+
+## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
+1. Added i18n support, currently supporting Simplified Chinese and English, see [`locales`](./options/locales);
+2. Adjustments and restructuring of directories, files, and code in the code repository;
+3. Provided development documentation and online examples in both Chinese and English;
+4. Some API changes have occurred, the main changes are as follows:
+    - Modified the default value of `page.defaultOrientation` to `portrait`, with options being `portrait` and `landscape`, see [Page Configuration](./options/page#pagedefaultorientation);
+    - Added `locale` and `translations` configurations, see [Custom Localization Configuration](./options/locales);
+    - Added methods `setLocale`, `getLocale`, and `getI18n`, see [Methods](./methods#getlocale);
+    - Added the `changed:locale` event, see [Events](./events).
+    - The `label` item in configuration now supports both `String` and `Object` types, with the `Object` type mainly used for configuring multilingual information, see [Default Configuration](./options/default);
+5. Updated dependencies;
+6. Fixed several bugs and issues;
+7. Optimized some details.
+
+## 🚀 v1.4.1 ~ 2 <Badge>2024-06-13</Badge>
+Added instructions for `npm` installation, etc. @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5).
+
+## 🚀 v1.4.0<Badge>2024-06-03</Badge>
+1. Added support for custom extensions, see [`extensions`](./options/extensions);
+2. Added auto-save parameters, see [`document.autoSave`](./options/document#autosave);
+3. Fixed the bug where the page outline display was messy when there was too much content @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2).
+
+## 🚀 v1.3.1<Badge>2024-06-02</Badge>
+Optimized styles and display related to the block menu.
+
+## 🚀 v1.3.0<Badge>2024-06-01</Badge>
+1. Added support for the block menu;
+2. Fixed the bug where "Increase Indent" and "Decrease Indent" did not work;
+3. Added "Quote" style;
+4. Minor adjustments and optimizations.
+
+## 🚀 v1.2.2<Badge>2024-05-24</Badge>
+1. Printing settings now use local caching;
+2. Restored the default value of [`cdnUrl`](../options/cdn);
+3. Simplified menu button configuration to improve response speed;
+4. Updated dependencies.
+
+## 🚀 v1.2.1<Badge>2024-05-24</Badge>
+Synchronized version numbers with `@umoteam/editor-external`.
+
+## 🚀 v1.2.0<Badge>2024-05-24</Badge>
+1. Added printing settings;
+2. Reduced bundle size.
+
+## 🚀 v1.2.0-beta.0 ~ 1<Badge>2024-05-23</Badge>
+1. Updated dependencies;
+2. Added confirmation dialog for deleting tables, table rows, and table columns;
+3. Optimized the page outline to display with outline levels indented;
+4. Fixed the bug where the insert link dialog did not display the title;
+5. Fixed the bug where the divider bubble menu was displayed incorrectly;
+6. Modified the default value of [`cdnUrl`](../options/cdn);
+7. Optimized details.
+
+## 🚀 v1.1.2<Badge>2024-05-22</Badge>
+Fixed the bug where the print page style could not be loaded, etc.
+
+## 🚀 v1.1.1<Badge>2024-05-22</Badge>
+Optimized some details.
+
+## 🚀 v1.1.0<Badge>2024-05-22</Badge>
+1. Added document preview functionality;
+2. Added document printing functionality;
+3. Released some third-party modules that Umo Editor depends on as a separate [@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external) package;
+4. Optimized some details.
+
+## 🚀 v1.0.1 <Badge>2024-05-13</Badge>
+The first official release of Umo Editor.
+
+## 🚀 v1.0.0-beta.2 ~ 7 <Badge>2024-05-12</Badge>
+
+1. Packaging tests;
+2. Minor adjustments and optimizations;
+3. Bug fixes.
+
+## 🎉 v1.0.0-beta.1 <Badge>2024-05-10</Badge>
+
+The release of Umo Editor 1.0.0 beta.1.
