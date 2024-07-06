@@ -6,7 +6,7 @@ This section will introduce the events of Umo Editor. Through events, you can li
 
 ## Example
 
-```vue {4-24}
+```vue {4-25}
 <template>
   <umo-editor
     v-bind="options"
@@ -26,6 +26,7 @@ This section will introduce the events of Umo Editor. Through events, you can li
     @changed:page-preview="onChangedPreview"
     @changed:page-watermark="onChangedPageWatermark"
     @changed:locale="onChangedLocale"
+    @changed:theme="onChangedTheme"
     @print="onPrint"
     @focus="onFocus"
     @blur="onBlur"
@@ -35,8 +36,8 @@ This section will introduce the events of Umo Editor. Through events, you can li
 </template>
  
 <script setup>
-  import { ref \} from 'vue';
-  import { UmoEditor \} from '@umoteam/editor';
+  import { ref } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
 
   const options = ref({
     // Configuration options
@@ -44,7 +45,151 @@ This section will introduce the events of Umo Editor. Through events, you can li
   });
 
   // Event handler functions go here ...
-  // onBeforeCreate, onCreated, onChanged, etc.
+  // Before creation lifecycle hook
+const onBeforeCreate = () => {
+  console.log('onBeforeCreate', 'Editor is about to be created, no available parameters');
+};
+
+// Creation lifecycle hook
+const onCreated = () => {
+  console.log('onCreated', 'Editor has been created, available parameters:', { editor });
+};
+
+// Content change hook
+const onChanged = () => {
+  console.log('onChanged', 'Editor content has been updated, available parameters:', { editor });
+};
+
+// Selection change hook
+const onChangedSelection = () => {
+  console.log('onChanged:selection', 'Selected content has changed, available parameters:', { editor });
+};
+
+// Transaction state change hook
+const onChangedTransaction = () => {
+  console.log(
+    'onChanged:transaction',
+    'Editor state has changed, available parameters:', { editor, transaction }
+  );
+};
+
+// Menu status change hook
+const onChangedMenu = (currentMenu) => {
+  console.log(
+    'onChanged:menu',
+    'Menu bar status has changed, available parameter: currentMenu, current menu is', currentMenu
+  );
+};
+
+// Toolbar info change hook
+const onChangedToolbar = ({ toolbar, oldToolbar }) => {
+  console.log(
+    'onChanged:toolbar',
+    'Toolbar information has changed, available parameters:', { toolbar, oldToolbar }
+  );
+};
+
+// Page size change hook
+const onChangedPageSize = ({ pageSize, oldPageSize }) => {
+  console.log(
+    'onChanged:pageSize',
+    'Page size information has changed, available parameters:', { pageSize, oldPageSize }
+  );
+};
+
+// Page orientation change hook
+const onChangedPageOrientation = ({ pageOrientation, oldPageOrientation }) => {
+  console.log(
+    'onChanged:pageOrientation',
+    'Page orientation has changed, available parameters:', { pageOrientation, oldPageOrientation }
+  );
+};
+
+// Page margin change hook
+const onChangedPageMargin = ({ pageMargin, oldPageMargin }) => {
+  console.log(
+    'onChanged:pageMargin',
+    'Page margin information has changed, available parameters:', { pageMargin, oldPageMargin }
+  );
+};
+
+// Page background change hook
+const onChangedPageBackground = ({ pageBackground, oldPageBackground }) => {
+  console.log(
+    'onChanged:pageBackground',
+    'Page background has changed, available parameters:', { pageBackground, oldPageBackground }
+  );
+};
+
+// Zoom level change hook
+const onChangedZoom = ({ zoomLevel, oldZoomLevel }) => {
+  console.log(
+    'onChanged:pageZoom',
+    'Page zoom level has changed, available parameters:', { zoomLevel, oldZoomLevel }
+  );
+};
+
+// Show table of contents change hook
+const onChangedPageShowToc = (showToc) => {
+  console.log(
+    'onChanged:pageShowToc',
+    'Page TOC panel display status has changed, available parameters:', showToc
+  );
+};
+
+// Preview mode change hook
+const onChangedPreview = (enabled) => {
+  console.log(
+    'onChanged:pagePreview',
+    'Page preview mode has changed, available parameters:', enabled
+  );
+};
+
+// Page watermark change hook
+const onChangedPageWatermark = ({ pageWatermark, oldPageWatermark }) => {
+  console.log(
+    'onChanged:pageWatermark',
+    'Page watermark information has changed, available parameters:', { pageWatermark, oldPageWatermark }
+  );
+};
+
+// Locale setting change hook
+const onChangedLocale = ({ locale, oldLocale }) => {
+  console.log(
+    'onChanged:locale',
+    'Language setting has changed, available parameters:', { locale, oldLocale }
+  );
+};
+
+// Theme setting change hook
+const onChangedTheme = (theme) => {
+  console.log('onChanged:theme', 'Theme setting has changed, available parameters:', theme);
+};
+
+// Print event hook
+const onPrint = () => {
+  console.log('onPrint', 'Editor gains focus, no available parameters');
+};
+
+// Focus event hook
+const onFocus = () => {
+  console.log('onFocus', 'Editor gains focus, available parameters:', { editor, event });
+};
+
+// Blur event hook
+const onBlur = () => {
+  console.log('onBlur', 'Editor loses focus, available parameters:', { editor, event });
+};
+
+// Save event hook
+const onSaved = () => {
+  console.log('onSaved', 'Document has been saved, no available parameters');
+};
+
+// Destruction lifecycle hook
+const onDestroy = () => {
+  console.log('onDestroy', 'Editor component has been destroyed, no available parameters');
+};
 </script>
 ```
 
@@ -67,8 +212,9 @@ This section will introduce the events of Umo Editor. Through events, you can li
 | changed:pageShowToc | Page outline panel display state has changed | showToc |
 | changed:pagePreview | Page preview mode has changed | enabled |
 | changed:pageWatermark | Page watermark information has changed | \{ pageWatermark, oldPageWatermark \} |
-| changed:locale | Language setting has changed <Badge theme="success">Added in v2.0.0</Badge> | \{ locale, oldLocale \} |
-| print | Page print <Badge theme="success">Added in v1.1.0</Badge> | - |
+| changed:locale | Language setting has changed <Badge theme="success">New in v2.0.0</Badge> | \{ locale, oldLocale \} |
+| changed:theme | Theme setting has changed <Badge theme="success">New in v2.1.0</Badge> | theme |
+| print | Page print <Badge theme="success">New in v1.1.0</Badge> | - |
 | focus | Editor gains focus | \{ editor, event \} |
 | blur | Editor loses focus | \{ editor, event \} |
 | saved | Document has been saved | - |

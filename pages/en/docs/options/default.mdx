@@ -12,6 +12,7 @@ const defaultOptions = {
   editorKey: 'default',
   height: '100%',
   locale:'zh-CN',
+  theme:'light',
   dicts: {
     fonts: [
       { label: { en_US: 'Default Font', zh_CN: '默认字体' }, value: null },
@@ -248,8 +249,8 @@ The configuration items of Umo Editor are mainly divided into the following part
 - `shareUrl`: String, share link configuration, must be a valid URL, see [Share Configuration](./share).
 - `diagrams`: Object, Diagrams chart configuration, see [Diagrams Chart Configuration](./diagrams).
 - `file`: Object, file upload configuration, see [File Upload Configuration](./file).
-- `extensions`: Array [Custom Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
-- `translations`: Object [Custom Localization Configuration](./locales). <Badge theme="success">Added in v2.0.0</Badge>
+- `extensions`: Array [Custom Extensions](./extensions). <Badge theme="success">New in v1.4.0</Badge>
+- `translations`: Object [Custom Localization Configuration](./locales). <Badge theme="success">New in v2.0.0</Badge>
 - `onSave(content, page, document)`: Async Function, document save method, should return a Promise, see [Methods](/en/options/methods#onSave).
 - `onFileUpload(file)`: Async Function, file upload method, should return a Promise, see [Methods](/en/docs/options/methods#onFileUpload).
 - `onFileDelete(id, url)`: Function, file delete method, see [Methods](/en/docs/options/methods#onFileDelete).

@@ -6,7 +6,7 @@ import { Badge } from '/components/badge'
 
 ## 示例
 
-```vue {4-24}
+```vue {4-25}
 <template>
   <umo-editor
     v-bind="options"
@@ -26,6 +26,7 @@ import { Badge } from '/components/badge'
     @changed:page-preview="onChangedpreview"
     @changed:page-watermark="onChangedPageWatermark"
     @changed:locale="onChangedLocale"
+    @changed:theme="onChangedTheme"
     @print="onPrint"
     @focus="onFocus"
     @blur="onBlur"
@@ -127,6 +128,12 @@ import { Badge } from '/components/badge'
       '语言设置发生变化，可用参数:', { locale, oldLocale }
     )
   }
+  const onChangedTheme = (theme) => {
+    console.log(
+      'onChanged:theme',
+      '主题设置发生变化，可用参数:', theme
+    )
+  }
   const onPrint = () => {
     console.log('onPrint', '编辑器获得焦点，无可用参数')
   }
@@ -165,6 +172,7 @@ import { Badge } from '/components/badge'
 | changed:pagePreview | 页面预览模式发生变化  | enabled |
 | changed:pageWatermark | 页面水印信息发生变化  | \{ pageWatermark, oldPageWatermark \} |
 | changed:locale | 语言设置发生变化 <Badge theme="success">v2.0.0 新增</Badge>  | \{ locale, oldLocale \} |
+| changed:theme | 主题设置发生变化 <Badge theme="success">v2.1.0 新增</Badge>  | theme |
 | print | 页面打印 <Badge theme="success">v1.1.0 新增</Badge> | - |
 | focus | 编辑器获得焦点 | \{ editor, event \} |
 | blur | 编辑器失去焦点 | \{ editor, event \} |

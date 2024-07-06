@@ -12,6 +12,7 @@ const defaultOptions = {
   editorKey: 'default',
   height: '100%',
   locale:'zh-CN',
+  theme:'light',
   dicts: {
     fonts: [
       { label: { en_US: 'Default Font', zh_CN: '默认字体' }, value: null },
@@ -241,7 +242,8 @@ const defaultOptions = {
 Umo Editor 的配置项主要分为以下几部分：
 
 - `editorKey`：String，编辑器Key，用于区分不同的编辑器实例。
-- `locale`：String，显示语言，默认为中文。
+- `locale`：String，显示语言，默认为中文。<Badge theme="success">v2.0.0 新增</Badge>
+- `theme`：String，主题设置，默认为浅色主题。<Badge theme="success">v2.1.0 新增</Badge>
 - `height`：String，编辑器高度。
 - `dicts`：Object，字典配置，详见 [字典配置](./dicts)。
 - `toolbar`：Object，工具栏配置，详见 [工具栏配置](./toolbar)。

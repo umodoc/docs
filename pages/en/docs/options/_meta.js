@@ -10,6 +10,7 @@ export default {
 	diagrams: 'Diagrams',
 	file: 'File Upload',
 	extensions: 'Extensions',
-	locales: 'Locales',
+	locale: 'Locale',
+	theme: 'Theme',
 	methods: 'Methods'
 };
