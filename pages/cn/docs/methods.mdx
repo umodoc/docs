@@ -108,7 +108,13 @@ import { Badge } from '/components/badge'
 
 **说明**：设置 Umo Editor 的内容。
 
-**参数**：合法的 HTML 格式或其他合法的 [Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+**参数**：
+
+- `content` : 合法的 HTML 格式或其他合法的 [Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+- `options` :  // v2.2.0 新增
+  - `emitUpdate`: `false`，是否阻止触发更新事件。
+  - `focusPosition`: focus 位置，可选值为：'start' | 'end' | 'all' | number | boolean | null (false)。
+  - `focusOptions`: `{ scrollIntoView: true }`。
 
 **返回值**：无。
 
@@ -231,7 +237,11 @@ import { Badge } from '/components/badge'
 
 **说明**：使 Umo Editor 获取焦点。
 
-**参数**：无。
+**参数**：
+
+- `position` : 'start' | 'end' | 'all' | number | boolean | null (false)
+- `options` : \{ scrollIntoView: boolean \} // v2.2.0 新增
+
 
 **返回值**：无。
 

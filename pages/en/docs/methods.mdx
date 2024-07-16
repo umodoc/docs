@@ -108,7 +108,13 @@ This section introduces the methods of Umo Editor, through which you can perform
 
 **Description**: Sets the content of Umo Editor.
 
-**Parameters**: Valid HTML format or other valid [Tiptap document formats](https://tiptap.dev/docs/editor/guide/output).
+**Parameters**: 
+
+- `content` : Valid HTML format or other valid [Tiptap document formats](https://tiptap.dev/docs/editor/guide/output).
+- `options` :  // Added in v2.2.0
+  - `emitUpdate`: `false`, By default, it doesn’t trigger the update event. Passing doesn’t prevent triggering the update event.
+  - `focusPosition`: Focus position, possible values are: 'start' | 'end' | 'all' | number | boolean | null (false).
+  - `focusOptions`: `{ scrollIntoView: true }`.
 
 **Return Value**: None.
 
@@ -232,7 +238,10 @@ This section introduces the methods of Umo Editor, through which you can perform
 
 **Description**: Gives focus to Umo Editor.
 
-**Parameters**: None.
+**Parameters**: 
+
+- `position` : 'start' | 'end' | 'all' | number | boolean | null (false)
+- `options` : \{ scrollIntoView: boolean \} // New in v2.2.0
 
 **Return Value**: None.
 
