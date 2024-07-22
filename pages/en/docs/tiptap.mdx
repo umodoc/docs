@@ -1,0 +1,35 @@
+## Tiptap Instance
+
+The Umo Editor is implemented based on [Tiptap](https://tiptap.dev/) and provides some [methods](./methods). For more information about the Tiptap editor, you can first obtain the Tiptap editor instance through `getEditor()`, then access the state information of the Tiptap editor and invoke its methods.
+
+Tiptap Development Documentation: https://tiptap.dev/docs/editor/getting-started/overview
+
+### How to Obtain the Tiptap Editor Instance
+```vue
+<template>
+  <umo-editor
+    ref="editorRef"
+    v-bind="options"
+  />
+</template>
+ 
+<script setup>
+  import { ref, reactive, onMounted } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
+
+  const editorRef = ref(null);
+  const tiptapEditor = ref({});
+  const options = ref({
+    // Configuration
+    // ...
+  })
+
+  onMounted(() => {
+    tiptapEditor.value = editorRef.value.getEditor();
+    console.log(tiptapEditor.value);
+  })
+
+</script>
+```
+
+Through the configuration and methods provided by the Tiptap editor, you can control the editor's features more flexibly and also implement some custom functionalities.

@@ -191,7 +191,11 @@ const defaultOptions = {
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
-    typographyRules: {},
+    typographyRules: {}, 
+    editorProps: {},
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
     autoSave: {
       enabled: true,
       interval: 300000,

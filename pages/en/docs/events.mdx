@@ -6,7 +6,7 @@ This section will introduce the events of Umo Editor. Through events, you can li
 
 ## Example
 
-```vue {4-25}
+```vue {4-26}
 <template>
   <umo-editor
     v-bind="options"
@@ -27,6 +27,7 @@ This section will introduce the events of Umo Editor. Through events, you can li
     @changed:page-watermark="onChangedPageWatermark"
     @changed:locale="onChangedLocale"
     @changed:theme="onChangedTheme"
+    @conent-error="onContentError"
     @print="onPrint"
     @focus="onFocus"
     @blur="onBlur"
@@ -166,6 +167,14 @@ const onChangedTheme = (theme) => {
   console.log('onChanged:theme', 'Theme setting has changed, available parameters:', theme);
 };
 
+// Content parsing error hook
+const onContentError = ({ editor, error, disableCollaboration }) => {
+  console.log(
+    'onContentError',
+    'Document content parsing error, available parameters:', { editor, error, disableCollaboration }
+  )
+}
+
 // Print event hook
 const onPrint = () => {
   console.log('onPrint', 'Editor gains focus, no available parameters');
@@ -214,6 +223,7 @@ const onDestroy = () => {
 | changed:pageWatermark | Page watermark information has changed | \{ pageWatermark, oldPageWatermark \} |
 | changed:locale | Language setting has changed <Badge theme="success">New in v2.0.0</Badge> | \{ locale, oldLocale \} |
 | changed:theme | Theme setting has changed <Badge theme="success">New in v2.1.0</Badge> | theme |
+| content-error | Document content parsing error <Badge theme="success">New in v2.3.0</Badge> | \{ editor, error, disableCollaboration \} |
 | print | Page print <Badge theme="success">New in v1.1.0</Badge> | - |
 | focus | Editor gains focus | \{ editor, event \} |
 | blur | Editor loses focus | \{ editor, event \} |

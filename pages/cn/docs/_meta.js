@@ -24,6 +24,7 @@ export default {
 	options: '配置项',
 	events: '事件列表',
 	methods: '方法列表',
+	tiptap: 'Tiptap 编辑器',
 	popup: '弹层组件',
 	'--extensions': {
 		type: 'separator',

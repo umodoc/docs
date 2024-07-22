@@ -1,0 +1,36 @@
+## Tiptap 实例
+
+Umo Editor 基于 [Tiptap](https://tiptap.dev/) 实现，并对外提供了一些 [方法](./methods)，更多的 Tiptap 编辑器信息可以先通过 `getEditor()` 获取 Tiptap 编辑器实例，进而获取 Tiptap 编辑器的状态信息和调用 Tiptap 的方法等。
+
+Tiptap 开发文档：https://tiptap.dev/docs/editor/getting-started/overview
+
+### 如何使用获取 Tiptap 编辑器实例
+
+```vue
+<template>
+  <umo-editor
+    ref="editorRef"
+    v-bind="options"
+  />
+</template>
+ 
+<script setup>
+  import { ref, reactive, onMounted } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
+
+  const editorRef = ref(null);
+  const tiptapEditor = ref({});
+  const options = ref({
+    // 配置项
+    // ...
+  })
+
+  onMounted(() => {
+    const tiptapEditor.value = editorRef.value.getEditor();
+    console.log(tiptapEditor.value);
+  })
+
+</script>
+```
+
+通过 Tiptap 编辑器提供的配置和方法，可以更灵活地控制编辑器的功能，同时也可以实现一些自定义功能。

@@ -24,6 +24,10 @@ import { Badge } from '/components/badge'
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
+    editorProps: {}, // v2.3.0 新增
+    parseOptions: { // v2.3.0 新增
+      preserveWhitespace: 'full',
+    },
     autoSave: { // v1.4.0 新增
       enabled: true,
       interval: 300000,
@@ -192,3 +196,33 @@ import { UmoEditor } from '@umoteam/editor'
 **配置项**:
 - `enabled`: Boolean，是否启用自动保存，默认值为 `true`。
 - `interval`: Number，自动保存的间隔时间，单位为毫秒，默认值为 `300000`（5 分钟）。
+
+### document.editorProps <Badge theme="success">v2.3.0 新增</Badge>
+
+**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向 [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) 传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps
+
+**示例**：
+```js
+{
+  editorProps: {
+    attributes: {
+      class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+    },
+    transformPastedText(text) {
+      return text.toUpperCase()
+    },
+  },
+}
+```
+
+**类型**：`Object`
+
+**默认值**：`{}`
+
+### document.parseOptions <Badge theme="success">v2.3.0 新增</Badge>
+
+**说明**：定义 [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) 解析行为，当你需要解析一个 DOM 节点或者一个原始文本字符串到 ProseMirror 的文档模型时，你可以使用 `document.parseOptions` 来自定义解析过程。。更多信息见：https://prosemirror.net/docs/ref/#model.ParseOptions
+
+**类型**：`Object`
+
+**默认值**：`{ preserveWhitespace: 'full' }`

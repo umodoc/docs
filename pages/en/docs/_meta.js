@@ -24,6 +24,7 @@ export default {
 	options: 'Configuration',
 	events: 'Events',
 	methods: 'Methods',
+	tiptap: 'Tiptap Editor',
 	popup: 'Popup',
 	'--extensions': {
 		type: 'separator',

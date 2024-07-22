@@ -24,6 +24,10 @@ This section is used to configure the display and behavior of the Umo Editor doc
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
+    editorProps: {}, // New in v2.3.0
+    parseOptions: { // New in v2.3.0
+      preserveWhitespace: 'full',
+    },
     autoSave: { // New in v1.4.0
       enabled: true,
       interval: 300000,
@@ -173,3 +177,34 @@ import { UmoEditor } from '@umoteam/editor'
 **Configuration Items**:
 - `enabled`: `Boolean`, whether to enable auto-save, default is `true`.
 - `interval`: `Number`, the interval between auto-saves in milliseconds, default is `300000` (5 minutes).
+
+
+### document.editorProps <Badge theme="success">v2.3.0 Added</Badge>
+
+**Description**：For advanced use cases, you can pass which will be handled by [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps). You can use it to override various editor events or change editor DOM element attributes, for example to add some Tailwind classes. For more information, see: https://prosemirror.net/docs/ref/#view.EditorProps
+
+**Example**：
+```js
+{
+  editorProps: {
+    attributes: {
+      class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+    },
+    transformPastedText(text) {
+      return text.toUpperCase()
+    },
+  },
+}
+```
+
+**Type**：`Object`
+
+**Default**：`{}`
+
+### document.parseOptions <Badge theme="success">v2.3.0 Added</Badge>
+
+**Description**：Passed content is parsed by [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps). To hook into the parsing, you can pass which are then handled by ProseMirror. For more information, see: https://prosemirror.net/docs/ref/#view.EditorProps
+
+**Type**：`Object`
+
+**Default**：`{ preserveWhitespace: 'full' }`
