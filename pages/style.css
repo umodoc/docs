@@ -26,7 +26,7 @@ body {
 }
 .nextra-toc-footer {
 	z-index: 11;
-	background-color: rgb(var(--nextra-bg));
+	background-color: var(--nextra-bg);
 }
 .nextra-breadcrumb {
 	margin-bottom: 40px;
