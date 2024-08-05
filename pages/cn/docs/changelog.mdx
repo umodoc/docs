@@ -2,8 +2,28 @@ import { Badge } from '/components/badge'
 
 # 更新日志
 
+## 🎉 v3.0.0<Badge>2024-08-04</Badge>
+1. **[重磅更新]** 添加 AI 文档助手，详见[AI 文档助手](./assistant)；
+2. **[重磅更新]** 添加工具栏和气泡菜单插槽，可以通过插槽实现更多自定义功能，详见[插槽列表](./slots)；
+3. **[重磅更新]** 开放了部分 UI 组件，详见[组件列表](./components)；
+4. **[重要提醒]** 从 v3.0 起不在支持通过浏览器直接引入的方式安装；
+5. 添加[`getTableOfContents`](./methods#gettableofcontents)方法，用以获取页面大纲信息，@qtch [(#26)](https://github.com/umodoc/editor/issues/26)；
+6. 添加[`getSelectionText`](./methods#getselectiontext)方法，用以获取当前选中文字文字内容，@qtch [(#35)](https://github.com/umodoc/editor/issues/35)；
+7. 添加[`getSelectionNode`](./methods#getselectionnode)方法，用以获取当前选中文字文字内容，@qtch [(#35)](https://github.com/umodoc/editor/issues/35)；
+8. 添加[`deleteSelectionNode`](./methods#deleteselectionnode)方法，用以删除当前选中节点；
+9. 添加缺少的依赖，解决 pnpm 幽灵依赖的问题，@xuzhenjun130 [(#27)](https://github.com/umodoc/editor/issues/27)；
+10. 修复电子签章插入按钮多语言不正确的问题，@shenghui-shan [(#30)](https://github.com/umodoc/editor/issues/30)；
+11. 修复菜单项中，下拉列表展开时，编辑器焦点丢失的问题，@qtch [(#33)](https://github.com/umodoc/editor/issues/30)；
+12. 修复图片上传触发两次上传方法的问题；
+13. 通过块级菜单中删除节点时，同步删除文件节点中已上传的文件；
+14. 修复插入图片、视频等节点宽度不正确问题；
+15. 按条件动态导入 KaTex 样式，大幅度减小样式打包体积；
+16. 更新 Tiptap 依赖到最新版本，同时修复因为升级依赖带来的各种兼容性问题；
+17. 调整依赖关系，简化 NPM 包安装方式；
+18. 其他细节调整。
+
 ## 🚀 v2.3.1<Badge>2024-07-22</Badge>
-1. `setContent` 方法默认触发更新方法，@qtch [(#24)](https://github.com/umodoc/editor/issues/25)，见 [setContent 方法](./methods#setcontent)；
+1. `setContent` 方法默认触发更新方法，@qtch [(#24)](https://github.com/umodoc/editor/issues/25)，见[setContent 方法](./methods#setcontent)；
 2. 修复数学公式样式错误 @GhostyCHEN [(#25)](https://github.com/umodoc/editor/issues/25)。
 
 ## 🚀 v2.3.0<Badge>2024-07-22</Badge>
@@ -18,8 +38,8 @@ import { Badge } from '/components/badge'
 9. 其他细节调整。
 
 ## 🚀 v2.2.0<Badge>2024-07-16</Badge>
-1. 增加 `focus` 方法的参数，见 [focus 方法](./methods#focus)；
-2. `setContent` 方法提供更多配置项，用以控制设置内容后的行为，见 [setContent 方法](./methods#setcontent) @shenghui-shan [(#15)](https://github.com/umodoc/editor/issues/15)；
+1. 增加 `focus` 方法的参数，见[focus 方法](./methods#focus)；
+2. `setContent` 方法提供更多配置项，用以控制设置内容后的行为，见[setContent 方法](./methods#setcontent) @shenghui-shan [(#15)](https://github.com/umodoc/editor/issues/15)；
 3. 修复重新加载组件后，气泡菜单不显示的 Bug  @shenghui-shan [(#12)](https://github.com/umodoc/editor/issues/12)；
 4. 修复改变文字颜色和背景颜色时，选择更多颜色时，选中的文本背景丢失的 Bug @qtch [(#17)](https://github.com/umodoc/editor/issues/13)；
 5. 修复 readonly 为 true 的时候 ，目录大纲跳转定位失效的 Bug @shenghui-shan [(#17)](https://github.com/umodoc/editor/issues/17)；
@@ -28,18 +48,18 @@ import { Badge } from '/components/badge'
 
 
 ## 🚀 v2.1.0<Badge>2024-07-06</Badge>
-添加暗色模式支持，见 https://demo.umodoc.com/editor?lang=cn&theme=dark。
+添加暗色模式支持，见 https://demo.umodoc.com/editor?lang=zh-CN&theme=dark。
 
 ## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
-1. 添加多语言支持，目前已支持简体中文和 English，见 [`locales`](./options/locales)；
+1. 添加多语言支持，目前已支持简体中文和 English，见[`locales`](./options/locales)；
 2. 代码仓库中的目录、文件、代码结构调整和重构；
 3. 提供中英文开发文档和在线示例；
 4. 部分 API 发生变化，主要变更如下：
-    - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见 [页面配置](./options/page#pagedefaultorientation)；
-    - 新增 `locale` 和 `translations` 配置，见 [自定义本地化语言配置](./options/locales)；
-    - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见 [方法列表](./methods#getlocale)；
-    - 新增 `changed:locale` 事件，见 [事件列表](./events)。
-    - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见 [默认配置](./options/default)；
+    - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见[页面配置](./options/page#pagedefaultorientation)；
+    - 新增 `locale` 和 `translations` 配置，见[自定义本地化语言配置](./options/locales)；
+    - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见[方法列表](./methods#getlocale)；
+    - 新增 `changed:locale` 事件，见[事件列表](./events)。
+    - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见[默认配置](./options/default)；
 5. 更新依赖项；
 6. 修复若干错误和问题；
 7. 优化部分细节。
@@ -48,8 +68,8 @@ import { Badge } from '/components/badge'
 添加 `npm` 安装说明等 @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5)。
 
 ## 🚀 v1.4.0<Badge>2024-06-03</Badge>
-1. 添加自定义插件支持，见 [`extensions`](./options/extensions)；
-2. 添加自动保存参数，见 [`document.autoSave`](./options/document#autosave)；
+1. 添加自定义插件支持，见[`extensions`](./options/extensions)；
+2. 添加自动保存参数，见[`document.autoSave`](./options/document#autosave)；
 3. 修复页面大纲内容过多时显示错乱的 Bug @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2)。
 
 ## 🚀 v1.3.1<Badge>2024-06-02</Badge>
@@ -64,7 +84,7 @@ import { Badge } from '/components/badge'
 
 ## 🚀 v1.2.2<Badge>2024-05-24</Badge>
 1. 打印设置使用本地缓存；
-2. 还原 [`cdnUrl`](../options/cdn) 的默认值；
+2. 还原[`cdnUrl`](../options/cdn)的默认值；
 3. 简化菜单按钮配置，提高响应速度；
 4. 更新依赖项；
 
@@ -81,7 +101,7 @@ import { Badge } from '/components/badge'
 3. 优化页面大纲，按大纲层级缩进显示；
 4. 修复插入链接弹框不显示标题的 Bug；
 5. 修复分割线气泡菜单显示错误的 Bug；
-6. 修改 [`cdnUrl`](../options/cdn) 的默认值；
+6. 修改[`cdnUrl`](../options/cdn)的默认值；
 7. 优化细节。
 
 ## 🚀 v1.1.2<Badge>2024-05-22</Badge>
@@ -93,7 +113,7 @@ import { Badge } from '/components/badge'
 ## 🚀 v1.1.0<Badge>2024-05-22</Badge>
 1. 新增文档预览功能；
 2. 新增文档打印功能；
-3. 将 Umo Editor 所依赖的部分第三方模块单独发布成 [@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external) 包；
+3. 将 Umo Editor 所依赖的部分第三方模块单独发布成[@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external)包；
 4. 优化部分细节。
 
 

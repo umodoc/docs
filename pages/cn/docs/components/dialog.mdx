@@ -1,0 +1,71 @@
+# 对话框组件
+
+对话框组件用于弹出一个对话框，用户可以进行一些操作。
+
+## 示例
+
+见：https://demo.umodoc.com/components?lang=zh-CN
+
+## 使用方法
+
+```vue
+<template>
+<button @click="openDialog">打开对话框</button>
+
+<umo-dialog
+  :visible="visible"
+  header="这是一个对话框组件"
+  width="560px"
+  @confirm="onConfirm"
+  @close="onClose"
+>
+  <div>这里放置要显示的内容</div>
+</umo-dialog>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoDialog } from '@umoteam/editor'
+
+const visible = ref(false)
+
+const openDialog = () => {
+  visible.value = true
+}
+const onConfirm = () => {
+  visible.value = false
+}
+const onClose = () => {
+  visible.value = false
+}
+</script>
+```
+
+## 属性（Props）
+
+### visible
+
+**说明**：是否显示对话框
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### 其他
+
+Umo Editor 对话框基于 TDesign Vue Next 的[Dialog 组件](https://tdesign.tencent.com/vue-next/components/dialog?tab=api)进行二次封装，支持绝大部分 TDesign Vue Next 的 Dialog 组件的属性。
+
+## 插槽（Slots）
+
+### default
+
+**说明**：对话框内容
+
+## 事件（Events）
+
+Umo Editor 对话框基于 TDesign Vue Next 的[Dialog 组件](https://tdesign.tencent.com/vue-next/components/dialog?tab=api)进行二次封装，支持绝大部分 TDesign Vue Next 的 Dialog 组件的方法。
+
+## 函数式调用
+
+详细使用方法，请参考：[消息提醒](../notifications)。
+

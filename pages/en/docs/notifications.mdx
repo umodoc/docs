@@ -1,8 +1,8 @@
-# 弹层组件
+# Notifications Component
 
-Umo Editor 采用 [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview) 作为基础组件库，为了方便开发者使用，对外提供了封装的 Alert，Confirm，Message 等常用弹层组件的方法。您可以访问 https://demo.umodoc.com/editor?tab=events&lang=cn ，点击对应的按钮查看示例。
+Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as the foundational component library. To facilitate developer usage, it provides encapsulated methods for common messsage components such as Alert, Confirm, and Message. You can visit https://demo.umodoc.com/editor?pane=events&lang=en-US to view the examples by clicking the corresponding buttons.
 
-## 示例
+## Example
 ```vue
 <template>
   <umo-editor
@@ -13,18 +13,18 @@ Umo Editor 采用 [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overvi
   <button @click="useConfirm">useConfirm</button>
   <button @click="useMessage">useMessage</button>
 </template>
- 
+
 <script setup>
   import { ref } from 'vue';
   import { UmoEditor } from '@umoteam/editor';
 
   const editorRef = ref(null);
   const options = ref({
-    // 配置项
+    // Configuration options
     // ...
   })
 
-  // 使用 Alert
+  // Using Alert
   const useAlert = () => {
     editorRef.value.useAlert({
       theme: 'success',
@@ -33,7 +33,7 @@ Umo Editor 采用 [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overvi
     })
   }
 
-  // 使用 Confirm
+  // Using Confirm
   const useConfirm = () => {
     const confirm = editorRef.value.useConfirm({
       theme: 'success',
@@ -45,23 +45,23 @@ Umo Editor 采用 [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overvi
     })
   }
 
-  // 使用 Message
+  // Using Message
   const useMessage = () => {
     editorRef.value.useMessage('info', 'Hello World')
   }
 </script>
 ```
 
-## 组件使用说明
+## Component Usage Instructions
 
 ### useAlert
 
-Alert 弹层组件，详见 https://tdesign.tencent.com/vue-next/components/dialog?tab=api 。
+The Alert dialog component, for details see https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api.
 
 ### useConfirm
 
-Confirm 弹层组件，详见 https://tdesign.tencent.com/vue-next/components/dialog?tab=api 。
+The Confirm dialog component, for details see https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api.
 
 ### useMessage
 
-Message 弹层组件，详见 https://tdesign.tencent.com/vue-next/components/message?tab=api 。
+The Message component, for details see https://tdesign.tencent.com/vue-next/components/message-en?tab=api.

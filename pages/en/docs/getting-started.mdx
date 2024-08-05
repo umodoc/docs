@@ -1,67 +1,19 @@
-import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
 
 # Quick Start
 
 Umo-Editor is a document editor based on Vue3.
-You can visit [https://demo.umodoc.com/editor](https://demo.umodoc.com/editor?lang=en) to experience and test some features of Umo-Editor.
+You can visit [https://demo.umodoc.com/editor](https://demo.umodoc.com/editor?lang=en-US) to experience and test some features of Umo-Editor.
 
 ## Installation
 
 ### Install with NPM
 
-<Tabs items={['npm', 'yarn', 'pnpm']}>
-<Tabs.Tab>
-```bash
-npm config set "@tiptap-pro:registry" https://registry.tiptap.dev/ 
-npm config set "//registry.tiptap.dev/:_authToken" 9fsQEgp8C8pbxpk8PFAjYn64BtBDq6HfXmI2qgpnI7XYr/OwHaMvOUIE5mfVR49y
-npm install --save @umoteam/editor @umoteam/editor-external
+```sh npm2yarn
+npm install --save @umoteam/editor
 ```
-</Tabs.Tab>
-<Tabs.Tab>
-```bash
-yarn config set "@tiptap-pro:registry" https://registry.tiptap.dev/ 
-yarn config set "//registry.tiptap.dev/:_authToken" 9fsQEgp8C8pbxpk8PFAjYn64BtBDq6HfXmI2qgpnI7XYr/OwHaMvOUIE5mfVR49y
-yarn add @umoteam/editor @umoteam/editor-external
-```
-</Tabs.Tab>
-<Tabs.Tab>
-```bash
-pnpm config set "@tiptap-pro:registry" https://registry.tiptap.dev/ 
-pnpm config set "//registry.tiptap.dev/:_authToken" 9fsQEgp8C8pbxpk8PFAjYn64BtBDq6HfXmI2qgpnI7XYr/OwHaMvOUIE5mfVR49y
-pnpm add @umoteam/editor @umoteam/editor-external
-```
-</Tabs.Tab>
-</Tabs>
 
 Umo Editor provides both ES and UMD formats for files, which can be used as needed. Typically, the ES version is used in engineered projects, and the UMD version is used in browsers.
-
-### Install by Including in Browser
-
-```html
-<script src="https://unpkg.com/vue"></script> 
-<!-- Include required dependencies on demand -->
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/mermaid.min.js"></script> 
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/katex/katex.min.js"></script> 
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/plyr.min.js"></script> 
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/qrcode-svg.min.js"></script> 
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/jsbarcode.all.min.js"></script> 
-<!-- Include Umo Editor -->
-<script src="https://unpkg.com/@umoteam/editor/dist/umd/umo-editor.js"></script> 
-<link rel="stylesheet" href="https://unpkg.com/@umoteam/editor/dist/umd/style.css"  />
-...
-<script>
-  const app = Vue.createApp();
-  app.use(UmoEditor.useUmoEditor, {
-    // Configuration options
-    // ...
-  });
-  app.mount('#app');
-</script>
-```
-<Callout type="info">
-The file paths above can be configured with CDN for local resources. See [CDN Configuration - Using Local Resources](../options/cdn#using-local-resources).
-</Callout>
 
 ## Usage
 
@@ -149,4 +101,4 @@ Umo Editor does not currently support SSR. In Nuxt3, when in SSR mode, you can u
 
 ## Configuration
 
-See the [Default Configuration](/en/docs/options/default) section.
+See the [Default Configuration](/en/docs/options/default).

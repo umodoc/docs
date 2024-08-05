@@ -2,7 +2,7 @@ import { Badge } from '/components/badge'
 
 # 方法列表
 
-本节介绍 Umo Editor 的方法，通过 Umo Editor 提供的方法，可以对 Umo Editor 进行一些常规操作。您可以访问 https://demo.umodoc.com/editor?tab=events&lang=cn ，点击对应的方法按钮，查看方法的使用。
+本节介绍 Umo Editor 的方法，通过 Umo Editor 提供的方法，可以对 Umo Editor 进行一些常规操作。您可以访问[https://demo.umodoc.com/editor?pane=events&lang=zh-CN](https://demo.umodoc.com/editor?pane=events&lang=zh-CN)，点击对应的方法按钮，查看方法的使用。
 
 ## 示例
 
@@ -69,7 +69,7 @@ import { Badge } from '/components/badge'
 
 - `size`：String，页面大小，应为 `dicts.pageSizes` 中提供的 `label` 值，如 A4。
 - `orientation`：String，页面方向，可选值为 `portrait`、`landscape`。
-- `background`：String，页面背景，合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。。
+- `background`：String，页面背景，合法的[CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。。
 - `showBreakMarks`：Boolean，是否显示换行符。
 
 **返回值**：无。
@@ -82,9 +82,9 @@ import { Badge } from '/components/badge'
 
 - `type`: String，水印类型，可选值为：`compact`、`spacious`。
 - `alpha`: Number，水印透明度，可选值为：0-1。
-- `fontColor`: String，字体颜色，可选值为：合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value) 值。
+- `fontColor`: String，字体颜色，可选值为：合法的[CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。
 - `fontSize`: Number，字体大小，单位为 px。
-- `fontFamily`: Number，字体，合法的 [CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family) 值。
+- `fontFamily`: Number，字体，合法的[CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)值。
 - `fontWeight`: Sring，字体粗细，可选值为：`normal`、`bold`、`bolder`。
 - `text`: String，水印内容，建议不超过 30 个字符。
 
@@ -110,7 +110,7 @@ import { Badge } from '/components/badge'
 
 **参数**：
 
-- `content` : 合法的 HTML 格式或其他合法的 [Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+- `content` : 合法的 HTML 格式或其他合法的[Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
 - `options` :  // v2.2.0 新增
   - `emitUpdate`: `true`，是否触发更新事件。
   - `focusPosition`: focus 位置，可选值为：'start' | 'end' | 'all' | number | boolean | null (false)。
@@ -201,6 +201,55 @@ import { Badge } from '/components/badge'
 
 **返回值**：Tiptap Editor 实例。
 
+### getTableOfContents 
+
+**说明**：获取页面大纲，更多页面大纲信息可以通过 `getEditor()` 获取编辑器实例后，`editor.storage.tableOfContents` 获取。 <Badge theme="success">v3.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：
+```js
+[
+  {
+    dom: HTMLElement, // 当前锚点对应的HTML元素
+    editor: Editor, // 编辑器实例
+    id: String, // 节点 ID
+    isActive: Boolean, // 当前锚点是否处于激活状态
+    isScrolledOver: Boolean, // 这个锚点是否已经被滚动经过
+    itemIndex: Number, // 在当前层级上的项目索引
+    level: Number, // 项目的当前层级 - 这可能与实际的锚点层级不同，用于从高级到低级渲染层次结构
+    node: Node, // 当前锚点对应的 ProseMirror 节点
+    originalLevel: Number, // 实际层级
+    pos: Number, // 锚点节点的位置
+    textContent: String // 锚点的文本内容
+  }
+]
+```
+
+### getSelectionText 
+
+**说明**：获取当前选中文字文字内容。 <Badge theme="success">v3.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：无
+
+### getSelectionNode
+
+**说明**：获取当前选中节点信息。 <Badge theme="success">v3.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：Tiptap Node。
+
+### deleteSelectionNode
+
+**说明**：删除当前选中的节点。 <Badge theme="success">v3.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：无
+
 ### getLocale 
 
 **说明**：返回 Umo Editor 的显示语言。 <Badge theme="success">v2.0.0 新增</Badge>
@@ -211,7 +260,7 @@ import { Badge } from '/components/badge'
 
 ### getI18n 
 
-**说明**：返回 [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html) 实例。 <Badge theme="success">v2.0.0 新增</Badge>
+**说明**：返回[`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html)实例。 <Badge theme="success">v2.0.0 新增</Badge>
 
 **参数**：无。
 
@@ -255,4 +304,4 @@ import { Badge } from '/components/badge'
 
 ## 更多方法
 
-Umo Editor 基于 [Tiptap](https://tiptap.dev/) 实现，更多 Tiptap 内部方法请查看 [Tiptap 编辑器](./tiptap)。
+Umo Editor 基于[Tiptap](https://tiptap.dev/)实现，更多 Tiptap 内部方法请查看[Tiptap 编辑器](./tiptap)。

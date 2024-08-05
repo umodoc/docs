@@ -10,7 +10,7 @@ export default {
 	demo: {
 		title: '在线示例',
 		type: 'page',
-		href: 'https://demo.umodoc.com/editor?lang=cn',
+		href: 'https://demo.umodoc.com/editor?lang=zh-CN',
 		newWindow: true
 	}
 };

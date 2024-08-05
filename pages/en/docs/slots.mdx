@@ -1,0 +1,85 @@
+# Slots
+
+Since version v3.0, Umo Editor has introduced slot functionality, enabling users to achieve more customization through the use of slots.
+
+## Toolbar Slot
+
+Via the slot, custom content can be inserted after specified menus in the toolbar.
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <!-- "Home" menu slot -->
+    <template #toolbar_base="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- "Insert" menu slot -->
+    <template #toolbar_insert="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- "Table" menu slot -->
+    <template #toolbar_table="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- "Tools" menu slot -->
+    <template #toolbar_tools="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- "Page" menu slot -->
+    <template #toolbar_page="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- "Export" menu slot -->
+    <template #toolbar_export="props">
+      <span>slot：{{ props }}</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // Configuration options
+    // ...
+  });
+</script>
+```
+
+### Named Slots
+
+- `toolbar_base`: Insert custom content after the "Start" menu in the toolbar.
+- `toolbar_insert`: Insert custom content after the "Insert" menu in the toolbar.
+- `toolbar_table`: Insert custom content after the "Table" menu in the toolbar.
+- `toolbar_tools`: Insert custom content after the "Tools" menu in the toolbar.
+- `toolbar_page`: Insert custom content after the "Page" menu in the toolbar.
+- `toolbar_export`: Insert custom content after the "Export" menu in the toolbar.
+
+### Slot Arguments
+
+- `props.toolbarMode`: `String` The current toolbar type selected by the user, possible values are: `ribbon`, `classic`.
+
+## Bubble Menu Slot
+
+Via the slot, custom content can be inserted after the bubble menu, currently only supporting the addition of custom content to text nodes.
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #bubble_menu>
+      <span>slot</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // Configuration options
+    // ...
+  });
+</script>
+```

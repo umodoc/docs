@@ -22,12 +22,6 @@ This section is used to preset document templates, which users can select to qui
 
 **Default**: `[]`
 
-**Configuration Items**:
-
-- `name`: `String`, the name of the template, ideally within 12 characters.
-- `description`: `String`, a brief introduction to the template, ideally within 60 characters.
-- `content`: The template content, valid HTML format or other valid [Tiptap Output](https://tiptap.dev/docs/editor/guide/output).
-
 **Example**:
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
@@ -77,3 +71,9 @@ const templates = ref([
 ```
 </Tabs.Tab>
 </Tabs>
+
+**Configuration Items**:
+
+- `item.name`: `String`, the name of the template, ideally within 12 characters.
+- `item.description`: `String`, a brief introduction to the template, ideally within 60 characters.
+- `item.content`: The template content, valid HTML format or other valid [Tiptap Output](https://tiptap.dev/docs/editor/guide/output).

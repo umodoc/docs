@@ -22,12 +22,6 @@ import { Tabs } from 'nextra/components'
 
 **默认值**：`[]`
 
-**配置项**:
-
-- `name`: String，模板名称，长度 12 字符以内为宜。
-- `description`: String，模板简介，长度 60 字符以内为宜。
-- `content`: 模板内容，合法的 HTML 格式或其他合法的 [Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
-
 **示例**:
 
 <Tabs items={['全局配置', 'SFC 配置']}>
@@ -77,3 +71,9 @@ const templates = ref([
 ```
 </Tabs.Tab>
 </Tabs>
+
+**配置项**:
+
+- `item.name`: String，模板名称，长度 12 字符以内为宜。
+- `item.description`: String，模板简介，长度 60 字符以内为宜。
+- `item.content`: 模板内容，合法的 HTML 格式或其他合法的[Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。

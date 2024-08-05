@@ -1,0 +1,85 @@
+# 插槽
+
+Umo Editor 自 v3.0 版本开始，提供了插槽功能，允许用户通过插槽，实现更多自定义功能。
+
+## 工具栏插槽
+
+通过插槽，向工具栏指定菜单后方插入自定义内容。
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <!-- “开始”菜单插槽 -->
+    <template #toolbar_base="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- “插入”菜单插槽 -->
+    <template #toolbar_insert="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- “表格”菜单插槽 -->
+    <template #toolbar_table="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- “工具”菜单插槽 -->
+    <template #toolbar_tools="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- “页面”菜单插槽 -->
+    <template #toolbar_page="props">
+      <span>slot：{{ props }}</span>
+    </template>
+    <!-- “导出”菜单插槽 -->
+    <template #toolbar_export="props">
+      <span>slot：{{ props }}</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+</script>
+```
+
+### 具名插槽
+
+- `toolbar_base`: 向工具栏“开始”菜单后方插入自定义内容。
+- `toolbar_insert`: 向工具栏“插入”菜单后方插入自定义内容。
+- `toolbar_table`: 向工具栏“表格”菜单后方插入自定义内容。
+- `toolbar_tools`: 向工具栏“工具”菜单后方插入自定义内容。
+- `toolbar_page`: 向工具栏“页面”菜单后方插入自定义内容。
+- `toolbar_export`: 向工具栏“导出”菜单后方插入自定义内容`。
+
+### 插槽参数
+
+- `props.toolbarMode`: `String` 用户当前选择的工具栏类型，可能的值为：`ribbon`、`classic`。
+
+## 气泡菜单插槽
+
+通过插槽，向气泡菜单后方插入自定义内容，目前仅支持向文本节点添加自定义内容。
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #bubble_menu>
+      <span>slot</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+</script>
+```

@@ -40,7 +40,7 @@ import { Badge } from '/components/badge'
 
 ### document.title
 
-**说明**：文档标题，用于导出的文件名称等，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置或修改文档标题。
+**说明**：文档标题，用于导出的文件名称等，您可以通过[setDocument 方法](../methods#setdocument)来动态设置或修改文档标题。
 
 **类型**：`String`
 
@@ -48,7 +48,7 @@ import { Badge } from '/components/badge'
 
 ### document.content
 
-**说明**：初始的文档内容，用户可修改，您可以通过 [setContent 方法](../methods#setcontent) 来动态设置或修改文档内容。
+**说明**：初始的文档内容，用户可修改，您可以通过[setContent 方法](../methods#setcontent)来动态设置或修改文档内容。
 
 **类型**：`String`
 
@@ -64,7 +64,7 @@ import { Badge } from '/components/badge'
 
 ### document.enableSpellcheck
 
-**说明**：是否启用浏览器拼写检查，启用时用户可手动关闭，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否启用浏览器拼写检查。
+**说明**：是否启用浏览器拼写检查，启用时用户可手动关闭，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否启用浏览器拼写检查。
 
 **类型**：`Boolean`
 
@@ -72,7 +72,7 @@ import { Badge } from '/components/badge'
 
 ### document.enableMarkdown
 
-**说明**：是否启用 Markdown 语法，启用时用户可手动关闭，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否启用  Markdown 语法。
+**说明**：是否启用 Markdown 语法，启用时用户可手动关闭，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否启用  Markdown 语法。
 
 **类型**：`Boolean`
 
@@ -80,7 +80,7 @@ import { Badge } from '/components/badge'
 
 ### document.enableBubbleMenu
 
-**说明**：是否启用气泡菜单，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否显示气泡菜单。
+**说明**：是否启用气泡菜单，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否显示气泡菜单。
 
 **类型**：`Boolean`
 
@@ -88,7 +88,7 @@ import { Badge } from '/components/badge'
 
 ### document.enableBlockMenu <Badge theme="success">v1.3.0 新增</Badge>
 
-**说明**：是否启用块级菜单，您可以通过 [setDocument 方法](../methods#setdocument) 来动态设置是否显示块级菜单。
+**说明**：是否启用块级菜单，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否显示块级菜单。
 
 **类型**：`Boolean`
 
@@ -96,7 +96,7 @@ import { Badge } from '/components/badge'
 
 ### document.readOnly
 
-**说明**：文档是否只读，为 `true` 时用户无法编辑当前文档，您可以通过 [setReadOnly 方法](../methods#setreadonly) 来文档是否只读。
+**说明**：文档是否只读，为 `true` 时用户无法编辑当前文档，您可以通过[setReadOnly 方法](../methods#setreadonly)来设置文档是否只读。
 
 **类型**：`Boolean`
 
@@ -104,7 +104,7 @@ import { Badge } from '/components/badge'
 
 ### document.autofocus
 
-**说明**：文档是否自动获得光标焦点，您可以通过 [focus 方法](../methods#focus) 来设置文档是否获得光标焦点。
+**说明**：文档是否自动获得光标焦点，您可以通过[focus 方法](../methods#focus)来设置文档是否获得光标焦点。
 
 
 **类型**：`Boolean`
@@ -189,7 +189,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 ### document.autoSave <Badge theme="success">v1.4.0 新增</Badge> [#autosave]
 
-**说明**：文档自动保存配置，您可以通过 [setDocument 方法](/methods#setdocument) 来动态设置或修改此配置。
+**说明**：文档自动保存配置，您可以通过[setDocument 方法](/methods#setdocument)来动态设置或修改此配置。
 
 **类型**：`Object`
 
@@ -199,7 +199,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 ### document.editorProps <Badge theme="success">v2.3.0 新增</Badge>
 
-**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向 [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) 传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps
+**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps
 
 **示例**：
 ```js
@@ -221,7 +221,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 ### document.parseOptions <Badge theme="success">v2.3.0 新增</Badge>
 
-**说明**：定义 [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) 解析行为，当你需要解析一个 DOM 节点或者一个原始文本字符串到 ProseMirror 的文档模型时，你可以使用 `document.parseOptions` 来自定义解析过程。。更多信息见：https://prosemirror.net/docs/ref/#model.ParseOptions
+**说明**：定义[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)解析行为，当你需要解析一个 DOM 节点或者一个原始文本字符串到 ProseMirror 的文档模型时，你可以使用 `document.parseOptions` 来自定义解析过程。更多信息见：https://prosemirror.net/docs/ref/#model.ParseOptions
 
 **类型**：`Object`
 

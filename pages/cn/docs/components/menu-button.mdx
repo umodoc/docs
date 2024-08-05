@@ -1,0 +1,175 @@
+# 菜单按钮组件
+
+菜单按钮组件用来在菜单上显示按钮和执行操作，通常可以在工具栏菜单，气泡菜单和块级菜单等菜单中使用。
+
+## 示例
+
+见：https://demo.umodoc.com/components?lang=zh-CN
+
+## 使用方法
+
+```vue
+<template>
+<umo-menu-button
+  :ico="demoIcon"
+  text="示例按钮"
+/>
+</template>
+
+<script setup>
+import { UmoMenuButton } from '@umoteam/editor'
+
+const demoIcon = `<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 6H8a2 2 0 0 0-2 2v8M16 42H8a2 2 0 0 1-2-2v-8M32 42h8a2 2 0 0 0 2-2v-8M32 6h8a2 2 0 0 1 2 2v8M32 24H16M24 32V16" stroke="var(--umo-error-color)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+</script>
+```
+
+## 属性（Props）
+
+### menuType
+
+**说明**：菜单类型
+
+**可选值**：`button`, `dropdown`, `select`, `popup`
+
+**类型**：`String`
+
+**默认值**：`button`
+
+### huge
+
+**说明**：是否为显示为大按钮
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### ico
+
+**说明**：菜单的 SVG 图标，需要传入合法的 HTML
+
+**类型**：`string`
+
+**默认值**：`-`
+
+### text
+
+**说明**：菜单显示的文本，在 `tooltip` 不为 `false` 的情况下，`text` 的值也会显示到 tooltip 中
+
+**类型**：`string`
+
+**默认值**：`''`
+
+### hideText
+
+**说明**：是否隐藏菜单的文本
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### tooltip
+
+**说明**：菜单的文字提示，如果为 `false` 则不显示 Tooltip
+
+**类型**：`[String, Boolean]`
+
+**默认值**：`undefined`
+
+### shortcut
+
+**说明**：菜单绑定的快捷键名称，在 `tooltip` 上显示，Umo Editor 内部会处理输入快捷键在不同平台上的显示，比如 `Ctrl+Shift+X` 在 MacOS 上会显示为 `⌘+⇧+X`
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+### shortcutText
+
+**说明**：菜单绑定的快捷键，直接在菜单上直接显示，一般需要将 hideText 设为 `false`，同时需要处理所显示快捷键的样式，可以用于块级菜单和右键菜单等
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+### selectOptions
+
+**说明**：当 `menuType` 为 `select` 或 `dropdown` 时，下拉项的配置
+
+**类型**：`Array`
+
+**默认值**：`-`
+
+### selectValue
+
+**说明**：当 `menuType` 为 `select` 时，菜单的选中值
+
+**类型**：`[String, Number]`
+
+**默认值**：`-`
+
+### popupVisible
+
+**说明**：当 `menuType` 为 `popup` 时，是否显示 Popup
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### popupHandle
+
+**说明**：当 `menuType` 为 `popup` 时，点击菜单按钮哪个区域打开 Popup，默认为点击整个按钮
+
+**可选值**：`arrow`，即点击箭头打开 Popup
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### menuActive
+
+**说明**：菜单按钮是否处于选中状态
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### disabled
+
+**说明**：菜单按钮是否禁用
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### 其他
+
+Umo Editor 采用[TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview)作为基础组件库，菜单按钮支持绝大部分所使用 TDesign Vue Next 的组件的属性。
+
+## 插槽（Slots）
+
+### default
+
+**说明**：菜单按钮的默认插槽，可以放置菜单按钮的内容，同时也包括 `select`, `dropdown`, `popup` 等组件的默认内容。
+
+### dropmenu
+
+**说明**：当 `menuType` 为 `dropdown` 时，菜单按钮的弹出菜单内容，见：https://tdesign.tencent.com/vue-next/components/dropdown?tab=api
+
+### content
+
+**说明**：当 `menuType` 为 `popup` 时，菜单按钮的弹出内容，见：https://tdesign.tencent.com/vue-next/components/popup?tab=api
+
+
+### 其他
+
+Umo Editor 采用[TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview)作为基础组件库，菜单按钮支持绝大部分所使用 TDesign Vue Next 的组件的插槽。
+
+## 事件（Events）
+
+### menuClick
+
+**说明**：菜单按钮被点击时触发
+
+### 其他
+
+Umo Editor 采用[TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview)作为基础组件库，菜单按钮支持绝大部分所使用 TDesign Vue Next 的组件的事件。

@@ -5,18 +5,9 @@ export default {
 	},
 	index: '基本介绍',
 	features: '核心特性',
-	roadmap: '开发计划',
-	changelog: '更新日志',
-	faq: {
-		title: '常见问题',
-		toc: false
-	},
-	'--start': {
-		type: 'separator',
-		title: '快速上手'
-	},
 	'getting-started': '快速开始',
-	theme: '主题定制',
+	changelog: '更新日志',
+	roadmap: '开发计划',
 	'--api': {
 		type: 'separator',
 		title: '接口说明'
@@ -24,8 +15,16 @@ export default {
 	options: '配置项',
 	events: '事件列表',
 	methods: '方法列表',
+	assistant: 'AI 文档助手',
 	tiptap: 'Tiptap 编辑器',
-	popup: '弹层组件',
+	'--ui': {
+		type: 'separator',
+		title: 'UI 相关'
+	},
+	themes: '主题定制',
+	slots: '插槽列表',
+	components: '组件列表 (Beta)',
+	notifications: '消息提醒',
 	'--extensions': {
 		type: 'separator',
 		title: '自定义插件'

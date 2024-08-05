@@ -3,30 +3,48 @@ import { Badge } from '/components/badge'
 
 # Default Configuration
 
-The default configuration for Umo Editor allows you to modify and preview some settings online at [https://demo.umodoc.com/editor](https://demo.umodoc.com/editor?lang=en).
+The default configuration for Umo Editor allows you to modify and preview some settings online at [https://demo.umodoc.com/editor](https://demo.umodoc.com/editor?lang=en-US).
 
 ## All Configurations
 
 ``` js showLineNumbers
 const defaultOptions = {
   editorKey: 'default',
+  locale: 'zh-CN',
+  theme: 'light',
   height: '100%',
-  locale:'zh-CN',
-  theme:'light',
   dicts: {
     fonts: [
       { label: { en_US: 'Default Font', zh_CN: '默认字体' }, value: null },
       { label: { en_US: 'Songti', zh_CN: '宋体' }, value: 'SimSun' },
       { label: { en_US: 'Heiti', zh_CN: '黑体' }, value: 'SimHei' },
       { label: { en_US: 'Kaiti', zh_CN: '楷体' }, value: 'KaiTi' },
-      { label: { en_US: 'Kaiti GB2312', zh_CN: '楷体_GB2312' }, value: 'KaiTi_GB2312' },
+      {
+        label: { en_US: 'Kaiti GB2312', zh_CN: '楷体_GB2312' },
+        value: 'KaiTi_GB2312',
+      },
       { label: { en_US: 'Fangsong', zh_CN: '仿宋' }, value: 'FangSong' },
-      { label: { en_US: 'Fangsong GB2312', zh_CN: '仿宋_GB2312' }, value: 'FangSong_GB2312' },
+      {
+        label: { en_US: 'Fangsong GB2312', zh_CN: '仿宋_GB2312' },
+        value: 'FangSong_GB2312',
+      },
       { label: { en_US: 'STSong', zh_CN: '华文宋体' }, value: 'STSong' },
-      { label: { en_US: 'STFangsong', zh_CN: '华文仿宋' }, value: 'STFangsong' },
-      { label: { en_US: 'FZ Fangsong Simplified', zh_CN: '方正仿宋简体' }, value: 'FZFangSong-Z02S' },
-      { label: { en_US: 'FZ Xiaobiao Song', zh_CN: '方正小标宋' }, value: 'FZXiaoBiaoSong-B05S' },
-      { label: { en_US: 'Microsoft Yahei', zh_CN: '微软雅黑' }, value: 'Microsoft Yahei' },
+      {
+        label: { en_US: 'STFangsong', zh_CN: '华文仿宋' },
+        value: 'STFangsong',
+      },
+      {
+        label: { en_US: 'FZ Fangsong Simplified', zh_CN: '方正仿宋简体' },
+        value: 'FZFangSong-Z02S',
+      },
+      {
+        label: { en_US: 'FZ Xiaobiao Song', zh_CN: '方正小标宋' },
+        value: 'FZXiaoBiaoSong-B05S',
+      },
+      {
+        label: { en_US: 'Microsoft Yahei', zh_CN: '微软雅黑' },
+        value: 'Microsoft Yahei',
+      },
       { label: 'Arial', value: 'Arial' },
       { label: 'Times New Roman', value: 'Times New Roman' },
       { label: 'Verdana', value: 'Verdana' },
@@ -38,6 +56,7 @@ const defaultOptions = {
       { label: 'Comic Sans MS', value: 'Comic Sans MS' },
       { label: 'Impact', value: 'Impact' },
     ],
+    // prettier-ignore
     colors: [
       '#FFF','#000','#4A5366','#3B74EC','#45A2EF','#529867','#CD4A3F','#EA8D40','#EEC543', '#8E45D0','#F2F2F2','#7F7F7F','#F4F5F7','#CBDCFC','#E8F6FE','#EDFAF2','#FCEAE9','#FDF3EC','#FEF9E5','#FAECFE','#EEE','#595959','#C6CAD2','#CEEBFD','#CBDCFC','#CBE9D7','#F7CBC9','#FADDC7','#FDEEB5','#EBCAFC', '#BFBFBF','#3F3F3F','#828B9D','#A0BEFA','#A7DCFC','#A6D5B8','#F2A19C','#F5BC8C','#FBE281','#CB94F9','#A5A5A5','#262626','#363B44','#2452B2','#3473A1','#417A53','#922B22','#AD642A','#9E8329','#57297D','#939393','#0D0D0D','#25272E','#15316A','#1C415A','#284D34','#511712','#573213','#635217','#36194E',
     ],
@@ -52,7 +71,7 @@ const defaultOptions = {
       { label: { en_US: '2.5 Line Spacing', zh_CN: '2.5 倍行距' }, value: 2.5 },
       { label: { en_US: 'Triple', zh_CN: '3 倍行距' }, value: 3 },
     ],
-    symbols: [ // v2.0.0 之前为 specialCharacters
+    symbols: [
       {
         label: { en_US: 'Plain Text', zh_CN: '普通文本' },
         items: '‹›«»‘’“”‚„¡¿‥…‡‰‱‼⁈⁉⁇©®™§¶⁋',
@@ -164,7 +183,7 @@ const defaultOptions = {
       top: 2.54,
       bottom: 2.54,
     },
-    defaultOrientation: 'landscape',
+    defaultOrientation: 'portrait',
     defaultBackground: '#fff',
     showBreakMarks: true,
     watermark: {
@@ -192,7 +211,9 @@ const defaultOptions = {
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
+    // https://prosemirror.net/docs/ref/#view.EditorProps
     editorProps: {},
+    // https://prosemirror.net/docs/ref/#model.ParseOptions
     parseOptions: {
       preserveWhitespace: 'full',
     },
@@ -200,6 +221,41 @@ const defaultOptions = {
       enabled: true,
       interval: 300000,
     },
+  },
+  assistant: {
+    enabled: false,
+    maxlength: 100,
+    commands: [
+      {
+        label: { en_US: 'Continuation', zh_CN: '续写' },
+        value: { en_US: 'Continuation', zh_CN: '续写' },
+      },
+      {
+        label: { en_US: 'Rewrite', zh_CN: '重写' },
+        value: { en_US: 'Rewrite', zh_CN: '重写' },
+      },
+      {
+        label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+        value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+      },
+      {
+        label: { en_US: 'Expansion', zh_CN: '扩写' },
+        value: { en_US: 'Expansion', zh_CN: '扩写' },
+      },
+      {
+        label: { en_US: 'Polish', zh_CN: '润色' },
+        value: { en_US: 'Polish', zh_CN: '润色' },
+      },
+      {
+        label: { en_US: 'Proofread', zh_CN: '校阅' },
+        value: { en_US: 'Proofread', zh_CN: '校阅' },
+      },
+      {
+        label: { en_US: 'Translate', zh_CN: '翻译' },
+        value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文' },
+        autoSend: false,
+      },
+    ],
   },
   templates: [],
   cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
@@ -222,13 +278,18 @@ const defaultOptions = {
     throw new Error('Key "onSave": Please set the save method')
   },
   async onFileUpload(file) {
-    if (!file) throw new Error('File not found')
+    if (!file) {
+      throw new Error('File not found')
+    }
     throw new Error('Key "onFileUpload": Please set the upload method')
   },
   onFileDelete(id, src) {
     console.error(
       'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
     )
+  },
+  async onAssistant(payload, content) {
+    throw new Error('Key "onAssistant": Please set the onAssistant method')
   },
 }
 ```
@@ -248,13 +309,15 @@ The configuration items of Umo Editor are mainly divided into the following part
 - `toolbar`: Object, toolbar configuration, see [Toolbar Configuration](./toolbar).
 - `page`: Object, page configuration, see [Page Configuration](./page).
 - `document`: Object, document configuration, see [Document Configuration](./document).
+- `assistant`: Object, configuration for the AI Assistant, see [AI Assistant](./assistant) for details. <Badge theme="success">New in v3.0.0</Badge>
 - `templates`: Array, preset page template configurations, see [Template Configuration](./templates).
 - `cdnUrl`: String, the base path for static resources, must be a valid URL, see [CDN Configuration](./cdn).
 - `shareUrl`: String, share link configuration, must be a valid URL, see [Share Configuration](./share).
 - `diagrams`: Object, Diagrams chart configuration, see [Diagrams Chart Configuration](./diagrams).
 - `file`: Object, file upload configuration, see [File Upload Configuration](./file).
-- `extensions`: Array [Custom Extensions](./extensions). <Badge theme="success">New in v1.4.0</Badge>
-- `translations`: Object [Custom Localization Configuration](./locales). <Badge theme="success">New in v2.0.0</Badge>
-- `onSave(content, page, document)`: Async Function, document save method, should return a Promise, see [Methods](/en/options/methods#onSave).
-- `onFileUpload(file)`: Async Function, file upload method, should return a Promise, see [Methods](/en/docs/options/methods#onFileUpload).
-- `onFileDelete(id, url)`: Function, file delete method, see [Methods](/en/docs/options/methods#onFileDelete).
+- `extensions`: Array see [Custom Extensions](./extensions). <Badge theme="success">New in v1.4.0</Badge>
+- `translations`: Object see [Custom Localization Configuration](./locales). <Badge theme="success">New in v2.0.0</Badge>
+- `onSave(content, page, document)`: AsyncFunction, document save method, should return a Promise, see [Methods](/en/options/methods#onsave).
+- `onFileUpload(file)`: AsyncFunction, file upload method, should return a Promise, see [Methods](/en/docs/options/methods#onfileupload).
+- `onFileDelete(id, url)`: Function, file delete method, see [Methods](/en/docs/options/methods#onfiledelete).
+- `onAssistant(payload, content)`: AsyncFunction, the method for handling data returned by the AI Assistant, see [AI Assistant](/cn/docs/options/methods#onassistant) for details. <Badge theme="success">New in v3.0.0</Badge>

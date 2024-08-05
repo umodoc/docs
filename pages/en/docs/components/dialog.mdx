@@ -1,0 +1,71 @@
+# Dialog Component
+
+The dialog component is used to pop out a dialog box where users can perform certain actions.
+
+## Example
+
+See: https://demo.umodoc.com/components?lang=en-US
+
+## Usage
+
+```vue
+<template>
+  <button @click="openDialog">Open Dialog</button>
+
+  <umo-dialog
+    :visible="visible"
+    header="This is a dialog component"
+    width="560px"
+    @confirm="onConfirm"
+    @close="onClose"
+  >
+    <div>Place the content to display here</div>
+  </umo-dialog>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoDialog } from '@umoteam/editor'
+
+const visible = ref(false)
+
+const openDialog = () => {
+  visible.value = true
+}
+const onConfirm = () => {
+  visible.value = false
+}
+const onClose = () => {
+  visible.value = false
+}
+</script>
+```
+
+## Props
+
+### visible
+
+**Description**: Determines whether the dialog is shown.
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+### Others
+
+The Umo Editor dialog is built upon the [Dialog Component](https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api) from TDesign Vue Next, supporting most of the properties of the TDesign Vue Next Dialog Component.
+
+## Slots
+
+### default
+
+**Description**: The content of the dialog.
+
+## Events
+
+The Umo Editor dialog is built upon the [Dialog Component](https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api) from TDesign Vue Next, supporting most of the events of the TDesign Vue Next Dialog Component.
+
+## Functional Invocations
+
+For detailed usage, please refer to: [Notifications](../notifications).
+

@@ -1,8 +1,10 @@
+import { Badge } from '/components/badge'
 import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
 
 # Method Configuration
 
-This section is used to configure methods for Umo Editor, including document save methods, file upload methods, file deletion methods, etc.
+These are the methods used to configure the Umo Editor, including the document save method, file upload method, file deletion method, and the method for handling data returned by the AI Assistant, among others.
 
 ## Default Methods
 
@@ -20,6 +22,9 @@ This section is used to configure methods for Umo Editor, including document sav
       'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
     )
   },
+  async onAssistant(payload, content) {
+    throw new Error('Key "onAssistant": Please set the onAssistant method')
+  },
 }
 ```
 
@@ -29,7 +34,7 @@ This section is used to configure methods for Umo Editor, including document sav
 
 **Description**: Configure the document save method. This method is called when the user saves the document, saving it to the server.
 
-**Type**: Asynchronous function or Promise.
+**Type**: `AsyncFunction`、 `Promise`.
 
 **Parameters**:
 
@@ -46,8 +51,8 @@ The following code uses [Axios](https://axios-http.com/) to demonstrate how to c
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
 ```js
-import axios from 'axios';
-import { useUmoEditor } from '@umoteam/editor';
+import axios from 'axios'
+import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   async onSave(content, page, document) => {
@@ -66,7 +71,7 @@ const options = {
   },
 };
 
-app.use(useUmoEditor, options);
+app.use(useUmoEditor, options)
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -79,7 +84,7 @@ app.use(useUmoEditor, options);
  
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
-import axios from 'axios';
+import axios from 'axios'
 
 const onSave = async (content, page, document) => {
   const res = await axios.post('/api/save', {
@@ -104,7 +109,7 @@ const onSave = async (content, page, document) => {
 
 **Description**: Configure the file upload method. This method is triggered when the user inserts a file, uploading it to the server.
 
-**Type**: Asynchronous function or Promise.
+**Type**: `AsyncFunction`、 `Promise`.
 
 **Parameters**:
 
@@ -122,8 +127,8 @@ The following code uses [Axios](https://axios-http.com/) to demonstrate how to c
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
 ```js
-import axios from 'axios';
-import { useUmoEditor } from '@umoteam/editor';
+import axios from 'axios'
+import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   async onFileUpload(file) => {
@@ -144,7 +149,7 @@ const options = {
   },
 };
 
-app.use(useUmoEditor, options);
+app.use(useUmoEditor, options)
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -157,7 +162,7 @@ app.use(useUmoEditor, options);
  
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
-import axios from 'axios';
+import axios from 'axios'
 
 const onFileUpload = async (file) => {
   let formData = new FormData();
@@ -184,7 +189,7 @@ const onFileUpload = async (file) => {
 
 **Description**: Configure the file deletion method. This method is triggered when the user deletes a file, deleting it from the server.
 
-**Type**: Function.
+**Type**: `Function` .
 
 **Parameters**:
 
@@ -198,8 +203,8 @@ The following code uses [Axios](https://axios-http.com/) to demonstrate how to c
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
 ```js
-import axios from 'axios';
-import { useUmoEditor } from '@umoteam/editor';
+import axios from 'axios'
+import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   onFileDelete(id, url) => {
@@ -207,7 +212,7 @@ const options = {
   },
 };
 
-app.use(useUmoEditor, options);
+app.use(useUmoEditor, options)
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -220,7 +225,7 @@ app.use(useUmoEditor, options);
  
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
-import axios from 'axios';
+import axios from 'axios'
 
 const onFileDelete = (id, url) => {
   axios.delete(`/api/file/${id}`);
@@ -230,3 +235,135 @@ const onFileDelete = (id, url) => {
 </Tabs.Tab>
 </Tabs>
 
+### onAssistant <Badge theme="success">New in v3.0.0</Badge>
+
+**Description**: Configures the method for handling data returned by the AI Assistant; see more details in [AI Assistant](../assistant).
+
+**Type**: `AsyncFunction`, `Promise`.
+
+**Parameters**:
+
+- `payload`: The request parameters for the AI Assistant, which can be passed to the AI model.
+  1. `payload.lang`: `String`, the current interface language.
+  2. `payload.input`: `String`, the text content selected by the user.
+  3. `payload.command`: `String`, the command entered by the user.
+  4. `payload.output`: `String`, the format of the content the AI Assistant expects to receive. Possible values: `rich-text`, `text`.
+- `content`: The current document content. You can pass the document content to the AI model, but note that very long documents may cause the AI model to fail to process. If you're using a commercial AI model, an excessively long token input will also lead to significantly increased costs.
+  1. `content.text`: `String`, the text content of the current document.
+  2. `content.html`: `String`, the HTML content of the current document.
+  3. `content.json`: `Object`, the JSON content of the current document.
+
+**Example**:
+
+The following example demonstrates how to configure the `onAssistant` method, passing the document content to the AI model, processing it, and returning the results from the AI model. This example uses calling the OpenAI model as an illustration.
+
+OpenAI's API specification has become a de facto industry standard. In fact, many AI models support being invoked through the [`OpenAI SDK`](https://www.npmjs.com/package/openai).
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+import { useUmoEditor } from '@umoteam/editor'
+import OpenAI from 'openai'
+
+const options = {
+  async onAssistant(payload, content) {
+    console.log(payload, content)
+    const { command, lang, input, output } = payload
+    const client = new OpenAI({
+      baseURL: '...', // Your OpenAI base URL here
+      apiKey: '...', // Your OpenAI API key here
+      dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
+    })
+    const langs = {
+      'en-US': 'English',
+      'zh-CN': 'Chinese',
+    }
+    const options = {
+      stream: true,
+      model: 'moonshot-v1-8k',
+      messages: [
+        {
+          role: 'system',
+          content: `You are a document assistant. Based on the user's input text or HTML content, and the corresponding operation command, generate the required document content. Requirements are as follows: 1. If the command does not require translation, respond in ${langs[lang]}; otherwise, respond in the language requested by the user; 2. Return in ${output === 'rich-text' ? 'rich text (HTML)' : 'plain text (stripping out HTML tags)'} format; 3. If you do not understand the user's command, prepend "[ERROR]: " to the returned content; 4. Do not return any other extraneous content beyond this.`,
+        },
+        {
+          role: 'user',
+          content: `Perform the following operation: 【${command}】.\n${input}`,
+        },
+      ],
+    }
+    const completion = await client.chat.completions.create(options)
+    const stream = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of completion) {
+          controller.enqueue(chunk.choices[0]?.delta?.content || '')
+        }
+        controller.close()
+      },
+    })
+    return stream
+  },
+};
+
+app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    @assistant="onAssistant" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+import OpenAI from 'openai'
+
+const onAssistant = (payload, content) => {
+  console.log(payload, content)
+  const { command, lang, input, output } = payload
+  const client = new OpenAI({
+    baseURL: '...', // Your OpenAI base URL here
+    apiKey: '...', // Your OpenAI API key here
+    dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
+  })
+  const langs = {
+    'en-US': 'English',
+    'zh-CN': 'Chinese',
+  }
+  const options = {
+    stream: true,
+    model: '...', // Your OpenAI model here
+    messages: [
+      {
+        role: 'system',
+        content: `You are a document assistant. Based on the user's input text or HTML content, and the corresponding operation command, generate the required document content. Requirements are as follows: 1. If the command does not require translation, respond in ${langs[lang]}; otherwise, respond in the language requested by the user; 2. Return in ${output === 'rich-text' ? 'rich text (HTML)' : 'plain text (stripping out HTML tags)'} format; 3. If you do not understand the user's command, prepend "[ERROR]: " to the returned content; 4. Do not return any other extraneous content beyond this.`,
+      },
+      {
+        role: 'user',
+        content: `Perform the following operation: 【${command}】.\n${input}`,
+      },
+    ],
+  }
+  const completion = await client.chat.completions.create(options)
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of completion) {
+        controller.enqueue(chunk.choices[0]?.delta?.content || '')
+      }
+      controller.close()
+    },
+  })
+  return stream
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+<Callout type="error">
+**Note:** The above code is provided for demonstration purposes only. In practical applications, sensitive information such as `apiKey` should not be exposed on the client side. AI model calls should be made through backend services, with `apiKey` stored on the server to protect sensitive information. The logic of the above code should also be placed in the backend service as much as possible to reduce request loads.
+</Callout>
+
+**Return Value**：`String`、`ReadableStream`。

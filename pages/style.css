@@ -85,6 +85,9 @@ body {
 .faq-box .faq-content {
 	padding: 0.8rem 0.8rem 0;
 }
+.nextra-callout p {
+	margin-top: 0;
+}
 .contains-task-list {
 	line-height: 2rem;
 	margin-top: 0.75rem;

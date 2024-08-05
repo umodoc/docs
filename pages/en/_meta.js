@@ -10,7 +10,7 @@ export default {
 	demo: {
 		title: 'Playground',
 		type: 'page',
-		href: 'https://demo.umodoc.com/editor?lang=en',
+		href: 'https://demo.umodoc.com/editor?lang=en-US',
 		newWindow: true
 	}
 };

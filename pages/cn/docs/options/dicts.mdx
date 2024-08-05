@@ -159,9 +159,8 @@ import { Tabs } from 'nextra/components'
 
 **配置项**：
 
-`label`:  `String` 或 `Object`，字体的显示名称。
-
-`value`:  合法的 [CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family) 值。
+- `item.label`:  `String` 或 `Object`，字体的显示名称。
+- `item.value`:  合法的[CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)值。
 
 ### dicts.colors
 
@@ -169,7 +168,7 @@ import { Tabs } from 'nextra/components'
 
 **类型**：`Array`
 
-**配置项**：合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。
+**配置项**：合法的[CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。
 
 ### dicts.lineHeights
 
@@ -179,9 +178,8 @@ import { Tabs } from 'nextra/components'
 
 **配置项**：
 
-`label`:  `String` 或 `Object`，行高的显示名称。
-
-`value`:  合法的 [CSS line-height](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height) 值。
+- `item.label`:  `String` 或 `Object`，行高的显示名称。
+- `item.value`:  合法的[CSS line-height](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height)值。
 
 ### dicts.symbols
 
@@ -191,21 +189,19 @@ import { Tabs } from 'nextra/components'
 
 **配置项**：
 
-`label`:  `String` 或 `Object`，特殊字符的分组名称。
-
-`value`:  该分组下所有的特殊字符。
+- `item.label`:  `String` 或 `Object`，特殊字符的分组名称。
+- `item.value`:  该分组下所有的特殊字符。
 
 ### dicts.emojis
 
-**说明**：[Emoji](https://baike.baidu.com/item/emoji/8154456) 表情列表，用于提供用户可插入的 Emoji 表情列表。
+**说明**：[Emoji](https://baike.baidu.com/item/emoji/8154456)表情列表，用于提供用户可插入的 Emoji 表情列表。
 
 **类型**：`Array`
 
 **配置项**：
 
-`label`:  `String` 或 `Object`，Emoji 的分组名称。
-
-`value`:  该分组下所有的 Emoji 表情，需使用空格分隔开。
+- `item.label`:  `String` 或 `Object`，Emoji 的分组名称。
+- `item.value`:  该分组下所有的 Emoji 表情，需使用空格分隔开。
 
 **数据库支持**：Emoji 本质上是 Unicode 编码，长度为 4 个字节，需要数据库支持存储，[如何让MySql数据库支持emoji表情](https://juejin.cn/post/7106906047670910989)，您也可以通过以下配置来禁用通过菜单插入 Emoji，但这并不能防止用户通过粘贴、输入法等方式插入 Emoji。
 
@@ -244,11 +240,8 @@ import { UmoEditor } from '@umoteam/editor'
 
 **配置项**：
 
-`label`:  `String` 或 `Object`，Emoji 的分组名称。
-
-`width`:  页面宽度，单位为厘米(cm)。
-
-`height`:  页面高度，单位为厘米(cm)。
-
-`default`:  是否为默认页面大小。
+- `item.label`:  `String` 或 `Object`，Emoji 的分组名称。
+- `item.width`:  页面宽度，单位为厘米(cm)。
+- `item.height`:  页面高度，单位为厘米(cm)。
+- `item.default`:  是否为默认页面大小。
 

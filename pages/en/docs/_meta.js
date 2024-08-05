@@ -5,18 +5,9 @@ export default {
 	},
 	index: 'Introduction',
 	features: 'Features',
-	roadmap: 'Roadmap',
-	changelog: 'Changelog',
-	faq: {
-		title: 'FAQ',
-		toc: false
-	},
-	'--start': {
-		type: 'separator',
-		title: 'Quick Start'
-	},
 	'getting-started': 'Getting Started',
-	theme: 'Custom Themes',
+	changelog: 'Changelog',
+	roadmap: 'Roadmap',
 	'--api': {
 		type: 'separator',
 		title: 'Global Config'
@@ -24,8 +15,16 @@ export default {
 	options: 'Configuration',
 	events: 'Events',
 	methods: 'Methods',
+	assistant: 'AI Assistant',
 	tiptap: 'Tiptap Editor',
-	popup: 'Popup',
+	'--ui': {
+		type: 'separator',
+		title: 'UI Design'
+	},
+	themes: 'Themes',
+	slots: 'Slots',
+	components: 'Components (Beta)',
+	notifications: 'Notifications',
 	'--extensions': {
 		type: 'separator',
 		title: 'Extensions'

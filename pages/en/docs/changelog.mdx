@@ -2,6 +2,26 @@ import { Badge } from '/components/badge'
 
 # Changelog
 
+## 🎉 v3.0.0 <Badge>2024-08-04</Badge>
+1. **[Major Update]** Added AI Document Assistant, see [AI Document Assistant](./assistant);
+2. **[Major Update]** Added toolbar and bubble menu slots to enable more customization through slots, see [Slot List](./slots);
+3. **[Major Update]** Opened some UI components, see [Component List](./components);
+4. **[Important Note]** As of v3.0, installation via direct browser inclusion is no longer supported;
+5. Added the [`getTableOfContents`](./methods#gettableofcontents) method to retrieve the page outline information, @qtch [(#26)](https://github.com/umodoc/editor/issues/26);
+6. Added the [`getSelectionText`](./methods#getselectiontext) method to get the content of the currently selected text, @qtch [(#35)](https://github.com/umodoc/editor/issues/35);
+7. Added the [`getSelectionNode`](./methods#getselectionnode) method to get information about the currently selected node, @qtch [(#35)](https://github.com/umodoc/editor/issues/35);
+8. Added the [`deleteSelectionNode`](./methods#deleteselectionnode) method to delete the currently selected node;
+9. Added missing dependencies to resolve phantom dependency issues with pnpm, @xuzhenjun130 [(#27)](https://github.com/umodoc/editor/issues/27);
+10. Fixed an issue where the electronic seal insertion button did not display the correct language, @shenghui-shan [(#30)](https://github.com/umodoc/editor/issues/30);
+11. Fixed an issue where the editor lost focus when the dropdown list expanded in menu items, @qtch [(#33)](https://github.com/umodoc/editor/issues/30);
+12. Fixed an issue where image upload triggered the upload method twice;
+13. When deleting a node via the block-level menu, also delete the corresponding uploaded file from the file node;
+14. Fixed an issue where the width of inserted images, videos, and other nodes was incorrect;
+15. Dynamically import KaTeX styles based on conditions, significantly reducing the size of the style bundle;
+16. Update Tiptap dependencies to the latest version, and fix compatibility issues caused by dependency upgrades;
+17. Adjust dependencies and simplify the NPM package installation method;
+18. Other detail adjustments.
+
 ## 🚀 v2.3.1<Badge>2024-07-22</Badge>
 1. The `setContent` method triggers the update method by default, @qtch [(#24)](https://github.com/umodoc/editor/issues/25), see [setContent Method](./methods#setcontent);
 2. Fixed math formula style error @GhostyCHEN [(#25)](https://github.com/umodoc/editor/issues/25).
@@ -27,7 +47,7 @@ import { Badge } from '/components/badge'
 7. Bug fixes and code optimization.
 
 ## 🚀 v2.1.0<Badge>2024-07-06</Badge>
-Add support for dark mode, see https://demo.umodoc.com/editor?lang=en&theme=dark 。
+Add support for dark mode, see https://demo.umodoc.com/editor?lang=en-US&theme=dark 。
 
 ## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
 1. Added i18n support, currently supporting Simplified Chinese and English, see [`locales`](./options/locales);
@@ -44,7 +64,7 @@ Add support for dark mode, see https://demo.umodoc.com/editor?lang=en&theme=dark
 7. Optimized some details.
 
 ## 🚀 v1.4.1 ~ 2 <Badge>2024-06-13</Badge>
-Added instructions for `npm` installation, etc. @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5).
+New instructions for `npm` installation, etc. @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5).
 
 ## 🚀 v1.4.0<Badge>2024-06-03</Badge>
 1. Added support for custom extensions, see [`extensions`](./options/extensions);

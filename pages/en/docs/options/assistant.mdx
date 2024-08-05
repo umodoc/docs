@@ -1,0 +1,115 @@
+import { Tabs } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# AI Assistant
+
+Used to configure information related to the AI Assistant; see more details in [AI Assistant](../assistant). <Badge theme="success">New in v3.0.0</Badge>
+
+## Default Configuration
+
+```js
+{
+  assistant: {
+    enabled: false,
+    maxlength: 100,
+    commands: [
+      {
+        label: { en_US: 'Continuation', zh_CN: '续写' },
+        value: { en_US: 'Continuation', zh_CN: '续写' },
+      },
+      {
+        label: { en_US: 'Rewrite', zh_CN: '重写' },
+        value: { en_US: 'Rewrite', zh_CN: '重写' },
+      },
+      {
+        label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+        value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+      },
+      {
+        label: { en_US: 'Expansion', zh_CN: '扩写' },
+        value: { en_US: 'Expansion', zh_CN: '扩写' },
+      },
+      {
+        label: { en_US: 'Polish', zh_CN: '润色' },
+        value: { en_US: 'Polish', zh_CN: '润色' },
+      },
+      {
+        label: { en_US: 'Proofread', zh_CN: '校阅' },
+        value: { en_US: 'Proofread', zh_CN: '校阅' },
+      },
+      {
+        label: { en_US: 'Translate', zh_CN: '翻译' },
+        value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文' },
+        autoSend: false,
+      },
+    ],
+  },
+}
+```
+
+## Configuration Item Descriptions
+
+### assistant.enabled
+
+**Description**: Determines whether the AI Assistant feature is enabled.
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+### assistant.maxlength
+
+**Description**: Specifies the maximum length of the command input that the AI Assistant can process.
+
+**Type**: `Number`
+
+**Default Value**: `100`
+
+### assistant.commands
+
+**Description**: Configures the common command settings for the AI Assistant panel.
+
+**Type**: `Array`
+
+**Default Value**:
+
+```js
+[
+  {
+    label: { en_US: 'Continuation', zh_CN: '续写' },
+    value: { en_US: 'Continuation', zh_CN: '续写' },
+  },
+  {
+    label: { en_US: 'Rewrite', zh_CN: '重写' },
+    value: { en_US: 'Rewrite', zh_CN: '重写' },
+  },
+  {
+    label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+    value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+  },
+  {
+    label: { en_US: 'Expansion', zh_CN: '扩写' },
+    value: { en_US: 'Expansion', zh_CN: '扩写' },
+  },
+  {
+    label: { en_US: 'Polish', zh_CN: '润色' },
+    value: { en_US: 'Polish', zh_CN: '润色' },
+  },
+  {
+    label: { en_US: 'Proofread', zh_CN: '校阅' },
+    value: { en_US: 'Proofread', zh_CN: '校阅' },
+  },
+  {
+    label: { en_US: 'Translate', zh_CN: '翻译' },
+    value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文' },
+    autoSend: false,
+  },
+]
+```
+
+**Configuration Items**:
+
+- `item.label`: `String` or `Object`, the text displayed in the AI Assistant panel.
+- `item.value`: `String` or `Object`, the actual command sent to `onAssistant`; see [AI Assistant](../methods#onAssistant).
+- `item.autoSend`: `Boolean`, whether to automatically send the command to `onAssistant` when the user selects the command. The default is `true`. Set to `false` to allow the user to modify the command before manually sending it by clicking a button.
+

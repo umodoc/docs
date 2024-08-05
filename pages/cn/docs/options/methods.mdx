@@ -1,8 +1,10 @@
+import { Badge } from '/components/badge'
 import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
 
 # 方法配置
 
-用于配置 Umo Editor 的方法，包括文档保存方法、文件上传方法、文件删除方法等。
+用于配置 Umo Editor 的方法，包括文档保存方法、文件上传方法、文件删除方法、AI 文档助手返回数据的方法等。
 
 ## 默认方法
 
@@ -20,6 +22,9 @@ import { Tabs } from 'nextra/components'
       'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
     )
   },
+  async onAssistant(payload, content) {
+    throw new Error('Key "onAssistant": Please set the onAssistant method')
+  },
 }
 ```
 
@@ -29,7 +34,7 @@ import { Tabs } from 'nextra/components'
 
 **说明**：配置文档保存方法，在用户保存文档时，调用此方法，将文档保存到服务器。
 
-**类型**：异步函数或 Promise。
+**类型**：`AsyncFunction`、 `Promise`。
 
 **参数**：
 
@@ -37,17 +42,17 @@ import { Tabs } from 'nextra/components'
 - `page`：页面信息。
 - `document`：文档信息。
 
-**返回值**：保存成功则返回 true，否则返回 false，否则返回 false 或者抛出错误
+**返回值**：保存成功则返回 `true`，否则返回 `false`，否则返回 `false` 或者抛出错误。
 
 
 **示例**：
 
-以下代码以 [Axios](https://axios-http.com/) 为例，演示如何配置 onSave 方法，将文档保存到服务器：
+以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onSave 方法，将文档保存到服务器：
 <Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
-import axios from 'axios';
-import { useUmoEditor } from '@umoteam/editor';
+import axios from 'axios'
+import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   async onSave(content, page, document) => {
@@ -66,7 +71,7 @@ const options = {
   },
 };
 
-app.use(useUmoEditor, options);
+app.use(useUmoEditor, options)
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -79,7 +84,7 @@ app.use(useUmoEditor, options);
  
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
-import axios from 'axios';
+import axios from 'axios'
 
 const onSave = async (content, page, document) => {
   const res = await axios.post('/api/save', {
@@ -104,7 +109,7 @@ const onSave = async (content, page, document) => {
 
 **说明**：配置文件上传方法，用户插入文件时，会触发该方法，将文件上传到服务器。
 
-**类型**：异步函数或 Promise。
+**类型**：`AsyncFunction`、 `Promise`。
 
 **参数**：
 
@@ -117,13 +122,13 @@ const onSave = async (content, page, document) => {
 
 **示例**：
 
-以下代码以 [Axios](https://axios-http.com/) 为例，演示如何配置 onFileUpload 方法，将文件上传到服务器：
+以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onFileUpload 方法，将文件上传到服务器：
 
 <Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
-import axios from 'axios';
-import { useUmoEditor } from '@umoteam/editor';
+import axios from 'axios'
+import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   async onFileUpload(file) => {
@@ -144,7 +149,7 @@ const options = {
   },
 };
 
-app.use(useUmoEditor, options);
+app.use(useUmoEditor, options)
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -157,7 +162,7 @@ app.use(useUmoEditor, options);
  
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
-import axios from 'axios';
+import axios from 'axios'
 
 const onFileUpload = async (file) => {
   let formData = new FormData();
@@ -184,7 +189,7 @@ const onFileUpload = async (file) => {
 
 **说明**：配置文件删除方法，用户删除文件时，会触发该方法，将文件从服务器上删除。
 
-**类型**：函数。
+**类型**：`Function`。
 
 **参数**：
 
@@ -194,13 +199,13 @@ const onFileUpload = async (file) => {
 
 **示例**：
 
-以下代码以 [Axios](https://axios-http.com/) 为例，演示如何配置 onFileDelete 方法，将文件从服务器上删除：
+以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onFileDelete 方法，将文件从服务器上删除：
 
 <Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
-import axios from 'axios';
-import { useUmoEditor } from '@umoteam/editor';
+import axios from 'axios'
+import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   onFileDelete(id, url) => {
@@ -208,7 +213,7 @@ const options = {
   },
 };
 
-app.use(useUmoEditor, options);
+app.use(useUmoEditor, options)
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -221,7 +226,7 @@ app.use(useUmoEditor, options);
  
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
-import axios from 'axios';
+import axios from 'axios'
 
 const onFileDelete = (id, url) => {
   axios.delete(`/api/file/${id}`);
@@ -230,4 +235,137 @@ const onFileDelete = (id, url) => {
 ```
 </Tabs.Tab>
 </Tabs>
+
+### onAssistant <Badge theme="success">v3.0.0 新增</Badge>
+
+**说明**：配置 AI 文档助手返回数据的方法，更多信息见[AI 文档助手](../assistant)。
+
+**类型**：`AsyncFunction`、 `Promise`。
+
+**参数**：
+
+- `payload`：AI 文档助手的请求参数，可以将这些信息传递给 AI 模型。
+  1. `payload.lang`：`String`，当前界面语言。
+  2. `payload.input`：`String`，用户选择的文本内容。
+  3. `payload.command`：`String`，用户输入的指令。
+  4. `payload.output`：`String`，AI 文档助手希望得到的内容格式，可能的值：`rich-text`、`text`。
+- `content`：当前文档内容。可以将文档内容传递给 AI 模型，但是注意，过长的文档可能会导致 AI 模型无法处理。如果使用的是商业 AI 模型，过长的 Token 输入，也会导致计费也会剧增。
+  1. `content.text`：`String`，当前文档的文本内容。
+  2. `content.html`：`String`，当前文档的 HTML 内容。
+  3. `content.json`：`Object`，当前文档的 JSON 内容。
+
+**示例**：
+
+以下示例以调用 OpenAI 模型为例，演示如何配置 `onAssistant` 方法，将文档内容传递给 AI 模型，处理并返回 AI 模型的返回结果。
+
+OpenAI 的接口规范已成为事实上的行业规范，实际上，很多 AI 模型都支持通过[`OpenAI SDK`](https://www.npmjs.com/package/openai)调用。
+
+<Tabs items={['全局配置', 'SFC 配置']}>
+<Tabs.Tab>
+```js
+import { useUmoEditor } from '@umoteam/editor'
+import OpenAI from 'openai'
+
+const options = {
+  async onAssistant(payload, content) {
+    console.log(payload, content)
+    const { command, lang, input, output } = payload
+    const client = new OpenAI({
+      baseURL: '...', // Your OpenAI base URL here
+      apiKey: '...', // Your OpenAI API key here
+      dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
+    })
+    const langs = {
+      'en-US': 'English',
+      'zh-CN': 'Chinese',
+    }
+    const options = {
+      stream: true,
+      model: 'moonshot-v1-8k',
+      messages: [
+        {
+          role: 'system',
+          content: `You are a document assistant. Based on the user's input text or HTML content, and the corresponding operation command, generate the required document content. Requirements are as follows: 1. If the command does not require translation, respond in ${langs[lang]}; otherwise, respond in the language requested by the user; 2. Return in ${output === 'rich-text' ? 'rich text (HTML)' : 'plain text (stripping out HTML tags)'} format; 3. If you do not understand the user's command, prepend "[ERROR]: " to the returned content; 4. Do not return any other extraneous content beyond this.`,
+        },
+        {
+          role: 'user',
+          content: `Perform the following operation: 【${command}】.\n${input}`,
+        },
+      ],
+    }
+    const completion = await client.chat.completions.create(options)
+    const stream = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of completion) {
+          controller.enqueue(chunk.choices[0]?.delta?.content || '')
+        }
+        controller.close()
+      },
+    })
+    return stream
+  },
+};
+
+app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    @assistant="onAssistant" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+import OpenAI from 'openai'
+
+const onAssistant = (payload, content) => {
+  console.log(payload, content)
+  const { command, lang, input, output } = payload
+  const client = new OpenAI({
+    baseURL: '...',
+    apiKey: '...',
+    dangerouslyAllowBrowser: true, // 允许在浏览器中使用 OpenAI SDK
+  })
+  const langs = {
+    'en-US': '英文',
+    'zh-CN': '中文',
+  }
+  const options = {
+    stream: true,
+    model: '...',
+    messages: [
+      {
+        role: 'system',
+        content: `你是一个文档助手，根据用户输入的文本或者HTML内容，以及对应操作指令，生成符合要求的文档内容。要求如下：1.如果指令不是要求翻译内容，请使用${langs[lang]}返回，否则按用户要求翻译的语言返回；2.返回${output === 'rich-text' ? '富文本（HTML）' : '纯文本（剔除内容中的HTML标记）'}格式；3.如果用户输入的指令你不能理解，在返回的内容前加上“[ERROR]: ”，4.除此之外不返回任何其他多余的内容。`,
+      },
+      {
+        role: 'user',
+        content: `对以下内容进行：【${command}】操作。\n${input}`,
+      },
+    ],
+  }
+  const completion = await client.chat.completions.create(options)
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of completion) {
+        controller.enqueue(chunk.choices[0]?.delta?.content || '')
+      }
+      controller.close()
+    },
+  })
+  return stream
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+<Callout type="error">
+**注意：** 以上代码仅作为示例使用，实际应用中，不应将 `apiKey` 等敏感信息暴露在客户端，应通过后端服务调用 AI 模型，并将 `apiKey` 放在后端服务中，以保护敏感信息。以上代码逻辑也应尽可能的放在后端服务中，以减少请求负载。
+</Callout>
+
+**返回值**：`String`、`ReadableStream`。
 

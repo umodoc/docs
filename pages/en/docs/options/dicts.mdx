@@ -159,8 +159,8 @@ This section is used to configure commonly used dictionary-type data, including 
 
 **Configuration Items**:
 
-- `label`: `String` or `Object`, the display name of the font.
-- `value`: A valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) value.
+- `item.label`: `String` or `Object`, the display name of the font.
+- `item.value`: A valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) value.
 
 ### dicts.colors
 
@@ -178,8 +178,8 @@ This section is used to configure commonly used dictionary-type data, including 
 
 **Configuration Items**:
 
-- `label`: `String` or `Object`, the display name for the line height.
-- `value`: A valid [CSS line-height](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height) value.
+- `item.label`: `String` or `Object`, the display name for the line height.
+- `item.value`: A valid [CSS line-height](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height) value.
 
 ### dicts.symbols
 
@@ -189,8 +189,8 @@ This section is used to configure commonly used dictionary-type data, including 
 
 **Configuration Items**:
 
-- `label`: `String` or `Object`, the group name for the special characters.
-- `items`: All special characters under this group.
+- `item.label`: `String` or `Object`, the group name for the special characters.
+- `item.items`: All special characters under this group.
 
 ### dicts.emojis
 
@@ -200,8 +200,8 @@ This section is used to configure commonly used dictionary-type data, including 
 
 **Configuration Items**:
 
-- `label`: `String` or `Object`, the group name for the Emoji.
-- `items`: All Emoji under this group, separated by spaces.
+- `item.label`: `String` or `Object`, the group name for the Emoji.
+- `item.items`: All Emoji under this group, separated by spaces.
 
 **Database Support**: Emojis are essentially Unicode characters, 4 bytes in length, and require database support for storage. You can disable the insertion of Emojis through the menu with the following configuration, but this will not prevent users from inserting Emojis through pasting or input methods.
 
@@ -240,7 +240,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 **Configuration Items**:
 
-- `label`: `String` or `Object`, the display name for the page size.
-- `width`: The width of the page in centimeters (cm).
-- `height`: The height of the page in centimeters (cm).
-- `default`: Whether it is the default page size.
+- `item.label`: `String` or `Object`, the display name for the page size.
+- `item.width`: The width of the page in centimeters (cm).
+- `item.height`: The height of the page in centimeters (cm).
+- `item.default`: Whether it is the default page size.

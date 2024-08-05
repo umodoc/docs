@@ -1,68 +1,19 @@
-import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
 
 # 快速开始
 
 Umo-Editor 是一个基于 Vue3 的文档编辑器。
-您可以访问 [https://demo.umodoc.com/editor](https://demo.umodoc.com/editor?lang=cn)，体验和测试 Umo-Editor 的部分功能。
+您可以访问[https://demo.umodoc.com/editor](https://demo.umodoc.com/editor?lang=zh-CN)，体验和测试 Umo-Editor 的部分功能。
 
 ## 安装
 
 ### 使用 NPM 安装
 
-
-<Tabs items={['npm', 'yarn', 'pnpm']}>
-<Tabs.Tab>
-```bash
-npm config set "@tiptap-pro:registry" https://registry.tiptap.dev/
-npm config set "//registry.tiptap.dev/:_authToken" 9fsQEgp8C8pbxpk8PFAjYn64BtBDq6HfXmI2qgpnI7XYr/OwHaMvOUIE5mfVR49y
-npm install --save @umoteam/editor @umoteam/editor-external
+```sh npm2yarn
+npm install --save @umoteam/editor
 ```
-</Tabs.Tab>
-<Tabs.Tab>
-```bash
-yarn config set "@tiptap-pro:registry" https://registry.tiptap.dev/
-yarn config set "//registry.tiptap.dev/:_authToken" 9fsQEgp8C8pbxpk8PFAjYn64BtBDq6HfXmI2qgpnI7XYr/OwHaMvOUIE5mfVR49y
-yarn add @umoteam/editor @umoteam/editor-external
-```
-</Tabs.Tab>
-<Tabs.Tab>
-```bash
-pnpm config set "@tiptap-pro:registry" https://registry.tiptap.dev/
-pnpm config set "//registry.tiptap.dev/:_authToken" 9fsQEgp8C8pbxpk8PFAjYn64BtBDq6HfXmI2qgpnI7XYr/OwHaMvOUIE5mfVR49y
-pnpm add @umoteam/editor @umoteam/editor-external
-```
-</Tabs.Tab>
-</Tabs>
 
 Umo Editor 提供 ES 和 UMD 两种格式的文件，可按需使用，通常情况下，在工程化的项目中使用 ES 版本，在浏览器中使用 UMD 版本。
-
-### 通过 浏览器引入 安装
-
-```html
-<script src="https://unpkg.com/vue"></script>
-<!-- 按需引入所需依赖 -->
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/mermaid.min.js"></script>
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/katex/katex.min.js"></script>
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/plyr.min.js"></script>
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/qrcode-svg.min.js"></script>
-<script src="https://unpkg.com/@umoteam/editor-external@latest/libs/jsbarcode.all.min.js"></script>
-<!-- 引入 Umo Editor -->
-<script src="https://unpkg.com/@umoteam/editor/dist/umd/umo-editor.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@umoteam/editor/dist/umd/style.css" />
-...
-<script>
-  const app = Vue.createApp();
-  app.use(UmoEditor.useUmoEditor, {
-    // 配置项
-    // ...
-  });
-  app.mount('#app');
-</script>
-```
-<Callout type="info">
-以上文件路径可以使用 CDN 配置为本地资源，详见 [CDN 配置 - 使用本地资源](../options/cdn#使用本地资源)。
-</Callout>
 
 ## 使用
 
@@ -150,4 +101,4 @@ Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<clien
 
 ## 配置
 
-见 [配置项](/cn/docs/options/default) 章节。
+见[配置项](/cn/docs/options/default)。

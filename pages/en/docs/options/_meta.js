@@ -1,9 +1,10 @@
 export default {
-	default: 'Default Configuration',
+	default: 'Default',
 	dicts: 'Dictionaries',
 	toolbar: 'Toolbar',
 	page: 'Page',
 	document: 'Document',
+	assistant: 'AI Assistant',
 	templates: 'Templates',
 	cdn: 'CDN',
 	share: 'Share',

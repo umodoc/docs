@@ -2,7 +2,7 @@ import { Badge } from '/components/badge'
 
 # Methods
 
-This section introduces the methods of Umo Editor, through which you can perform routine operations on Umo Editor. You can visit https://demo.umodoc.com/editor?tab=events&lang=en, click the corresponding method buttons to see how to use the methods.
+This section introduces the methods of Umo Editor, through which you can perform routine operations on Umo Editor. You can visit https://demo.umodoc.com/editor?pane=events&lang=en-US, click the corresponding method buttons to see how to use the methods.
 
 ## Example
 
@@ -111,7 +111,7 @@ This section introduces the methods of Umo Editor, through which you can perform
 **Parameters**: 
 
 - `content` : Valid HTML format or other valid [Tiptap document formats](https://tiptap.dev/docs/editor/guide/output).
-- `options` :  // Added in v2.2.0
+- `options` :  // New in v2.2.0
   - `emitUpdate`: `true`, By default, it doesn’t trigger the update event. Passing doesn’t prevent triggering the update event.
   - `focusPosition`: Focus position, possible values are: 'start' | 'end' | 'all' | number | boolean | null (false).
   - `focusOptions`: `{ scrollIntoView: true }`.
@@ -201,6 +201,55 @@ This section introduces the methods of Umo Editor, through which you can perform
 **Parameters**: None.
 
 **Return Value**: Tiptap Editor instance.
+
+### getTableOfContents
+
+**Description**：Get the page Table of Contents. More information about the page outline can be obtained by first getting the editor instance through `getEditor()`, and then accessing `editor.storage.tableOfContents`. <Badge theme="success">New in v3.0.0</Badge>
+
+**Parameters**：None.
+
+**Return Value**：
+```js
+[
+  {
+    dom: HTMLElement // the HTML element for this anchor
+    editor: Editor // the editor
+    id: String // the node id
+    isActive: Boolean // whether this anchor is currently active
+    isScrolledOver: Number // whether this anchor was already scrolled over
+    itemIndex: Number // the index of the item on it's current level
+    level: Number // the current level of the item - this could be different from the actual anchor level and is used to render the hierarchy from high to low headlines
+    node: Node // the ProseMirror node for this anchor
+    originalLevel: Number // the actual level
+    pos: Number // the position of the anchor node
+    textContent: String // the text content of the anchor
+  }
+]
+```
+
+### getSelectionText 
+
+**Description**: Gets the content of the currently selected text. <Badge theme="success">New in v3.0.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: None
+
+### getSelectionNode
+
+**Description**: Gets information about the currently selected node. <Badge theme="success">New in v3.0.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: Tiptap Node.
+
+### deleteSelectionNode
+
+**Description**: Deletes the currently selected node. <Badge theme="success">Added in v3.0.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: None
 
 ### getLocale 
 
