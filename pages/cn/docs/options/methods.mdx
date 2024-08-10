@@ -18,12 +18,13 @@ import { Callout } from 'nextra/components'
     throw new Error('Key "onFileUpload": Please set the upload method')
   },
   onFileDelete(id, url) {
-    console.error(
-      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
-    )
+    console.error('The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.')
   },
   async onAssistant(payload, content) {
     throw new Error('Key "onAssistant": Please set the onAssistant method')
+  },
+  async onCustomImportWordMethod(file) {
+    throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
   },
 }
 ```
@@ -369,3 +370,24 @@ const onAssistant = (payload, content) => {
 
 **返回值**：`String`、`ReadableStream`。
 
+### onCustomImportWordMethod <Badge theme="success">v3.1.0 新增</Badge>
+
+**说明**：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `toolbar.importWord.useCustomMethod` 选项为 `true`，见 [工具栏配置](../options/toolbar#importword)。
+
+**类型**：`AsyncFunction`、 `Promise`。
+
+**参数**：`File`
+
+**返回值**：同 [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api)返回的数据格式，示例如下：
+
+```js
+{
+  value: '<p>Hello world</p>',
+  messages: [
+    {
+      type: 'success', 
+      message: 'Converted 1 paragraph',
+    },
+  ],
+}
+```

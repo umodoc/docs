@@ -1,3 +1,5 @@
+import { Badge } from '/components/badge'
+
 # 工具栏配置
 
 用于配置 Umo Editor 工具栏区域的显示和行为。
@@ -11,6 +13,11 @@
     enableSourceEditor: true,
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
     disableMenuItems: [],
+    importWord: {
+      enabled: true,
+      options: {},
+      useCustomMethod: false,
+    },
   },
 }
 ```
@@ -54,4 +61,25 @@
 **默认值**：`[]`
 
 **可选值**：`print`, `code`, `video`, `audio`, `file`, `chineseDate`, `emoji`, `math`, `signature`, `seal`, `diagrams`, `chineseCase`, `mermaid`,  `share`,  `embed`, ...
+
+### toolbar.importWord <Badge theme="success">v3.1.0 新增</Badge>
+
+**说明**：导入 Word 文档的相关配置。
+
+**类型**：`Object`
+
+**默认值**：
+
+```js
+{
+  enabled: true, 
+  options: {},
+  useCustomMethod: false,
+}
+```
+**配置项**：
+
+- `enabled`：是否启用导入 Word 文件功能，默认为 `true`。
+- `options`：Mammoth 的配置项 (options)，详情请见 [Mammoth](https://www.npmjs.com/package/mammoth#api)。
+- `useCustomMethod`：是否使用自定义方法导入 Word 文件，可以通过配置该选项，使用自定义导入方法导入 Word 文件，默认为 `false`，如果为 `true`，则使用 [onCustomImportWordMethod](./methods#oncustomimportwordmethod) 方法导入 Word 文档。
 

@@ -18,12 +18,13 @@ These are the methods used to configure the Umo Editor, including the document s
     throw new Error('Key "onFileUpload": Please set the upload method')
   },
   onFileDelete(id, url) {
-    console.error(
-      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
-    )
+    console.error('The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.')
   },
   async onAssistant(payload, content) {
     throw new Error('Key "onAssistant": Please set the onAssistant method')
+  },
+  async onCustomImportWordMethod(file) {
+    throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
   },
 }
 ```
@@ -367,3 +368,25 @@ const onAssistant = (payload, content) => {
 </Callout>
 
 **Return Value**：`String`、`ReadableStream`。
+
+### onCustomImportWordMethod <Badge theme="success">Added in v3.1.0</Badge>
+
+**Description**: A custom method for importing Word documents. If you want to use a custom import method, you need to set the `toolbar.importWord.useCustomMethod` option to `true`. See [Toolbar Configuration](../options/toolbar#importword).
+
+**Type**: `AsyncFunction`, `Promise`.
+
+**Parameter**: `File`
+
+**Return Value**: The same data format as returned by [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api). Example:
+
+```js
+{
+  value: '<p>Hello world</p>',
+  messages: [
+    {
+      type: 'success', 
+      message: 'Converted 1 paragraph',
+    },
+  ],
+}
+```

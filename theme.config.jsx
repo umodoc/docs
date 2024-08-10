@@ -43,7 +43,7 @@ export default {
 				</svg>
 				<span style={{ margin: '0 1.2em', color: 'rgb(229, 231, 235)' }}> | </span>
 				<span style={{ fontSize: '18px' }} className="_text-gray-100">
-					{router.locale === 'cn' ? '在线文档' : 'Documention'}
+					{router.locale === 'cn' ? '在线文档 v3.1' : 'Documention v3.1'}
 				</span>
 			</>
 		);

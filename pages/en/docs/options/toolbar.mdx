@@ -1,3 +1,5 @@
+import { Badge } from '/components/badge'
+
 # Toolbar Configuration
 
 This section is used to configure the display and behavior of the Umo Editor toolbar area.
@@ -11,6 +13,11 @@ This section is used to configure the display and behavior of the Umo Editor too
     enableSourceEditor: true,
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
     disableMenuItems: [],
+    importWord: {
+      enabled: true,
+      options: {},
+      useCustomMethod: false,
+    },
   },
 }
 ```
@@ -54,3 +61,25 @@ This section is used to configure the display and behavior of the Umo Editor too
 **Default**: `[]`
 
 **Options**: `print`, `code`, `video`, `audio`, `file`, `chineseDate`, `emoji`, `math`, `signature`, `seal`, `diagrams`, `chineseCase`, `mermaid`, `share`, `embed`, ...
+
+### toolbar.importWord <Badge theme="success">Added in v3.1.0</Badge>
+
+**Description**: Configuration related to importing Word documents.
+
+**Type**: `Object`
+
+**Default Value**:
+
+```js
+{
+  enabled: true, 
+  options: {},
+  useCustomMethod: false,
+}
+```
+
+**Options**:
+
+- `enabled`: Whether to enable the Word file import feature, default is `true`.
+- `options`: Mammoth configuration options, see [Mammoth](https://www.npmjs.com/package/mammoth#api) for details.
+- `useCustomMethod`: Whether to use a custom method for importing Word files. You can configure this option to use a custom import method for Word files. Default is `false`. If set to `true`, it uses the [onCustomImportWordMethod](./methods#oncustomimportwordmethod) method to import Word documents.

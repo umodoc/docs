@@ -2,6 +2,16 @@ import { Badge } from '/components/badge'
 
 # Changelog
 
+## 🚀  v3.1.0 <Badge>2024-08-10</Badge>
+1. Added the import Word feature, now you can directly import Word documents from your local machine, see [Toolbar Configuration](./options/toolbar);
+2. Added a simple format painter feature;
+3. Added the ability to adjust the spacing between nodes;
+4. Added synchronized highlighting and scrolling for the page outline when the page is scrolled @qtch [(#21)](https://github.com/umodoc/editor/issues/21);
+5. Fixed the issue where the result returned by the `getSelectionNode` method was inaccurate;
+6. Added the `setCurrentNodeSelection` method, which selects the entire current node;
+7. Added a text selection downgrade solution to prevent the selected content from appearing lost;
+8. Fixed the issue where the image upload progress bar remained visible.
+
 ## 🎉 v3.0.0 <Badge>2024-08-05</Badge>
 1. **[Major Update]** Added AI Document Assistant, see [AI Document Assistant](./assistant);
 2. **[Major Update]** Added toolbar and bubble menu slots to enable more customization through slots, see [Slot List](./slots);

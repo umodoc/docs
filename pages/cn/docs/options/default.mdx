@@ -175,6 +175,11 @@ const defaultOptions = {
     enableSourceEditor: false,
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
     disableMenuItems: [],
+    importWord: {
+      enabled: true,
+      options: {},
+      useCustomMethod: false,
+    },
   },
   page: {
     defaultMargin: {
@@ -284,12 +289,13 @@ const defaultOptions = {
     throw new Error('Key "onFileUpload": Please set the upload method')
   },
   onFileDelete(id, src) {
-    console.error(
-      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
-    )
+    console.error('The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.')
   },
   async onAssistant(payload, content) {
     throw new Error('Key "onAssistant": Please set the onAssistant method')
+  },
+  async onCustomImportWordMethod(file) {
+    throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
   },
 }
 ```
@@ -326,3 +332,4 @@ Umo Editor 的配置项主要分为以下几部分：
 - `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见[方法配置](/cn/docs/options/methods#onfileupload)。
 - `onFileDelete(id, url)`：Function，文件删除方法，详见[方法配置](/cn/docs/options/methods#onfiledelete)。
 - `onAssistant(payload, content)`：Async Function，AI 文档助手返回数据方法，详见[AI 助手配置](/cn/docs/options/methods#onassistant)。 <Badge theme="success">v3.0.0 新增</Badge>
+- `onCustomImportWordMethod(file)`：Async Function，自定义 Word 文件导入方法，详见[方法配置置](/cn/docs/options/methods#oncustomimportwordmethod)。 <Badge theme="success">v3.1.0 新增</Badge>

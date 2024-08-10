@@ -175,6 +175,11 @@ const defaultOptions = {
     enableSourceEditor: false,
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
     disableMenuItems: [],
+    importWord: {
+      enabled: true,
+      options: {},
+      useCustomMethod: false,
+    },
   },
   page: {
     defaultMargin: {
@@ -284,12 +289,13 @@ const defaultOptions = {
     throw new Error('Key "onFileUpload": Please set the upload method')
   },
   onFileDelete(id, src) {
-    console.error(
-      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
-    )
+    console.error('The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.')
   },
   async onAssistant(payload, content) {
     throw new Error('Key "onAssistant": Please set the onAssistant method')
+  },
+  async onCustomImportWordMethod(file) {
+    throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
   },
 }
 ```
@@ -321,3 +327,4 @@ The configuration items of Umo Editor are mainly divided into the following part
 - `onFileUpload(file)`: AsyncFunction, file upload method, should return a Promise, see [Methods](/en/docs/options/methods#onfileupload).
 - `onFileDelete(id, url)`: Function, file delete method, see [Methods](/en/docs/options/methods#onfiledelete).
 - `onAssistant(payload, content)`: AsyncFunction, the method for handling data returned by the AI Assistant, see [AI Assistant](/cn/docs/options/methods#onassistant) for details. <Badge theme="success">New in v3.0.0</Badge>
+- `onCustomImportWordMethod(file)`: Async Function, a custom method for importing Word files. See [Method Configuration](/en/docs/options/methods#oncustomimportwordmethod) for more details. <Badge theme="success">New in v3.1.0</Badge>

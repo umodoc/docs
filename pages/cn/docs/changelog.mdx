@@ -2,6 +2,16 @@ import { Badge } from '/components/badge'
 
 # 更新日志
 
+## 🚀  v3.1.0<Badge>2024-08-10</Badge>
+1. 添加了导入 Word 功能，支持从本地直接导入 Word 文档啦，见[工具栏配置](./options/toolbar)；
+2. 添加了简易的格式刷功能；
+3. 添加了调整节点上下间距的功能；
+4. 添加了页面滚动时页面大纲同步高亮和滚动功能 @qtch [(#21)](https://github.com/umodoc/editor/issues/21)；
+5. 修复 [`getSelectionNode`](./methods#getselectionnode) 方法返回的结果不准确的问题；
+6. 添加 [`setCurrentNodeSelection`](./methods#setcurrentnodeselection) 方法，用于选中当前整个节点；
+7. 添加文字选中降级方案，防止选中的内容看起来丢失的问题；
+8. 修复图片上传进度条一直显示的问题；
+
 ## 🎉 v3.0.0<Badge>2024-08-05</Badge>
 1. **[重磅更新]** 添加 AI 文档助手，详见[AI 文档助手](./assistant)；
 2. **[重磅更新]** 添加工具栏和气泡菜单插槽，可以通过插槽实现更多自定义功能，详见[插槽列表](./slots)；
