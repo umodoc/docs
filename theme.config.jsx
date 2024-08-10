@@ -1,5 +1,6 @@
 import { useConfig } from 'nextra-theme-docs';
 import { useRouter } from 'nextra/hooks';
+import pkg from './package.json';
 
 export default {
 	docsRepositoryBase: 'https://github.com/umodoc/docs/tree/main',
@@ -43,7 +44,7 @@ export default {
 				</svg>
 				<span style={{ margin: '0 1.2em', color: 'rgb(229, 231, 235)' }}> | </span>
 				<span style={{ fontSize: '18px' }} className="_text-gray-100">
-					{router.locale === 'cn' ? '在线文档 v3.1' : 'Documention v3.1'}
+					{router.locale === 'cn' ? '在线文档 ' : 'Documention'} <small>v{pkg.version}</small>
 				</span>
 			</>
 		);

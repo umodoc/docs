@@ -6,6 +6,7 @@ body {
 }
 .nextra-search {
 	margin: 10px 0 10px 10px;
+	width: 180px;
 }
 .no-result {
 	display: flex;
