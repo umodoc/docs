@@ -20,7 +20,7 @@ export default withNextra({
 		return [
 			{
 				source: '/',
-				destination: '/en/docs',
+				destination: '/cn/docs',
 				permanent: true
 			}
 		];
