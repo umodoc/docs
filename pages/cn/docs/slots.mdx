@@ -1,3 +1,5 @@
+import { Badge } from '/components/badge'
+
 # 插槽
 
 Umo Editor 自 v3.0 版本开始，提供了插槽功能，允许用户通过插槽，实现更多自定义功能。
@@ -11,27 +13,27 @@ Umo Editor 自 v3.0 版本开始，提供了插槽功能，允许用户通过插
   <umo-editor v-bind="options">
     <!-- “开始”菜单插槽 -->
     <template #toolbar_base="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_base slot：{{ props }}</span>
     </template>
     <!-- “插入”菜单插槽 -->
     <template #toolbar_insert="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_insert slot：{{ props }}</span>
     </template>
     <!-- “表格”菜单插槽 -->
     <template #toolbar_table="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_table slot：{{ props }}</span>
     </template>
     <!-- “工具”菜单插槽 -->
     <template #toolbar_tools="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_tools slot：{{ props }}</span>
     </template>
     <!-- “页面”菜单插槽 -->
     <template #toolbar_page="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_page slot：{{ props }}</span>
     </template>
     <!-- “导出”菜单插槽 -->
     <template #toolbar_export="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_export slot：{{ props }}</span>
     </template>
   </umo-editor>
 </template>
@@ -54,11 +56,11 @@ Umo Editor 自 v3.0 版本开始，提供了插槽功能，允许用户通过插
 - `toolbar_table`: 向工具栏“表格”菜单后方插入自定义内容。
 - `toolbar_tools`: 向工具栏“工具”菜单后方插入自定义内容。
 - `toolbar_page`: 向工具栏“页面”菜单后方插入自定义内容。
-- `toolbar_export`: 向工具栏“导出”菜单后方插入自定义内容`。
+- `toolbar_export`: 向工具栏“导出”菜单后方插入自定义内容。
 
 ### 插槽参数
 
-- `props.toolbarMode`: `String` 用户当前选择的工具栏类型，可能的值为：`ribbon`、`classic`。
+- `toolbar-mode`: `String` 用户当前选择的工具栏类型，可能的值为：`ribbon`、`classic`。
 
 ## 气泡菜单插槽
 
@@ -83,3 +85,42 @@ Umo Editor 自 v3.0 版本开始，提供了插槽功能，允许用户通过插
   });
 </script>
 ```
+
+## 页眉页脚插槽 <Badge theme="success">v4.1.0 新增</Badge>
+
+通过插槽，自定义页眉页脚内容。
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <!-- “页眉”插槽 -->
+    <template #page_header="props">
+      <span>page_header slot：{{ props }}</span>
+    </template>
+    <!-- “页脚”插槽 -->
+    <template #page_footer="props">
+      <span>page_footer slot：{{ props }}</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+</script>
+```
+
+### 具名插槽
+
+- `page_header`: 页眉插槽，可以通过该插槽自定义页眉内容。
+- `page_footer`: 页脚插槽，可以通过该插槽自定义页眉内容。
+
+### 插槽参数
+
+- `page-number`: `Number` 当前页面的页码。
+- `total-pages`: `Number` 当前文档的总页数。

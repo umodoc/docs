@@ -1,37 +1,39 @@
+import { Badge } from '/components/badge'
+
 # Slots
 
-Since version v3.0, Umo Editor has introduced slot functionality, enabling users to achieve more customization through the use of slots.
+Since version v3.0, Umo Editor provides slot functionality, allowing users to customize more features through slots.
 
-## Toolbar Slot
+## Toolbar Slots
 
-Via the slot, custom content can be inserted after specified menus in the toolbar.
+Use slots to insert custom content after specific menus in the toolbar.
 
 ```vue
 <template>
   <umo-editor v-bind="options">
     <!-- "Home" menu slot -->
     <template #toolbar_base="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_base slot: {{ props }}</span>
     </template>
     <!-- "Insert" menu slot -->
     <template #toolbar_insert="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_insert slot: {{ props }}</span>
     </template>
     <!-- "Table" menu slot -->
     <template #toolbar_table="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_table slot: {{ props }}</span>
     </template>
     <!-- "Tools" menu slot -->
     <template #toolbar_tools="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_tools slot: {{ props }}</span>
     </template>
     <!-- "Page" menu slot -->
     <template #toolbar_page="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_page slot: {{ props }}</span>
     </template>
     <!-- "Export" menu slot -->
     <template #toolbar_export="props">
-      <span>slot：{{ props }}</span>
+      <span>toolbar_export slot: {{ props }}</span>
     </template>
   </umo-editor>
 </template>
@@ -58,7 +60,7 @@ Via the slot, custom content can be inserted after specified menus in the toolba
 
 ### Slot Arguments
 
-- `props.toolbarMode`: `String` The current toolbar type selected by the user, possible values are: `ribbon`, `classic`.
+- `toolbar-mode`: `String` The current toolbar type selected by the user, possible values are: `ribbon`, `classic`.
 
 ## Bubble Menu Slot
 
@@ -83,3 +85,42 @@ Via the slot, custom content can be inserted after the bubble menu, currently on
   });
 </script>
 ```
+
+## Header and Footer Slots <Badge theme="success">New in v4.1.0</Badge>
+
+Customize header and footer content through slots.
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <!-- "Header" slot -->
+    <template #page_header="props">
+      <span>page_header slot: {{ props }}</span>
+    </template>
+    <!-- "Footer" slot -->
+    <template #page_footer="props">
+      <span>page_footer slot: {{ props }}</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // Configuration options
+    // ...
+  });
+</script>
+```
+
+### Named Slots
+
+- `page_header`: Header slot, customize the header content through this slot.
+- `page_footer`: Footer slot, customize the **footer** content through this slot.
+
+### Slot Arguments
+
+- `page-number`: `Number` The current page number.
+- `total-pages`: `Number` The total number of pages in the document.
