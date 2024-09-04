@@ -117,6 +117,14 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
+### autoPagination <Badge theme="success">v5.0.0 新增</Badge>
+
+**说明**：主动对文档内容进行分页，或取消主动分页，取消主动分页主要是为了减少短时间内频繁分页带来的性能开销（如拖动改变节点高度时，会频繁触发分页），往往须在合适的时机后（如  DOM 高度变化以后），再次调用主动分页，以便于正确分页。
+
+**参数**：`Boolean`
+
+**返回值**：无。
+
 ### setLocale 
 
 **说明**：设置 Umo Editor 的显示语言。 <Badge theme="success">v2.0.0 新增</Badge>

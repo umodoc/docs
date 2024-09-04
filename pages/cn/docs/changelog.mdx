@@ -2,6 +2,23 @@ import { Badge } from '/components/badge'
 
 # 更新日志
 
+## 🚀  v4.5.0 <Badge>2024-09-04</Badge>
+
+1. 增强对 Typescript 的支持；
+2. 修复图片浮动时不显示的问题 @ChenErik [(#54)](https://github.com/umodoc/editor/issues/54)；
+3. 修复代码块光标丢失的问题；
+4. 在调用 [`setContent`](./methods#setcontent) 方法和导入 word 文档后，调用分页方法对新插入内容进行分页，以免出现分页错误；
+5. 对外提供 [`autoPagination`](./methods#autopagination) 方法用于主动分页；
+6. 修复设置为暗色模式显示不正确的问题；
+7. 修复文档为空时气泡菜单显示不正确的问题；
+8. 优化打印逻辑，仅当文档内容不为空时可以打印；
+9. 修复只读模式下图片依旧可以拖拽缩放的问题，由 @ChenErik 在 [(#62)](https://github.com/umodoc/editor/pull/62) 修复；
+10. 修复全屏模式下，预览模式无法打开的问题 @BOKE2014 [(#61)](https://github.com/umodoc/editor/issues/61)，由 @ChenErik 在 [(#62)](https://github.com/umodoc/editor/pull/62) 修复；
+12. 修复svgIcon的问题冲突等问题，由 @ChenErik 在 [(#67)](https://github.com/umodoc/editor/pull/67) 修复；
+13. 修复从其他 Umo Editor 文档复制内容后，内容显示不正确的问题;
+14. tiptap 相关依赖升级到 2.2.6，以解决一些已知问题。
+15. 其他细节调整和优化及错误修复。
+
 ## 🚀  v4.1.2 <Badge>2024-08-21</Badge>
 
 1. 类名添加前缀，防止样式被污染导致组件显示不正常；

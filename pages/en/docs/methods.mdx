@@ -117,6 +117,14 @@ This section introduces the methods of Umo Editor, through which you can perform
 
 **Return Value**: None.
 
+### autoPagination <Badge theme="success">New in v5.0.0</Badge>
+
+**Description**: Actively paginate the document content or cancel active pagination. Canceling active pagination is mainly to reduce the performance overhead caused by frequent pagination in a short period (such as when dragging to change the node height, which frequently triggers pagination). Usually, after an appropriate time (such as after the DOM height changes), call active pagination again to ensure correct pagination.content.
+
+**Parameters**: `Boolean`
+
+**Return Value**: None.
+
 ### setLocale 
 
 **Description**: Sets the display language of Umo Editor. <Badge theme="success">New in v2.0.0</Badge>

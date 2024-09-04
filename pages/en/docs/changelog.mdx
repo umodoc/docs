@@ -2,6 +2,24 @@ import { Badge } from '/components/badge'
 
 # Changelog
 
+## 🚀  v4.5.0 <Badge>2024-09-04</Badge>
+
+1. Enhanced support for TypeScript;
+2. Fixed an issue where images did not display when floating, by @ChenErik [(#54)](https://github.com/umodoc/editor/issues/54);
+3. Fixed the issue of cursor loss in code blocks;
+4. After calling the [`setContent`](./methods#setcontent) method and importing Word documents, the pagination method is called to paginate newly inserted content to prevent pagination errors;
+5. Exposed the [`autoPagination`](./methods#autopagination) method for active pagination;
+6. Fixed incorrect display in dark mode;
+7. Fixed incorrect display of the bubble menu when the document is empty;
+8. Optimized printing logic, allowing printing only when the document content is not empty;
+9. Fixed the issue where images could still be dragged and resized in read-only mode, fixed by @ChenErik in [(#62)](https://github.com/umodoc/editor/pull/62);
+10. Fixed the issue where preview mode could not be opened in full-screen mode, reported by @BOKE2014 [(#61)](https://github.com/umodoc/editor/issues/61) and fixed by @ChenErik in [(#62)](https://github.com/umodoc/editor/pull/62);
+11. Added a Placeholder extension for inserting placeholders in documents and fixed the issue of incorrect cursor display when the document is empty, by @lehno [(#66)](https://github.com/umodoc/editor/issues/66);
+12. Fixed the issue of svgIcon conflicts and other problems, by @ChenErik in [(#67)](https://github.com/umodoc/editor/pull/67);
+13. Fixed the issue of incorrect content display after copying content from other Umo Editor documents;
+14. Upgraded tiptap dependencies to 2.2.6 to resolve some known issues.
+15. Other detail adjustments, optimizations, and bug fixes.
+
 ## 🚀  v4.1.2 <Badge>2024-08-21</Badge>
 
 1. Added prefix to class names to prevent style pollution that could cause components to display incorrectly;
