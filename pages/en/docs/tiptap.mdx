@@ -14,21 +14,25 @@ Tiptap Development Documentation: https://tiptap.dev/docs/editor/getting-started
 </template>
  
 <script setup>
-  import { ref, reactive, onMounted } from 'vue';
-  import { UmoEditor } from '@umoteam/editor';
+import { ref, reactive, onMounted } from 'vue';
+import { UmoEditor } from '@umoteam/editor';
 
-  const editorRef = ref(null);
-  const tiptapEditor = ref({});
-  const options = ref({
-    // Configuration
-    // ...
-  })
+const editorRef = ref(null); // Reference to the UmoEditor component
+const tiptapEditor = ref({}); // Reference to the Tiptap Editor instance
+const options = ref({
+  // Configuration options
+  // ...
+});
 
-  onMounted(() => {
-    tiptapEditor.value = editorRef.value.getEditor();
-    console.log(tiptapEditor.value);
-  })
+onMounted(() => {
+  // Retrieve the Tiptap Editor instance using the useEditor method
+  tiptapEditor.value = editorRef.value.useEditor();
+  console.log(tiptapEditor);
 
+  // Alternatively, you can use the getEditor method
+  // tiptapEditor.value = editorRef.value.getEditor();
+  // console.log(tiptapEditor.value);
+});
 </script>
 ```
 

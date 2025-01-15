@@ -1,6 +1,54 @@
+import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
 # Changelog
+
+<Callout type="warning" emoji="❗">
+Thank you for your continued support of Umo Editor. After careful consideration and facing many challenges, we have decided that v4.6 will be the final version to support pagination. Starting with v5.0, pagination support will be temporarily discontinued, but it may return in the future.  
+If you still need pagination, you can continue using the v4.x versions, but these versions will no longer be maintained. Alternatively, you can fork the code and modify it yourself. The branch supporting pagination is available at: https://github.com/umodoc/editor/tree/page-break-v4
+</Callout>
+
+## 🚀  v4.6.0 <Badge>2025-01-20</Badge>
+
+1. Simplified the `placeholder` extension by implementing it through CSS.
+2. Fixed the issue where text selection flickered when the mouse moved over the block handler, resolved by @ChenErik in [(#72)](https://github.com/umodoc/editor/pull/72).
+3. Added cursor styles to the `placeholder` extension and enabled table resizing via color highlights, fixed by @ChenErik in [(#73)](https://github.com/umodoc/editor/pull/73).
+4. Fixed display errors when setting to-do items as subtasks by @BOKE2014 in [(#74)](https://github.com/umodoc/editor/issues/46).
+5. Migrated the entire codebase to TypeScript, contributed by @Goldziher in [(#80)](https://github.com/umodoc/editor/pull/80).
+6. Fixed issues with the incorrect display of custom nodes.
+7. Improved precision for setting image node heights.
+8. Resolved issues with default heights in video nodes.
+9. Fixed overlapping and aspect ratio issues in digital signatures by @BOKE2014 in [(#75)](https://github.com/umodoc/editor/issues/75).
+10. Fixed errors when inserting table.
+11. Resolved issues with alignment menus not functioning properly.
+12. Fixed text boxes being obscured by other elements.
+13. Fixed dropdown menus not displaying under toolbar buttons.
+14. Addressed non-functional language settings and other i18n-related errors.
+15. Fixed issues where QR code generation parameters did not take effect.
+16. Resolved problems where the bubble menu still displayed when images failed to load.
+17. Set digital stamps to default to auto height.
+18. Fixed errors when converting base64 images to file objects.
+19. Resolved errors during file deletion.
+20. Increased loading priority for page extensions.
+21. Fixed issues with default backgrounds not applying to pages.
+22. Optimized word count calculations.
+23. Improved the display of link buttons.
+24. Fixed missing prompts when resetting the editor.
+25. Corrected document link errors.
+26. Enhanced the source code editor and fixed incorrect language displays.
+27. Downgraded Node, Vue, Vite, and some dependencies for improved backward compatibility.
+28. Rewrote the signature component.
+29. Prevented watermark removal during printing.
+30. Enabled file nodes to display file download bubble menus after upload completion.
+31. Fixed non-functional ordered and unordered list features.
+32. Added countdown functionality to presentation mode by @BOKE2014 in [(#61)](https://github.com/umodoc/editor/issues/61).
+33. Added preview functionality for file nodes, allowing interconversion between image, video, audio, and file nodes by @BOKE2014 in [(#92)](https://github.com/umodoc/editor/issues/92).
+34. Introduced the [`useEditor`](/methods#useeditor) method to simplify usage compared to [`getEditor`](./methods#geteditor), especially for manual pagination.
+35. Optimized block menu displays.
+36. Fixed the `placeholder` extension’s incompatibility with Markdown syntax.
+37. Added Russian language support, contributed by @SerRashin in [(#117)](https://github.com/umodoc/editor/pull/117).
+38. Fixed issues where exiting and re-entering preview mode was not possible.
+39. Various other adjustments, optimizations, and bug fixes.
 
 ## 🚀  v4.5.0 <Badge>2024-09-04</Badge>
 

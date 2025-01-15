@@ -1,6 +1,6 @@
 ## Tiptap 实例
 
-Umo Editor 基于[Tiptap](https://tiptap.dev/)实现，并对外提供了一些[方法](./methods)，更多的 Tiptap 编辑器信息可以先通过 `getEditor()` 获取 Tiptap 编辑器实例，进而获取 Tiptap 编辑器的状态信息和调用 Tiptap 的方法等。
+Umo Editor 基于[Tiptap](https://tiptap.dev/)实现，并对外提供了一些[方法](./methods)，更多的 Tiptap 编辑器信息可以先通过 `getEditor()` 或 `useEditor()` 获取 Tiptap 编辑器实例，进而获取 Tiptap 编辑器的状态信息和调用 Tiptap 的方法等。
 
 Tiptap 开发文档：https://tiptap.dev/docs/editor/getting-started/overview
 
@@ -26,8 +26,12 @@ Tiptap 开发文档：https://tiptap.dev/docs/editor/getting-started/overview
   })
 
   onMounted(() => {
-    tiptapEditor.value = editorRef.value.getEditor();
-    console.log(tiptapEditor.value);
+    tiptapEditor.value = editorRef.value.useEditor();
+    console.log(tiptapEditor);
+
+    // 或者
+    // tiptapEditor.value = editorRef.value.getEditor();
+    // console.log(tiptapEditor.value);
   })
 
 </script>

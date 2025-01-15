@@ -1,6 +1,54 @@
+import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
 # 更新日志
+
+<Callout type="warning" emoji="❗">
+感谢大家长久以来对 Umo Editor 的支持，因为面临的诸多挑战，在经过长久慎重且艰难的思想斗争之后，我们决定 v4.6 是最后一个支持分页的版本，自 v5.0 版本开始，Umo Editor 将暂时放弃对分页的支持，不排除不远的将来分页功能可能会再次回归。
+如果您仍然需要分页功能，可以继续使用 v4.x 版本，但是此版本将不再维护，当然，您也可以拉取代码自行修改，支持分页的代码分支为：https://github.com/umodoc/editor/tree/page-break-v4
+</Callout>
+
+## 🚀  v4.6.0 <Badge>2025-01-20</Badge>
+
+1. 简化 placeholde 扩展，通过 css 实现；
+2. 修复选中文字时鼠标移动到 block-handler上导致选中项乱闪的问题，由 @ChenErik 在 [(#72)](https://github.com/umodoc/editor/pull/72) 修复；
+3. placeholder扩展增加鼠标样式，增加颜色高亮扩展表格开启大小拖拽，由 @ChenErik 在 [(#73)](https://github.com/umodoc/editor/pull/73) 修复；
+4. 修复待办事项设为子任务时显示错误 @BOKE2014 [(#74)](https://github.com/umodoc/editor/issues/46)；
+5. 将整个代码库转换为 TypeScript 等，由 @Goldziher 在 [(#80)](https://github.com/umodoc/editor/pull/80) 提交；
+6. 修复自定义节点显示错误的问题；
+7. 修改图片节点高度精度；
+8. 修复视频节点高度为默认高度的问题；
+9. 修复电子签名被遮挡和保持长宽比的问题 @BOKE2014 [(#75)](https://github.com/umodoc/editor/issues/75)；
+10. 修复表格插入错误；
+11. 修复对齐方式菜单不起作用的问题；
+12. 修复文本框被其他元素遮挡的问题；
+13. 修复菜单按钮下拉框不显示的问题；
+14. 修复修复语言配置项不生效的问题等 I18n 相关错误；
+15. 修复二维码生成参数不生效的问题；
+16. 修复图片加载错误时，仍然显示气泡菜单的问题；
+17. 电子章默认设为自动高度；
+18. 修复 base64 转图片文件错误；
+19. 修复删除文件报错；
+20. 提高页面扩展加载优先级；
+21. 修复页面背景默认背景不生效的问题；
+22. 优化字数统计；
+23. 优化链接按钮显示；
+24. 修复重置编辑器时不显示提示的问题；
+25. 修复文档链接错误；
+26. 优化源代码编辑器，修复显示语言不正确的问题；
+27. Node、Vue、Vite及部分开发依赖降级，以更好的向下兼容；
+28. 重写签名组件；
+29. 打印时防止删除水印；
+30. 文件节点在文件上传完成后显示文件下载气泡菜单按钮；
+31. 修复有序列表和无序列表不生效的问题；
+32. 演示模式增加倒计时功能 @BOKE2014 [(#61)](https://github.com/umodoc/editor/issues/61)；
+33. 添加文件节点的预览功能，同时图片、视频、音频等节点和文件节点可相互转换 @BOKE2014 [(#92)](https://github.com/umodoc/editor/issues/92)；
+34. 添加 [`useEditor`](/methods#useeditor) 方法，用以简化 [`getEditor`](./methods#geteditor) 方法用于主动分页；
+35. 优化块菜单显示；
+36. 修复placeholder扩展不支持markdown语法的问题
+37. 添加俄语支持，由 @SerRashin 在 [(#117)](https://github.com/umodoc/editor/pull/117) 提交；
+38. 修复预览模式退出后无法重新进入的错误；
+39. 其他细节调整和优化及错误修复。
 
 ## 🚀  v4.5.0 <Badge>2024-09-04</Badge>
 

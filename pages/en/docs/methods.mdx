@@ -203,11 +203,20 @@ This section introduces the methods of Umo Editor, through which you can perform
 
 ### getEditor
 
-**Description**: Retrieves the instance of the Editor.
+**Description**: Retrieves the Vue instance of the Editor.
 
 **Parameters**: None.
 
-**Return Value**: Tiptap Editor instance.
+**Return Value**: The Vue instance of the Tiptap Editor.
+
+### useEditor
+
+**Description**: Retrieves the instance of the Editor. <Badge theme="success">New in v4.6.0</Badge>
+
+**Parameters**: None.
+
+**Return Value**: The Tiptap Editor instance.
+
 
 ### getTableOfContents
 
@@ -252,7 +261,7 @@ This section introduces the methods of Umo Editor, through which you can perform
 
 ### setCurrentNodeSelection
 
-**Description**: Selects the entire node at the current focus position, such as selecting the entire table when the cursor is in a cell within a table. <Badge theme="success">Added in v3.1.0</Badge>
+**Description**: Selects the entire node at the current focus position, such as selecting the entire table when the cursor is in a cell within a table. <Badge theme="success">New in v3.1.0</Badge>
 
 **Parameters**: None.
 
@@ -260,7 +269,7 @@ This section introduces the methods of Umo Editor, through which you can perform
 
 ### deleteSelectionNode
 
-**Description**: Deletes the currently selected node. <Badge theme="success">Added in v3.0.0</Badge>
+**Description**: Deletes the currently selected node. <Badge theme="success">New in v3.0.0</Badge>
 
 **Parameters**: None.
 
