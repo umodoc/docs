@@ -5,13 +5,39 @@ import { Badge } from '/components/badge'
 
 <Callout type="warning" emoji="❗">
 感谢大家长久以来对 Umo Editor 的支持，因为面临的诸多挑战，在经过长久慎重且艰难的思想斗争之后，我们决定 v4.6 是最后一个支持分页的版本，自 v5.0 版本开始，Umo Editor 将暂时放弃对分页的支持，不排除不远的将来分页功能可能会再次回归。
-如果您仍然需要分页功能，可以继续使用 v4.x 版本，但是此版本将不再维护，当然，您也可以拉取代码自行修改，支持分页的代码分支为：https://github.com/umodoc/editor/tree/page-break-v4
+
+好消息是，Tiptap 官方团队已经注意到了社区对分页功能需求的迫切性，并且已经着手开发，但是还没有明确的发布时间，见：https://x.com/tiptap_editor/status/1812154617733538288 。
+
+如果您仍然需要分页功能，可以继续使用 v4.x 版本，但是此版本将不再维护，当然，您也可以拉取代码自行修改，支持分页的代码分支为：[page-break-v4](https://github.com/umodoc/editor/tree/page-break-v4)。
 </Callout>
+
+## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
+
+1. ⚠️ 彻底删除了对分页的支持。
+2. 添加了分页符、换行符扩展，替换了原来的 Placeholder 扩展等；
+3. 优化打印功能；
+4. 增加了书签功能，由 @china-wangxu 在 [(#137)](https://github.com/umodoc/editor/pull/137) 提交；
+5. 增加了文件预览功能，相关配置见 [文件上传配置](./options/file#filepreview)；
+6. 组件销毁后解绑所有快捷键 @Liuxl945 [(#135)](https://github.com/umodoc/editor/issues/135)；
+7. 优化了文本框、图片、链接等多个内部扩展；
+8. 添加 [`getPage`](./methods#getpage) 方法以便获取页面设置等信息 @SerRashin [(#120)](https://github.com/umodoc/editor/issues/120)。
+9. 修复组件多次销毁后，使用 Ctrl+S 保存多次调用保存方法的问题 @fjll-425361
+ [(#96)](https://github.com/umodoc/editor/issues/96)；
+10. 删除了无用的功能模块，减小打包体积；
+11. 其他细节调整和优化。
+
+## 🚀  v4.6.2 <Badge>2025-02-07</Badge>
+
+1. 错误修复；
+
+## 🚀  v4.6.1 <Badge>2025-01-15</Badge>
+
+1. 错误修复；
 
 ## 🚀  v4.6.0 <Badge>2025-01-15</Badge>
 
 1. 简化 placeholder 扩展，通过 css 实现；
-2. 修复选中文字时鼠标移动到 block-handler上导致选中项乱闪的问题，由 @ChenErik 在 [(#72)](https://github.com/umodoc/editor/pull/72) 修复；
+2. 修复选中文字时鼠标移动到 block-handler 上导致选中项乱闪的问题，由 @ChenErik 在 [(#72)](https://github.com/umodoc/editor/pull/72) 修复；
 3. placeholder扩展增加鼠标样式，增加颜色高亮扩展表格开启大小拖拽，由 @ChenErik 在 [(#73)](https://github.com/umodoc/editor/pull/73) 修复；
 4. 修复待办事项设为子任务时显示错误 @BOKE2014 [(#74)](https://github.com/umodoc/editor/issues/46)；
 5. 将整个代码库转换为 TypeScript 等，由 @Goldziher 在 [(#80)](https://github.com/umodoc/editor/pull/80) 提交；

@@ -1,3 +1,5 @@
+import { Badge } from '/components/badge'
+
 # 文件上传配置
 
 用于配置文件上传相关配置。包含允许的文件类型、文件大小限制等。对于文件上传的方法和文件删除的方法，请参阅[方法](/docs/events)。
@@ -9,6 +11,13 @@
   file: {
     allowedMimeTypes: [],
     maxSize: 1024 * 1024 * 100, // 100M
+    preview: [ // v5.0.0 新增
+      { extensions: ['pdf'], url: '{url}' },
+      {
+        extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
+        url: 'https://view.officeapps.live.com/op/embed.aspx?src={{url}}&amp;wdStartOn=1&amp;wdPrint=0&amp;wdEmbedCode=0',
+      },
+    ],
   },
 }
 ```
@@ -34,3 +43,27 @@
 **说明**：允许上传文件的最大大小，单位为字节(B)。
 
 **类型**：`Number`
+
+**默认值**：`1024 * 1024 * 100` (100M)
+
+### file.preview <Badge theme="success">v2.0.0 新增</Badge>
+
+**说明**:预览文件的配置，包括文件类型和预览链接，注意，修改该值会直接覆盖默认值，如果您需要调整预览文件的配置，请在默认值的基础上进行修改。
+
+**类型**: `Array`
+
+**默认值**: 
+```js
+[
+  { extensions: ['pdf'], url: '{url}' },
+  {
+    extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
+    url: 'https://view.officeapps.live.com/op/embed.aspx?src={{url}}&amp;wdStartOn=1&amp;wdPrint=0&amp;wdEmbedCode=0',
+  },
+]
+```
+
+**可选值**：
+
+- `preview[].extensions`: 支持的文件后缀名数组，参考默认值。
+- `preview[].url`: 预览链接，可以是字符串或字符串数组，支持 `{url}` 和 `{{url}}` 两种占位符，分别用于替换文件上传后的 URL 和对 URL 进行 encodeURIComponent 编码。

@@ -13,18 +13,18 @@ export default {
 		href: 'https://demo.umodoc.com/editor?lang=en-US',
 		newWindow: true
 	},
-	// versions: {
-  //   title: 'Versions',
-  //   type: 'menu',
-  //   items: {
-  //     v4: {
-  //       title: 'v4.x',
-  //       href: '/en/docs'
-  //     },
-  //     latest: {
-  //       title: 'latest',
-  //       href: 'https://editor.umodoc.com/en/docs'
-  //     }
-  //   }
-  // }
+	versions: {
+    title: 'Versions',
+    type: 'menu',
+    items: {
+      v4: {
+        title: 'v4.x',
+        href: 'https://v4.editor.umodoc.com/en/docs'
+      },
+      latest: {
+        title: 'latest',
+        href: '/en/docs'
+      }
+    }
+  }
 };

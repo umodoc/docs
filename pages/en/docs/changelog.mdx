@@ -5,8 +5,31 @@ import { Badge } from '/components/badge'
 
 <Callout type="warning" emoji="❗">
 Thank you for your continued support of Umo Editor. After careful consideration and facing many challenges, we have decided that v4.6 will be the final version to support pagination. Starting with v5.0, pagination support will be temporarily discontinued, but it may return in the future.  
-If you still need pagination, you can continue using the v4.x versions, but these versions will no longer be maintained. Alternatively, you can fork the code and modify it yourself. The branch supporting pagination is available at: https://github.com/umodoc/editor/tree/page-break-v4
+The good news is that the Tiptap official team has noticed the community's urgent need for a pagination feature and has already started development. However, there is no clear release date yet. See: https://x.com/tiptap_editor/status/1812154617733538288.
+If you still need pagination, you can continue using the v4.x versions, but these versions will no longer be maintained. Alternatively, you can fork the code and modify it yourself. The branch supporting pagination is available at: [page-break-v4](https://github.com/umodoc/editor/tree/page-break-v4).
 </Callout>
+
+## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
+
+1. ⚠️ Completely removed support for pagination.
+2. Added page break and line break extensions, replacing the original Placeholder extension, etc.;
+3. Optimized printing functionality;
+4. Added bookmark feature, submitted by @china-wangxu in [(#137)](https://github.com/umodoc/editor/pull/137);
+5. Added file preview feature, related configurations can be found in [File Upload Configuration](./options/file#filepreview);
+6. Unbound all shortcut keys after component destruction @Liuxl945 [(#135)](https://github.com/umodoc/editor/issues/135);
+7. Optimized multiple internal extensions such as text boxes, images, and links;
+8. Added [`getPage`](./methods#getpage) method to retrieve page settings and other information @SerRashin [(#120)](https://github.com/umodoc/editor/issues/120).
+9. Fixed the issue where the save method was called multiple times when using Ctrl+S after multiple destructions of the component @fjll-425361 [(#96)](https://github.com/umodoc/editor/issues/96);
+10. Removed unused functional modules to reduce the package size;
+11. Other minor adjustments and optimizations.
+
+## 🚀  v4.6.2 <Badge>2025-02-07</Badge>
+
+1. Bug fixes;
+
+## 🚀  v4.6.1 <Badge>2025-01-15</Badge>
+
+1. Bug fixes;
 
 ## 🚀  v4.6.0 <Badge>2025-01-15</Badge>
 
