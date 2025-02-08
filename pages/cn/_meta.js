@@ -13,18 +13,18 @@ export default {
 		href: 'https://demo.umodoc.com/editor?lang=zh-CN',
 		newWindow: true
 	},
-	// versions: {
-  //   title: '版本',
-  //   type: 'menu',
-  //   items: {
-  //     v4: {
-  //       title: 'v4.x',
-  //       href: '/cn/docs'
-  //     },
-  //     latest: {
-  //       title: '最新版',
-  //       href: 'https://editor.umodoc.com/cn/docs'
-  //     }
-  //   }
-  // }
+	versions: {
+    title: '版本',
+    type: 'menu',
+    items: {
+      v4: {
+        title: 'v4.x',
+        href: '/cn/docs'
+      },
+      latest: {
+        title: '最新版',
+        href: 'https://editor.umodoc.com/cn/docs'
+      }
+    }
+  }
 };
