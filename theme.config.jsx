@@ -75,7 +75,10 @@ export default {
 			</svg>
 		)
 	},
-	chat: false,
+	chat: {
+		link:'https://gitee.com/umodoc/editor',
+		icon: (<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.371 0 0 5.371 0 12s5.371 12 12 12 12-5.371 12-12S18.629 0 12 0zM8.678 15.899h5.492c.956 0 1.733-.775 1.733-1.734v-.287a.58.58 0 0 0-.579-.58h-4.046a.578.578 0 0 1-.58-.579v-1.443c0-.321.26-.58.58-.58h6.646a.58.58 0 0 1 .58.58v3.321a3.901 3.901 0 0 1-3.902 3.901H6.076a.58.58 0 0 1-.58-.579V9.832A4.334 4.334 0 0 1 9.83 5.5h8.094c.321 0 .58.258.58.58L18.5 7.521c0 .321-.258.58-.58.58H9.833c-.956 0-1.733.774-1.733 1.733v5.49c0 .315.258.574.58.574z" fill="#C2191F" fill-rule="nonzero"/></svg>)
+	},
 	gitTimestamp({ timestamp }) {
 		const router = useRouter();
 		const time = new Date(timestamp).toLocaleDateString(router.locale === 'cn' ? 'zh-CN' : 'en-US', {
