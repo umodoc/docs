@@ -1,0 +1,42 @@
+# ECharts 图表配置
+
+用于配置插入图表时的弹窗的默认显示行为，如果您要自定义 ECharts 图表配置，可以使用 [`onCustomEChartSettings`](./methods#oncustomechartsettings)。
+
+## 默认配置
+
+```js
+{
+  echarts: {
+    mode: 1,
+    haveImage: false,
+  },
+}
+```
+
+## 配置项说明
+
+### echarts.mode
+
+**说明**：图表设置时，默认打开的模式。
+
+**类型**：`Number`
+
+**默认值**：`1`
+
+**可选值**：
+
+- `0`：直接使用 ECharts 的 options json 源码模式
+- `1`：可视化模式，可以通过配置创建图表
+
+### echarts.renderImage
+
+**说明**：是否渲染成图片，如果为 `true` 则在图片展示的同时保存一张 ECharts 图片，主要用于复杂图形模式 Word 无法生成但又要有类似效果场景。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：
+
+- `true`：生成图片
+- `false`：不生成图片

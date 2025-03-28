@@ -117,6 +117,33 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
+### insertContent
+
+**说明**：在当前选中文本位置插入内容。 <Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：
+
+- `content` : 合法的 HTML 格式或其他合法的[Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+- `options` : 
+  - `updateSelection`: `true`，是否更新选区。
+  - `focusPosition`: focus 位置，可选值为：'start' | 'end' | 'all' | number | boolean | null (false)。
+  - `focusOptions`: `{ scrollIntoView: true }`。
+
+**返回值**：无。
+
+### setContentTypeWriter
+
+**说明**：以打字机效果插入内容。 <Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：
+
+- `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+- `options` : 
+  - `timerCount`: `Number`，打字机效果的间隔时间。
+  - `state`: `Number`，打字机状态，可选值为：`0`:开始；`1`:刷新；`2`:停止；`3`:重新开始；`4`:清空打字机。
+
+**返回值**：无。
+
 ### setLocale 
 
 **说明**：设置 Umo Editor 的显示语言。 <Badge theme="success">v2.0.0 新增</Badge>
@@ -140,6 +167,14 @@ import { Badge } from '/components/badge'
 **参数**：无。
 
 **返回值**：页面配置信息。
+
+### setPage 
+
+**说明**：设置 Umo Editor 的页面配置信息。 <Badge theme="success">v5.0.0 新增</Badge>
+
+**参数**：页面配置信息。
+
+**返回值**：无。
 
 ### getContent 
 
@@ -251,7 +286,7 @@ import { Badge } from '/components/badge'
 
 ### getSelectionNode
 
-**说明**：获取当前选中节点信息。 <Badge theme="success">v3.0.0 新增</Badge>
+**说明**：获取当前选中节点信息，自 v6.0.0 版本开始，调整为获取当前选中的节点，而非当前选中节点的祖先节点（即文档节点的子节点）。 <Badge theme="success">v3.0.0 新增</Badge>
 
 **参数**：无。
 
@@ -267,7 +302,7 @@ import { Badge } from '/components/badge'
 
 ### deleteSelectionNode
 
-**说明**：删除当前选中的节点。 <Badge theme="success">v3.0.0 新增</Badge>
+**说明**：删除当前选中的节点，自 v6.0.0 版本开始，调整为删除当前选中的节点，而非当前选中节点的祖先节点（即文档节点的子节点）。 <Badge theme="success">v3.0.0 新增</Badge>
 
 **参数**：无。
 
@@ -324,6 +359,72 @@ import { Badge } from '/components/badge'
 **参数**：无。
 
 **返回值**：无。
+
+### toggleFullscreen
+
+**说明**：切换 Umo Editor 的全屏状态（视口全屏，并非浏览器全屏）。<Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：无。
+
+### getAllBookmarks
+
+**说明**：返回文档中的所有书签。<Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：`Array`，书签名称数组。
+
+### focusBookmark
+
+**说明**：聚焦到指定的书签位置。<Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：`bookmarkName`，String，书签名称。
+
+**返回值**：`Boolean`，是否设置成功。
+
+### setBookmark
+
+**说明**：设置书签。<Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：`bookmarkName`，String，书签名称。
+
+**返回值**：`Boolean`，是否设置成功。
+
+### deleteBookmark
+
+**说明**：删除指定书签。<Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：`bookmarkName`，String，书签名称。
+
+**返回值**：`Boolean`，是否删除成功。
+
+### useAlert
+
+**说明**：使用 Umo Editor 的提示框。
+
+**参数**：`options`，object，[TDesign Next Dialog](https://tdesign.tencent.com/vue-next/components/dialog?tab=api)的相关配置。
+
+**返回值**：TDesign Next Dialog 实例。
+
+### useConfirm
+
+**说明**：使用 Umo Editor 的确认框。
+
+**参数**：`options`，object，[TDesign Next Dialog](https://tdesign.tencent.com/vue-next/components/dialog?tab=api)的相关配置。
+
+**返回值**：TDesign Next Dialog 实例。
+
+### useMessage
+
+**说明**：使用 Umo Editor 的消息提示。
+
+**参数**：
+- `type`：String，消息类型，可选值为 `success`、`warning`、`error`、`info`。
+- `options`：[TDesign Next Message](https://tdesign.tencent.com/vue-next/components/message?tab=api)的相关配置。
+
+**返回值**：TDesign Next Message 实例。
 
 ## 更多方法
 

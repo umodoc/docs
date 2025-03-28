@@ -23,6 +23,11 @@ import { Callout } from 'nextra/components'
   async onAssistant(payload, content) {
     throw new Error('Key "onAssistant": Please set the onAssistant method')
   },
+  onCustomEChartSettings() {
+    console.error(
+      'Custom chart settings are required, please configure onCustomEChartSettings.',
+    )
+  },
   async onCustomImportWordMethod(file) {
     throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
   },
@@ -237,9 +242,9 @@ const onFileDelete = (id, url) => {
 </Tabs.Tab>
 </Tabs>
 
-### onAssistant <Badge theme="success">v3.0.0 新增</Badge>
+### onAssistant
 
-**说明**：配置 AI 文档助手返回数据的方法，更多信息见[AI 文档助手](../assistant)。
+**说明**：配置 AI 文档助手返回数据的方法，更多信息见[AI 文档助手](../assistant)。 <Badge theme="success">v3.0.0 新增</Badge>
 
 **类型**：`AsyncFunction`、 `Promise`。
 
@@ -370,9 +375,24 @@ const onAssistant = (payload, content) => {
 
 **返回值**：`String`、`ReadableStream`。
 
-### onCustomImportWordMethod <Badge theme="success">v3.1.0 新增</Badge>
 
-**说明**：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `toolbar.importWord.useCustomMethod` 选项为 `true`，见 [工具栏配置](../options/toolbar#importword)。
+
+### onCustomEChartSettings
+
+**说明**：自定义 ECharts 图表配置方法。 <Badge theme="success">v6.0.0 新增</Badge>
+
+**类型**：`Function`。
+
+**参数**：
+
+- `data`：`Array`，图表数据。
+- `config`：`Object`，用户当前 ECharts 图表配置。
+
+**返回值**：`String`，返回 ECharts 图表配置对象。
+
+### onCustomImportWordMethod
+
+**说明**：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `toolbar.importWord.useCustomMethod` 选项为 `true`，见 [工具栏配置](../options/toolbar#importword)。 <Badge theme="success">v3.1.0 新增</Badge>
 
 **类型**：`AsyncFunction`、 `Promise`。
 

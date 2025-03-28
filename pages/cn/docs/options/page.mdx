@@ -1,3 +1,5 @@
+import { Badge } from '/components/badge'
+
 # 页面配置
 
 用于配置 Umo Editor 页面区域的显示和行为。
@@ -15,6 +17,8 @@
     },
     defaultOrientation: 'portrait',
     defaultBackground: '#fff',
+    showBreakMarks: true,
+    showBookmark: false,
     watermark: {
       type: 'compact',
       alpha: 0.2,
@@ -57,6 +61,26 @@
 **默认值**：`#fff`
 
 **可选值**：合法的[CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。
+
+### page.showBreakMarks
+
+**说明**：是否显示分页标记，用户可修改。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`。
+
+### page.showBookmark 
+
+**说明**：是否显示书签，用户可修改。<Badge theme="success">v6.0.0 新增</Badge>
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：`true`、`false`。
 
 ### page.watermark
 
