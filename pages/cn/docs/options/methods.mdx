@@ -387,8 +387,53 @@ const onAssistant = (payload, content) => {
 
 - `data`：`Array`，图表数据。
 - `config`：`Object`，用户当前 ECharts 图表配置。
+  1. `seriesType`：`String`，图表显示类型 `bar|line|pie` 分别表示柱状图、折线图、饼图
+  2. `legend`：`Boolean`，是否显示图例  `true`:显示图例，`false`:不显示图例
+  3. `legendleft`：`String`，图例横向显示位置  `left|center|right` 分别表示居左、居中、居右
+  4. `legendlocation`：`String`，图例纵向显示位置 `top|bottom` 分别表示居上、居下
+  5. `legendorient`：`String`，图例显示方向布局 `horizontal|vertical` 分别表示水平布局、垂直布局
+  6. `smooth：Boolean`，折线是否平滑显示 `true`:表示折线平滑显示  `false`:表示默认显示
+  7. `titleText`：`String`，图表标题显示内容
+  8. `titleleft`：`String`，图表标题所在位置 `left|center|right` 分别表示居左、居中、居右
 
-**返回值**：`String`，返回 ECharts 图表配置对象。
+**示例**：
+
+以下代码演示如何配置 onCustomEChartSettings 方法，实现展示图表扩展：
+
+<Tabs items={['全局配置']}>
+<Tabs.Tab>
+```js
+import { useUmoEditor } from '@umoteam/editor'
+
+const options = {
+  onCustomEChartSettings(data, config) {
+    const { title, seriesType, legend } = config
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      },
+      yAxis: {
+        type: 'value',
+      },
+      series: [
+        {
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: 'line',
+          smooth: true,
+        },
+      ],
+    }
+    return option
+  }
+}
+
+app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+</Tabs>
+
+**返回值**：`Object`，返回 ECharts 图表的options配置对象。
 
 ### onCustomImportWordMethod
 
