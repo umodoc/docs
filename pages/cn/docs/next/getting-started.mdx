@@ -1,0 +1,52 @@
+# 快速开始
+
+Umo Editor Next 作为商业软件，不再以公共 NPM 包的形式发行，您在获得[商业许可](./buy)以后，可以在我们的私有代码仓库中，找到已打包的代码，通过以下方式将 Umo Editor Next 添加到您的项目中。
+
+## 使用官方提供的打包代码
+
+### 1. 复制打包代码
+ 
+复制官方私有仓库中的 `/releases` 下的最新打包文件到本地，假设本地相对于项目的路径为 `./umo-editor-next-xxx.tgz`。
+
+### 2. 安装 Umo Editor Next
+
+在您的项目下运行如下命令来装刚下载的打包文件，注意文件路径。
+ 
+```sh npm2yarn
+npm install --save ./umo-editor-next-xxx.tgz
+```
+ 
+### 3. 一切就绪
+ 
+通过上述操作，您已经成功安装了 Umo Editor Next 的 NPM 依赖，接下来就可以在项目中使用了。
+
+
+## 自行打包
+
+您也可以自行打包，参考以下步骤：
+
+### 1. 克隆官方仓库
+```bash
+git clone <Umo Editor Next 官方私有仓库路径>
+```
+
+### 2. 安装依赖并打包项目代码
+
+```sh npm2yarn
+npm install
+npm build
+```
+
+### 3. 安装 Umo Editor Next
+
+假设路径您克隆的本地仓库路径相对于您的项目地址为 `../umo-editor-next`
+
+在您的项目中运行以下命令安装 Umo Editor Next：
+ 
+```sh npm2yarn
+npm install --save ../umo-editor-next/releases/umo-editor-next-xxx.tgz
+```
+ 
+### 4. 一切就绪
+ 
+通过上述操作，您已经成功安装了 Umo Editor Next 的 NPM 依赖，接下来就可以在项目中使用了。

@@ -1,0 +1,16 @@
+# 方法列表
+
+Umo Editor Next 在包含 Umo Editor 的[所有方法](../methods)的基础上，增加了以下方法。
+
+## 方法说明
+
+### getCollaborationInfo
+
+**说明**：获取在线协作相关信息。
+
+**参数**：无
+
+**返回值**：Object，包含以下信息。
+- `connect`：Boolean，是否与服务商连接成功；
+- `user`：Array，当前协作用户列表；
+- `provider`：Object，服务商信息，获得服务商信息后，可以通过监听相关事件，来实现更多个性化需求，参考：https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding 。

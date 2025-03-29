@@ -1,0 +1,49 @@
+# 快速开始
+
+Umo Editor Next 在包含 Umo Editor 的[所有配置](../options/default)的基础上，增加或删除了以下配置：
+
+## 所有配置
+``` js
+const defaultOptions = {
+  // Umo Editor 的相关配置
+  // ...
+  // Umo Editor Next 的相关配置
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
+}
+```
+
+## 不支持的配置
+
+``` js
+const defaultOptions = {
+  onSave(){
+    // ...
+  }
+}
+```
+
+因为在多人协作的场景中，文档内容是实时传输到服务器端的，可以在服务器端直接入库，无需再由客户端发起保存请求。
+
+
+
+## 配置说明
+
+### collaboration
+
+多人协作编辑的相关配置，其实现思路和原理可以参考：https://tiptap.dev/docs/hocuspocus 。
+
+- `collaboration.enabled`，Boolean，是否启用在线协作。
+- `collaboration.provider`
+
+**说明**：在线协作服务商配置。Umo Editor Next 默认提供了基于 [Express](https://expressjs.com/?hl=zh-CN) 一个 Nodejs 的服务器端（见：[Umo Editor Next](../server)），包含了 Hocuspocus Server，该选项支持 Hocuspocus Server 的所有配置。
+
+**类型**：Object
+
+**配置**：`url` 配置为 Umo Editor Server 服务商地址，如 `ws://127.0.0.1:1235/provider`，当然您也可以配置为其他服务商。其他选项同 Hocuspocus Server 的配置，见 https://tiptap.dev/docs/hocuspocus/provider/configuration 。
+
+
+
+

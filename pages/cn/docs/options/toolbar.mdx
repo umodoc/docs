@@ -10,7 +10,7 @@ import { Badge } from '/components/badge'
 {
   toolbar: {
     defaultMode: 'ribbon',
-    enableSourceEditor: true,
+    // enableSourceEditor: true, v6.0.0 已移除
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
     disableMenuItems: [],
     importWord: {
@@ -36,7 +36,7 @@ import { Badge } from '/components/badge'
 
 ### toolbar.enableSourceEditor
 
-**说明**：是否启用编辑器源码模式，在编辑器源码模式下，用户可编辑源码，预览效果，适合具备编程能力的开发人员使用，不建议向普通用户开放。
+**说明**：是否启用编辑器源码模式，在编辑器源码模式下，用户可编辑源码，预览效果，适合具备编程能力的开发人员使用，不建议向普通用户开放。 <Badge theme="danger">v6.0.0 已移除</Badge>
 
 **类型**：`Boolean`
 

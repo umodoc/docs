@@ -30,5 +30,11 @@ export default {
 		type: 'separator',
 		title: '自定义插件'
 	},
-	extensions: '插件说明'
+	extensions: '插件说明',
+	'--business': {
+		type: 'separator',
+		title:"商业版本"
+	},
+	next:'Umo Editor Next',
+	server:'Umo Editor Server'
 };

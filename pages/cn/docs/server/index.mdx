@@ -1,0 +1,59 @@
+# 基础介绍
+
+Umo Editor Server 是为了增强 Umo Editor Next 的部分功能，如多用户在线协作编辑、文档批注（评论）、文档导入导出等功能而开发的配套服务器端软件，如果您已经购买了 Umo Editor Next 的[商业许可](../next/pricing)，那您可以在遵守[Umo Team 商业软件许可协议](../next/license)的基础上，免费使用 Umo Editor Server。
+
+Umo Editor Server 是一款 Nodejs 的服务器端软件，基于 [Express](https://expressjs.com/?hl=zh-CN) 实现，其主要功能和作用是，通过 http 或 websocket 接口的形式，增强 Umo Editor Next 的能力。
+
+Umo Editor Server 不以 NPM 包的形式发行，在获得[商业许可](../next/pricing)后，您可以直接拉取私有仓库的源代码按照实际需要进行修改和部署。
+
+## 启动项目
+
+### 1. 克隆官方仓库
+```bash
+git clone <Umo Editor Server 官方私有仓库路径>
+```
+
+### 2. 安装 NPM 依赖
+
+```sh npm2yarn
+npm install
+```
+
+### 3. 配置环境变量
+
+Umo Editor Server 并不提供统一的配置项，部分敏感配置通过环境变量的形式配置。延续了 Umo Editor 开箱即用的思路，您只需要在项目根目录下添加 `.env` 文件并添加环境变量信息即可快速启动，以下是一个环境变量的示例：
+
+```bash filename=".env"
+## 服务相关
+PORT = 1235
+SERVER_NAME = Umo Editor Server
+
+## 日志相关
+LOG_DIR = ./logs
+
+## 数据库相关
+SQLITE_DB_PATH = ./db
+SQLITE_DB_NAME = umo-editor-server.sqlite
+
+## 协作相关
+DOC_SAVE_INTERVAL = 5000 # 单位为毫秒
+```
+
+您也可以直接从 `.env.example` 中复制这些信息。
+
+### 4. 启动项目
+
+```sh npm2yarn
+npm run dev
+```
+
+### 5. 一切就绪
+ 
+通过上述操作，您已经成功启动了 Umo Editor Server，访问 http://127.0.0.1:1235/docs 即可查看 Swagger 文档。
+
+## 开发说明
+
+- 对于多人协作编辑、文档批注/评论等场景，Umo Editor Server 提供了详尽的配置和钩子方法，默认采用 SQLite 存储数据（不同文档请使用不同的文档 id），您可以通过 `database`、`redis`、`sqlite`、`webhook` 等扩展和现有业务系统对接或通信，详细说明见代码注释；
+- 您可以将 Umo Editor Server 单独作为一个服务进行部署，通过网关、数据库、HTTP 请求等实现和其他业务系统的对接或通信。Umo Editor Server 目前不包含鉴权的实现，如果有需要，请自行实现；
+- Umo Editor Server 默认提供了记录本地日志文件的能力，您也可以自行扩展。
+- 如果需要二次开发，源代码中提供了大量详尽的注释应该会对您非常有帮助。
