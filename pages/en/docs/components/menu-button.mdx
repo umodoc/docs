@@ -1,6 +1,6 @@
 # Menu Button Component
 
-The menu button component is used to display buttons and perform actions in menus, typically used in toolbar menus, popup menus, and block-level menus.
+The menu button component is used to display buttons and perform actions on menus. It is commonly used in toolbar menus, bubble menus, and block menus.
 
 ## Example
 
@@ -27,103 +27,103 @@ const demoIcon = `<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xm
 
 ### menuType
 
-**Description**: The type of the menu.
+**Description**: Type of menu
 
-**Possible Values**: `button`, `dropdown`, `select`, `popup`
+**Options**: `button`, `dropdown`, `select`, `popup`
 
 **Type**: `String`
 
-**Default Value**: `button`
+**Default**: `button`
 
 ### huge
 
-**Description**: Whether to display as a large button.
+**Description**: Whether to display as a large button
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### ico
 
-**Description**: The SVG icon for the menu, requires valid HTML.
+**Description**: SVG icon for the menu, must be valid HTML
 
 **Type**: `string`
 
-**Default Value**: `-`
+**Default**: `-`
 
 ### text
 
-**Description**: The text displayed on the menu. When `tooltip` is not `false`, the value of `text` will also be displayed in the tooltip.
+**Description**: Text displayed on the menu. If `tooltip` is not `false`, the value of `text` will also appear in the tooltip.
 
 **Type**: `string`
 
-**Default Value**: `''`
+**Default**: `''`
 
 ### hideText
 
-**Description**: Whether to hide the text on the menu.
+**Description**: Whether to hide the menu text
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### tooltip
 
-**Description**: The text hint for the menu. If set to `false`, the tooltip will not be displayed.
+**Description**: Tooltip text for the menu. If set to `false`, the tooltip will not be displayed.
 
 **Type**: `[String, Boolean]`
 
-**Default Value**: `undefined`
+**Default**: `undefined`
 
 ### shortcut
 
-**Description**: The name of the shortcut key bound to the menu. It is displayed on the `tooltip`. Umo Editor internally handles the display of input shortcuts on different platforms, such as displaying `Ctrl+Shift+X` as `⌘+⇧+X` on macOS.
+**Description**: Shortcut key name bound to the menu, displayed in the `tooltip`. Umo Editor internally handles the display of shortcut keys on different platforms, e.g., `Ctrl+Shift+X` will appear as `⌘+⇧+X` on macOS.
 
 **Type**: `String`
 
-**Default Value**: `undefined`
+**Default**: `undefined`
 
 ### shortcutText
 
-**Description**: The shortcut key bound to the menu, displayed directly on the menu. Generally, `hideText` should be set to `false`, and the style of the displayed shortcut needs to be handled. This can be used for block-level menus and right-click menus, etc.
+**Description**: Shortcut key displayed directly on the menu. Typically, `hideText` should be set to `false`, and the displayed shortcut key style should be handled. This is useful for block menus and context menus.
 
 **Type**: `String`
 
-**Default Value**: `undefined`
+**Default**: `undefined`
 
 ### selectOptions
 
-**Description**: When `menuType` is `select` or `dropdown`, the configuration for the dropdown items.
+**Description**: Configuration for dropdown items when `menuType` is `select` or `dropdown`.
 
 **Type**: `Array`
 
-**Default Value**: `-`
+**Default**: `-`
 
 ### selectValue
 
-**Description**: When `menuType` is `select`, the selected value of the menu.
+**Description**: Selected value of the menu when `menuType` is `select`.
 
 **Type**: `[String, Number]`
 
-**Default Value**: `-`
+**Default**: `-`
 
 ### popupVisible
 
-**Description**: When `menuType` is `popup`, whether to display the Popup.
+**Description**: Whether the popup is visible when `menuType` is `popup`.
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### popupHandle
 
-**Description**: When `menuType` is `popup`, which area of the menu button opens the Popup when clicked. By default, the entire button is clicked.
+**Description**: Determines which area of the menu button opens the popup when clicked. Defaults to clicking the entire button.
 
-**Possible Values**: `arrow`, i.e., click the arrow to open the Popup.
+**Options**: `arrow`, meaning clicking the arrow opens the popup.
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### menuActive
 
@@ -131,7 +131,7 @@ const demoIcon = `<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xm
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### disabled
 
@@ -139,29 +139,29 @@ const demoIcon = `<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xm
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### Others
 
-Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library, and the menu button supports most of the properties of the components used in TDesign Vue Next.
+Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library. The menu button supports most of the properties of TDesign Vue Next components.
 
 ## Slots
 
 ### default
 
-**Description**: The default slot for the menu button, where you can place the content of the menu button, including the default content for `select`, `dropdown`, `popup`, etc. components.
+**Description**: Default slot for the menu button, which can contain the content of the menu button, including the default content of `select`, `dropdown`, and `popup` components.
 
 ### dropmenu
 
-**Description**: When `menuType` is `dropdown`, the content of the popup menu for the menu button. See: https://tdesign.tencent.com/vue-next/components/dropdown-en?tab=api
+**Description**: Content of the dropdown menu when `menuType` is `dropdown`. See: https://tdesign.tencent.com/vue-next/components/dropdown-en?tab=api
 
 ### content
 
-**Description**: When `menuType` is `popup`, the content of the popup for the menu button. See: https://tdesign.tencent.com/vue-next/components/popup-en?tab=api
+**Description**: Content of the popup when `menuType` is `popup`. See: https://tdesign.tencent.com/vue-next/components/popup-en?tab=api
 
 ### Others
 
-Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library, and the menu button supports most of the slots of the components used in TDesign Vue Next.
+Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library. The menu button supports most of the slots of TDesign Vue Next components.
 
 ## Events
 
@@ -171,4 +171,4 @@ Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview
 
 ### Others
 
-Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library, and the menu button supports most of the events of the components used in TDesign Vue Next.
+Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library. The menu button supports most of the events of TDesign Vue Next components.

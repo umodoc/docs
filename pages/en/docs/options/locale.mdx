@@ -1,8 +1,8 @@
-# Custom Localization Configuration
+# Custom Localization Language Configuration
 
-This section is used to configure localized language information, implemented based on [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html). You can use [`getI18n`](/en/docs/methods#geti18n) to retrieve `i18n` information. For more information on localization, refer to the [Methods](/en/docs/methods) and [Events](/en/docs/events).
+Used to configure localization language information, implemented based on [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html). You can use [`getI18n`](../methods#geti18n) to obtain `i18n` information. Browse the [Method list](../methods) and [Event list](../events) for more localization-related information.
 
-If you find any issues with the translation files, please refer to [Join the Community](/en/docs#join-the-community) to provide us with your valuable feedback and suggestions. If you need to add a custom language, feel free to submit an [Issue](https://github.com/umodoc/editor/issues) or [PR](https://github.com/umodoc/editor/pulls).
+If you find issues with the translation files, please refer to [Join the Community](../#join-the-community) to provide your valuable feedback and suggestions. If you need to add a custom language, feel free to submit an [Issue](https://github.com/umodoc/editor/issues) or [PR](https://github.com/umodoc/editor/pulls).
 
 ## Default Configuration
 
@@ -12,21 +12,22 @@ If you find any issues with the translation files, please refer to [Join the Com
   translations: {
     en_US: {},
     zh_CN: {},
+    ru_RU: {},
   },
 }
 ```
 
-## Configuration Item Description
+## Configuration Options
 
 ### locale
 
-**Description**: The default language.
+**Description**: The default language. When multiple Umo Editor instances are used on the same page, the configuration of the last instance takes precedence. If the user has selected another language, the user's choice takes precedence, ignoring the default language configuration.
 
 **Type**: `String`
 
-**Default**: `zh-CN`.
+**Default Value**: `zh-CN`.
 
-**Options**: `zh-CN`, `en_US`, `ru_RU`
+**Options**: `zh-CN`, `en-US`, `ru-RU`
 
 ### translations
 
@@ -34,6 +35,6 @@ If you find any issues with the translation files, please refer to [Join the Com
 
 **Type**: `Object`
 
-**Default**: `{ en_US: {}, zh_CN: {}, ru_RU: {} }`.
+**Default Value**: `{ en_US: {}, zh_CN: {}, ru_RU: {} }`.
 
-**Options**: See [Umo Editor Localization Files](https://github.com/umodoc/editor/blob/main/src/locales). The `translations` you configure will be merged with these default translation messages, which means you can override the default translations by configuring your `translations`.
+**Options**: See [https://github.com/umodoc/editor/blob/main/src/locales](https://github.com/umodoc/editor/blob/main/src/locales). The `translations` you configure will be merged with these default translation files, meaning you can override the default translations by configuring `translations`.

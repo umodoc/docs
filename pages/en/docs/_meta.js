@@ -29,5 +29,11 @@ export default {
 		type: 'separator',
 		title: 'Extensions'
 	},
-	extensions: 'Overview'
+	extensions: 'Overview',
+	'--business': {
+		type: 'separator',
+		title:"Commercial Version"
+	},
+	next:'Umo Editor Next',
+	server:'Umo Editor Server'
 };

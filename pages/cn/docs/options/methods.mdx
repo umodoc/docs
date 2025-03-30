@@ -54,6 +54,7 @@ import { Callout } from 'nextra/components'
 **示例**：
 
 以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onSave 方法，将文档保存到服务器：
+
 <Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
@@ -400,7 +401,7 @@ const onAssistant = (payload, content) => {
 
 以下代码演示如何配置 onCustomEChartSettings 方法，实现展示图表扩展：
 
-<Tabs items={['全局配置']}>
+<Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
 import { useUmoEditor } from '@umoteam/editor'
@@ -429,6 +430,40 @@ const options = {
 }
 
 app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    @custom-e-chart-settings="onCustomEChartSettings" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+
+const onCustomEChartSettings = (data, config) => {
+  const { title, seriesType, legend } = config
+  const option = {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+      },
+    ],
+  }
+  return option
+}
+</script>
 ```
 </Tabs.Tab>
 </Tabs>

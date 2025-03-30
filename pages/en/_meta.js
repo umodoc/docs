@@ -22,7 +22,7 @@ export default {
         href: 'https://v4.editor.umodoc.com/en/docs'
       },
       latest: {
-        title: 'latest',
+        title: 'Latest',
         href: '/en/docs'
       }
     }

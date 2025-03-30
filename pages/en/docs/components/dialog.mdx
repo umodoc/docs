@@ -1,6 +1,6 @@
 # Dialog Component
 
-The dialog component is used to pop out a dialog box where users can perform certain actions.
+The dialog component is used to pop up a dialog box where users can perform some operations.
 
 ## Example
 
@@ -10,7 +10,7 @@ See: https://demo.umodoc.com/components?lang=en-US
 
 ```vue
 <template>
-  <button @click="openDialog">Open Dialog</button>
+<button @click="openDialog">Open Dialog</button>
 
   <umo-dialog
     :visible="visible"
@@ -19,7 +19,7 @@ See: https://demo.umodoc.com/components?lang=en-US
     @confirm="onConfirm"
     @close="onClose"
   >
-    <div>Place the content to display here</div>
+    <div>Place the content to be displayed here</div>
   </umo-dialog>
 </template>
 
@@ -45,27 +45,27 @@ const onClose = () => {
 
 ### visible
 
-**Description**: Determines whether the dialog is shown.
+**Description**: Whether the dialog is visible
 
 **Type**: `Boolean`
 
-**Default Value**: `false`
+**Default**: `false`
 
 ### Others
 
-The Umo Editor dialog is built upon the [Dialog Component](https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api) from TDesign Vue Next, supporting most of the properties of the TDesign Vue Next Dialog Component.
+The Umo Editor dialog is a secondary encapsulation based on TDesign Vue Next's [Dialog Component](https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api), supporting most of the properties of TDesign Vue Next's Dialog component.
 
 ## Slots
 
 ### default
 
-**Description**: The content of the dialog.
+**Description**: Dialog content
 
 ## Events
 
-The Umo Editor dialog is built upon the [Dialog Component](https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api) from TDesign Vue Next, supporting most of the events of the TDesign Vue Next Dialog Component.
+The Umo Editor dialog is a secondary encapsulation based on TDesign Vue Next's [Dialog Component](https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api), supporting most of the methods of TDesign Vue Next's Dialog component.
 
-## Functional Invocations
+## Functional Invocation
 
 For detailed usage, please refer to: [Notifications](../notifications).
 

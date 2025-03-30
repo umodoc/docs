@@ -1,0 +1,59 @@
+# Basic Introduction
+
+Umo Editor Server is a companion server-side software developed to enhance certain features of Umo Editor Next, such as multi-user online collaborative editing, document annotation (comments), and document import/export. If you have purchased the [commercial license](../next/buy) for Umo Editor Next, you can use Umo Editor Server for free under the terms of the [Umo Team Commercial Software License Agreement](../next/license).
+
+Umo Editor Server is a Node.js server-side software implemented based on [Express](https://expressjs.com/). Its primary function is to enhance the capabilities of Umo Editor Next through HTTP or WebSocket interfaces.
+
+Umo Editor Server is not distributed as an NPM package. After obtaining the [commercial license](../next/buy), you can directly pull the source code from the private repository and modify or deploy it as needed.
+
+## Starting the Project
+
+### 1. Clone the Official Repository
+```bash
+git clone <Path to the official private repository of Umo Editor Server>
+```
+
+### 2. Install NPM Dependencies
+
+```sh npm2yarn
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Umo Editor Server does not provide unified configuration options. Some sensitive configurations are set through environment variables. Following the plug-and-play philosophy of Umo Editor, you only need to add an `.env` file in the project root directory and include the environment variable information to quickly start the server. Below is an example of environment variables:
+
+```bash filename=".env"
+## Service-related
+PORT = 1235
+SERVER_NAME = Umo Editor Server
+
+## Logging-related
+LOG_DIR = ./logs
+
+## Database-related
+SQLITE_DB_PATH = ./db
+SQLITE_DB_NAME = umo-editor-server.sqlite
+
+## Collaboration-related
+DOC_SAVE_INTERVAL = 5000 # Unit: milliseconds
+```
+
+You can also copy this information directly from `.env.example`.
+
+### 4. Start the Project
+
+```sh npm2yarn
+npm run dev
+```
+
+### 5. All Set
+
+After completing the above steps, you have successfully started Umo Editor Server. Visit http://127.0.0.1:1235/docs to view the Swagger documentation.
+
+## Development Notes
+
+- For scenarios such as multi-user collaborative editing and document annotation/comments, Umo Editor Server provides detailed configurations and hook methods. By default, it uses SQLite to store data (different documents should use different document IDs). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For detailed instructions, refer to the code comments.
+- You can deploy Umo Editor Server as a standalone service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation. If needed, please implement it yourself.
+- Umo Editor Server provides the ability to log local files by default, but you can also extend this functionality as needed.
+- If you need to perform secondary development, the source code contains extensive and detailed comments that should be very helpful to you.

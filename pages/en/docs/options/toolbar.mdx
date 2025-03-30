@@ -2,7 +2,7 @@ import { Badge } from '/components/badge'
 
 # Toolbar Configuration
 
-This section is used to configure the display and behavior of the Umo Editor toolbar area.
+Used to configure the display and behavior of the Umo Editor toolbar area.
 
 ## Default Configuration
 
@@ -10,7 +10,7 @@ This section is used to configure the display and behavior of the Umo Editor too
 {
   toolbar: {
     defaultMode: 'ribbon',
-    enableSourceEditor: true,
+    // enableSourceEditor: true, removed in v6.0.0
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
     disableMenuItems: [],
     importWord: {
@@ -22,47 +22,47 @@ This section is used to configure the display and behavior of the Umo Editor too
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Options
 
 ### toolbar.defaultMode
 
-**Description**: The default mode of the toolbar. After configuration, users can still switch modes manually, and the choice will be saved locally. By default, the toolbar mode chosen by the user is used, but you can still force the toolbar mode to be changed using the [setToolbar](../methods#settoolbar).
+**Description**: The default mode of the toolbar. After configuration, users can still switch modes themselves, and their choice will be saved locally. By default, the toolbar uses the mode selected by the user, but you can still force a change using the [`setToolbar`](../methods#settoolbar).
 
 **Type**: `String`
 
-**Default**: `ribbon`
+**Default Value**: `ribbon`
 
 **Options**: `ribbon`, `classic`
 
 ### toolbar.enableSourceEditor
 
-**Description**: Whether to enable the source code editing mode of the editor. In source code editing mode, users can edit the source code and preview the effects. It is suitable for developers with programming capabilities and is not recommended to be open to ordinary users.
+**Description**: Whether to enable the editor's source code mode. In source code mode, users can edit the source code and preview the effects. This is suitable for developers with programming skills and is not recommended for general users. <Badge theme="danger">Removed in v6.0.0</Badge>
 
 **Type**: `Boolean`
 
-**Default**: `false`
+**Default Value**: `false`
 
 ### toolbar.menus
 
-**Description**: The list of toolbar menus to be enabled. By default, all menus are enabled. By configuring this item, you can disable some menus, but you cannot disable all menus and must include the `base` menu.
+**Description**: The list of toolbar menus to enable. By default, all menus are enabled. You can disable some menus by configuring this option, but disabling all menus is not supported, and the `base` menu must be included.
 
 **Type**: `Array`
 
-**Default**: `['base', 'insert', 'table', 'tools', 'page', 'export']`
+**Default Value**: `['base', 'insert', 'table', 'tools', 'page', 'export']`
 
 **Options**: `base`, `insert`, `table`, `tools`, `page`, `export`
 
 ### toolbar.disableMenuItems
 
-**Description**: The menu items to be disabled. By default, no menu items are disabled.
+**Description**: Menu items to disable. By default, no menu items are disabled.
 
 **Type**: `Array`
 
-**Default**: `[]`
+**Default Value**: `[]`
 
-**Options**: `print`, `code`, `video`, `audio`, `file`,`symbol`, `textBox`, `webPage`, `chineseDate`, `emoji`, `math`, `signature`, `seal`, `diagrams`, `chineseCase`, `mermaid`,  `share`,  `embed`, `exportPDF`, ...
+**Options**: `highlight`, `ordered-list`, `bullet-list`, `task-list`, `line-height`, `margin`, `quote`, `code`, `select-all`, `markdown`, `print`, `link`, `image`, `video`, `audio`, `file`, `code-block`, `symbol`, `chineseDate`, `emoji`, `math`, `tag`, `columns`, `callout`, `mention`, `bookmark`, `hard-break`, `hr`, `toc`, `textBox`, `template`, `webPage`, `qrcode`, `barcode`, `signature`, `seal`, `diagrams`, `echarts`, `mermaid`, `chineseCase`, ...
 
-### toolbar.importWord <Badge theme="success">New in v3.1.0</Badge>
+### toolbar.importWord <Badge theme="success">Added in v3.1.0</Badge>
 
 **Description**: Configuration related to importing Word documents.
 
@@ -77,9 +77,9 @@ This section is used to configure the display and behavior of the Umo Editor too
   useCustomMethod: false,
 }
 ```
-
 **Options**:
 
-- `enabled`: Whether to enable the Word file import feature, default is `true`.
-- `options`: Mammoth configuration options, see [Mammoth](https://www.npmjs.com/package/mammoth#api) for details.
-- `useCustomMethod`: Whether to use a custom method for importing Word files. You can configure this option to use a custom import method for Word files. Default is `false`. If set to `true`, it uses the [onCustomImportWordMethod](./methods#oncustomimportwordmethod) method to import Word documents.
+- `enabled`: Whether to enable the Word file import feature. Default is `true`.
+- `options`: Configuration options for Mammoth. For details, see [Mammoth](https://www.npmjs.com/package/mammoth#api).
+- `useCustomMethod`: Whether to use a custom method to import Word files. By configuring this option, you can use a custom method to import Word files. Default is `false`. If set to `true`, the [`onCustomImportWordMethod`](./methods#oncustomimportwordmethod) method will be used to import Word documents.
+

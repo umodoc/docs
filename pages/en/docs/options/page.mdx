@@ -1,6 +1,8 @@
+import { Badge } from '/components/badge'
+
 # Page Configuration
 
-This section is used to configure the display and behavior of the Umo Editor page area.
+Used to configure the display and behavior of the Umo Editor page area.
 
 ## Default Configuration
 
@@ -13,8 +15,10 @@ This section is used to configure the display and behavior of the Umo Editor pag
       top: 2.54,
       bottom: 2.54,
     },
-    defaultOrientation: 'landscape',
+    defaultOrientation: 'portrait',
     defaultBackground: '#fff',
+    showBreakMarks: true,
+    showBookmark: false,
     watermark: {
       type: 'compact',
       alpha: 0.2,
@@ -28,48 +32,68 @@ This section is used to configure the display and behavior of the Umo Editor pag
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Description
 
 ### page.defaultMargin
 
-**Description**: Default page margins, which users can modify, measured in centimeters (cm). You can dynamically modify the page margins using the [setPage](../methods#setpage).
+**Description**: Default page margins, modifiable by the user, measured in centimeters (cm). You can dynamically modify the page margins using the [`setPage`](../methods#setpage).
 
 **Type**: `Object`
 
-**Default**: `{ left: 3.18, right: 3.18, top: 2.54, bottom: 2.54 }`
+**Default Value**: `{ left: 3.18, right: 3.18, top: 2.54, bottom: 2.54 }`
 
 ### page.defaultOrientation
 
-**Description**: Default page orientation, which users can modify. You can dynamically modify the page orientation using the [setPage](../methods#setpage).
+**Description**: Default page orientation, modifiable by the user. You can dynamically modify the page orientation using the [`setPage`](../methods#setpage).
 
 **Type**: `String`
 
-**Default**: `horizontal` (prior to version 2.0.0, the default was `landscape`).
+**Default Value**: `portrait`, prior to version 2.0.0 it was `horizontal`.
 
-**Options**: `'landscape'` and `'portrait'` (prior to version 2.0.0, the options were `horizontal` and `vertical`).
+**Options**: `portrait` and `landscape`, prior to version 2.0.0 it was `horizontal` and `vertical`.
 
 ### page.defaultBackground
 
-**Description**: Default page background color, which users can modify. You can dynamically modify the page background color using the [setPage](../methods#setpage).
+**Description**: Default page background color, modifiable by the user. You can dynamically modify the page background color using the [`setPage`](../methods#setpage).
 
 **Type**: `String`
 
-**Default**: `#fff`
+**Default Value**: `#fff`
 
-**Options**: Valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) values.
+**Options**: Any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+
+### page.showBreakMarks
+
+**Description**: Whether to display page break marks, modifiable by the user.
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+**Options**: `true`, `false`.
+
+### page.showBookmark 
+
+**Description**: Whether to display bookmarks, modifiable by the user. <Badge theme="success">Added in v6.0.0</Badge>
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+**Options**: `true`, `false`.
 
 ### page.watermark
 
-**Description**: Default watermark settings, which users can modify. You can dynamically set or modify the page watermark using the [setWatermark](../methods#setwatermark).
+**Description**: Default watermark settings, modifiable by the user. You can dynamically set or modify the page watermark using the [`setWatermark`](../methods#setwatermark).
 
 **Type**: `Object`
 
-**Configuration Items**:
+**Options**:
 
-- `type`: `String`, the type of watermark, with options `compact` and `spacious`.
-- `alpha`: `Number`, the transparency of the watermark, with values ranging from 0 to 1.
-- `fontColor`: `String`, the font color, with valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) values.
-- `fontSize`: `Number`, the font size in pixels (px).
-- `fontFamily`: `String`, the font family, with valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) values.
-- `fontWeight`: `String`, the font weight, with options `normal`, `bold`, and `bolder`.
-- `text`: `String`, the watermark text, recommended to be no more than 30 characters.
+- `type`: `String`, watermark type, options are: `compact`, `spacious`.
+- `alpha`: `Number`, watermark transparency, options are: 0-1.
+- `fontColor`: `String`, font color, options are: any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+- `fontSize`: `Number`, font size, measured in px.
+- `fontFamily`: `String`, font, any valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) value.
+- `fontWeight`: `String`, font weight, options are: `normal`, `bold`, `bolder`.
+- `text`: `String`, watermark content, recommended to be within 30 characters.

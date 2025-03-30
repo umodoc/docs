@@ -3,11 +3,12 @@ import { Badge } from '/components/badge'
 
 # 更新日志
 
-## 🎉  v6.0.0 <Badge>2025-04-01</Badge>
+## 🎉  v6.0.0 <Badge>待定</Badge>
 
 <Callout type="warning" emoji="❗">
 本次更新经历大约 200 次提交，包含一些破坏性的更新，比如重构状态管理，以更好的支持多实例，并重写了一些方法了组件，新增了若干节点扩展和方法，所以本次更新以大版本的形式发布。
 </Callout>
+
 1. 移除了源代码编辑器；
 2. 调整 `getSelectionNode` 方法和 `deleteSelectionNode` 方法，见[方法列表](./methods#getselectionnode)，使其能够在嵌套节点中正确的获取节点，@yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218)；
 3. 修复插入文件时，节点类型未正确按类型正确显示的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
@@ -55,9 +56,18 @@ import { Badge } from '/components/badge'
 45. 锁定部分依赖，防止引起意外错误；
 46. 优化图片节点选中；，@china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157)。
 47. 修复当前节点为空时，通过块级菜单插入 echarts 节点需要点击两次的问题；
+48. 修复了文档中的一些问题，并重新翻译英文文档。
 
 
 ## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
+
+<Callout type="warning" emoji="❗">
+感谢大家长久以来对 Umo Editor 的支持，因为面临的诸多挑战，在经过长久慎重且艰难的思想斗争之后，我们决定 v4.6 是最后一个支持分页的版本，自 v5.0 版本开始，Umo Editor 将暂时放弃对分页的支持，不排除不远的将来分页功能可能会再次回归。
+
+好消息是，Tiptap 官方团队已经注意到了社区对分页功能需求的迫切性，并且已经着手开发，但是还没有明确的发布时间，见：https://x.com/tiptap_editor/status/1812154617733538288 。
+
+如果您仍然需要分页功能，可以继续使用 v4.x 版本，但是此版本将不再维护，当然，您也可以拉取代码自行修改，支持分页的代码分支为：[page-break-v4](https://github.com/umodoc/editor/tree/page-break-v4)。
+</Callout>
 
 1. ⚠️ 彻底删除了对分页的支持。
 2. 添加了分页符、换行符扩展，替换了原来的 Placeholder 扩展等；
@@ -257,7 +267,7 @@ import { Badge } from '/components/badge'
 添加 `npm` 安装说明等 @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5)。
 
 ## 🚀 v1.4.0<Badge>2024-06-03</Badge>
-1. 添加自定义插件支持，见[`extensions`](./options/extensions)；
+1. 添加自定义扩展支持，见[`extensions`](./options/extensions)；
 2. 添加自动保存参数，见[`document.autoSave`](./options/document#autosave)；
 3. 修复页面大纲内容过多时显示错乱的 Bug @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2)。
 

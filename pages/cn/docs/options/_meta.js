@@ -14,7 +14,7 @@ export default {
 	user: '用户配置',
 	users: '相关用户配置',
 	file: '文件上传配置',
-	extensions: '自定义插件配置',
+	extensions: '自定义扩展配置',
 	locale: '自定义本地化语言配置',
 	theme: '主题配置',
 	methods: '方法配置'

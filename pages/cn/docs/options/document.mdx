@@ -10,7 +10,8 @@ import { Badge } from '/components/badge'
 ```js
 {
   document: {
-    title: '未命名文档',
+    id: '',
+    title: '',
     content: '',
     placeholder: {
       en_US: 'Please enter the document content...',
@@ -20,16 +21,18 @@ import { Badge } from '/components/badge'
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
-    enableBlockMenu: true, // v1.3.0 新增
+    enableBlockMenu: true,
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
-    editorProps: {}, // v2.3.0 新增
-    parseOptions: { // v2.3.0 新增
+    // https://prosemirror.net/docs/ref/#view.EditorProps
+    editorProps: {},
+    // https://prosemirror.net/docs/ref/#model.ParseOptions
+    parseOptions: {
       preserveWhitespace: 'full',
     },
-    autoSave: { // v1.4.0 新增
+    autoSave: {
       enabled: true,
       interval: 300000,
     },
@@ -39,13 +42,21 @@ import { Badge } from '/components/badge'
 
 ## 配置项说明
 
+### document.id
+
+**说明**：文档 ID。
+
+**类型**：`String`
+
+**默认值**：`''`
+
 ### document.title
 
 **说明**：文档标题，用于导出的文件名称等，您可以通过[setDocument 方法](../methods#setdocument)来动态设置或修改文档标题。
 
 **类型**：`String`
 
-**默认值**：`未命名文档`
+**默认值**：`''`
 
 ### document.content
 
@@ -53,7 +64,7 @@ import { Badge } from '/components/badge'
 
 **类型**：`String`
 
-**默认值**：空
+**默认值**：`''`
 
 ### document.placeholder
 

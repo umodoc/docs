@@ -2,7 +2,7 @@ import { Badge } from '/components/badge'
 
 # Slots
 
-Since version v3.0, Umo Editor provides slot functionality, allowing users to customize more features through slots.
+Starting from version 3.0, Umo Editor provides slot functionality, allowing users to implement more custom features through slots.
 
 ## Toolbar Slots
 
@@ -11,27 +11,27 @@ Use slots to insert custom content after specific menus in the toolbar.
 ```vue
 <template>
   <umo-editor v-bind="options">
-    <!-- "Home" menu slot -->
+    <!-- Slot for the "Base" menu -->
     <template #toolbar_base="props">
       <span>toolbar_base slot: {{ props }}</span>
     </template>
-    <!-- "Insert" menu slot -->
+    <!-- Slot for the "Insert" menu -->
     <template #toolbar_insert="props">
       <span>toolbar_insert slot: {{ props }}</span>
     </template>
-    <!-- "Table" menu slot -->
+    <!-- Slot for the "Table" menu -->
     <template #toolbar_table="props">
       <span>toolbar_table slot: {{ props }}</span>
     </template>
-    <!-- "Tools" menu slot -->
+    <!-- Slot for the "Tools" menu -->
     <template #toolbar_tools="props">
       <span>toolbar_tools slot: {{ props }}</span>
     </template>
-    <!-- "Page" menu slot -->
+    <!-- Slot for the "Page" menu -->
     <template #toolbar_page="props">
       <span>toolbar_page slot: {{ props }}</span>
     </template>
-    <!-- "Export" menu slot -->
+    <!-- Slot for the "Export" menu -->
     <template #toolbar_export="props">
       <span>toolbar_export slot: {{ props }}</span>
     </template>
@@ -58,13 +58,13 @@ Use slots to insert custom content after specific menus in the toolbar.
 - `toolbar_page`: Insert custom content after the "Page" menu in the toolbar.
 - `toolbar_export`: Insert custom content after the "Export" menu in the toolbar.
 
-### Slot Arguments
+### Slot Parameters
 
-- `toolbar-mode`: `String` The current toolbar type selected by the user, possible values are: `ribbon`, `classic`.
+- `toolbar-mode`: `String` The toolbar type currently selected by the user. Possible values are: `ribbon`, `classic`.
 
 ## Bubble Menu Slot
 
-Via the slot, custom content can be inserted after the bubble menu, currently only supporting the addition of custom content to text nodes.
+Use slots to insert custom content after the bubble menu. Currently, only adding custom content to text nodes is supported.
 
 ```vue
 <template>

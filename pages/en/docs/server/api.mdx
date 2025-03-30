@@ -1,0 +1,15 @@
+# API Documentation
+
+The Umo Editor Server enhances the capabilities of Umo Editor Next through HTTP or WebSocket interfaces. In the development environment, after starting the project, you can access the Swagger documentation at http://127.0.0.1:1235/docs.
+
+A brief description of the currently available interfaces is provided below. For more detailed information, please refer to the Swagger documentation and code comments.
+
+## Check Service Status
+
+`GET /`: Returns information about whether the service is running. If this route is inaccessible, it indicates that the service is not started or is experiencing issues.
+
+## Collaborative Editing, Document Annotation, etc.
+
+`GET /provider`: WebSocket interface, which should be connected via the ws(s):// protocol. Most of the content of this interface is stored and transmitted in binary form. For its configuration and related instructions, please refer to the source code.
+
+

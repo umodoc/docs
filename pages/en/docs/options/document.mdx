@@ -3,14 +3,15 @@ import { Badge } from '/components/badge'
 
 # Document Configuration
 
-This section is used to configure the display and behavior of the Umo Editor document area and document name.
+Used to configure the display and behavior of the Umo Editor document area and document name.
 
 ## Default Configuration
 
 ```js
 {
   document: {
-    title: '未命名文档',
+    id: '',
+    title: '',
     content: '',
     placeholder: {
       en_US: 'Please enter the document content...',
@@ -20,16 +21,18 @@ This section is used to configure the display and behavior of the Umo Editor doc
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
-    enableBlockMenu: true, // New in v1.3.0
+    enableBlockMenu: true,
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
     typographyRules: {},
-    editorProps: {}, // New in v2.3.0
-    parseOptions: { // New in v2.3.0
+    // https://prosemirror.net/docs/ref/#view.EditorProps
+    editorProps: {},
+    // https://prosemirror.net/docs/ref/#model.ParseOptions
+    parseOptions: {
       preserveWhitespace: 'full',
     },
-    autoSave: { // New in v1.4.0
+    autoSave: {
       enabled: true,
       interval: 300000,
     },
@@ -37,87 +40,97 @@ This section is used to configure the display and behavior of the Umo Editor doc
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Options
+
+### document.id
+
+**Description**: Document ID.
+
+**Type**: `String`
+
+**Default Value**: `''`
 
 ### document.title
 
-**Description**: The document title, used for the file name when exporting, etc. You can dynamically set or modify the document title using the [setDocument](../methods#setdocument).
+**Description**: Document title, used for exported file names, etc. You can dynamically set or modify the document title using the [`setDocument`](../methods#setdocument).
 
 **Type**: `String`
 
-**Default**: `Untitled Document`
+**Default Value**: `''`
 
 ### document.content
 
-**Description**: The initial document content, which users can modify. You can dynamically set or modify the document content using the [setContent](../methods#setcontent).
+**Description**: Initial document content, which can be modified by the user. You can dynamically set or modify the document content using the [`setContent`](../methods#setcontent).
 
 **Type**: `String`
 
-**Default**: Empty
+**Default Value**: `''`
 
 ### document.placeholder
 
-**Description**: The placeholder displayed when the document content is empty.
+**Description**: Placeholder when the document content is empty.
 
 **Type**: `String` or `Object`
 
-**Default**: `Please enter the document content...`
+- `zh_CN`: Simplified Chinese
+- `en_US`: English
+- `ru_RU`: Russian
 
 ### document.enableSpellcheck
 
-**Description**: Whether to enable the browser's spellcheck feature. When enabled, users can manually turn it off. You can dynamically set whether to enable the browser's spellcheck feature using the [setDocument](../methods#setdocument).
+**Description**: Whether to enable browser spellcheck. Users can manually disable it when enabled. You can dynamically set whether to enable browser spellcheck using the [`setDocument`](../methods#setdocument).
 
 **Type**: `Boolean`
 
-**Default**: `true`
+**Default Value**: `true`
 
 ### document.enableMarkdown
 
-**Description**: Whether to enable Markdown syntax. When enabled, users can manually turn it off. You can dynamically set whether to enable Markdown syntax using the [setDocument](../methods#setdocument).
+**Description**: Whether to enable Markdown syntax. Users can manually disable it when enabled. You can dynamically set whether to enable Markdown syntax using the [`setDocument`](../methods#setdocument).
 
 **Type**: `Boolean`
 
-**Default**: `true`
+**Default Value**: `true`
 
 ### document.enableBubbleMenu
 
-**Description**: Whether to display the bubble menu. You can dynamically set whether to display the bubble menu using the [setDocument](../methods#setdocument).
+**Description**: Whether to enable the bubble menu. You can dynamically set whether to display the bubble menu using the [`setDocument`](../methods#setdocument).
 
 **Type**: `Boolean`
 
-**Default**: `true`
+**Default Value**: `true`
 
-### document.enableBlockMenu <Badge theme="success">v1.3.0 Added</Badge>
+### document.enableBlockMenu <Badge theme="success">Added in v1.3.0</Badge>
 
-**Description**: Whether to display the block menu. You can dynamically set whether to display the block menu using the [setDocument](../methods#setdocument).
+**Description**: Whether to enable the block menu. You can dynamically set whether to display the block menu using the [`setDocument`](../methods#setdocument).
 
 **Type**: `Boolean`
 
-**Default**: `true`
+**Default Value**: `true`
 
 ### document.readOnly
 
-**Description**: Determines whether the document is read-only. When set to `true`, users cannot edit the current document. You can set the read-only status using the [setReadOnly method]((../methods#setreadonly)).
+**Description**: Whether the document is read-only. When `true`, users cannot edit the current document. You can set whether the document is read-only using the [`setReadOnly`](../methods#setreadonly).
 
 **Type**: `Boolean`
 
-**Default**: `false`
+**Default Value**: `false`
 
 ### document.autofocus
 
-**Description**: Whether the document automatically receives cursor focus.
+**Description**: Whether the document automatically gains cursor focus. You can set whether the document gains cursor focus using the [`focus`](../methods#focus).
 
 **Type**: `Boolean`
 
-**Default**: `true`
+**Default Value**: `true`
 
 ### document.characterLimit
 
-**Description**: The character limit for the document. If `0`, there is no limit on the number of characters.
+**Description**: Document character limit. When `0`, there is no limit.
 
 **Type**: `Number`
 
-**Default**: `0`
+**Default Value**: `0`
 
 ### document.typographyRules
 
@@ -125,24 +138,42 @@ This section is used to configure the display and behavior of the Umo Editor doc
 
 **Type**: `Object`
 
-**Default**: `{}`
+**Default Value**: `{}`
 
-**Configuration Items**:
+**Options**:
 
-| Name | Description | Default Enabled |
+| Name | Description | Enabled by Default |
 | :--- | :---: | :---: |
-| emDash | Converts double hyphens -- to an em dash —. | ✅ Enabled |
-| ellipsis | Converts three dots ... to an ellipsis …. | ✅ Enabled |
+| emDash | Converts double dashes `--` to em dashes `—`. | ✅ Enabled |
+| ellipsis | Converts three dots `...` to ellipsis `…`. | ✅ Enabled |
 | openDoubleQuote | “Smart” left double quotes. | ✅ Enabled |
-| ... | ... | ... |
+| closeDoubleQuote | “Smart” right double quotes. | ✅ Enabled |
+| openSingleQuote | ‘Smart’ left single quotes. | ✅ Enabled |
+| closeSingleQuote | ‘Smart’ right single quotes. | ✅ Enabled |
+| leftArrow | Converts `<-` to left arrow `←`. | ✅ Enabled |
+| rightArrow | Converts `->` to right arrow `→`. | ✅ Enabled |
+| copyright | Converts `(c)` to copyright symbol `©`. | ✅ Enabled |
+| registeredTrademark | Converts `(r)` to registered trademark symbol `®`. | ✅ Enabled |
+| trademark | Converts `(tm)` to trademark symbol `™`. | ✅ Enabled |
+| servicemark | Converts `(sm)` to service mark symbol `℠`. | ✅ Enabled |
+| oneHalf | Converts `1/2` to one-half `½`. | ✅ Enabled |
+| oneQuarter | Converts `1/4` to one-quarter `¼`. | ✅ Enabled |
+| threeQuarters | Converts `3/4` to three-quarters `¾`. | ✅ Enabled |
+| plusMinus | Converts `+/-` to plus-minus sign `±`. | ✅ Enabled |
+| notEqual | Converts `!=` to not equal sign `≠`. | ✅ Enabled |
+| laquo | Converts `<<` to left guillemet `«`. | ✅ Enabled |
+| raquo | Converts `>>` to right guillemet `»`. | ✅ Enabled |
+| multiplication | Converts `2 * 3` or `2x3` to multiplication sign `2×3`. | ✅ Enabled |
+| superscriptTwo | Converts `^2` to superscript two `²`. | ✅ Enabled |
+| superscriptThree | Converts `^3` to superscript three `³`. | ✅ Enabled |
 
-To disable an item, set it to `false`. For example:
+To disable an option, set it to `false`, for example:
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
 ```js
 {
-  document: {
+  document:{
     typographyRules: {
       emDash: false
     }
@@ -169,22 +200,21 @@ import { UmoEditor } from '@umoteam/editor'
 </Tabs.Tab>
 </Tabs>
 
-### document.autoSave <Badge theme="success">v1.4.0 Added</Badge> [#autosave]
+### document.autoSave <Badge theme="success">Added in v1.4.0</Badge> [#autosave]
 
-**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [setDocument](/methods#setdocument).
+**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [`setDocument`](/methods#setdocument).
 
 **Type**: `Object`
 
-**Configuration Items**:
-- `enabled`: `Boolean`, whether to enable auto-save, default is `true`.
-- `interval`: `Number`, the interval between auto-saves in milliseconds, default is `300000` (5 minutes).
+**Options**:
+- `enabled`: Boolean, whether to enable auto-save. Default value is `true`.
+- `interval`: Number, auto-save interval in milliseconds. Default value is `300000` (5 minutes).
 
+### document.editorProps <Badge theme="success">Added in v2.3.0</Badge>
 
-### document.editorProps <Badge theme="success">v2.3.0 Added</Badge>
+**Description**: For advanced scenarios, you can pass some configurations to [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) via `document.editorProps`. You can use it to override various editor events or change editor DOM element attributes. More information: https://prosemirror.net/docs/ref/#view.EditorProps
 
-**Description**：For advanced use cases, you can pass which will be handled by [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps). You can use it to override various editor events or change editor DOM element attributes, for example to add some Tailwind classes. For more information, see: https://prosemirror.net/docs/ref/#view.EditorProps
-
-**Example**：
+**Example**:
 ```js
 {
   editorProps: {
@@ -198,14 +228,14 @@ import { UmoEditor } from '@umoteam/editor'
 }
 ```
 
-**Type**：`Object`
+**Type**: `Object`
 
-**Default**：`{}`
+**Default Value**: `{}`
 
-### document.parseOptions <Badge theme="success">v2.3.0 Added</Badge>
+### document.parseOptions <Badge theme="success">Added in v2.3.0</Badge>
 
-**Description**：Passed content is parsed by [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps). To hook into the parsing, you can pass which are then handled by ProseMirror. For more information, see: https://prosemirror.net/docs/ref/#view.EditorProps
+**Description**: Defines [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) parsing behavior. When you need to parse a DOM node or a raw text string into ProseMirror's document model, you can use `document.parseOptions` to customize the parsing process. More information: https://prosemirror.net/docs/ref/#model.ParseOptions
 
-**Type**：`Object`
+**Type**: `Object`
 
-**Default**：`{ preserveWhitespace: 'full' }`
+**Default Value**: `{ preserveWhitespace: 'full' }`

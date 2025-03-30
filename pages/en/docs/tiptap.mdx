@@ -1,10 +1,11 @@
 ## Tiptap Instance
 
-The Umo Editor is implemented based on [Tiptap](https://tiptap.dev/) and provides some [methods](./methods). For more information about the Tiptap editor, you can first obtain the Tiptap editor instance through `getEditor()`, then access the state information of the Tiptap editor and invoke its methods.
+The Umo Editor is implemented based on [Tiptap](https://tiptap.dev/) and provides some [Methods List](./methods) externally. For more information about the Tiptap editor, you can first obtain the Tiptap editor instance via `getEditor()` or `useEditor()`, and then access the state information of the Tiptap editor or call Tiptap methods.
 
-Tiptap Development Documentation: https://tiptap.dev/docs/editor/getting-started/overview
+Tiptap Developer Documentation: https://tiptap.dev/docs/editor/getting-started/overview
 
-### How to Obtain the Tiptap Editor Instance
+### How to Get the Tiptap Editor Instance
+
 ```vue
 <template>
   <umo-editor
@@ -14,26 +15,26 @@ Tiptap Development Documentation: https://tiptap.dev/docs/editor/getting-started
 </template>
  
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { UmoEditor } from '@umoteam/editor';
+  import { ref, reactive, onMounted } from 'vue';
+  import { UmoEditor } from '@umoteam/editor';
 
-const editorRef = ref(null); // Reference to the UmoEditor component
-const tiptapEditor = ref({}); // Reference to the Tiptap Editor instance
-const options = ref({
-  // Configuration options
-  // ...
-});
+  const editorRef = ref(null);
+  const tiptapEditor = ref({});
+  const options = ref({
+    // Configuration options
+    // ...
+  });
 
-onMounted(() => {
-  // Retrieve the Tiptap Editor instance using the useEditor method
-  tiptapEditor.value = editorRef.value.useEditor();
-  console.log(tiptapEditor);
+  onMounted(() => {
+    tiptapEditor.value = editorRef.value.useEditor();
+    console.log(tiptapEditor);
 
-  // Alternatively, you can use the getEditor method
-  // tiptapEditor.value = editorRef.value.getEditor();
-  // console.log(tiptapEditor.value);
-});
+    // Or
+    // tiptapEditor.value = editorRef.value.getEditor();
+    // console.log(tiptapEditor.value);
+  });
+
 </script>
 ```
 
-Through the configuration and methods provided by the Tiptap editor, you can control the editor's features more flexibly and also implement some custom functionalities.
+With the configurations and methods provided by the Tiptap editor, you can control the editor's functionality more flexibly and implement some custom features.

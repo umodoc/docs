@@ -1,25 +1,25 @@
-# AI Assistant
+# AI Document Assistant
 
-The AI Assistant is an efficiency tool integrated with artificial intelligence technology, primarily designed to enhance the efficiency of document creation.
+The AI Document Assistant is an efficiency tool integrated with artificial intelligence technology, primarily designed to enhance the efficiency of document creation.
 
-The AI Assistant passes the content selected by the user and the input instructions to the AI model. The AI model, based on this information, generates document content that meets the requirements and returns the results to the AI Assistant.
+The AI Document Assistant passes the content selected by the user and the input instructions to the AI model. The AI model, based on this information, generates document content that meets the requirements and returns the results to the AI Document Assistant.
 
 ## Technical Principles
 
 ### Process Description
-1. The user sends a command to the AI Assistant, specifying the action they wish to perform;
-2. The AI Assistant then invokes a method named `onAssistant`;
-3. The `onAssistant` method calls the AI model via HTTP or other means;
-4. The AI model processes the request and then returns and displays the result;
-5. The `onAssistant` method returns the result in a readable stream or text format to the AI Assistant;
-6. The user selects the results returned by the AI Assistant.
+1. The user sends a command to the AI Document Assistant, specifying the action they wish to perform.
+2. The AI Document Assistant then invokes a method named `onAssistant`.
+3. The `onAssistant` method calls the AI model via HTTP or other means.
+4. The AI model processes the request and then returns and displays the result.
+5. The `onAssistant` method returns the result in a readable stream or text format to the AI Document Assistant.
+6. The user selects the results returned by the AI Document Assistant.
 
 ### Sequence Diagram
 
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant AIDocAssistant as AI Assistant
+    participant AIDocAssistant as AI Document Assistant
     participant onAssistant as onAssistant Method
     participant AIModel as AI Model (Backend Service)
 
@@ -33,7 +33,7 @@ sequenceDiagram
 
 ## Use Cases
 
-The AI Assistant can be applied in various scenarios, providing efficient and intelligent document processing services. Here are some common use cases:
+The AI Document Assistant can be applied in various scenarios, providing efficient and intelligent document processing services. Here are some common use cases:
 
 1. **Document Translation**: Translating documents from one language to another.
 2. **Document Summarization**: Automatically generating summaries or overviews of document content.
@@ -51,4 +51,4 @@ The AI Assistant can be applied in various scenarios, providing efficient and in
 14. **Educational Support**: Assisting teachers and students in organizing course materials and creating study notes.
 15. **Additional Use Cases**: ...
 
-By utilizing the AI Assistant, work efficiency can be significantly increased, repetitive labor can be reduced, and users can focus on more creative and strategic tasks.
+By utilizing the AI Document Assistant, work efficiency can be significantly increased, repetitive labor can be reduced, and users can focus on more creative and strategic tasks.

@@ -1,6 +1,6 @@
-# Notifications Component
+# Notifications
 
-Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as the foundational component library. To facilitate developer usage, it provides encapsulated methods for common messsage components such as Alert, Confirm, and Message. You can visit https://demo.umodoc.com/editor?pane=events&lang=en-US to view the examples by clicking the corresponding buttons.
+Umo Editor uses [TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview-en) as its base component library. To simplify usage for developers, it provides encapsulated methods for common notification components such as Alert, Confirm, and Message. You can visit [https://demo.umodoc.com/editor?pane=events&lang=en-US](https://demo.umodoc.com/editor?pane=events&lang=en-US) and click the corresponding buttons to view examples.
 
 ## Example
 ```vue
@@ -13,7 +13,7 @@ Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/over
   <button @click="useConfirm">useConfirm</button>
   <button @click="useMessage">useMessage</button>
 </template>
-
+ 
 <script setup>
   import { ref } from 'vue';
   import { UmoEditor } from '@umoteam/editor';
@@ -24,7 +24,7 @@ Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/over
     // ...
   })
 
-  // Using Alert
+  // Use Alert
   const useAlert = () => {
     editorRef.value.useAlert({
       theme: 'success',
@@ -33,7 +33,7 @@ Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/over
     })
   }
 
-  // Using Confirm
+  // Use Confirm
   const useConfirm = () => {
     const confirm = editorRef.value.useConfirm({
       theme: 'success',
@@ -45,9 +45,9 @@ Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/over
     })
   }
 
-  // Using Message
+  // Use Message
   const useMessage = () => {
-    editorRef.value.useMessage('info', 'Hello World')
+    editorRef.value.useMessage('info', {content: 'Hello World'})
   }
 </script>
 ```
@@ -56,12 +56,12 @@ Umo Editor utilizes [TDesign Vue Next](https://tdesign.tencent.com/vue-next/over
 
 ### useAlert
 
-The Alert dialog component, for details see https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api.
+The Alert dialog component. For detailed instructions, see [Methods List](./methods#usealert).
 
 ### useConfirm
 
-The Confirm dialog component, for details see https://tdesign.tencent.com/vue-next/components/dialog-en?tab=api.
+The Confirm dialog component. For detailed instructions, see [Methods List](./methods#useconfirm).
 
 ### useMessage
 
-The Message component, for details see https://tdesign.tencent.com/vue-next/components/message-en?tab=api.
+The Message component. For detailed instructions, see [Methods List](./methods#usemessage).

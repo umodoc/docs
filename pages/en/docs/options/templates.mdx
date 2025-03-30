@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # Document Template Configuration
 
-This section is used to preset document templates, which users can select to quickly insert into the document, such as work logs, project plans, meeting minutes, etc.
+Used to preset document templates. After presetting, users can select the preset templates to quickly insert them into documents, such as work logs, project plans, meeting notes, etc.
 
 ## Default Configuration
 
@@ -12,15 +12,15 @@ This section is used to preset document templates, which users can select to qui
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Description
 
 ### templates
 
-**Description**: After setting up the templates, users can select from the preset templates to quickly insert into the document.
+**Description**: After presetting templates, users can select the preset templates to quickly insert them into documents.
 
 **Type**: `Array`
 
-**Default**: `[]`
+**Default Value**: `[]`
 
 **Example**:
 
@@ -30,14 +30,14 @@ This section is used to preset document templates, which users can select to qui
 {
   templates: [
     {
-      name: 'Work Task',
-      description: 'Template for work tasks',
+      title: 'Work Task',
+      description: 'Work task template',
       content: '<p>Work Task</p>',
     },
     {
-      name: 'Work Weekly Report',
-      description: 'Template for work weekly reports',
-      content: '<h2>Work Weekly Report</h2>',
+      title: 'Weekly Report',
+      description: 'Weekly report template',
+      content: '<h2>Work Task</h2>',
     },
   ]
 }
@@ -56,17 +56,17 @@ import { ref } from 'vue'
 import { UmoEditor } from '@umoteam/editor'
 
 const templates = ref([
-  {
-    name: 'Work Task',
-    description: 'Template for work tasks',
-    content: '<p>Work Task</p>',
-  },
-  {
-    name: 'Work Weekly Report',
-    description: 'Template for work weekly reports',
-    content: '<h2>Work Weekly Report</h2>',
-  },
-])
+    {
+      title: 'Work Task',
+      description: 'Work task template',
+      content: '<p>Work Task</p>',
+    },
+    {
+      title: 'Weekly Report',
+      description: 'Weekly report template',
+      content: '<h2>Work Task</h2>',
+    },
+  ])
 </script>
 ```
 </Tabs.Tab>
@@ -74,6 +74,6 @@ const templates = ref([
 
 **Configuration Items**:
 
-- `item.name`: `String`, the name of the template, ideally within 12 characters.
-- `item.description`: `String`, a brief introduction to the template, ideally within 60 characters.
-- `item.content`: The template content, valid HTML format or other valid [Tiptap Output](https://tiptap.dev/docs/editor/guide/output).
+- `item.name`: String, template name, preferably within 12 characters.
+- `item.description`: String, template description, preferably within 60 characters.
+- `item.content`: Template content, valid HTML format or other valid [Tiptap document](https://tiptap.dev/docs/editor/guide/output).

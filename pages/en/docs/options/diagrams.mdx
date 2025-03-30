@@ -1,34 +1,34 @@
-# Diagrams Chart Configuration
+# Diagrams Configuration
 
-[diagrams.net](https://app.diagrams.net/) is a popular online diagram and flowchart tool website that offers a simple and easy-to-use interface for creating various types of charts. Its main features are that it is free, open-source, supports a variety of chart types, and respects user privacy.
+[diagrams.net](https://app.diagrams.net/) is a popular online diagram and flowchart tool. It provides an easy-to-use interface for creating various types of diagrams. Its main features include being free and open-source, supporting multiple diagram types, and respecting user privacy.
 
-Umo Editor integrates the diagrams.net API, allowing users to create diagrams within Umo Editor.
+Umo Editor integrates the diagrams.net API, allowing users to create diagrams directly within Umo Editor.
 
-You can also deploy diagrams.net separately and modify the configuration of Umo Editor to use your own instance of diagrams.net.
+You can also deploy diagrams.net separately and modify Umo Editor's configuration to use your own diagrams.net.
 
 ## Default Configuration
 
 ```js
 {
   diagrams: {
-    domain: 'https://embed.diagrams.net', 
-    // https://www.drawio.com/doc/faq/supported-url-parameters 
+    domain: 'https://embed.diagrams.net',
+    // https://www.drawio.com/doc/faq/supported-url-parameters
     params: {},
   },
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Description
 
 ### diagrams.domain
 
-**Description**: Configures the domain name of embed.diagrams.net.
+**Description**: Configures the domain for embed.diagrams.net.
 
 **Type**: `String`
 
-**Default**: `https://embed.diagrams.net`.
+**Default Value**: `https://embed.diagrams.net`.
 
-**Options**: `https://embed.diagrams.net` or the URL of a self-hosted diagrams.net service.
+**Optional Values**: `https://embed.diagrams.net` or the URL of a self-hosted diagrams.net service.
 
 ### diagrams.params
 
@@ -36,4 +36,4 @@ You can also deploy diagrams.net separately and modify the configuration of Umo 
 
 **Type**: `Object`
 
-**Configuration Items**: For details, see: https://www.drawio.com/doc/faq/supported-url-parameters. Configure in the form of an `Object`.
+**Configuration Items**: Refer to: https://www.drawio.com/doc/faq/supported-url-parameters, configured in `Object` format.

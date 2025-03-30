@@ -10,17 +10,17 @@
 
 ```vue
 <template>
-<button @click="openDialog">打开对话框</button>
+  <button @click="openDialog">打开对话框</button>
 
-<umo-dialog
-  :visible="visible"
-  header="这是一个对话框组件"
-  width="560px"
-  @confirm="onConfirm"
-  @close="onClose"
->
-  <div>这里放置要显示的内容</div>
-</umo-dialog>
+  <umo-dialog
+    :visible="visible"
+    header="这是一个对话框组件"
+    width="560px"
+    @confirm="onConfirm"
+    @close="onClose"
+  >
+    <div>这里放置要显示的内容</div>
+  </umo-dialog>
 </template>
 
 <script setup>

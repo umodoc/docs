@@ -1,0 +1,52 @@
+# Getting Started
+
+As a commercial software, Umo Editor Next is no longer distributed as a public NPM package. After obtaining a [commercial license](./buy), you can find the packaged code in our private repository and add Umo Editor Next to your project using the following methods.
+
+## Using the Official Packaged Code
+
+### 1. Copy the Packaged Code
+
+Copy the latest packaged file from the `/releases` directory in the official private repository to your local machine. Assume the local path relative to your project is `./umo-editor-next-xxx.tgz`.
+
+### 2. Install Umo Editor Next
+
+Run the following command in your project to install the downloaded packaged file. Make sure to specify the correct file path.
+
+```sh npm2yarn
+npm install --save ./umo-editor-next-xxx.tgz
+```
+
+### 3. All Set
+
+With the above steps, you have successfully installed the Umo Editor Next NPM dependency and can now use it in your project.
+
+## Building It Yourself
+
+You can also build the package yourself by following these steps:
+
+### 1. Clone the Official Repository
+
+```bash
+git clone <Umo Editor Next official private repository URL>
+```
+
+### 2. Install Dependencies and Build the Project Code
+
+```sh npm2yarn
+npm install
+npm build
+```
+
+### 3. Install Umo Editor Next
+
+Assume the local repository path you cloned is relative to your project as `../umo-editor-next`.
+
+Run the following command in your project to install Umo Editor Next:
+
+```sh npm2yarn
+npm install --save ../umo-editor-next/releases/umo-editor-next-xxx.tgz
+```
+
+### 4. All Set
+
+With the above steps, you have successfully installed the Umo Editor Next NPM dependency and can now use it in your project.

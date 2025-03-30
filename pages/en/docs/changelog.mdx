@@ -3,13 +3,68 @@ import { Badge } from '/components/badge'
 
 # Changelog
 
+## 🎉  v6.0.0 <Badge>Pending</Badge>
+
+<Callout type="warning" emoji="❗">
+This update includes approximately 200 commits and contains some breaking changes, such as refactoring state management to better support multiple instances, rewriting some methods and components, and adding several node extensions and methods. Therefore, this update is released as a major version.
+</Callout>
+
+1. Removed the source code editor;
+2. Adjusted the `getSelectionNode` and `deleteSelectionNode` methods (see [Method List](./methods#getselectionnode)) to correctly retrieve nodes in nested structures, by @yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218);
+3. Fixed an issue where the node type was not displayed correctly when inserting files, by @BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211);
+4. Adjusted file-related nodes to no longer pass unrecognized File objects through custom node attributes;
+5. Fixed an issue where the "attachment" icon was displayed incorrectly when copying nodes, by @BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211);
+6. Fixed an issue where the save method did not correctly return page information;
+7. Fixed an issue where code blocks were still editable in preview mode, and ensured that the menu bar is hidden in preview mode;
+8. Fixed an issue where the height of images could still be freely adjusted when scaled at a 1:1 ratio;
+9. Optimized page display in preview mode;
+10. Fixed an issue where the toolbar did not scroll completely when clicking to scroll right;
+11. Modified the trailing virtual cursor style to distinguish it from the regular cursor and avoid confusion;
+12. Optimized save prompt messages, contributed by @china-wangxu [(#201)](https://github.com/umodoc/editor/pull/201);
+13. Added toolbar button visibility controls, which also affect floating buttons for nodes (see [Toolbar Settings](./options/toolbar#toolbardisablemenuitems));
+14. Adjusted the toolbar scroll distance to better meet expectations;
+15. Changed fullscreen mode to only fullscreen the viewport window;
+16. Fixed an issue where lists could not exit properly in certain scenarios, by @BOKE2014 [(#158)](https://github.com/umodoc/editor/issues/158);
+17. Adjusted line break extensions and configurations;
+18. Adjusted Gapcursor styles;
+19. Block menus now follow the cursor to focus on node positions;
+20. Added column functionality;
+21. Included types in the NPM package for better TypeScript support;
+22. Added block node drag-and-drop sorting functionality, by @BOKE2014 [(#163)](https://github.com/umodoc/editor/issues/163);
+23. Added a date extension;
+24. Fixed an issue where documents became uneditable after exiting presentation mode;
+25. Set documents to read-only mode in presentation mode;
+26. Added "mention (@)" functionality;
+27. Enhanced "webpage" node functionality;
+28. Added highlight block functionality;
+29. Bookmarks now support default visibility configuration (see [Page Settings](./options/page#pageshowbookmark)), contributed by @china-wangxu [(#178)](https://github.com/umodoc/editor/pull/178);
+30. Fixed an issue where flowcharts did not display when using local deployment;
+31. Added drag handles to the outline panel, allowing resizing of the outline area, contributed by @china-wangxu [(#177)](https://github.com/umodoc/editor/pull/177);
+32. Removed global state management and replaced it with cross-component communication to fix state pollution issues in multi-instance scenarios, by @Carrie-sxy [(#118)](https://github.com/umodoc/editor/issues/118);
+33. Changed the outline panel to display using a tree structure;
+34. Modified default emojis configuration (see [Dictionary Configuration](./options/dicts#dictsemojis));
+35. Fixed an issue where nodes like page breaks could not be deleted through the block menu;
+36. Optimized code blocks and fixed code block highlighting errors.
+37. Ordered, unordered, and task lists now support sublists, and ordered lists support multi-level continuous numbering;
+38. Retained font color, cell background, and text alignment styles when pasting tables from Word and Excel;
+39. Added tagging functionality;
+40. Added several external methods (see [Method List](./methods));
+41. Fixed an issue where inserting a table into an empty document did not work and optimized placeholder display, by @china-wangxu [(#165)](https://github.com/umodoc/editor/issues/165);
+42. Initial loading now supports `showBreakMarks` settings and watermark settings, contributed by @china-wangxu [(#161)](https://github.com/umodoc/editor/pull/161).
+43. Fixed an issue where page configurations did not take effect, by @china-wangxu [(#163)](https://github.com/umodoc/editor/issues/163);
+44. Fixed an issue where iframe nodes could exceed page width when resizing.
+45. Locked some dependencies to prevent unexpected errors;
+46. Optimized image node selection, by @china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157);
+47. Fixed an issue where inserting an echarts node through the block menu required two clicks when the current node was empty;
+48. Fixed some issues in the documentation and retranslated the English documentation.
+
+## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
+
 <Callout type="warning" emoji="❗">
 Thank you for your continued support of Umo Editor. After careful consideration and facing many challenges, we have decided that v4.6 will be the final version to support pagination. Starting with v5.0, pagination support will be temporarily discontinued, but it may return in the future.  
 The good news is that the Tiptap official team has noticed the community's urgent need for a pagination feature and has already started development. However, there is no clear release date yet. See: https://x.com/tiptap_editor/status/1812154617733538288.
 If you still need pagination, you can continue using the v4.x versions, but these versions will no longer be maintained. Alternatively, you can fork the code and modify it yourself. The branch supporting pagination is available at: [page-break-v4](https://github.com/umodoc/editor/tree/page-break-v4).
 </Callout>
-
-## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
 
 1. ⚠️ Completely removed support for pagination.
 2. Added page break and line break extensions, replacing the original Placeholder extension, etc.;
@@ -144,7 +199,7 @@ Fix the issue of custom methods being called by default when importing Word docu
 8. Fixed the issue where the image upload progress bar remained visible.
 
 ## 🎉 v3.0.0 <Badge>2024-08-05</Badge>
-1. **[Major Update]** Added AI Document Assistant, see [AI Document Assistant](./assistant);
+1. **[Major Update]** Added AI document assistant, see [AI document assistant](./assistant);
 2. **[Major Update]** Added toolbar and bubble menu slots to enable more customization through slots, see [Slot List](./slots);
 3. **[Major Update]** Opened some UI components, see [Component List](./components);
 4. **[Important Note]** As of v3.0, installation via direct browser inclusion is no longer supported;

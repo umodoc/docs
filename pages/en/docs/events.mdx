@@ -1,8 +1,8 @@
 import { Badge } from '/components/badge'
 
-# Events
+# Event List
 
-This section will introduce the events of Umo Editor. Through events, you can listen to the complete lifecycle and state changes of Umo Editor for more operations. You can visit https://demo.umodoc.com/editor?pane=events&lang=en-US, open the console (DevTools › Console) to view the triggering of events.
+This section introduces the events of Umo Editor. Events allow you to monitor the complete lifecycle and state changes of Umo Editor for further operations. You can visit [https://demo.umodoc.com/editor?pane=events&lang=en-US](https://demo.umodoc.com/editor?pane=events&lang=en-US) and open the console (DevTools › Console) to observe event triggers.
 
 ## Example
 
@@ -27,7 +27,7 @@ This section will introduce the events of Umo Editor. Through events, you can li
     @changed:page-watermark="onChangedPageWatermark"
     @changed:locale="onChangedLocale"
     @changed:theme="onChangedTheme"
-    @conent-error="onContentError"
+    @content-error="onContentError"
     @print="onPrint"
     @focus="onFocus"
     @blur="onBlur"
@@ -202,30 +202,30 @@ const onDestroy = () => {
 </script>
 ```
 
-## Event Description
+## Event Descriptions
 
-| Event Name | Trigger Timing / Description | Available Parameters |
-| --- | --- | --- |
-| beforeCreate | Editor is about to be created | - |
-| created | Editor has been created | \{ editor \} |
-| changed | Editor content has been updated | \{ editor \} |
-| changed:selection | Selected content has changed | \{ editor \} |
-| changed:transaction | Editor state has changed | \{ editor, transaction \} |
-| changed:menu | Menu state has changed | currentMenu |
-| changed:toolbar | Toolbar information has changed | \{ toolbar, oldToolbar \} |
-| changed:pageSize | Page size information has changed | \{ pageSize, oldPageSize \} |
-| changed:pageOrientation | Page orientation has changed | \{ pageOrientation, oldPageOrientation \} |
-| changed:pageMargin | Page margin information has changed | \{ pageMargin, oldPageMargin \} |
-| changed:pageBackground | Page background has changed | \{ pageBackground, oldPageBackground \} |
-| changed:pageZoom | Page zoom level has changed | \{ zoomLevel, oldZoomLevel \} |
-| changed:pageShowToc | Page outline panel display state has changed | showToc |
-| changed:pagePreview | Page preview mode has changed | enabled |
-| changed:pageWatermark | Page watermark information has changed | \{ pageWatermark, oldPageWatermark \} |
-| changed:locale | Language setting has changed <Badge theme="success">New in v2.0.0</Badge> | \{ locale, oldLocale \} |
-| changed:theme | Theme setting has changed <Badge theme="success">New in v2.1.0</Badge> | theme |
-| content-error | Document content parsing error <Badge theme="success">New in v2.3.0</Badge> | \{ editor, error, disableCollaboration \} |
-| print | Page print <Badge theme="success">New in v1.1.0</Badge> | - |
-| focus | Editor gains focus | \{ editor, event \} |
-| blur | Editor loses focus | \{ editor, event \} |
-| saved | Document has been saved | - |
-| destroy | Editor component has been destroyed | - |
+| Event Name          | Trigger Timing / Description                                   | Available Parameters                          |
+|---------------------|---------------------------------------------------------------|----------------------------------------------|
+| beforeCreate        | The editor is about to be created                             | -                                            |
+| created             | The editor has been created                                   | `{ editor }`                                 |
+| changed             | The editor content has been updated                           | `{ editor }`                                 |
+| changed:selection   | The selected content has changed                              | `{ editor }`                                 |
+| changed:transaction | The editor state has changed                                  | `{ editor, transaction }`                    |
+| changed:menu        | The menu state has changed                                    | `currentMenu`                                |
+| changed:toolbar     | Toolbar information has changed                               | `{ toolbar, oldToolbar }`                    |
+| changed:pageSize    | Page size information has changed                             | `{ pageSize, oldPageSize }`                  |
+| changed:pageOrientation | Page orientation has changed                              | `{ pageOrientation, oldPageOrientation }`    |
+| changed:pageMargin  | Page margin information has changed                           | `{ pageMargin, oldPageMargin }`              |
+| changed:pageBackground | Page background has changed                                | `{ pageBackground, oldPageBackground }`      |
+| changed:pageZoom    | Page zoom level has changed                                   | `{ zoomLevel, oldZoomLevel }`                |
+| changed:pageShowToc | The visibility of the page outline panel has changed          | `showToc`                                    |
+| changed:pagePreview | Page preview mode has changed                                 | `enabled`                                    |
+| changed:pageWatermark | Page watermark information has changed                      | `{ pageWatermark, oldPageWatermark }`        |
+| changed:locale      | Language settings have changed <Badge theme="success">v2.0.0</Badge> | `{ locale, oldLocale }`                      |
+| changed:theme       | Theme settings have changed <Badge theme="success">v2.1.0</Badge> | `theme`                                      |
+| content-error       | Document content parsing error <Badge theme="success">v2.3.0</Badge> | `{ editor, error, disableCollaboration }`    |
+| print               | Page printing <Badge theme="success">v1.1.0</Badge>          | -                                            |
+| focus               | The editor has gained focus                                  | `{ editor, event }`                          |
+| blur                | The editor has lost focus                                    | `{ editor, event }`                          |
+| saved               | The document has been saved                                  | -                                            |
+| destroy             | The editor component has been destroyed                      | -                                            |

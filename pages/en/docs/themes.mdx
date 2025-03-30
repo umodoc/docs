@@ -1,66 +1,70 @@
-# Themes
+# Custom Themes
 
-The main theme variables of Umo Editor are declared using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). We recommend personalizing your theme configuration by replacing CSS variables.
+Umo Editor's primary theme variables are declared using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). We recommend customizing themes by replacing CSS variables.
 
-## Dark Mode
-Starting from version v2.1.0, Umo Editor supports a dark theme, which you can experience through the following link: https://demo.umodoc.com/editor?theme=dark&lang=en-US.
+## Dark Theme
+
+Starting from version v2.1.0, Umo Editor supports a dark theme. You can experience the dark theme by visiting [https://demo.umodoc.com/editor?theme=dark&lang=en-US](https://demo.umodoc.com/editor?theme=dark&lang=en-US).
 
 ### Theme Configuration
-Refer to [Opitons](./options/themes) .
+See [Theme Configuration](./options/themes).
 
 ### Theme Methods
-Refer to [Methods](./methods#settheme).
+See [Theme Configuration](./methods#settheme).
 
 ### Theme Events
-Refer to [Events](./events).
+See [Theme Configuration](./events).
 
 ## CSS Variables
 
-Below are all available CSS Variables. You can view the complete list of CSS Variables by [clicking here](https://github.com/umodoc/editor/tree/main/src/assets/styles/_variables.less).
+Below are all available CSS variables. [Click here](https://github.com/umodoc/editor/tree/main/src/assets/styles/_variables.less) to view the full list of CSS variables.
 
 ```css
 /* Default Theme */
 :root {
-  /* Theme Colors */
+
+  /** Theme Colors **/
   --umo-primary-color: #3480f9;
   --umo-color-white: #fff;
   --umo-color-black: #000;
 
-  /* Alert Colors */
+  /** Warning Colors **/
   --umo-warning-color: #f6913e;
   --umo-error-color: #ef3f35;
-
-  /* Background Colors */
+  
+  /** Background Colors **/
   --umo-container-background: #f4f5f7;
   --umo-button-hover-background: #f1f3f5;
   /** Background color when text is selected **/
   --umo-text-selection-background: #94cfff;
 
-  /* Typography */
-  --umo-font-family: helvetica neue, helvetica, pingfang sc, hiragino sans gb, microsoft yahei, simsun, sans-serif;
+  /** Font **/
+  --umo-font-family: helvetica neue, helvetica, pingfang sc, hiragino sans gb,
+    microsoft yahei, simsun, sans-serif;
   --umo-font-size: 14px;
   --umo-font-size-small: 12px;
   --umo-text-color: rgb(51, 54, 57);
   --umo-text-color-light: rgba(0, 0, 0, 0.5);
   --umo-text-color-disabled: #a7abac;
 
-  /* Borders */
-  --umo-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.03), 0 8px 10px 1px rgba(0, 0, 0, 4%), 0 5px 5px -3px rgba(0, 0, 0, 8%);
+  /** Borders **/
+  --umo-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.03),
+    0 8px 10px 1px rgba(0, 0, 0, 4%), 0 5px 5px -3px rgba(0, 0, 0, 8%);
   --umo-border-color: rgba(0, 0, 0, 0.08);
   --umo-border-color-dark: #ddd;
   --umo-border-color-light: rgba(0, 0, 0, 0.05);
 
-  /* Rounded Corners */
+  /** Border Radius **/
   --umo-radius: 3px;
   --umo-radius-medium: 5px;
 
-  /* Popups */
+  /** Popups **/
   --umo-popup-content-padding: 12px;
   --umo-popup-max-height: max(60vh, 180px);
   --umo-tooltip-content-padding: 6px 10px;
   --umo-mask-color: transparent;
 
-  /* Editor */
+  /** Editor **/
   --umo-content-placeholder-color: #999;
   --umo-content-text-color: #333;
   --umo-content-node-border: #e7e7e7;
@@ -76,25 +80,47 @@ Below are all available CSS Variables. You can view the complete list of CSS Var
   --umo-content-invisible-break-color: rgb(78, 139, 252);
   --umo-content-code-color: var(--umo-primary-color);
   --umo-content-code-background: #f1f3f5;
-  --umo-content-code-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+  --umo-content-code-family: Consolas, Monaco, Andale Mono, Ubuntu Mono,
+    monospace;
 
-  /* Scrollbar */
+  /** Scrollbars **/
   --umo-scrollbar-size: 4px;
   --umo-scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
   --umo-scrollbar-thumb-hover-color: rgba(0, 0, 0, 0.35);
 }
 
+
 /* Dark Theme */
 [theme-mode='dark'] {
-  /* Theme Colors & Backgrounds Adjusted for Dark Mode */
+
+  /** Theme Colors **/
   --umo-color-white: #17171a;
   --umo-color-black: #fff;
+
+  /** Warning Colors **/
+  --umo-warning-color: rgb(207, 110, 45);
+  --umo-error-color: rgb(198, 71, 81);
+
+  /** Background Colors **/
   --umo-container-background: #2a2b2d;
   --umo-button-hover-background: #2c2c2c;
+
+  /** Font **/
   --umo-text-color: #ddd;
+  --umo-text-color-light: #bbb;
+  --umo-text-color-disabled: #999;
+
+  /** Borders **/
   --umo-border-color: rgba(255, 255, 255, 0.15);
+  --umo-border-color-dark: rgba(255, 255, 255, 0.2);
+  --umo-border-color-light: rgba(255, 255, 255, 0.08);
+
+  /** Editor **/
   --umo-content-text-color: #000;
+
+  /** Scrollbars **/
   --umo-scrollbar-thumb-color: rgba(255, 255, 255, 0.3);
+  --umo-scrollbar-thumb-hover-color: rgba(255, 255, 255, 0.45);
 }
 ```
 
@@ -121,4 +147,4 @@ import { UmoEditor } from 'umo-editor'
 
 ## Online Customization
 
-You can visit [Playground](https://demo.umodoc.com/editor?pane=themes&lang=en-US), switch to the "Themes" tab in the settings panel on the right, modify the values of Variables, and preview the theme effects immediately.
+You can visit [https://demo.umodoc.com/editor?pane=themes&lang=en-US](https://demo.umodoc.com/editor?pane=themes&lang=en-US), switch to the "Theme Settings" tab in the right-side settings panel, and modify the CSS variable values to preview the theme effects.

@@ -1,0 +1,16 @@
+# Methods List
+
+Umo Editor Next, in addition to including [Methods List](../methods) of Umo Editor, has added the following methods.
+
+## Method Details
+
+### getCollaborationInfo
+
+**Description**: Retrieves information related to online collaboration.
+
+**Parameters**: None
+
+**Return Value**: Object, containing the following information:
+- `connect`: Boolean, whether the connection to the provider is successful;
+- `user`: Array, the current list of collaborative users;
+- `provider`: Object, provider information. After obtaining provider information, you can implement more personalized requirements by listening to related events. Refer to: https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding.

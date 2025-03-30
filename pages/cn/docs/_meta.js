@@ -28,9 +28,9 @@ export default {
 	notifications: '消息提醒',
 	'--extensions': {
 		type: 'separator',
-		title: '自定义插件'
+		title: '自定义扩展'
 	},
-	extensions: '插件说明',
+	extensions: '扩展说明',
 	'--business': {
 		type: 'separator',
 		title:"商业版本"

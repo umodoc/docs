@@ -2,7 +2,7 @@ import { Badge } from '/components/badge'
 
 # File Upload Configuration
 
-This section is used to configure file upload settings, including allowed file types and file size limits. For methods of file uploading and file deletion, please refer to the [Methods](/en/docs/events).
+Used to configure file upload settings, including allowed file types, file size limits, etc. For file upload methods and file deletion methods, please refer to [Methods](./methods).
 
 ## Default Configuration
 
@@ -10,8 +10,8 @@ This section is used to configure file upload settings, including allowed file t
 {
   file: {
     allowedMimeTypes: [],
-    maxSize: 1024 * 1024 * 100, // 100MB
-    preview: [ // New in v5.0.0
+    maxSize: 1024 * 1024 * 100, // 100M
+    preview: [ // Added in v5.0.0
       { extensions: ['pdf'], url: '{url}' },
       {
         extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
@@ -22,37 +22,37 @@ This section is used to configure file upload settings, including allowed file t
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Options
 
 ### file.allowedMimeTypes
 
-**Description**: The allowed file types for upload. An empty array indicates that all file types are allowed.
+**Description**: Allowed file types for upload. An empty array means all file types are allowed.
 
 **Type**: `Array`
 
-**Default**: `[]`.
+**Default Value**: `[]`.
 
-**Options**:
+**Optional Values**:
 
-Valid [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) values.
+Valid [MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types).
 
-Additionally, to upload files of the same type, you can use the * wildcard for simplified configuration. For example, to allow the upload of all image files, it can be configured as `['image/*']`.
+Additionally, if you want to upload files of the same type, you can use `*` to simplify the configuration. For example, to allow all images, you can configure it as `['image/*']`.
 
 ### file.maxSize
 
-**Description**: The maximum size allowed for uploaded files, in bytes (B).
+**Description**: The maximum size of files allowed for upload, in bytes (B).
 
-**Type**: `Number`.
+**Type**: `Number`
 
-**Default**: `1024 * 1024 * 100` (100M)
+**Default Value**: `1024 * 1024 * 100` (100M)
 
 ### file.preview 
 
-**Description**: Preview file configuration, including file type and preview link, note that modifying this value will directly override the default value, if you need to adjust the preview file configuration, please make changes based on the default value. <Badge theme="success">New in v5.0.0</Badge>
+**Description**: Configuration for file preview, including file types and preview links. Note that modifying this value will directly overwrite the default value. If you need to adjust the file preview configuration, modify it based on the default value. <Badge theme="success">Added in v5.0.0</Badge>
 
 **Type**: `Array`
 
-**Default**:
+**Default Value**: 
 ```js
 [
   { extensions: ['pdf'], url: '{url}' },
@@ -65,5 +65,5 @@ Additionally, to upload files of the same type, you can use the * wildcard for s
 
 **Optional Values**:
 
-- `preview[].extensions`: The supported file suffix array, refer to the default value.
-- `preview[].url`: The preview link, which can be a string or an array of strings, supporting `{url}` and `{{url}}` placeholders for replacing the uploaded file URL and performing encodeURIComponent encoding, respectively.
+- `preview[].extensions`: Array of supported file extensions, refer to the default value.
+- `preview[].url`: Preview link, which can be a string or an array of strings. Supports `{url}` and `{{url}}` placeholders, used to replace the uploaded file's URL and encode the URL with `encodeURIComponent`, respectively.

@@ -621,7 +621,7 @@ Umo Editor 的配置项主要分为以下几部分：
 - `page`：Object，页面配置，详见[页面配置](./page)。
 - `document`：Object，文档配置，详见[文档配置](./document)。
 - `assistant`：Object，AI 文档助手配置，详见[AI 文档助手](./assistant)。<Badge theme="success">v3.0.0 新增</Badge>
-- `echarts`：Object，ECharts 图表配置，详见[ECharts 图表](./echarts)。<Badge theme="success">v6.0.0 新增</Badge>
+- `echarts`：Object，ECharts 图表配置，详见[ECharts 配置](./echarts)。<Badge theme="success">v6.0.0 新增</Badge>
 - `webPages`：Object，Web 页面配置，详见[Web 页面](./webpages)。<Badge theme="success">v6.0.0 新增</Badge>
 - `templates`：Array，预置的页面模板配置，详见[模板配置](./templates)。
 - `cdnUrl`：String，静态资源的基础路径，需为合法的 URL，详见[CDN配置](./cdn)。
@@ -630,11 +630,11 @@ Umo Editor 的配置项主要分为以下几部分：
 - `user`：Object，当前用户配置，详见[用户配置](./user)。<Badge theme="success">v4.0.0 新增</Badge>
 - `users`：Array，相关用户配置，详见[相关用户配置](./users)。<Badge theme="success">v6.0.0 新增</Badge>
 - `file`：Object，文件上传配置，详见[文件上传配置](./file)。
-- `extensions`：Array 详见[自定义插件](./extensions)。 <Badge theme="success">v1.4.0 新增</Badge>
+- `extensions`：Array 详见[自定义扩展](./extensions)。 <Badge theme="success">v1.4.0 新增</Badge>
 - `translations`：Object 详见[自定义翻译信息](./locales)。 <Badge theme="success">v2.0.0 新增</Badge>
-- `onSave(content, page, document)`：Async Function，文档保存方法，应返回 Promise，详见[方法配置](/cn/docs/options/methods#onsave)。
-- `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见[方法配置](/cn/docs/options/methods#onfileupload)。
-- `onFileDelete(id, url)`：Function，文件删除方法，详见[方法配置](/cn/docs/options/methods#onfiledelete)。
-- `onAssistant(payload, content)`：Async Function，AI 文档助手返回数据方法，详见[AI 助手配置](/cn/docs/options/methods#onassistant)。 <Badge theme="success">v3.0.0 新增</Badge>
-- `onCustomEChartSettings(data, config)`：Function，自定义 ECharts 图表配置方法，详见[方法配置](/cn/docs/options/methods#oncustomcehartsettings)。 <Badge theme="success">v6.0.0 新增</Badge>
-- `onCustomImportWordMethod(file)`：Async Function，自定义 Word 文件导入方法，详见[方法配置置](/cn/docs/options/methods#oncustomimportwordmethod)。 <Badge theme="success">v3.1.0 新增</Badge>
+- `onSave(content, page, document)`：Async Function，文档保存方法，应返回 Promise，详见[方法配置](./methods#onsave)。
+- `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见[方法配置](./methods#onfileupload)。
+- `onFileDelete(id, url)`：Function，文件删除方法，详见[方法配置](./methods#onfiledelete)。
+- `onAssistant(payload, content)`：Async Function，AI 文档助手返回数据方法，详见[AI 助手配置](./methods#onassistant)。 <Badge theme="success">v3.0.0 新增</Badge>
+- `onCustomEChartSettings(data, config)`：Function，自定义 ECharts 图表配置方法，详见[方法配置](./methods#oncustomcehartsettings)。 <Badge theme="success">v6.0.0 新增</Badge>
+- `onCustomImportWordMethod(file)`：Async Function，自定义 Word 文件导入方法，详见[方法配置置](./methods#oncustomimportwordmethod)。 <Badge theme="success">v3.1.0 新增</Badge>

@@ -4,7 +4,7 @@ import { Callout } from 'nextra/components'
 
 # Method Configuration
 
-These are the methods used to configure the Umo Editor, including the document save method, file upload method, file deletion method, and the method for handling data returned by the AI Assistant, among others.
+Used to configure the methods of Umo Editor, including document save methods, file upload methods, file delete methods, AI document assistant return data methods, etc.
 
 ## Default Methods
 
@@ -23,19 +23,24 @@ These are the methods used to configure the Umo Editor, including the document s
   async onAssistant(payload, content) {
     throw new Error('Key "onAssistant": Please set the onAssistant method')
   },
+  onCustomEChartSettings() {
+    console.error(
+      'Custom chart settings are required, please configure onCustomEChartSettings.',
+    )
+  },
   async onCustomImportWordMethod(file) {
     throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
   },
 }
 ```
 
-## Configuration Item Descriptions
+## Configuration Options
 
 ### onSave
 
-**Description**: Configure the document save method. This method is called when the user saves the document, saving it to the server.
+**Description**: Configures the document save method. When the user saves a document, this method is called to save the document to the server.
 
-**Type**: `AsyncFunction`、 `Promise`.
+**Type**: `AsyncFunction`, `Promise`.
 
 **Parameters**:
 
@@ -43,11 +48,11 @@ These are the methods used to configure the Umo Editor, including the document s
 - `page`: Page information.
 - `document`: Document information.
 
-**Return Value**: Return true if save is successful, otherwise return false or throw an error.
+**Return Value**: Returns `true` if the save is successful, otherwise returns `false` or throws an error.
 
 **Example**:
 
-The following code uses [Axios](https://axios-http.com/) to demonstrate how to configure the onSave method to save the document to the server:
+The following code demonstrates how to configure the `onSave` method using [Axios](https://axios-http.com/) to save the document to the server:
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
@@ -67,7 +72,7 @@ const options = {
       }
     });
 
-    // Return true if save is successful, otherwise return false or throw an error
+    // Return true if the save is successful, otherwise return false or throw an error
     return true; 
   },
 };
@@ -98,7 +103,7 @@ const onSave = async (content, page, document) => {
     }
   });
 
-  // Return true if save is successful, otherwise return false or throw an error
+  // Return true if the save is successful, otherwise return false or throw an error
   return true; 
 }
 </script>
@@ -108,9 +113,9 @@ const onSave = async (content, page, document) => {
 
 ### onFileUpload
 
-**Description**: Configure the file upload method. This method is triggered when the user inserts a file, uploading it to the server.
+**Description**: Configures the file upload method. When the user inserts a file, this method is triggered to upload the file to the server.
 
-**Type**: `AsyncFunction`、 `Promise`.
+**Type**: `AsyncFunction`, `Promise`.
 
 **Parameters**:
 
@@ -118,12 +123,12 @@ const onSave = async (content, page, document) => {
 
 **Return Value**:
 
-- `id`: The file id returned after a successful upload.
-- `url`: The file url returned after a successful upload.
+- `id`: The file ID returned after a successful upload.
+- `url`: The file URL returned after a successful upload.
 
 **Example**:
 
-The following code uses [Axios](https://axios-http.com/) to demonstrate how to configure the onFileUpload method to upload files to the server:
+The following code demonstrates how to configure the `onFileUpload` method using [Axios](https://axios-http.com/) to upload the file to the server:
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
@@ -142,7 +147,7 @@ const options = {
       }
     });
 
-    // Return {id, url} if save is successful, otherwise return false or throw an error
+    // Return {id, url} if the upload is successful, otherwise return false or throw an error
     return {
       id: res.data.id,
       url: res.data.url,
@@ -175,7 +180,7 @@ const onFileUpload = async (file) => {
     }
   });
 
-  // Return {id, url} if save is successful, otherwise return false or throw an error
+  // Return {id, url} if the upload is successful, otherwise return false or throw an error
   return {
     id: res.data.id,
     url: res.data.url,
@@ -188,18 +193,18 @@ const onFileUpload = async (file) => {
 
 ### onFileDelete
 
-**Description**: Configure the file deletion method. This method is triggered when the user deletes a file, deleting it from the server.
+**Description**: Configures the file delete method. When the user deletes a file, this method is triggered to delete the file from the server.
 
-**Type**: `Function` .
+**Type**: `Function`.
 
 **Parameters**:
 
-- `id`: File id.
-- `url`: File url.
+- `id`: File ID.
+- `url`: File URL.
 
 **Example**:
 
-The following code uses [Axios](https://axios-http.com/) to demonstrate how to configure the onFileDelete method to delete a file from the server:
+The following code demonstrates how to configure the `onFileDelete` method using [Axios](https://axios-http.com/) to delete the file from the server:
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
@@ -209,6 +214,7 @@ import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   onFileDelete(id, url) => {
+    // Delete the file from the server using its ID
     axios.delete(`/api/file/${id}`);
   },
 };
@@ -229,6 +235,7 @@ import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
 
 const onFileDelete = (id, url) => {
+  // Delete the file from the server using its ID
   axios.delete(`/api/file/${id}`);
 }
 </script>
@@ -236,29 +243,29 @@ const onFileDelete = (id, url) => {
 </Tabs.Tab>
 </Tabs>
 
-### onAssistant <Badge theme="success">New in v3.0.0</Badge>
+### onAssistant
 
-**Description**: Configures the method for handling data returned by the AI Assistant; see more details in [AI Assistant](../assistant).
+**Description**: Configures the method for returning data from the AI document assistant. For more information, see [AI document assistant](../assistant). <Badge theme="success">Added in v3.0.0</Badge>
 
 **Type**: `AsyncFunction`, `Promise`.
 
 **Parameters**:
 
-- `payload`: The request parameters for the AI Assistant, which can be passed to the AI model.
+- `payload`: Request parameters for the AI document assistant, which can be passed to the AI model.
   1. `payload.lang`: `String`, the current interface language.
   2. `payload.input`: `String`, the text content selected by the user.
   3. `payload.command`: `String`, the command entered by the user.
-  4. `payload.output`: `String`, the format of the content the AI Assistant expects to receive. Possible values: `rich-text`, `text`.
-- `content`: The current document content. You can pass the document content to the AI model, but note that very long documents may cause the AI model to fail to process. If you're using a commercial AI model, an excessively long token input will also lead to significantly increased costs.
+  4. `payload.output`: `String`, the desired content format from the AI document assistant, possible values: `rich-text`, `text`.
+- `content`: The current document content. You can pass the document content to the AI model, but note that overly long documents may cause the AI model to fail to process them. If using a commercial AI model, overly long token inputs may also significantly increase costs.
   1. `content.text`: `String`, the text content of the current document.
   2. `content.html`: `String`, the HTML content of the current document.
   3. `content.json`: `Object`, the JSON content of the current document.
 
 **Example**:
 
-The following example demonstrates how to configure the `onAssistant` method, passing the document content to the AI model, processing it, and returning the results from the AI model. This example uses calling the OpenAI model as an illustration.
+The following example demonstrates how to configure the `onAssistant` method using the OpenAI model to process and return results from the AI model.
 
-OpenAI's API specification has become a de facto industry standard. In fact, many AI models support being invoked through the [`OpenAI SDK`](https://www.npmjs.com/package/openai).
+The OpenAI API specification has become the de facto industry standard. In fact, many AI models support being called via the [`OpenAI SDK`](https://www.npmjs.com/package/openai).
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
@@ -335,7 +342,7 @@ const onAssistant = (payload, content) => {
   }
   const options = {
     stream: true,
-    model: '...', // Your OpenAI model here
+    model: 'moonshot-v1-8k',
     messages: [
       {
         role: 'system',
@@ -364,20 +371,112 @@ const onAssistant = (payload, content) => {
 </Tabs>
 
 <Callout type="error">
-**Note:** The above code is provided for demonstration purposes only. In practical applications, sensitive information such as `apiKey` should not be exposed on the client side. AI model calls should be made through backend services, with `apiKey` stored on the server to protect sensitive information. The logic of the above code should also be placed in the backend service as much as possible to reduce request loads.
+**Note:** The above code is for demonstration purposes only. In actual applications, sensitive information such as `apiKey` should not be exposed on the client side. Instead, the AI model should be called via a backend service, and the `apiKey` should be stored on the backend to protect sensitive information. The above logic should also be implemented on the backend as much as possible to reduce request load.
 </Callout>
 
-**Return Value**：`String`、`ReadableStream`。
+**Return Value**: `String`, `ReadableStream`.
 
-### onCustomImportWordMethod <Badge theme="success">New in v3.1.0</Badge>
+### onCustomEChartSettings
 
-**Description**: A custom method for importing Word documents. If you want to use a custom import method, you need to set the `toolbar.importWord.useCustomMethod` option to `true`. See [Toolbar Configuration](../options/toolbar#importword).
+**Description**: Customizes the ECharts chart configuration method. <Badge theme="success">Added in v6.0.0</Badge>
+
+**Type**: `Function`.
+
+**Parameters**:
+
+- `data`: `Array`, chart data.
+- `config`: `Object`, the current ECharts chart configuration.
+  1. `seriesType`: `String`, chart display type `bar|line|pie` representing bar chart, line chart, and pie chart respectively.
+  2. `legend`: `Boolean`, whether to display the legend `true`: display legend, `false`: do not display legend.
+  3. `legendleft`: `String`, horizontal position of the legend `left|center|right` representing left-aligned, center-aligned, and right-aligned respectively.
+  4. `legendlocation`: `String`, vertical position of the legend `top|bottom` representing top-aligned and bottom-aligned respectively.
+  5. `legendorient`: `String`, layout direction of the legend `horizontal|vertical` representing horizontal and vertical layouts respectively.
+  6. `smooth`: `Boolean`, whether the line is displayed smoothly `true`: smooth display, `false`: default display.
+  7. `titleText`: `String`, chart title content.
+  8. `titleleft`: `String`, position of the chart title `left|center|right` representing left-aligned, center-aligned, and right-aligned respectively.
+
+**Example**:
+
+The following code demonstrates how to configure the `onCustomEChartSettings` method to implement chart display extensions:
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+import { useUmoEditor } from '@umoteam/editor'
+
+const options = {
+  onCustomEChartSettings(data, config) {
+    const { title, seriesType, legend } = config
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      },
+      yAxis: {
+        type: 'value',
+      },
+      series: [
+        {
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: 'line',
+          smooth: true,
+        },
+      ],
+    }
+    return option
+  }
+}
+
+app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    @custom-e-chart-settings="onCustomEChartSettings" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+
+const onCustomEChartSettings = (data, config) => {
+  const { title, seriesType, legend } = config
+  const option = {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+      },
+    ],
+  }
+  return option
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+**Return Value**: `Object`, returns the options configuration object for the ECharts chart.
+
+### onCustomImportWordMethod
+
+**Description**: Customizes the method for importing Word documents. To use a custom import method, you need to configure the `toolbar.importWord.useCustomMethod` option to `true`. See [Toolbar Configuration](../options/toolbar#importword). <Badge theme="success">Added in v3.1.0</Badge>
 
 **Type**: `AsyncFunction`, `Promise`.
 
-**Parameter**: `File`
+**Parameters**: `File`
 
-**Return Value**: The same data format as returned by [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api). Example:
+**Return Value**: The same format as the return value of [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api), as shown below:
 
 ```js
 {
