@@ -404,44 +404,51 @@ const defaultOptions = {
       interval: 300000,
     },
   },
-  assistant: {
-    enabled: false,
-    maxlength: 100,
-    commands: [
-      {
-        label: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
-        value: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
-      },
-      {
-        label: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
-        value: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
-      },
-      {
-        label: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
-        value: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
-      },
-      {
-        label: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
-        value: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
-      },
-      {
-        label: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
-        value: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
-      },
-      {
-        label: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
-        value: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
-      },
-      {
-        label: { en_US: 'Translate', zh_CN: '翻译', ru_RU: 'Перевести' },
-        value: {
-          en_US: 'Translate to chinese',
-          zh_CN: '翻译成英文',
-          ru_RU: 'Перевести на китайский',
+  ai:{
+    assistant: {
+      enabled: false,
+      maxlength: 100,
+      commands: [
+        {
+          label: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
+          value: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
         },
-        autoSend: false,
+        {
+          label: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+          value: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+        },
+        {
+          label: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+          value: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+        },
+        {
+          label: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+          value: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+        },
+        {
+          label: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Польский' },
+          value: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Польский' },
+        },
+        {
+          label: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+          value: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+        },
+        {
+          label: { en_US: 'Translate', zh_CN: '翻译', ru_RU: 'Перевести' },
+          value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文', ru_RU: 'Перевести на китайский' },
+          autoSend: false,
+        },
+      ],
+      async onMessage() {
+        return await new Promise((_, reject) => {
+          reject(
+            new Error(
+              'Key "ai": Key "assistant": Key "onMessage": Please set the onMessage method',
+            ),
+          )
+        })
       },
-    ],
+    },
   },
   echarts: {
     mode: 1, 
@@ -577,11 +584,6 @@ const defaultOptions = {
       'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
     )
   },
-  async onAssistant() {
-    return await new Promise((_, reject) => {
-      reject(new Error('Key "onAssistant": Please set the onAssistant method'))
-    })
-  },
   onCustomEChartSettings() {
     console.error(
       'Custom chart settings are required, please configure onCustomizeChartSettings.',
@@ -591,7 +593,7 @@ const defaultOptions = {
     return await new Promise((_, reject) => {
       reject(
         new Error(
-          'Key "onCustomImportWordMethod": Please set the onAssistant method',
+          'Key "onCustomImportWordMethod": Please set the onCustomImportWordMethod method',
         ),
       )
     })
@@ -600,7 +602,7 @@ const defaultOptions = {
 ```
 
 <Callout type="error">
-Starting from version v2.0.0, the `label` in `dicts` and `document.placeholder` support both `String` and `Object` types. The `Object` type is mainly used for configuring multilingual information in the format `{ en_US: 'English', zh_CN: '中文说明' }`.
+Starting from version v2.0.0, the `label` in `dicts` and items like `document.placeholder` support both `String` and `Object` types. The `Object` type is mainly used for configuring multilingual information in the format `{ en_US: 'English', zh_CN: 'Chinese description' }`.
 </Callout>
 
 ## Zoning
@@ -611,16 +613,16 @@ Starting from version v2.0.0, the `label` in `dicts` and `document.placeholder` 
 
 The configuration options of Umo Editor are mainly divided into the following parts:
 
-- `editorKey`: String, the editor key used to distinguish different editor instances.
+- `editorKey`: String, the editor key, used to distinguish different editor instances.
 - `locale`: String, display language, default is Chinese. <Badge theme="success">Added in v2.0.0</Badge>
 - `theme`: String, theme setting, default is light theme. <Badge theme="success">Added in v2.1.0</Badge>
 - `height`: String, editor height.
-- `fullscreenZIndex`: Number, the z-index of the container in fullscreen mode, used to prevent being covered by other elements, such as when used in a popup. <Badge theme="success">Added in v6.0.0</Badge>
+- `fullscreenZIndex`: Number, the z-index of the container in fullscreen mode, used to prevent being covered by other elements, such as when used in a popup layer. <Badge theme="success">Added in v6.0.0</Badge>
 - `dicts`: Object, dictionary configuration, see [Dictionary Configuration](./dicts).
 - `toolbar`: Object, toolbar configuration, see [Toolbar Configuration](./toolbar).
 - `page`: Object, page configuration, see [Page Configuration](./page).
 - `document`: Object, document configuration, see [Document Configuration](./document).
-- `assistant`: Object, AI document assistant configuration, see [AI Document Assistant](./assistant). <Badge theme="success">Added in v3.0.0</Badge>
+- `ai`: Object, AI document assistant configuration, see [AI Document Assistant](./ai). <Badge theme="success">Added in v3.0.0</Badge>
 - `echarts`: Object, ECharts chart configuration, see [ECharts Configuration](./echarts). <Badge theme="success">Added in v6.0.0</Badge>
 - `webPages`: Object, web page configuration, see [Web Pages](./webpages). <Badge theme="success">Added in v6.0.0</Badge>
 - `templates`: Array, preset page template configuration, see [Template Configuration](./templates).
@@ -631,10 +633,9 @@ The configuration options of Umo Editor are mainly divided into the following pa
 - `users`: Array, related user configuration, see [Related User Configuration](./users). <Badge theme="success">Added in v6.0.0</Badge>
 - `file`: Object, file upload configuration, see [File Upload Configuration](./file).
 - `extensions`: Array, see [Custom Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
-- `translations`: Object, see [Custom Localization Language Configuration](./locales). <Badge theme="success">Added in v2.0.0</Badge>
+- `translations`: Object, see [Custom Translation Information](./locales). <Badge theme="success">Added in v2.0.0</Badge>
 - `onSave(content, page, document)`: Async Function, document save method, should return a Promise, see [Method Configuration](./methods#onsave).
 - `onFileUpload(file)`: Async Function, file upload method, should return a Promise, see [Method Configuration](./methods#onfileupload).
 - `onFileDelete(id, url)`: Function, file delete method, see [Method Configuration](./methods#onfiledelete).
-- `onAssistant(payload, content)`: Async Function, AI document assistant return data method, see [Method Configuration](./methods#onassistant). <Badge theme="success">Added in v3.0.0</Badge>
 - `onCustomEChartSettings(data, config)`: Function, custom ECharts chart configuration method, see [Method Configuration](./methods#oncustomcehartsettings). <Badge theme="success">Added in v6.0.0</Badge>
 - `onCustomImportWordMethod(file)`: Async Function, custom Word file import method, see [Method Configuration](./methods#oncustomimportwordmethod). <Badge theme="success">Added in v3.1.0</Badge>

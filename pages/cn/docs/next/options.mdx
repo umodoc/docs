@@ -7,17 +7,33 @@ Umo Editor Next 在包含 Umo Editor 的[所有配置](../options/default)的基
 const defaultOptions = {
   // Umo Editor 的相关配置
   // ...
+
   // Umo Editor Next 的相关配置
+  // 多人协作编辑相关配置
   collaboration: {
     enabled: false,
     provider: {},
   },
+  
+  // AI 助手相关配置
+  ai: {
+    chat: {
+      enabled: false,
+      useAssistantCommands: true,
+      layout: 'both',
+      showName: true,
+      showDatetime: true,
+      showAvatar: true,
+      models: [],
+    },
+    // ...
+  }
 }
 ```
 
 ## 不支持的配置
 
-当开启了在线协作功能时，不支持以下配置：
+当开启了在线协作功能时，以下配置不再生效：
 
 ``` js
 const defaultOptions = {
@@ -51,6 +67,42 @@ const defaultOptions = {
 
 **配置**：`url` 配置为 Umo Editor Server 服务商地址，如 `ws://127.0.0.1:1235/provider`，当然您也可以配置为其他服务商。其他选项同 Hocuspocus Server 的配置，见 https://tiptap.dev/docs/hocuspocus/provider/configuration 。
 
+### ai.chat
+AI 助手相关配置，更多信息见[AI 助手](../ai)。
 
+- `ai.chat.enabled`，Boolean，是否启用 AI 助手。
+- `ai.chat.useAssistantCommands`，Boolean，是否启用 AI 助手的指令，默认为 `true`，详见[AI 文档助手配置](../options/ai#aiassistantcommands)。
+- `ai.chat.layout`，String，AI 文档助手的消息布局方式，支持 `both`、`single` 两种布局方式，默认为 `both`。
+- `ai.chat.showName`，Boolean，是否显示消息名称，默认为 `true`。
+- `ai.chat.showDatetime`，Boolean，是否显示消息时间，默认为 `true`。
+- `ai.chat.showAvatar`，Boolean，是否显示消息头像，默认为 `true`。
+- `ai.chat.models`， Array，AI 助手的模型配置，支持多种模型，请至少配置一项，具体配置项见下表。
 
+| 配置项 | 类型 | 描述 |
+| --- | --- | --- |
+| `isDefault`| Boolean | 是否是默认模型 |
+| `label`| String | 模型名称，在消息列表中显示 |
+| `value` | String | 模型值，传递给的后端的实际值 |
+| `logo` | String | 模型头像，在消息列表中显示|
+| `supportReason` | Boolean | 是否支持推理模式 |
+| `allowUploadFiles`| false 或 Array | 允许上传的附件类型，`false` 代表不允许上传附件。|
 
+**示例**：
+```js
+[
+  {
+    label: 'DeepSeek-R1',
+    value: 'deepseek-r1',
+    logo: '...',
+    isDefault: true,
+    supportReason: true,
+    allowUploadFiles: ['.png', '.jpg', '.jpeg','.docx', '.pdf'],
+  },
+  {
+    label: 'OpenAI',
+    value: 'openai',
+    logo: '...',
+    allowUploadFiles: false,
+  },
+]
+```

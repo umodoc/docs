@@ -8,10 +8,10 @@ The AI Document Assistant passes the content selected by the user and the input 
 
 ### Process Description
 1. The user sends a command to the AI Document Assistant, specifying the action they wish to perform.
-2. The AI Document Assistant then invokes a method named `onAssistant`.
-3. The `onAssistant` method calls the AI model via HTTP or other means.
+2. The AI Document Assistant then invokes a method named `ai.assistant.onMessage`.
+3. The `ai.assistant.onMessage` method calls the AI model via HTTP or other means.
 4. The AI model processes the request and then returns and displays the result.
-5. The `onAssistant` method returns the result in a readable stream or text format to the AI Document Assistant.
+5. The `ai.assistant.onMessage` method returns the result in a readable stream or text format to the AI Document Assistant.
 6. The user selects the results returned by the AI Document Assistant.
 
 ### Sequence Diagram
@@ -20,14 +20,14 @@ The AI Document Assistant passes the content selected by the user and the input 
 sequenceDiagram
     participant User as User
     participant AIDocAssistant as AI Document Assistant
-    participant onAssistant as onAssistant Method
+    participant onMessage as onMessage Method
     participant AIModel as AI Model (Backend Service)
 
     User->>AIDocAssistant: Send command (i.e., what to do)
-    AIDocAssistant->>onAssistant: Invoke onAssistant method
-    onAssistant->>AIModel: Call AI model via HTTP, etc.
-    AIModel-->>onAssistant: Return and display result
-    onAssistant-->>AIDocAssistant: Return result (Stream or text format)
+    AIDocAssistant->>onMessage: Invoke onMessage method
+    onMessage->>AIModel: Call AI model via HTTP, etc.
+    AIModel-->>onMessage: Return and display result
+    onMessage-->>AIDocAssistant: Return result (Stream or text format)
     User-->>AIDocAssistant: Select returned results
 ```
 

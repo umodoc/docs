@@ -15,7 +15,7 @@ export default {
 	options: 'Configuration',
 	events: 'Events',
 	methods: 'Methods',
-	assistant: 'AI Assistant',
+	ai: 'AI Assistant',
 	tiptap: 'Tiptap Editor',
 	'--ui': {
 		type: 'separator',

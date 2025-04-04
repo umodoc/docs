@@ -4,7 +4,7 @@ export default {
 	toolbar: 'Toolbar',
 	page: 'Page',
 	document: 'Document',
-	assistant: 'AI Assistant',
+	ai: 'AI Assistant',
 	echarts: 'ECharts',
 	webpages: 'Web Page',
 	templates: 'Templates',

@@ -2,11 +2,11 @@ import { Badge } from '/components/badge'
 import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
 
-# Method Configuration
+# 方法配置
 
-Used to configure the methods of Umo Editor, including document save methods, file upload methods, file delete methods, AI document assistant return data methods, etc.
+用于配置 Umo Editor 的方法，包括文档保存方法、文件上传方法、文件删除方法、AI 文档助手返回数据的方法等。
 
-## Default Methods
+## 默认方法
 
 ```js
 {
@@ -20,41 +20,39 @@ Used to configure the methods of Umo Editor, including document save methods, fi
   onFileDelete(id, url) {
     console.error('The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.')
   },
-  async onAssistant(payload, content) {
-    throw new Error('Key "onAssistant": Please set the onAssistant method')
-  },
   onCustomEChartSettings() {
     console.error(
       'Custom chart settings are required, please configure onCustomEChartSettings.',
     )
   },
   async onCustomImportWordMethod(file) {
-    throw new Error('Key "onCustomImportWordMethod": Please set the onAssistant method')
+    throw new Error('Key "onCustomImportWordMethod": Please set the onCustomImportWordMethod method')
   },
 }
 ```
 
-## Configuration Options
+## 配置项说明
 
 ### onSave
 
-**Description**: Configures the document save method. When the user saves a document, this method is called to save the document to the server.
+**说明**：配置文档保存方法，在用户保存文档时，调用此方法，将文档保存到服务器。
 
-**Type**: `AsyncFunction`, `Promise`.
+**类型**：`AsyncFunction`、 `Promise`。
 
-**Parameters**:
+**参数**：
 
-- `content`: Document content.
-- `page`: Page information.
-- `document`: Document information.
+- `content`：文档内容。
+- `page`：页面信息。
+- `document`：文档信息。
 
-**Return Value**: Returns `true` if the save is successful, otherwise returns `false` or throws an error.
+**返回值**：保存成功则返回 `true`，否则返回 `false`，否则返回 `false` 或者抛出错误。
 
-**Example**:
 
-The following code demonstrates how to configure the `onSave` method using [Axios](https://axios-http.com/) to save the document to the server:
+**示例**：
 
-<Tabs items={['Global Configuration', 'SFC Configuration']}>
+以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onSave 方法，将文档保存到服务器：
+
+<Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
 import axios from 'axios'
@@ -72,7 +70,7 @@ const options = {
       }
     });
 
-    // Return true if the save is successful, otherwise return false or throw an error
+    // 保存成功则返回 true，否则返回 false，否则返回 false 或者抛出错误
     return true; 
   },
 };
@@ -103,7 +101,7 @@ const onSave = async (content, page, document) => {
     }
   });
 
-  // Return true if the save is successful, otherwise return false or throw an error
+  // 保存成功则返回 true，否则返回 false 或者抛出错误
   return true; 
 }
 </script>
@@ -113,24 +111,24 @@ const onSave = async (content, page, document) => {
 
 ### onFileUpload
 
-**Description**: Configures the file upload method. When the user inserts a file, this method is triggered to upload the file to the server.
+**说明**：配置文件上传方法，用户插入文件时，会触发该方法，将文件上传到服务器。
 
-**Type**: `AsyncFunction`, `Promise`.
+**类型**：`AsyncFunction`、 `Promise`。
 
-**Parameters**:
+**参数**：
 
-- `file`: File object.
+- `file`：File 对象。
 
-**Return Value**:
+**返回值**：
 
-- `id`: The file ID returned after a successful upload.
-- `url`: The file URL returned after a successful upload.
+- `id`：上传成功后返回的文件 id。
+- `url`：上传成功后返回的文件 url。
 
-**Example**:
+**示例**：
 
-The following code demonstrates how to configure the `onFileUpload` method using [Axios](https://axios-http.com/) to upload the file to the server:
+以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onFileUpload 方法，将文件上传到服务器：
 
-<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
 import axios from 'axios'
@@ -139,7 +137,7 @@ import { useUmoEditor } from '@umoteam/editor'
 const options = {
   async onFileUpload(file) => {
     let formData = new FormData();
-    // Add the file to the formData object
+    // 添加文件到 formData 对象中
     formData.append('file', file);
     const res = await axios.post('/api/file-upload', formData,{
       headers: {
@@ -147,7 +145,7 @@ const options = {
       }
     });
 
-    // Return {id, url} if the upload is successful, otherwise return false or throw an error
+    // 保存成功则返回 {id, url}，否则返回 false 或者抛出错误
     return {
       id: res.data.id,
       url: res.data.url,
@@ -172,7 +170,7 @@ import axios from 'axios'
 
 const onFileUpload = async (file) => {
   let formData = new FormData();
-  // Add the file to the formData object
+  // 添加文件到 formData 对象中
   formData.append('file', file);
   const res = await axios.post('/api/file-upload', formData,{
     headers: {
@@ -180,7 +178,7 @@ const onFileUpload = async (file) => {
     }
   });
 
-  // Return {id, url} if the upload is successful, otherwise return false or throw an error
+  // 保存成功则返回 {id, url}，否则返回 false 或者抛出错误
   return {
     id: res.data.id,
     url: res.data.url,
@@ -193,20 +191,21 @@ const onFileUpload = async (file) => {
 
 ### onFileDelete
 
-**Description**: Configures the file delete method. When the user deletes a file, this method is triggered to delete the file from the server.
+**说明**：配置文件删除方法，用户删除文件时，会触发该方法，将文件从服务器上删除。
 
-**Type**: `Function`.
+**类型**：`Function`。
 
-**Parameters**:
+**参数**：
 
-- `id`: File ID.
-- `url`: File URL.
+- `id`：文件 id。
+- `url`：文件 url。
 
-**Example**:
 
-The following code demonstrates how to configure the `onFileDelete` method using [Axios](https://axios-http.com/) to delete the file from the server:
+**示例**：
 
-<Tabs items={['Global Configuration', 'SFC Configuration']}>
+以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onFileDelete 方法，将文件从服务器上删除：
+
+<Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
 import axios from 'axios'
@@ -214,7 +213,6 @@ import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
   onFileDelete(id, url) => {
-    // Delete the file from the server using its ID
     axios.delete(`/api/file/${id}`);
   },
 };
@@ -235,7 +233,6 @@ import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
 
 const onFileDelete = (id, url) => {
-  // Delete the file from the server using its ID
   axios.delete(`/api/file/${id}`);
 }
 </script>
@@ -243,163 +240,30 @@ const onFileDelete = (id, url) => {
 </Tabs.Tab>
 </Tabs>
 
-### onAssistant
-
-**Description**: Configures the method for returning data from the AI document assistant. For more information, see [AI document assistant](../assistant). <Badge theme="success">Added in v3.0.0</Badge>
-
-**Type**: `AsyncFunction`, `Promise`.
-
-**Parameters**:
-
-- `payload`: Request parameters for the AI document assistant, which can be passed to the AI model.
-  1. `payload.lang`: `String`, the current interface language.
-  2. `payload.input`: `String`, the text content selected by the user.
-  3. `payload.command`: `String`, the command entered by the user.
-  4. `payload.output`: `String`, the desired content format from the AI document assistant, possible values: `rich-text`, `text`.
-- `content`: The current document content. You can pass the document content to the AI model, but note that overly long documents may cause the AI model to fail to process them. If using a commercial AI model, overly long token inputs may also significantly increase costs.
-  1. `content.text`: `String`, the text content of the current document.
-  2. `content.html`: `String`, the HTML content of the current document.
-  3. `content.json`: `Object`, the JSON content of the current document.
-
-**Example**:
-
-The following example demonstrates how to configure the `onAssistant` method using the OpenAI model to process and return results from the AI model.
-
-The OpenAI API specification has become the de facto industry standard. In fact, many AI models support being called via the [`OpenAI SDK`](https://www.npmjs.com/package/openai).
-
-<Tabs items={['Global Configuration', 'SFC Configuration']}>
-<Tabs.Tab>
-```js
-import { useUmoEditor } from '@umoteam/editor'
-import OpenAI from 'openai'
-
-const options = {
-  async onAssistant(payload, content) {
-    console.log(payload, content)
-    const { command, lang, input, output } = payload
-    const client = new OpenAI({
-      baseURL: '...', // Your OpenAI base URL here
-      apiKey: '...', // Your OpenAI API key here
-      dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
-    })
-    const langs = {
-      'en-US': 'English',
-      'zh-CN': 'Chinese',
-    }
-    const options = {
-      stream: true,
-      model: 'moonshot-v1-8k',
-      messages: [
-        {
-          role: 'system',
-          content: `You are a document assistant. Based on the user's input text or HTML content, and the corresponding operation command, generate the required document content. Requirements are as follows: 1. If the command does not require translation, respond in ${langs[lang]}; otherwise, respond in the language requested by the user; 2. Return in ${output === 'rich-text' ? 'rich text (HTML)' : 'plain text (stripping out HTML tags)'} format; 3. If you do not understand the user's command, prepend "[ERROR]: " to the returned content; 4. Do not return any other extraneous content beyond this.`,
-        },
-        {
-          role: 'user',
-          content: `Perform the following operation: 【${command}】.\n${input}`,
-        },
-      ],
-    }
-    const completion = await client.chat.completions.create(options)
-    const stream = new ReadableStream({
-      async start(controller) {
-        for await (const chunk of completion) {
-          controller.enqueue(chunk.choices[0]?.delta?.content || '')
-        }
-        controller.close()
-      },
-    })
-    return stream
-  },
-};
-
-app.use(useUmoEditor, options)
-```
-</Tabs.Tab>
-<Tabs.Tab>
-```vue
-<template>
-  <umo-editor 
-    @assistant="onAssistant" 
-  />
-</template>
- 
-<script setup>
-import { UmoEditor } from '@umoteam/editor'
-import OpenAI from 'openai'
-
-const onAssistant = (payload, content) => {
-  console.log(payload, content)
-  const { command, lang, input, output } = payload
-  const client = new OpenAI({
-    baseURL: '...', // Your OpenAI base URL here
-    apiKey: '...', // Your OpenAI API key here
-    dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
-  })
-  const langs = {
-    'en-US': 'English',
-    'zh-CN': 'Chinese',
-  }
-  const options = {
-    stream: true,
-    model: 'moonshot-v1-8k',
-    messages: [
-      {
-        role: 'system',
-        content: `You are a document assistant. Based on the user's input text or HTML content, and the corresponding operation command, generate the required document content. Requirements are as follows: 1. If the command does not require translation, respond in ${langs[lang]}; otherwise, respond in the language requested by the user; 2. Return in ${output === 'rich-text' ? 'rich text (HTML)' : 'plain text (stripping out HTML tags)'} format; 3. If you do not understand the user's command, prepend "[ERROR]: " to the returned content; 4. Do not return any other extraneous content beyond this.`,
-      },
-      {
-        role: 'user',
-        content: `Perform the following operation: 【${command}】.\n${input}`,
-      },
-    ],
-  }
-  const completion = await client.chat.completions.create(options)
-  const stream = new ReadableStream({
-    async start(controller) {
-      for await (const chunk of completion) {
-        controller.enqueue(chunk.choices[0]?.delta?.content || '')
-      }
-      controller.close()
-    },
-  })
-  return stream
-}
-</script>
-```
-</Tabs.Tab>
-</Tabs>
-
-<Callout type="error">
-**Note:** The above code is for demonstration purposes only. In actual applications, sensitive information such as `apiKey` should not be exposed on the client side. Instead, the AI model should be called via a backend service, and the `apiKey` should be stored on the backend to protect sensitive information. The above logic should also be implemented on the backend as much as possible to reduce request load.
-</Callout>
-
-**Return Value**: `String`, `ReadableStream`.
-
 ### onCustomEChartSettings
 
-**Description**: Customizes the ECharts chart configuration method. <Badge theme="success">Added in v6.0.0</Badge>
+**说明**：自定义 ECharts 图表配置方法。 <Badge theme="success">v6.0.0 新增</Badge>
 
-**Type**: `Function`.
+**类型**：`Function`。
 
-**Parameters**:
+**参数**：
 
-- `data`: `Array`, chart data.
-- `config`: `Object`, the current ECharts chart configuration.
-  1. `seriesType`: `String`, chart display type `bar|line|pie` representing bar chart, line chart, and pie chart respectively.
-  2. `legend`: `Boolean`, whether to display the legend `true`: display legend, `false`: do not display legend.
-  3. `legendleft`: `String`, horizontal position of the legend `left|center|right` representing left-aligned, center-aligned, and right-aligned respectively.
-  4. `legendlocation`: `String`, vertical position of the legend `top|bottom` representing top-aligned and bottom-aligned respectively.
-  5. `legendorient`: `String`, layout direction of the legend `horizontal|vertical` representing horizontal and vertical layouts respectively.
-  6. `smooth`: `Boolean`, whether the line is displayed smoothly `true`: smooth display, `false`: default display.
-  7. `titleText`: `String`, chart title content.
-  8. `titleleft`: `String`, position of the chart title `left|center|right` representing left-aligned, center-aligned, and right-aligned respectively.
+- `data`：`Array`，图表数据。
+- `config`：`Object`，用户当前 ECharts 图表配置。
+  1. `seriesType`：`String`，图表显示类型 `bar|line|pie` 分别表示柱状图、折线图、饼图
+  2. `legend`：`Boolean`，是否显示图例  `true`:显示图例，`false`:不显示图例
+  3. `legendleft`：`String`，图例横向显示位置  `left|center|right` 分别表示居左、居中、居右
+  4. `legendlocation`：`String`，图例纵向显示位置 `top|bottom` 分别表示居上、居下
+  5. `legendorient`：`String`，图例显示方向布局 `horizontal|vertical` 分别表示水平布局、垂直布局
+  6. `smooth：Boolean`，折线是否平滑显示 `true`:表示折线平滑显示  `false`:表示默认显示
+  7. `titleText`：`String`，图表标题显示内容
+  8. `titleleft`：`String`，图表标题所在位置 `left|center|right` 分别表示居左、居中、居右
 
-**Example**:
+**示例**：
 
-The following code demonstrates how to configure the `onCustomEChartSettings` method to implement chart display extensions:
+以下代码演示如何配置 onCustomEChartSettings 方法，实现展示图表扩展：
 
-<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs items={['全局配置', 'SFC 配置']}>
 <Tabs.Tab>
 ```js
 import { useUmoEditor } from '@umoteam/editor'
@@ -466,17 +330,17 @@ const onCustomEChartSettings = (data, config) => {
 </Tabs.Tab>
 </Tabs>
 
-**Return Value**: `Object`, returns the options configuration object for the ECharts chart.
+**返回值**：`Object`，返回 ECharts 图表的options配置对象。
 
 ### onCustomImportWordMethod
 
-**Description**: Customizes the method for importing Word documents. To use a custom import method, you need to configure the `toolbar.importWord.useCustomMethod` option to `true`. See [Toolbar Configuration](../options/toolbar#importword). <Badge theme="success">Added in v3.1.0</Badge>
+**说明**：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `toolbar.importWord.useCustomMethod` 选项为 `true`，见 [工具栏配置](../options/toolbar#importword)。 <Badge theme="success">v3.1.0 新增</Badge>
 
-**Type**: `AsyncFunction`, `Promise`.
+**类型**：`AsyncFunction`、 `Promise`。
 
-**Parameters**: `File`
+**参数**：`File`
 
-**Return Value**: The same format as the return value of [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api), as shown below:
+**返回值**：同 [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api)返回的数据格式，示例如下：
 
 ```js
 {

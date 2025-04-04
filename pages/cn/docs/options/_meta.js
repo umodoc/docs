@@ -4,7 +4,7 @@ export default {
 	toolbar: '工具栏配置',
 	page: '页面配置',
 	document: '文档配置',
-	assistant: 'AI 文档助手配置',
+	ai: 'AI 文档助手配置',
 	echarts: 'ECharts 图表配置',
 	webpages: 'Web 页面配置',
 	templates: '文档模板配置',

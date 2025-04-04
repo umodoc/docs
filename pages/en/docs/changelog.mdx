@@ -6,59 +6,63 @@ import { Badge } from '/components/badge'
 ## 🎉  v6.0.0 <Badge>Pending</Badge>
 
 <Callout type="warning" emoji="❗">
-This update includes approximately 200 commits and contains some breaking changes, such as refactoring state management to better support multiple instances, rewriting some methods and components, and adding several node extensions and methods. Therefore, this update is released as a major version.
+This update includes approximately 200 commits and contains some breaking changes, such as refactoring state management to better support multiple instances, rewriting some methods and components, adding several node extensions and methods, and modifying some configuration items. Therefore, this update is released as a major version.
 </Callout>
 
-1. Fixed some issues in the documentation and retranslated the English documentation;
-2. Fixed an issue where completed task items were not correctly checked when printing @48747776 [(#214)](https://github.com/umodoc/editor/issues/214);
-3. Fixed an issue where the CSS * wildcard affected other page styles @kawais [(#215)](https://github.com/umodoc/editor/issues/215);
-4. Removed the source code editor;
-5. Adjusted the `getSelectionNode` and `deleteSelectionNode` methods (see [Method List](./methods#getselectionnode)) to correctly retrieve nodes in nested structures, by @yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218);
-6. Fixed an issue where the node type was not displayed correctly when inserting files, by @BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211);
-7. Adjusted file-related nodes to no longer pass unrecognized File objects through custom node attributes;
-8. Fixed an issue where the "attachment" icon was displayed incorrectly when copying nodes, by @BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211);
-9. Fixed an issue where the save method did not correctly return page information;
-10. Fixed an issue where code blocks were still editable in preview mode, and ensured that the menu bar is hidden in preview mode;
-11. Fixed an issue where the height of images could still be freely adjusted when scaled at a 1:1 ratio;
-12. Optimized page display in preview mode;
-13. Fixed an issue where the toolbar did not scroll completely when clicking to scroll right;
-14. Modified the trailing virtual cursor style to distinguish it from the regular cursor and avoid confusion;
-15. Optimized save prompt messages, contributed by @china-wangxu [(#201)](https://github.com/umodoc/editor/pull/201);
-16. Added toolbar button visibility controls, which also affect floating buttons for nodes (see [Toolbar Settings](./options/toolbar#toolbardisablemenuitems));
-17. Adjusted the toolbar scroll distance to better meet expectations;
-18. Changed fullscreen mode to only fullscreen the viewport window;
-19. Fixed an issue where lists could not exit properly in certain scenarios, by @BOKE2014 [(#158)](https://github.com/umodoc/editor/issues/158);
-20. Adjusted line break extensions and configurations;
-21. Adjusted Gapcursor styles;
-22. Block menus now follow the cursor to focus on node positions;
-23. Added column functionality;
-24. Included types in the NPM package for better TypeScript support;
-25. Added block node drag-and-drop sorting functionality, by @BOKE2014 [(#163)](https://github.com/umodoc/editor/issues/163);
-26. Added a date extension;
-27. Fixed an issue where documents became uneditable after exiting presentation mode;
-28. Set documents to read-only mode in presentation mode;
-29. Added "mention (@)" functionality;
-30. Enhanced "webpage" node functionality;
-31. Added highlight block functionality;
-32. Bookmarks now support default visibility configuration (see [Page Settings](./options/page#pageshowbookmark)), contributed by @china-wangxu [(#178)](https://github.com/umodoc/editor/pull/178);
-33. Fixed an issue where flowcharts did not display when using local deployment;
-34. Added drag handles to the outline panel, allowing resizing of the outline area, contributed by @china-wangxu [(#177)](https://github.com/umodoc/editor/pull/177);
-35. Removed global state management and replaced it with cross-component communication to fix state pollution issues in multi-instance scenarios, by @Carrie-sxy [(#118)](https://github.com/umodoc/editor/issues/118);
-36. Changed the outline panel to display using a tree structure;
-37. Modified default emojis configuration (see [Dictionary Configuration](./options/dicts#dictsemojis));
-38. Fixed an issue where nodes like page breaks could not be deleted through the block menu;
-39. Optimized code blocks and fixed code block highlighting errors;
-40. Ordered, unordered, and task lists now support sublists, and ordered lists support multi-level continuous numbering;
-41. Retained font color, cell background, and text alignment styles when pasting tables from Word and Excel;
-42. Added tagging functionality;
-43. Added several external methods (see [Method List](./methods));
-44. Fixed an issue where inserting a table into an empty document did not work and optimized placeholder display, by @china-wangxu [(#165)](https://github.com/umodoc/editor/issues/165);
-45. Initial loading now supports `showBreakMarks` settings and watermark settings, contributed by @china-wangxu [(#161)](https://github.com/umodoc/editor/pull/161);
-46. Fixed an issue where page configurations did not take effect, by @china-wangxu [(#163)](https://github.com/umodoc/editor/issues/163);
-47. Fixed an issue where iframe nodes could exceed page width when resizing;
-48. Locked some dependencies to prevent unexpected errors;
-49. Optimized image node selection, by @china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157);
-50. Fixed an issue where inserting an echarts node through the block menu required two clicks when the current node was empty。
+1. Adjusted AI assistant configuration items, see [AI Document Assistant](./options/ai);
+2. Changed outline nodes to display in a tree structure;
+3. Replaced the original CodeBlock extension with a new CodeBlock extension;
+4. Fixed the issue where the image preview order was incorrect when the image node ID was `null`;
+5. Fixed some issues in the documentation and retranslated the English documentation;
+6. Fixed the issue where completed to-do items were not correctly checked when printing @48747776 [(#214)](https://github.com/umodoc/editor/issues/214);
+7. Fixed the issue where the CSS `*` wildcard affected other page styles @kawais [(#215)](https://github.com/umodoc/editor/issues/215);
+8. Removed the source code editor;
+9. Adjusted the `getSelectionNode` and `deleteSelectionNode` methods, see [Method List](./methods#getselectionnode), to correctly retrieve nodes in nested nodes @yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218);
+10. Fixed the issue where the node type was not displayed correctly when inserting files @BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211);
+11. Adjusted file-related nodes to no longer pass File objects unrecognized by ProseMirror through custom node attributes;
+12. Fixed the issue where the "attachment" icon was displayed incorrectly when copying nodes @BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211);
+13. Fixed the issue where the save method did not correctly return page information;
+14. Fixed the issue where code blocks were still editable in preview mode and where the menu bar was displayed in preview mode;
+15. Fixed the issue where the height of images could still be freely dragged when scaled at a 1:1 ratio;
+16. Optimized page display in preview mode;
+17. Fixed the issue where toolbar scrolling to the right was incomplete;
+18. Modified the trailing virtual cursor style to distinguish it from the regular cursor to avoid confusion;
+19. Optimized save prompt messages, submitted by @china-wangxu in [(#201)](https://github.com/umodoc/editor/pull/201);
+20. Added toolbar button visibility control, which also affects floating buttons for some nodes, see [Toolbar Settings](./options/toolbar#toolbardisablemenuitems);
+21. Adjusted the toolbar scroll distance to better meet expectations;
+22. Changed full-screen mode to only cover the window viewport;
+23. Fixed the issue where lists could not exit properly in certain cases @BOKE2014 [(#158)](https://github.com/umodoc/editor/issues/158);
+24. Adjusted line break extensions and configurations;
+25. Adjusted Gapcursor styles;
+26. Block menus now follow the cursor to focus on node positions;
+27. Added column functionality;
+28. Included types in NPM packages for better TypeScript type checking and inference;
+29. Added drag-and-drop sorting for block nodes @BOKE2014 [(#163)](https://github.com/umodoc/editor/issues/163);
+30. Added date extension;
+31. Fixed the issue where documents were not editable after exiting demo mode;
+32. Set documents to read-only mode in demo mode;
+33. Added "mention (@)" functionality;
+34. Enhanced "web" node functionality;
+35. Added highlight block functionality;
+36. Bookmarks now support configuring whether to display by default, see [Page Settings](./options/page#pageshowbookmark), submitted by @china-wangxu in [(#178)](https://github.com/umodoc/editor/pull/178);
+37. Fixed the issue where flowcharts did not display when using local deployment for file browsing;
+38. Added drag handles to the outline, and the outline area can now be resized by dragging, submitted by @china-wangxu in [(#177)](https://github.com/umodoc/editor/pull/177);
+39. Removed global state management and replaced it with cross-component communication to fix state pollution issues in multi-instance scenarios @Carrie-sxy [(#118)](https://github.com/umodoc/editor/issues/118);
+40. Changed the outline panel to display in a tree structure;
+41. Modified default emojis configuration, see [Dictionary Configuration](./options/dicts#dictsemojis);
+42. Fixed the issue where nodes like page breaks could not be deleted through the block menu;
+43. Optimized code blocks and fixed errors in code block highlighting;
+44. Ordered, unordered, and task lists now support sublists, and ordered lists support multi-level continuous numbering;
+45. Retained font color, cell background, and font alignment styles when pasting tables from Word and Excel;
+46. Added tagging functionality;
+47. Added several external methods, see [Method List](./methods);
+48. Fixed the issue where inserting tables in empty documents did not work and optimized Placeholder display @china-wangxu [(#165)](https://github.com/umodoc/editor/issues/165);
+49. Initial loading now supports `showBreakMarks` settings and watermark settings, submitted by @china-wangxu in [(#161)](https://github.com/umodoc/editor/pull/161);
+50. Fixed the issue where page configurations did not take effect @china-wangxu [(#163)](https://github.com/umodoc/editor/issues/163);
+51. Fixed the issue where iframe nodes could be resized beyond the page width;
+52. Locked some dependencies to prevent unexpected errors;
+53. Optimized image node selection @china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157);
+54. Fixed the issue where inserting echarts nodes through the block menu required two clicks when the current node was empty.
 
 ## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
 

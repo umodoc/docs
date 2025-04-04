@@ -7,11 +7,11 @@ AI 文档助手将用户选择的内容和输入的指令等信息传递给 AI �
 ## 技术原理
 
 ### 流程说明
-1. 用户向 AI 文档助手发送指令，说明他们想要执行的操作；
-2. AI 文档助手随后调用名为 onAssistant 的方法；
-3. onAssistant 方法通过 HTTP 或其他方式向 AI 模型发起调用；
+1. 用户向 AI 文档助手发送指令，说明想要执行的操作；
+2. AI 文档助手随后调用名为 ai.assistant.onMessage 的方法；
+3. ai.assistant.onMessage 方法通过 HTTP 或其他方式向 AI 模型发起调用；
 4. AI 模型处理请求，然后返回并显示结果；
-5. onAssistant 方法将结果以可读流或文本格式返回给 AI 文档助手；
+5. ai.assistant.onMessage 方法将结果以可读流或文本格式返回给 AI 文档助手；
 6. 用户对AI 文档助手返回的结果进行选择。
 
 ### 流程序列图
@@ -20,14 +20,14 @@ AI 文档助手将用户选择的内容和输入的指令等信息传递给 AI �
 sequenceDiagram
     participant User as 用户
     participant AIDocAssistant as AI 文档助手
-    participant onAssistant as onAssistant 方法
+    participant onMessage as onMessage 方法
     participant AIModel as AI 模型 (后端服务)
 
     User->>AIDocAssistant: 发送指令 (即要干什么)
-    AIDocAssistant->>onAssistant: 调用onAssistant方法
-    onAssistant->>AIModel: 通过HTTP等方式调用AI模型
-    AIModel-->>onAssistant: 返回并显示结果
-    onAssistant-->>AIDocAssistant: 返回结果 (Stream或文本格式)
+    AIDocAssistant->>onMessage: 调用 onMessage 方法
+    onMessage->>AIModel: 通过HTTP等方式调用AI模型
+    AIModel-->>onMessage: 返回并显示结果
+    onMessage-->>AIDocAssistant: 返回结果 (Stream或文本格式)
     User-->>AIDocAssistant: 对返回结果进行选择
 ```
 

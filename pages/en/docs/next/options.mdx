@@ -1,23 +1,39 @@
 # Quick Start
 
-Umo Editor Next, in addition to including [all configurations](../options/default) of Umo Editor, has added or removed the following configurations:
+Umo Editor Next adds or removes the following configurations based on [all configurations](../options/default) of Umo Editor:
 
 ## All Configurations
 ``` js
 const defaultOptions = {
   // Configurations for Umo Editor
   // ...
+
   // Configurations for Umo Editor Next
+  // Configurations related to collaborative editing
   collaboration: {
     enabled: false,
     provider: {},
   },
+  
+  // Configurations for AI Assistant
+  ai: {
+    chat: {
+      enabled: false,
+      useAssistantCommands: true,
+      layout: 'both',
+      showName: true,
+      showDatetime: true,
+      showAvatar: true,
+      models: [],
+    },
+    // ...
+  }
 }
 ```
 
 ## Unsupported Configurations
 
-When online collaboration is enabled, the following configurations are not supported:
+When the online collaboration feature is enabled, the following configurations will no longer be effective:
 
 ``` js
 const defaultOptions = {
@@ -32,23 +48,59 @@ const defaultOptions = {
 }
 ```
 
-In multi-user collaboration scenarios, document content is transmitted to the server in real time and can be directly stored in the database on the server side, eliminating the need for the client to initiate save requests.
+This is because, in collaborative scenarios, document content is transmitted to the server in real-time and can be directly stored on the server, eliminating the need for save requests from the client.
 
 ## Configuration Details
 
 ### collaboration
 
-Configuration related to multi-user collaborative editing. The implementation approach and principles can be referenced here: https://tiptap.dev/docs/hocuspocus.
+Configurations related to collaborative editing. For implementation ideas and principles, refer to: https://tiptap.dev/docs/hocuspocus.
 
 - `collaboration.enabled`: Boolean, whether to enable online collaboration.
 - `collaboration.provider`
 
-**Description**: Configuration for online collaboration service providers. Umo Editor Next provides a default Node.js server based on [Express](https://expressjs.com/), which includes the Hocuspocus Server (see: [Umo Editor Next](../server)). This option supports all configurations of the Hocuspocus Server.
+**Description**: Configuration for online collaboration service providers. Umo Editor Next provides a default Node.js server based on [Express](https://expressjs.com/?hl=en) (see: [Umo Editor Next](../server)), which includes the Hocuspocus Server. This option supports all configurations of the Hocuspocus Server.
 
 **Type**: Object
 
-**Configuration**: The `url` should be set to the address of the Umo Editor Server provider, such as `ws://127.0.0.1:1235/provider`. You can also configure it for other providers. Other options follow the configuration of the Hocuspocus Server, see https://tiptap.dev/docs/hocuspocus/provider/configuration.
+**Configuration**: The `url` should be set to the address of the Umo Editor Server provider, such as `ws://127.0.0.1:1235/provider`. You can also configure it for other providers. Other options follow the Hocuspocus Server configuration, see https://tiptap.dev/docs/hocuspocus/provider/configuration.
 
+### ai.chat
+Configurations related to the AI Assistant. For more information, see [AI Assistant](../ai).
 
+- `ai.chat.enabled`: Boolean, whether to enable the AI Assistant.
+- `ai.chat.useAssistantCommands`: Boolean, whether to enable assistant commands for the AI Assistant. Default is `true`. See [AI Assistant Commands Configuration](../options/ai#aiassistantcommands).
+- `ai.chat.layout`: String, message layout for the AI Assistant. Supports `both` and `single` layouts. Default is `both`.
+- `ai.chat.showName`: Boolean, whether to display message names. Default is `true`.
+- `ai.chat.showDatetime`: Boolean, whether to display message timestamps. Default is `true`.
+- `ai.chat.showAvatar`: Boolean, whether to display message avatars. Default is `true`.
+- `ai.chat.models`: Array, model configurations for the AI Assistant. Supports multiple models. At least one model must be configured. See the table below for specific configuration items.
 
+| Configuration Item | Type | Description |
+| --- | --- | --- |
+| `isDefault`| Boolean | Whether it is the default model |
+| `label`| String | Model name displayed in the message list |
+| `value` | String | Model value sent to the backend |
+| `logo` | String | Model avatar displayed in the message list |
+| `supportReason` | Boolean | Whether reasoning mode is supported |
+| `allowUploadFiles`| false or Array | Allowed attachment types. `false` means attachments are not allowed. |
 
+**Example**:
+```js
+[
+  {
+    label: 'DeepSeek-R1',
+    value: 'deepseek-r1',
+    logo: '...',
+    isDefault: true,
+    supportReason: true,
+    allowUploadFiles: ['.png', '.jpg', '.jpeg','.docx', '.pdf'],
+  },
+  {
+    label: 'OpenAI',
+    value: 'openai',
+    logo: '...',
+    allowUploadFiles: false,
+  },
+]
+```

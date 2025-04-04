@@ -404,44 +404,51 @@ const defaultOptions = {
       interval: 300000,
     },
   },
-  assistant: {
-    enabled: false,
-    maxlength: 100,
-    commands: [
-      {
-        label: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
-        value: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
-      },
-      {
-        label: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
-        value: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
-      },
-      {
-        label: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
-        value: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
-      },
-      {
-        label: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
-        value: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
-      },
-      {
-        label: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
-        value: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
-      },
-      {
-        label: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
-        value: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
-      },
-      {
-        label: { en_US: 'Translate', zh_CN: '翻译', ru_RU: 'Перевести' },
-        value: {
-          en_US: 'Translate to chinese',
-          zh_CN: '翻译成英文',
-          ru_RU: 'Перевести на китайский',
+  ai:{
+    assistant: {
+      enabled: false,
+      maxlength: 100,
+      commands: [
+        {
+          label: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
+          value: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
         },
-        autoSend: false,
+        {
+          label: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+          value: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+        },
+        {
+          label: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+          value: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+        },
+        {
+          label: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+          value: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+        },
+        {
+          label: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Польский' },
+          value: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Польский' },
+        },
+        {
+          label: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+          value: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+        },
+        {
+          label: { en_US: 'Translate', zh_CN: '翻译', ru_RU: 'Перевести' },
+          value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文', ru_RU: 'Перевести на китайский' },
+          autoSend: false,
+        },
+      ],
+      async onMessage() {
+        return await new Promise((_, reject) => {
+          reject(
+            new Error(
+              'Key "ai": Key "assistant": Key "onMessage": Please set the onMessage method',
+            ),
+          )
+        })
       },
-    ],
+    },
   },
   echarts: {
     mode: 1, 
@@ -577,11 +584,6 @@ const defaultOptions = {
       'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
     )
   },
-  async onAssistant() {
-    return await new Promise((_, reject) => {
-      reject(new Error('Key "onAssistant": Please set the onAssistant method'))
-    })
-  },
   onCustomEChartSettings() {
     console.error(
       'Custom chart settings are required, please configure onCustomizeChartSettings.',
@@ -591,7 +593,7 @@ const defaultOptions = {
     return await new Promise((_, reject) => {
       reject(
         new Error(
-          'Key "onCustomImportWordMethod": Please set the onAssistant method',
+          'Key "onCustomImportWordMethod": Please set the onCustomImportWordMethod method',
         ),
       )
     })
@@ -620,7 +622,7 @@ Umo Editor 的配置项主要分为以下几部分：
 - `toolbar`：Object，工具栏配置，详见[工具栏配置](./toolbar)。
 - `page`：Object，页面配置，详见[页面配置](./page)。
 - `document`：Object，文档配置，详见[文档配置](./document)。
-- `assistant`：Object，AI 文档助手配置，详见[AI 文档助手](./assistant)。<Badge theme="success">v3.0.0 新增</Badge>
+- `ai`：Object，AI 文档助手配置，详见[AI 文档助手](./ai)。<Badge theme="success">v3.0.0 新增</Badge>
 - `echarts`：Object，ECharts 图表配置，详见[ECharts 配置](./echarts)。<Badge theme="success">v6.0.0 新增</Badge>
 - `webPages`：Object，Web 页面配置，详见[Web 页面](./webpages)。<Badge theme="success">v6.0.0 新增</Badge>
 - `templates`：Array，预置的页面模板配置，详见[模板配置](./templates)。
@@ -635,6 +637,5 @@ Umo Editor 的配置项主要分为以下几部分：
 - `onSave(content, page, document)`：Async Function，文档保存方法，应返回 Promise，详见[方法配置](./methods#onsave)。
 - `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见[方法配置](./methods#onfileupload)。
 - `onFileDelete(id, url)`：Function，文件删除方法，详见[方法配置](./methods#onfiledelete)。
-- `onAssistant(payload, content)`：Async Function，AI 文档助手返回数据方法，详见[AI 助手配置](./methods#onassistant)。 <Badge theme="success">v3.0.0 新增</Badge>
 - `onCustomEChartSettings(data, config)`：Function，自定义 ECharts 图表配置方法，详见[方法配置](./methods#oncustomcehartsettings)。 <Badge theme="success">v6.0.0 新增</Badge>
 - `onCustomImportWordMethod(file)`：Async Function，自定义 Word 文件导入方法，详见[方法配置置](./methods#oncustomimportwordmethod)。 <Badge theme="success">v3.1.0 新增</Badge>
