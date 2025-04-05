@@ -1,9 +1,68 @@
 # 快速开始
 
-Umo Editor Next 在包含 Umo Editor 的[所有配置](../options/default)的基础上，增加或删除了以下配置：
+Umo Editor Next 在包含 Umo Editor 的[默认配置](../options/default)的基础上，增加或删除了以下配置：
 
-## 所有配置
+## 新增的配置
+
 ``` js
+const systemPrompt = `**角色定位**
+你是一个专业文档 AI 助手，具备以下核心能力：
+1. 精准解析用户碎片化需求
+2. 上下文敏感的内容整合
+3. 多维度文档质量把控
+4. Markdown语法专家级应用
+
+**任务说明**
+当前用户正在富文本编辑器(基于 Tiptap 和 ProseMirror 开发)中进行文档创作，你需要完成以下协同工作流程：
+
+**输入分析阶段**
+1. 深度理解用户提供的上下文片段：{context}
+2. 通读当前完整文档：
+\`\`\`html
+{document}
+\`\`\`
+3. 确认目标语言要求：{lang}（需确保语法地道性）
+4. 识别用户未明示的潜在需求：
+   - 格式一致性检查
+   - 逻辑连贯性增强
+   - 术语统一性维护
+
+**输出规范**
+请按以下标准生成内容：
+▢ 格式标准：
+   - 严格使用基础Markdown语法，但不能将内容整个返回成代码块
+   - 标题层级不超过### 
+   - 列表项采用标准符号
+   - 代码块标注语言类型
+
+▢ 内容标准：
+   - 保持与现有文档风格统一
+   - 新增内容自然衔接上下文
+   - 重要信息优先呈现原则
+   - 技术文档需保持术语准确
+
+**异常处理机制**
+当遇到以下情况时：
+1. 需求存在歧义
+2. 上下文信息不足
+3. 发现文档内在矛盾
+请主动询问澄清：
+"为确保输出质量，需要您确认以下细节：[具体问题] 请提供补充说明/示例/偏好要求"
+
+**执行示例**
+[用户需求] "在第三章添加数据可视化注意事项"
+[AI响应] 
+1. 定位第三章现有内容
+2. 分析文档中已有的图表规范
+3. 生成符合整体风格的注意事项列表
+4. 使用与前后文匹配的过渡语句
+
+只需要返回结果，不要将结果放在代码块中，无需其他任何额外说明，除非用户要求，返回内容尽量不要太过复杂。
+`
+
+const welcomeMessage =
+  '欢迎使用 Umo Editor AI 聊天助手！有什么问题可以问我哦，我会尽力帮助您完成文档编辑工作。'
+
 const defaultOptions = {
   // Umo Editor 的相关配置
   // ...
@@ -15,19 +74,54 @@ const defaultOptions = {
     provider: {},
   },
   
-  // AI 助手相关配置
+  // AI 聊天助手相关配置
   ai: {
     chat: {
       enabled: false,
-      useAssistantCommands: true,
       layout: 'both',
       showName: true,
       showDatetime: true,
       showAvatar: true,
+      commands: [
+        {
+          label: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
+          value: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
+        },
+        {
+          label: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+          value: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+        },
+        {
+          label: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+          value: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+        },
+        {
+          label: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+          value: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+        },
+        {
+          label: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
+          value: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
+        },
+        {
+          label: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+          value: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+        },
+        {
+          label: { en_US: 'Translate', zh_CN: '翻译', ru_RU: 'Перевести' },
+          value: {
+            en_US: 'Translate to chinese',
+            zh_CN: '翻译成英文',
+            ru_RU: 'Перевести на китайский',
+          },
+        },
+      ],
       models: [],
+      systemPrompt,
+      welcomeMessage,
+      maxHistory: 10,
     },
-    // ...
-  }
+  },
 }
 ```
 
@@ -58,7 +152,12 @@ const defaultOptions = {
 
 多人协作编辑的相关配置，其实现思路和原理可以参考：https://tiptap.dev/docs/hocuspocus 。
 
-- `collaboration.enabled`，Boolean，是否启用在线协作。
+- `collaboration.enabled`
+
+**说明**：是否启用在线协作。
+
+**类型**：Boolean
+
 - `collaboration.provider`
 
 **说明**：在线协作服务商配置。Umo Editor Next 默认提供了基于 [Express](https://expressjs.com/?hl=zh-CN) 一个 Nodejs 的服务器端（见：[Umo Editor Next](../server)），包含了 Hocuspocus Server，该选项支持 Hocuspocus Server 的所有配置。
@@ -68,14 +167,16 @@ const defaultOptions = {
 **配置**：`url` 配置为 Umo Editor Server 服务商地址，如 `ws://127.0.0.1:1235/provider`，当然您也可以配置为其他服务商。其他选项同 Hocuspocus Server 的配置，见 https://tiptap.dev/docs/hocuspocus/provider/configuration 。
 
 ### ai.chat
-AI 助手相关配置，更多信息见[AI 助手](../ai)。
+AI 聊天助手相关配置，更多信息见[AI 文档助手](../ai)。
 
 - `ai.chat.enabled`，Boolean，是否启用 AI 助手。
-- `ai.chat.useAssistantCommands`，Boolean，是否启用 AI 助手的指令，默认为 `true`，详见[AI 文档助手配置](../options/ai#aiassistantcommands)。
 - `ai.chat.layout`，String，AI 文档助手的消息布局方式，支持 `both`、`single` 两种布局方式，默认为 `both`。
 - `ai.chat.showName`，Boolean，是否显示消息名称，默认为 `true`。
 - `ai.chat.showDatetime`，Boolean，是否显示消息时间，默认为 `true`。
 - `ai.chat.showAvatar`，Boolean，是否显示消息头像，默认为 `true`。
+- `ai.chat.commands`，Array，常用指令，可参考[AI 文档助手配置](../options/ai#aiassistantcommands)。。
+- `ai.chat.systemPrompt`， String，系统提示词，用于让 AI 更好地理解任务和角色。
+- `ai.chat.welcomeMessage`， String，欢迎消息，用于打开 AI 聊天助手时，显示欢迎信息，为空则不显示欢迎信息。
 - `ai.chat.models`， Array，AI 助手的模型配置，支持多种模型，请至少配置一项，具体配置项见下表。
 
 | 配置项 | 类型 | 描述 |
@@ -83,26 +184,29 @@ AI 助手相关配置，更多信息见[AI 助手](../ai)。
 | `isDefault`| Boolean | 是否是默认模型 |
 | `label`| String | 模型名称，在消息列表中显示 |
 | `value` | String | 模型值，传递给的后端的实际值 |
-| `logo` | String | 模型头像，在消息列表中显示|
-| `supportReason` | Boolean | 是否支持推理模式 |
-| `allowUploadFiles`| false 或 Array | 允许上传的附件类型，`false` 代表不允许上传附件。|
+| `avatar` | URL | 模型头像的 URL，在消息列表中显示|
+| `provider` | URL | AI 服务提供商，即 AI 模型所需要请求的接口地址 |
+| `supportReason` | Boolean | 该模型是否支持推理模式 |
 
 **示例**：
 ```js
 [
+  // DeepSeek
   {
     label: 'DeepSeek-R1',
-    value: 'deepseek-r1',
-    logo: '...',
+    value: 'deepseek-reasoner',
+    avatar: '...',
     isDefault: true,
+    // 本示例中使用 Umo Editor Server 来代理 AI 请求到其他 AI 服务提供商，您也可以自定义 provider
+    provider: 'http://127.0.0.1:1235/ai/deepseek/chat%2Fcompletions',
     supportReason: true,
-    allowUploadFiles: ['.png', '.jpg', '.jpeg','.docx', '.pdf'],
   },
+  // Moonshot AI
   {
-    label: 'OpenAI',
-    value: 'openai',
-    logo: '...',
-    allowUploadFiles: false,
+    label: 'Moonshot AI',
+    value: 'moonshot-v1-8k',
+    avatar: kimiLogo,
+    provider: 'http://127.0.0.1:1235/ai/moonshot/chat%2Fcompletions',
   },
 ]
 ```

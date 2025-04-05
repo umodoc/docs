@@ -13,6 +13,6 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 `GET /provider`：WebSocket 接口，应通过 ws(s):// 协议连接，该接口的大部分内容是以二进制的形式存储和传输。其配置和相关说明等见源代码。
 
 ## AI 服务商代理
-`GET | POST /ai/{provider}/{endpoint}`：根据 provider 和 endpoint 参数动态代理 GET 请求到不同的 AI 服务商（如 DeepSeek、OpenAI 等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回响应结果。具体实现和使用方式请参考代码注释。
+`GET | POST /ai/{provider}/{endpoint}`：根据 provider 和 endpoint 参数动态代理 GET 请求到不同的 AI 服务商（如 DeepSeek、Moonshot AI 等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回响应结果。具体实现和使用方式请参考代码注释。
 
 

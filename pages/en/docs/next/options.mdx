@@ -1,33 +1,127 @@
 # Quick Start
 
-Umo Editor Next adds or removes the following configurations based on [all configurations](../options/default) of Umo Editor:
+Umo Editor Next, based on [Default Configuration](../options/default) of Umo Editor, adds or removes the following configurations:
 
-## All Configurations
+## New Configurations
+
 ``` js
+const systemPrompt = `**角色定位**
+你是一个专业文档 AI 助手，具备以下核心能力：
+1. 精准解析用户碎片化需求
+2. 上下文敏感的内容整合
+3. 多维度文档质量把控
+4. Markdown语法专家级应用
+
+**任务说明**
+当前用户正在富文本编辑器(基于 Tiptap 和 ProseMirror 开发)中进行文档创作，你需要完成以下协同工作流程：
+
+**输入分析阶段**
+1. 深度理解用户提供的上下文片段：{context}
+2. 通读当前完整文档：
+\`\`\`html
+{document}
+\`\`\`
+3. 确认目标语言要求：{lang}（需确保语法地道性）
+4. 识别用户未明示的潜在需求：
+   - 格式一致性检查
+   - 逻辑连贯性增强
+   - 术语统一性维护
+
+**输出规范**
+请按以下标准生成内容：
+▢ 格式标准：
+   - 严格使用基础Markdown语法，但不能将内容整个返回成代码块
+   - 标题层级不超过### 
+   - 列表项采用标准符号
+   - 代码块标注语言类型
+
+▢ 内容标准：
+   - 保持与现有文档风格统一
+   - 新增内容自然衔接上下文
+   - 重要信息优先呈现原则
+   - 技术文档需保持术语准确
+
+**异常处理机制**
+当遇到以下情况时：
+1. 需求存在歧义
+2. 上下文信息不足
+3. 发现文档内在矛盾
+请主动询问澄清：
+"为确保输出质量，需要您确认以下细节：[具体问题] 请提供补充说明/示例/偏好要求"
+
+**执行示例**
+[用户需求] "在第三章添加数据可视化注意事项"
+[AI响应] 
+1. 定位第三章现有内容
+2. 分析文档中已有的图表规范
+3. 生成符合整体风格的注意事项列表
+4. 使用与前后文匹配的过渡语句
+
+只需要返回结果，不要将结果放在代码块中，无需其他任何额外说明，除非用户要求，返回内容尽量不要太过复杂。
+`
+
+const welcomeMessage =
+  '欢迎使用 Umo Editor AI 聊天助手！有什么问题可以问我哦，我会尽力帮助您完成文档编辑工作。'
+
 const defaultOptions = {
-  // Configurations for Umo Editor
+  // Umo Editor configurations
   // ...
 
-  // Configurations for Umo Editor Next
-  // Configurations related to collaborative editing
+  // Umo Editor Next configurations
+  // Multi-user collaboration editing configurations
   collaboration: {
     enabled: false,
     provider: {},
   },
   
-  // Configurations for AI Assistant
+  // AI Chat Assistant configurations
   ai: {
     chat: {
       enabled: false,
-      useAssistantCommands: true,
       layout: 'both',
       showName: true,
       showDatetime: true,
       showAvatar: true,
+      commands: [
+        {
+          label: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
+          value: { en_US: 'Continuation', zh_CN: '续写', ru_RU: 'Продолжение' },
+        },
+        {
+          label: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+          value: { en_US: 'Rewrite', zh_CN: '重写', ru_RU: 'Переписать' },
+        },
+        {
+          label: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+          value: { en_US: 'Abbreviation', zh_CN: '缩写', ru_RU: 'Аббревиатура' },
+        },
+        {
+          label: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+          value: { en_US: 'Expansion', zh_CN: '扩写', ru_RU: 'Расширение' },
+        },
+        {
+          label: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
+          value: { en_US: 'Polish', zh_CN: '润色', ru_RU: 'Полировать' },
+        },
+        {
+          label: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+          value: { en_US: 'Proofread', zh_CN: '校阅', ru_RU: 'Корректура' },
+        },
+        {
+          label: { en_US: 'Translate', zh_CN: '翻译', ru_RU: 'Перевести' },
+          value: {
+            en_US: 'Translate to chinese',
+            zh_CN: '翻译成英文',
+            ru_RU: 'Перевести на китайский',
+          },
+        },
+      ],
       models: [],
+      systemPrompt,
+      welcomeMessage,
+      maxHistory: 10,
     },
-    // ...
-  }
+  },
 }
 ```
 
@@ -48,59 +142,69 @@ const defaultOptions = {
 }
 ```
 
-This is because, in collaborative scenarios, document content is transmitted to the server in real-time and can be directly stored on the server, eliminating the need for save requests from the client.
+This is because, in a multi-user collaboration scenario, the document content is transmitted to the server in real-time and can be directly stored in the database on the server side, eliminating the need for the client to initiate save requests.
 
-## Configuration Details
+## Configuration Description
 
 ### collaboration
 
-Configurations related to collaborative editing. For implementation ideas and principles, refer to: https://tiptap.dev/docs/hocuspocus.
+Configurations related to multi-user collaboration editing. The implementation ideas and principles can be referenced here: https://tiptap.dev/docs/hocuspocus.
 
-- `collaboration.enabled`: Boolean, whether to enable online collaboration.
+- `collaboration.enabled`
+
+**Description**: whether to enable online collaboration.
+
+**Type**: Boolean
+
 - `collaboration.provider`
 
-**Description**: Configuration for online collaboration service providers. Umo Editor Next provides a default Node.js server based on [Express](https://expressjs.com/?hl=en) (see: [Umo Editor Next](../server)), which includes the Hocuspocus Server. This option supports all configurations of the Hocuspocus Server.
+**Description**: Configuration for online collaboration service providers. Umo Editor Next provides a Node.js server-side implementation based on [Express](https://expressjs.com/?hl=en) (see: [Umo Editor Next](../server)), which includes the Hocuspocus Server. This option supports all configurations of the Hocuspocus Server.
 
 **Type**: Object
 
-**Configuration**: The `url` should be set to the address of the Umo Editor Server provider, such as `ws://127.0.0.1:1235/provider`. You can also configure it for other providers. Other options follow the Hocuspocus Server configuration, see https://tiptap.dev/docs/hocuspocus/provider/configuration.
+**Configuration**: The `url` should be configured as the address of the Umo Editor Server service provider, such as `ws://127.0.0.1:1235/provider`. You can also configure it for other service providers. Other options follow the Hocuspocus Server configuration, see https://tiptap.dev/docs/hocuspocus/provider/configuration.
 
 ### ai.chat
-Configurations related to the AI Assistant. For more information, see [AI Assistant](../ai).
+Configurations related to the AI Chat Assistant. For more information, see [AI Document Assistant](../ai).
 
-- `ai.chat.enabled`: Boolean, whether to enable the AI Assistant.
-- `ai.chat.useAssistantCommands`: Boolean, whether to enable assistant commands for the AI Assistant. Default is `true`. See [AI Assistant Commands Configuration](../options/ai#aiassistantcommands).
-- `ai.chat.layout`: String, message layout for the AI Assistant. Supports `both` and `single` layouts. Default is `both`.
-- `ai.chat.showName`: Boolean, whether to display message names. Default is `true`.
-- `ai.chat.showDatetime`: Boolean, whether to display message timestamps. Default is `true`.
-- `ai.chat.showAvatar`: Boolean, whether to display message avatars. Default is `true`.
-- `ai.chat.models`: Array, model configurations for the AI Assistant. Supports multiple models. At least one model must be configured. See the table below for specific configuration items.
+- `ai.chat.enabled`, Boolean, whether to enable the AI assistant.
+- `ai.chat.layout`, String, the message layout style of the AI document assistant, supporting `both` and `single` layouts, with `both` as the default.
+- `ai.chat.showName`, Boolean, whether to display the message name, default is `true`.
+- `ai.chat.showDatetime`, Boolean, whether to display the message timestamp, default is `true`.
+- `ai.chat.showAvatar`, Boolean, whether to display the message avatar, default is `true`.
+- `ai.chat.commands`, Array, commonly used commands. Refer to [AI Assistant Configuration](../options/ai#aiassistantcommands).
+- `ai.chat.systemPrompt`, String, system prompt to help the AI better understand tasks and roles.
+- `ai.chat.welcomeMessage`, String, welcome message displayed when opening the AI chat assistant. If empty, no welcome message will be shown.
+- `ai.chat.models`, Array, configuration of AI assistant models. Supports multiple models; at least one must be configured. Specific configuration items are shown in the table below.
 
-| Configuration Item | Type | Description |
+| Configuration | Type | Description |
 | --- | --- | --- |
 | `isDefault`| Boolean | Whether it is the default model |
 | `label`| String | Model name displayed in the message list |
-| `value` | String | Model value sent to the backend |
-| `logo` | String | Model avatar displayed in the message list |
-| `supportReason` | Boolean | Whether reasoning mode is supported |
-| `allowUploadFiles`| false or Array | Allowed attachment types. `false` means attachments are not allowed. |
+| `value` | String | Model value passed to the backend |
+| `avatar` | URL | The URL of the model's avatar, displayed in the message list |
+| `provider` | URL | AI service provider, i.e., the API endpoint required by the AI model |
+| `supportReason` | Boolean | Whether the model supports reasoning mode |
 
 **Example**:
 ```js
 [
+  // DeepSeek
   {
     label: 'DeepSeek-R1',
-    value: 'deepseek-r1',
-    logo: '...',
+    value: 'deepseek-reasoner',
+    avatar: '...',
     isDefault: true,
+    // In this example, Umo Editor Server is used to proxy AI requests to other AI service providers. You can also customize the provider.
+    provider: 'http://127.0.0.1:1235/ai/deepseek/chat%2Fcompletions',
     supportReason: true,
-    allowUploadFiles: ['.png', '.jpg', '.jpeg','.docx', '.pdf'],
   },
+  // Moonshot AI
   {
-    label: 'OpenAI',
-    value: 'openai',
-    logo: '...',
-    allowUploadFiles: false,
+    label: 'Moonshot AI',
+    value: 'moonshot-v1-8k',
+    avatar: '...',
+    provider: 'http://127.0.0.1:1235/ai/moonshot/chat%2Fcompletions',
   },
 ]
 ```
