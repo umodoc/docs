@@ -1,0 +1,72 @@
+# Collaborative Editing
+
+The collaborative editing feature allows multiple users to edit the same document simultaneously. Document content is transmitted to the server in real time and can be stored directly on the server, eliminating the need for clients to initiate manual save requests.
+
+Collaborative editing requires server-side support from [Umo Editor Server](../server), although you may also configure your own provider.
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  // Collaborative editing configuration
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
+}
+```
+
+## Unsupported Configurations
+
+When online collaboration is enabled, the following configurations are not supported:
+
+```js
+const defaultOptions = {
+  document: {
+    content:'',
+    autoSave: {
+      // ...
+    },
+  },
+  onSave(){
+    // ...
+  }
+}
+```
+
+This is because in collaborative scenarios, document content is transmitted to the server in real time and can be stored directly on the server, removing the need for the client to trigger save requests.
+
+## Configuration Description
+
+### collaboration
+
+Configuration related to collaborative editing. For implementation principles and mechanisms, refer to: https://tiptap.dev/docs/hocuspocus.
+
+- `collaboration.enabled`
+
+**Description**: Whether to enable online collaboration.
+
+**Type**: Boolean
+
+- `collaboration.provider`
+
+**Description**: Configuration of the collaboration service provider. Umo Editor Next provides a default Node.js server-side solution based on [Express](https://expressjs.com/?hl=en), which includes a built-in Hocuspocus Server (see: [Umo Editor Next](../server)). This option supports all configuration options of the Hocuspocus Server.
+
+**Type**: Object
+
+**Configuration**: The `url` should be the address of the Umo Editor Server provider, e.g., `ws://127.0.0.1:1235/provider`. You may also use other providers. Other options follow the Hocuspocus Server configuration, see: https://tiptap.dev/docs/hocuspocus/provider/configuration.
+
+## Method List
+
+For examples of method usage, see: [Method List](../methods).
+
+### getCollaboration
+
+**Description**: Retrieves information related to online collaboration.
+
+**Parameters**: None
+
+**Return Value**: Object or `undefined`. The returned object contains the following information:
+- `connect`: Boolean — whether the connection to the provider was successful.
+- `user`: Array — the list of users currently collaborating on the document.
+- `provider`: Object — the service provider information. With this information, you can listen to relevant events to implement custom features. See: https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding.

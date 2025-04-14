@@ -354,6 +354,9 @@ const defaultOptions = {
       enabled: true,
       options: {},
       useCustomMethod: false,
+      // v6.0.0 调整
+      async onCustomImportMethod() { 
+      },
     },
   },
   page: {
@@ -439,20 +442,14 @@ const defaultOptions = {
           autoSend: false,
         },
       ],
-      async onMessage() {
-        return await new Promise((_, reject) => {
-          reject(
-            new Error(
-              'Key "ai": Key "assistant": Key "onMessage": Please set the onMessage method',
-            ),
-          )
-        })
-      },
-    },
+      async onMessage() {},
   },
   echarts: {
     mode: 1, 
     renderImage: false,
+    onCustomSettings() {
+      return null
+    },
   },
   webPages: [
     {
@@ -565,39 +562,9 @@ const defaultOptions = {
     zh_CN: {},
     ru_RU: {},
   },
-  async onSave() {
-    return await new Promise((_, reject) => {
-      reject(new Error('Key "onSave": Please set the save method'))
-    })
-  },
-  async onFileUpload(file: File) {
-    return await new Promise((_, reject) => {
-      if (!file) {
-        reject(new Error('File not found'))
-        return
-      }
-      reject(new Error('Key "onFileUpload": Please set the upload method'))
-    })
-  },
-  onFileDelete() {
-    console.error(
-      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
-    )
-  },
-  onCustomEChartSettings() {
-    console.error(
-      'Custom chart settings are required, please configure onCustomizeChartSettings.',
-    )
-  },
-  async onCustomImportWordMethod() {
-    return await new Promise((_, reject) => {
-      reject(
-        new Error(
-          'Key "onCustomImportWordMethod": Please set the onCustomImportWordMethod method',
-        ),
-      )
-    })
-  },
+  async onSave() {},
+  async onFileUpload(file: File) {},
+  onFileDelete() {},
 }
 ```
 
@@ -637,5 +604,3 @@ Umo Editor 的配置项主要分为以下几部分：
 - `onSave(content, page, document)`：Async Function，文档保存方法，应返回 Promise，详见[方法配置](./methods#onsave)。
 - `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见[方法配置](./methods#onfileupload)。
 - `onFileDelete(id, url)`：Function，文件删除方法，详见[方法配置](./methods#onfiledelete)。
-- `onCustomEChartSettings(data, config)`：Function，自定义 ECharts 图表配置方法，详见[方法配置](./methods#oncustomcehartsettings)。 <Badge theme="success">v6.0.0 新增</Badge>
-- `onCustomImportWordMethod(file)`：Async Function，自定义 Word 文件导入方法，详见[方法配置置](./methods#oncustomimportwordmethod)。 <Badge theme="success">v3.1.0 新增</Badge>

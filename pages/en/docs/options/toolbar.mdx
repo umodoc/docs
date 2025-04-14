@@ -17,6 +17,7 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
       enabled: true,
       options: {},
       useCustomMethod: false,
+      onCustomImportMethod() {},
     },
   },
 }
@@ -75,11 +76,13 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
   enabled: true, 
   options: {},
   useCustomMethod: false,
+  onCustomImportMethod() {},
 }
 ```
 **Options**:
 
 - `enabled`: Whether to enable the Word file import feature. Default is `true`.
 - `options`: Configuration options for Mammoth. For details, see [Mammoth](https://www.npmjs.com/package/mammoth#api).
-- `useCustomMethod`: Whether to use a custom method to import Word files. By configuring this option, you can use a custom method to import Word files. Default is `false`. If set to `true`, the [`onCustomImportWordMethod`](./methods#oncustomimportwordmethod) method will be used to import Word documents.
+- `useCustomMethod`: Whether to use a custom method to import Word files. By configuring this option, you can use a custom method to import Word files. Default is `false`. If set to `true`, the `onCustomImportMethod` method will be used to import Word documents.
+- `onCustomImportMethod`: Custom import Word document method, if you want to use a custom import method, you need to configure the `toolbar.importWord.useCustomMethod` option to `true`.
 

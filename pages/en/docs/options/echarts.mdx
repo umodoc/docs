@@ -1,6 +1,6 @@
 # ECharts Configuration
 
-Used to configure the default display behavior of the popup when inserting charts. If you want to customize the ECharts chart configuration, you can use [`onCustomEChartSettings`](./methods#oncustomechartsettings).
+Used to configure the default display behavior of the popup when inserting charts. If you want to customize the ECharts chart configuration.
 
 ## Default Configuration
 
@@ -9,6 +9,9 @@ Used to configure the default display behavior of the popup when inserting chart
   echarts: {
     mode: 1,
     haveImage: false,
+    onCustomSettings() {
+      return null
+    },
   },
 }
 ```
@@ -40,3 +43,97 @@ Used to configure the default display behavior of the popup when inserting chart
 
 - `true`: Generate an image.
 - `false`: Do not generate an image.
+
+### echarts.onCustomSettings
+
+**Description**: Custom ECharts options method.
+
+**Type**: `Function`.
+
+**Parameters**:
+
+- `data`: `Array`, ECharts chart data.
+- `config`: `Object`, current ECharts chart configuration.
+  1. `seriesType`: `String`, chart display type `bar|line|pie` representing bar chart, line chart, and pie chart respectively
+  2. `legend`: `Boolean`, whether to show legend `true`: show legend, `false`: hide legend
+  3. `legendleft`: `String`, legend horizontal position `left|center|right` representing left, center, and right alignment respectively
+  4. `legendlocation`: `String`, legend vertical position `top|bottom` representing top and bottom alignment respectively
+  5. `legendorient`: `String`, legend layout orientation `horizontal|vertical` representing horizontal and vertical layout respectively
+  6. `smooth`: `Boolean`, whether to smooth line chart display `true`: smooth display, `false`: default display
+  7. `titleText`: `String`, chart title content
+  8. `titleleft`: `String`, chart title position `left|center|right` representing left, center, and right alignment respectively
+
+**Example**:
+
+The following code demonstrates how to configure the onCustomEChartSettings method to implement chart customization:
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+import { useUmoEditor } from '@umoteam/editor'
+
+const options = {
+  echarts: {
+    onCustomSettings(data, config) {
+      const { title, seriesType, legend } = config
+      const option = {
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true,
+          },
+        ],
+      }
+      return option
+    },
+  },
+}
+
+app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    :echarts="{ onCustomSettings }" 
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+
+const onCustomSettings = (data, config) => {
+  const { title, seriesType, legend } = config
+  const option = {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+      },
+    ],
+  }
+  return option
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+**Return Value**：`Object`，return ECharts options configuration object.

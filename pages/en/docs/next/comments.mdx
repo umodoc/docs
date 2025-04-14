@@ -1,0 +1,163 @@
+# Document Comments
+
+The document comment feature allows users to add comments within a document, and supports commenting during collaborative editing sessions.
+
+## Core Concepts
+
+**Thread**: In the document commenting feature, a thread represents a group of comment messages associated with a specific position in the document. A thread may contain multiple comments along with metadata such as creation time and ID. A thread is bound to a specific range in the document. Each individual comment is part of a thread.
+
+**Comment**: A single comment within a thread.
+
+**Example**: A typical comment thread example is as follows:
+
+```js
+{
+  id: '7ihgradlfp',
+  data: {
+    user: { id: 'c6x2', name: 'User-c6x2', color: '#7fe67f' },
+    ref: 'Quoted text',
+  },
+  comments: [
+    {
+      id: 'wls7unwl2t',
+      data: { 
+        user: { id: 'c6x2', name: 'User-c6x2', color: '#7fe67f' } 
+      },
+      content: '<p>This is a comment message</p>',
+      createdAt: '2025-04-14T06:37:12.835Z',
+    },
+    {
+      id: 'v9eabcjenh',
+      data: {
+        user: { id: 'c6x2', name: 'User-c6x2', color: '#7fe67f' },
+        replyId: 'wls7unwl2t',
+      },
+      content: '<p>This is a reply message</p>',
+      createdAt: '2025-04-14T06:37:30.035Z',
+    },
+  ],
+  createdAt: '2025-04-14T06:37:12.833Z',
+}
+```
+
+**Interface Definition**: The interfaces for thread and comment are defined as follows:
+
+```ts
+// Thread interface, contains metadata and a list of comments
+interface Thread {
+  id: string; // Unique identifier for the thread
+  data: any;
+  comments: Comment[]; // List of comments in the thread
+  createdAt: string; // Creation timestamp
+  updatedAt?: string; // Update timestamp
+  resolvedAt?: string; // Resolution timestamp
+}
+
+// Comment interface, contains metadata and content
+interface Comment {
+  id: string; // Unique identifier for the comment
+  data: any;
+  content: string; // Comment content
+  createdAt: string; // Creation timestamp
+  updatedAt?: string; // Update timestamp
+}
+```
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  // Comment-related configuration
+  comments: {
+    enabled: false,
+    threads: [], 
+    onCreateThread: undefined,
+    onUpdateThread: undefined,
+    onDeleteThread: undefined,
+    onCreateComment: undefined,
+    onUpdateComment: undefined,
+    onDeleteComment: undefined,
+  },
+}
+```
+
+## Configuration Details
+
+### `comments`
+
+Comment-related configuration.
+
+- `comments.enabled`  
+**Description**: Whether to enable the commenting feature  
+**Type**: Boolean  
+**Default**: `true`
+
+- `comments.threads`  
+**Description**: Initial comment threads.  
+**Note**: When collaborative editing is enabled, this option is ignored; the thread list will be fetched from the provider.  
+**Type**: `Array`  
+**Default**: `[]`
+
+- `comments.onCreateThread`  
+**Description**: Callback function triggered when a new thread is created  
+**Type**: `Function`  
+**Parameters**: `thread` — the newly created thread  
+**Default**: `undefined`
+
+- `comments.onUpdateThread`  
+**Description**: Callback when a thread is updated  
+**Type**: `Function`  
+**Parameters**: `thread` — the updated thread  
+**Default**: `undefined`
+
+- `comments.onDeleteThread`  
+**Description**: Callback when a thread is deleted  
+**Type**: `Function`  
+**Parameters**: `threadId` — the ID of the deleted thread  
+**Default**: `undefined`
+
+- `comments.onCreateComment`  
+**Description**: Callback when a comment is created  
+**Type**: `Function`  
+**Parameters**: `comment` — the newly created comment  
+**Default**: `undefined`
+
+- `comments.onUpdateComment`  
+**Description**: Callback when a comment is updated  
+**Type**: `Function`  
+**Parameters**: `comment` — the updated comment  
+**Default**: `undefined`
+
+- `comments.onDeleteComment`  
+**Description**: Callback when a comment is deleted  
+**Type**: `Function`  
+**Parameters**: `{ threadId, commentId }` — the thread ID and comment ID of the deleted comment  
+**Default**: `undefined`
+
+## Method List
+
+For examples of method usage, see: [Method List](../methods)
+
+### `getComments`
+
+**Description**: Retrieves comment-related information.  
+When collaborative editing is enabled, you can also obtain the `provider` via [`getCollaborationInfo`](./collaboration#getcollaborationinfo), and use it to manage comments—this requires deeper understanding of [Hocuspocus](https://tiptap.dev/docs/hocuspocus).
+
+**Parameters**: None  
+**Returns**: `Object` or `undefined`, with the following structure:
+- `connect`: Boolean — whether connected to the provider
+- `threads`: Array — list of comment threads in the current document
+
+## Theming and Custom Styles
+
+### CSS Variables
+
+You can customize the style of comments using the following CSS variables:
+
+```css
+--umo-thread-background: #ffcc00;
+--umo-thread-hover-background: #ffcc0040;
+--umo-thread-inline-background: #ffcc00;
+--umo-thread-resolved-background: #63c493;
+--umo-thread-resolved-hover-background: #63c49340;
+```

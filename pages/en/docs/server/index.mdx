@@ -1,6 +1,6 @@
 # Basic Introduction
 
-Umo Editor Server is a companion server-side software developed to enhance certain features of Umo Editor Next, such as multi-user online collaborative editing, document annotation (comments), and document import/export. If you have purchased the [commercial license](../next/buy) for Umo Editor Next, you can use Umo Editor Server for free under the terms of the [Umo Team Commercial Software License Agreement](../next/license).
+Umo Editor Server is a companion server-side software developed to enhance certain features of Umo Editor Next, such as multi-user online collaborative editing, document comments, and document import/export. If you have purchased the [commercial license](../next/buy) for Umo Editor Next, you can use Umo Editor Server for free under the terms of the [Umo Team Commercial Software License Agreement](../next/license).
 
 Umo Editor Server is a Node.js server-side software implemented based on [Express](https://expressjs.com/). Its primary function is to enhance the capabilities of Umo Editor Next through HTTP or WebSocket interfaces.
 
@@ -62,7 +62,7 @@ After completing the above steps, you have successfully started Umo Editor Serve
 
 ## Development Notes
 
-- For scenarios such as multi-user collaborative editing and document annotation/comments, Umo Editor Server provides detailed configurations and hook methods. By default, it uses SQLite to store data (different documents should use different document IDs). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For detailed instructions, refer to the code comments.
+- For scenarios such as multi-user collaborative editing and document comments, Umo Editor Server provides detailed configurations and hook methods. By default, it uses SQLite to store data (different documents should use different document IDs). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For detailed instructions, refer to the code comments.
 - You can deploy Umo Editor Server as a standalone service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication](./server/auth)). If needed, please implement it yourself.
 - Umo Editor Server provides the ability to log local files by default, but you can also extend this functionality as needed.
 - If you need to perform secondary development, the source code contains extensive and detailed comments that should be very helpful to you.

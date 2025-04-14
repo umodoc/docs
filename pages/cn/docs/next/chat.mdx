@@ -1,8 +1,8 @@
-# Quick Start
+## AI 聊天助手
 
-Umo Editor Next, based on [Default Configuration](../options/default) of Umo Editor, adds or removes the following configurations:
+AI 聊天助手允许用户与 AI 助手进行实时交互，在文档编辑过程中获取智能建议和帮助。
 
-## New Configurations
+## 默认配置
 
 ``` js
 const systemPrompt = `**角色定位**
@@ -63,18 +63,8 @@ const systemPrompt = `**角色定位**
 const welcomeMessage =
   '欢迎使用 Umo Editor AI 聊天助手！有什么问题可以问我哦，我会尽力帮助您完成文档编辑工作。'
 
+// AI 聊天助手相关配置
 const defaultOptions = {
-  // Umo Editor configurations
-  // ...
-
-  // Umo Editor Next configurations
-  // Multi-user collaboration editing configurations
-  collaboration: {
-    enabled: false,
-    provider: {},
-  },
-  
-  // AI Chat Assistant configurations
   ai: {
     chat: {
       enabled: false,
@@ -120,73 +110,43 @@ const defaultOptions = {
       systemPrompt,
       welcomeMessage,
       maxHistory: 10,
+      async onGetHistory() {
+      },
+      async onChangeHistory(type, data) {
+      }
     },
-  },
 }
 ```
 
-## Unsupported Configurations
-
-When the online collaboration feature is enabled, the following configurations will no longer be effective:
-
-``` js
-const defaultOptions = {
-  document: {
-    autoSave: {
-      // ...
-    },
-  },
-  onSave(){
-    // ...
-  }
-}
-```
-
-This is because, in a multi-user collaboration scenario, the document content is transmitted to the server in real-time and can be directly stored in the database on the server side, eliminating the need for the client to initiate save requests.
-
-## Configuration Description
-
-### collaboration
-
-Configurations related to multi-user collaboration editing. The implementation ideas and principles can be referenced here: https://tiptap.dev/docs/hocuspocus.
-
-- `collaboration.enabled`
-
-**Description**: whether to enable online collaboration.
-
-**Type**: Boolean
-
-- `collaboration.provider`
-
-**Description**: Configuration for online collaboration service providers. Umo Editor Next provides a Node.js server-side implementation based on [Express](https://expressjs.com/?hl=en) (see: [Umo Editor Next](../server)), which includes the Hocuspocus Server. This option supports all configurations of the Hocuspocus Server.
-
-**Type**: Object
-
-**Configuration**: The `url` should be configured as the address of the Umo Editor Server service provider, such as `ws://127.0.0.1:1235/provider`. You can also configure it for other service providers. Other options follow the Hocuspocus Server configuration, see https://tiptap.dev/docs/hocuspocus/provider/configuration.
+## 配置说明
 
 ### ai.chat
-Configurations related to the AI Chat Assistant. For more information, see [AI Document Assistant](../ai).
+AI 聊天助手相关配置，更多信息见[AI 文档助手](../ai)。
 
-- `ai.chat.enabled`, Boolean, whether to enable the AI assistant.
-- `ai.chat.layout`, String, the message layout style of the AI document assistant, supporting `both` and `single` layouts, with `both` as the default.
-- `ai.chat.showName`, Boolean, whether to display the message name, default is `true`.
-- `ai.chat.showDatetime`, Boolean, whether to display the message timestamp, default is `true`.
-- `ai.chat.showAvatar`, Boolean, whether to display the message avatar, default is `true`.
-- `ai.chat.commands`, Array, commonly used commands. Refer to [AI Assistant Configuration](../options/ai#aiassistantcommands).
-- `ai.chat.systemPrompt`, String, system prompt to help the AI better understand tasks and roles.
-- `ai.chat.welcomeMessage`, String, welcome message displayed when opening the AI chat assistant. If empty, no welcome message will be shown.
-- `ai.chat.models`, Array, configuration of AI assistant models. Supports multiple models; at least one must be configured. Specific configuration items are shown in the table below.
+- `ai.chat.enabled`，Boolean，是否启用 AI 助手。
+- `ai.chat.layout`，String，AI 文档助手的消息布局方式，支持 `both`、`single` 两种布局方式，默认为 `both`。
+- `ai.chat.showName`，Boolean，是否显示消息名称，默认为 `true`。
+- `ai.chat.showDatetime`，Boolean，是否显示消息时间，默认为 `true`。
+- `ai.chat.showAvatar`，Boolean，是否显示消息头像，默认为 `true`。
+- `ai.chat.commands`，Array，常用指令，可参考[AI 文档助手配置](../options/ai#aiassistantcommands)。。
+- `ai.chat.systemPrompt`， String，系统提示词，用于让 AI 更好地理解任务和角色。
+- `ai.chat.welcomeMessage`， String，欢迎消息，用于打开 AI 聊天助手时，显示欢迎信息，为空则不显示欢迎信息。
+- `ai.chat.maxHistory`， Number，AI 聊天助手的历史消息数量。
+- `ai.chat.onGetHistory`，AsyncFunction，获取历史消息的回调函数，可通过该回调从服务器端获取历史消息。
+- `ai.chat.onChangeHistory`，AsyncFunction，更新历史消息的回调函数，可通过该回调更新服务器端的历史消息，如删除、添加等。
+- `ai.chat.models`， Array，AI 助手的模型配置，支持多种模型，请至少配置一项，具体配置项见下表。
 
-| Configuration | Type | Description |
+| 配置项 | 类型 | 描述 |
 | --- | --- | --- |
-| `isDefault`| Boolean | Whether it is the default model |
-| `label`| String | Model name displayed in the message list |
-| `value` | String | Model value passed to the backend |
-| `avatar` | URL | The URL of the model's avatar, displayed in the message list |
-| `provider` | URL | AI service provider, i.e., the API endpoint required by the AI model |
-| `supportReason` | Boolean | Whether the model supports reasoning mode |
+| `isDefault`| Boolean | 是否是默认模型 |
+| `label`| String | 模型名称，在消息列表中显示 |
+| `value` | String | 模型值，传递给的后端的实际值 |
+| `avatar` | URL | 模型头像的 URL，在消息列表中显示|
+| `provider` | URL | AI 服务提供商，即 AI 模型所需要请求的接口地址 |
+| `supportReason` | Boolean | 该模型是否支持推理模式 |
+| `file` | Object | 上传文件配置，支持 `accept`、`multiple`、`maxSize`、`limit` 等属性 |
 
-**Example**:
+**示例**：
 ```js
 [
   // DeepSeek
@@ -195,16 +155,41 @@ Configurations related to the AI Chat Assistant. For more information, see [AI D
     value: 'deepseek-reasoner',
     avatar: '...',
     isDefault: true,
-    // In this example, Umo Editor Server is used to proxy AI requests to other AI service providers. You can also customize the provider.
+    // 本示例中使用 Umo Editor Server 来代理 AI 请求到其他 AI 服务提供商，您也可以自定义 provider
     provider: 'http://127.0.0.1:1235/ai/deepseek/chat%2Fcompletions',
     supportReason: true,
+    file: {
+      accept: '.docx,.doc,.xls,.xlsx,.txt', // 支持的文件类型
+      multiple: true, // 是否允许多选
+      maxSize: 1024 * 1024 * 5, // 单个文件最大大小
+      limit: 5, // 最多上传文件数量
+    },
   },
   // Moonshot AI
   {
     label: 'Moonshot AI',
     value: 'moonshot-v1-8k',
-    avatar: '...',
+    avatar: kimiLogo,
     provider: 'http://127.0.0.1:1235/ai/moonshot/chat%2Fcompletions',
   },
 ]
 ```
+
+## 方法列表
+
+### openAIChat
+
+**说明**：打开 AI 聊天助手。
+
+**参数**：无
+
+**返回值**：无
+
+### closeAIChat
+
+**说明**：关闭 AI 聊天助手。
+
+**参数**：无
+
+**返回值**：无
+

@@ -6,6 +6,7 @@ export default {
 	changelog: '更新日志',
 	roadmap: '开发计划',
 	'getting-started': '快速开始',
-	options:'配置项',
-	methods:'方法列表'
+	chat: 'AI 聊天助手',
+	collaboration: '多人协作编辑',
+	comments: '文档批注(评论)',
 };

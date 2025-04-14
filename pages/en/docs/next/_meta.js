@@ -6,6 +6,7 @@ export default {
 	changelog: 'Changelog',
 	roadmap: 'Roadmap',
 	'getting-started': 'Getting Started',
-	options: 'Configuration',
-	methods: 'Methods'
+	chat: 'AI Chat Assistant',
+	collaboration: 'Collaborative Editing',
+	comments: 'Document Comments',
 };

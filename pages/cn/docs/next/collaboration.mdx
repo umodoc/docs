@@ -1,0 +1,77 @@
+# 多人协作编辑
+
+多人协作编辑功能允许多个用户同时编辑同一个文档，并且文档内容是实时传输到服务器端的，可以在服务器端直接入库，无需再由客户端发起保存请求。
+
+多人协作编辑需要服务器端软件[Umo Editor Server](../server)的支持，当然您也可以自定义服务商。
+
+## 默认配置
+
+``` js
+const defaultOptions = {
+  // 多人协作编辑相关配置
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
+}
+```
+
+## 不支持的配置
+
+当开启了在线协作功能时，不支持以下配置：
+
+``` js
+const defaultOptions = {
+  document: {
+    content:'',
+    autoSave: {
+      // ...
+    },
+  },
+  onSave(){
+    // ...
+  }
+}
+```
+
+因为在多人协作的场景中，文档内容是实时传输到服务器端的，可以在服务器端直接入库，无需再由客户端发起保存请求。
+
+
+
+## 配置说明
+
+### collaboration
+
+多人协作编辑的相关配置，其实现思路和原理可以参考：https://tiptap.dev/docs/hocuspocus 。
+
+- `collaboration.enabled`
+
+**说明**：是否启用在线协作。
+
+**类型**：Boolean
+
+- `collaboration.provider`
+
+**说明**：在线协作服务商配置。Umo Editor Next 默认提供了基于 [Express](https://expressjs.com/?hl=zh-CN) 一个 Nodejs 的服务器端（见：[Umo Editor Next](../server)），包含了 Hocuspocus Server，该选项支持 Hocuspocus Server 的所有配置。
+
+**类型**：Object
+
+**配置**：`url` 配置为 Umo Editor Server 服务商地址，如 `ws://127.0.0.1:1235/provider`，当然您也可以配置为其他服务商。其他选项同 Hocuspocus Server 的配置，见 https://tiptap.dev/docs/hocuspocus/provider/configuration 。
+
+## 方法列表
+
+方法的使用示例请参考：[方法列表](../methods)。
+
+### getCollaboration
+
+**说明**：获取在线协作相关信息。
+
+**参数**：无
+
+**返回值**：Object 或 undefined，Object 包含以下信息：
+- `connect`：Boolean，是否与服务商连接成功；
+- `user`：Array，当前文档协作用户列表；
+- `provider`：Object，服务商信息，获得服务商信息后，可以通过监听相关事件，来实现更多个性化需求，参考：https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding 。
+
+
+
