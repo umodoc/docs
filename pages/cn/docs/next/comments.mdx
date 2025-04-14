@@ -69,6 +69,8 @@ const defaultOptions = {
   comments: {
     enabled: false,
     threads: [], 
+    onGetThreads: undefined,
+    onSetThread: undefined,
     onCreateThread: undefined,
     onUpdateThread: undefined,
     onDeleteThread: undefined,
@@ -83,11 +85,11 @@ const defaultOptions = {
 
 ### comments
 
-文档批注/评论相关配置。
+文档批注相关配置。
 
 - `comments.enabled`：
 
-**说明**：是否开启批注/评论功能
+**说明**：是否开启批注功能
 
 **类型**：Boolean
 
@@ -95,69 +97,91 @@ const defaultOptions = {
 
 - `comments.threads`：
 
-**说明**：批注/评论线程的初始数据。在开启了多人协作编辑时，该选项不生效，线程列表默认从服务商获取。
+**说明**：批注线程的初始数据。在开启了多人协作编辑时，该选项不生效，线程列表默认从服务商获取。
 
 **类型**：`Array`
 
 **默认值**：`[]`
 
-- `comments.onCreateThread`：
+- `comments.onGetThreads`：
 
-**说明**：创建批注/评论线程的回调函数。
+**说明**：获取批注线程列表的回调函数。
 
 **类型**：`Function`
 
-**参数**：`thread`，新创建的批注/评论线程。
+**参数**：`undefined`
+
+**返回值**：`Array`，批注线程列表。
+
+**默认值**：`undefined`
+
+- `comments.onSetThread`：
+
+**说明**：设置批注线程的回调函数。
+
+**类型**：`Function`
+
+**参数**：`thread`，新设置的批注线程。
+
+**默认值**：`undefined`
+
+- `comments.onCreateThread`：
+
+**说明**：创建批注线程的回调函数。
+
+**类型**：`Function`
+
+**参数**：`thread`，新创建的批注线程。
 
 **默认值**：`undefined`
 
 - `comments.onUpdateThread`：
 
-**说明**：更新批注/评论线程的回调函数。
+**说明**：更新批注线程的回调函数。
 
 **类型**：`Function`
 
-**参数**：`thread`，更新后的批注/评论线程。
+**参数**：`thread`，更新后的批注线程。
 
 **默认值**：`undefined`
 
 - `comments.onDeleteThread`：
 
-**说明**：删除批注/评论线程的回调函数。
+**说明**：删除批注线程的回调函数。
 
 **类型**：`Function`
 
-**参数**：`threadId`，已删除的批注/评论线程 ID。
+**参数**：`threadId`，已删除的批注线程 ID。
 
 **默认值**：`undefined`
 
 - `comments.onCreateComment`：
 
-**说明**：创建批注/评论的回调函数。
+**说明**：创建批注的回调函数。
 
 **类型**：`Function`
 
-**参数**：`comment`，新创建的批注/评论信息。
+**参数**：`comment`，新创建的批注信息。
 
 **默认值**：`undefined`
 
 - `comments.onUpdateComment`：
 
-**说明**：更新批注/评论的回调函数。
+**说明**：更新批注的回调函数。
 
 **类型**：`Function`
 
-**参数**：`comment`，更新后的批注/评论信息。
+**参数**：`comment`，更新后的批注信息。
 
 **默认值**：`undefined`
 
 - `comments.onDeleteComment`：
 
-**说明**：删除批注/评论的回调函数。
+**说明**：删除批注的回调函数。
 
 **类型**：`Function`
 
-**参数**：`{threadId, commentId}`，已删除的批注/评论线程 ID 和评论 ID。
+**参数**：`{threadId, commentId}`，已删除的批注线程 ID 和评论 ID。
 
 **默认值**：`undefined`
 
@@ -167,7 +191,7 @@ const defaultOptions = {
 
 ### getComments
 
-**说明**：获取批注/评论相关信息。在开启了多人协作编辑功能时，您也可以通过 [`getCollaborationInfo`](./collaboration#getcollaborationinfo)方法，获取到 `provider` 后，通过 `provider` 来获取或设置更多的批注/评论的信息，这要求您对[Hocuspocus](https://tiptap.dev/docs/hocuspocus)有比较深入的了解。
+**说明**：获取批注相关信息。在开启了多人协作编辑功能时，您也可以通过 [`getCollaboration`](./collaboration#getcollaborationinfo)方法，获取到 `provider` 后，通过 `provider` 来获取或设置更多的批注的信息，这要求您对[Hocuspocus](https://tiptap.dev/docs/hocuspocus)有比较深入的了解。
 
 **参数**：无
 

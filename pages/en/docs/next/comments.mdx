@@ -71,6 +71,8 @@ const defaultOptions = {
   comments: {
     enabled: false,
     threads: [], 
+    onGetThreads: undefined,
+    onSetThread: undefined,
     onCreateThread: undefined,
     onUpdateThread: undefined,
     onDeleteThread: undefined,
@@ -98,7 +100,13 @@ Comment-related configuration.
 **Type**: `Array`  
 **Default**: `[]`
 
-- `comments.onCreateThread`  
+- `comments.onGetThreads`  
+**Description**: Callback function triggered when a new thread is created  
+**Type**: `Function`  
+**Parameters**: `undefined`  
+**Default**: `undefined`
+
+- `comments.onSetThread`  
 **Description**: Callback function triggered when a new thread is created  
 **Type**: `Function`  
 **Parameters**: `thread` — the newly created thread  
@@ -141,7 +149,7 @@ For examples of method usage, see: [Method List](../methods)
 ### `getComments`
 
 **Description**: Retrieves comment-related information.  
-When collaborative editing is enabled, you can also obtain the `provider` via [`getCollaborationInfo`](./collaboration#getcollaborationinfo), and use it to manage comments—this requires deeper understanding of [Hocuspocus](https://tiptap.dev/docs/hocuspocus).
+When collaborative editing is enabled, you can also obtain the `provider` via [`getCollaboration`](./collaboration#getcollaboration), and use it to manage comments—this requires deeper understanding of [Hocuspocus](https://tiptap.dev/docs/hocuspocus).
 
 **Parameters**: None  
 **Returns**: `Object` or `undefined`, with the following structure:
