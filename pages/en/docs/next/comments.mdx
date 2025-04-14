@@ -2,6 +2,17 @@
 
 The document comment feature allows users to add comments within a document, and supports commenting during collaborative editing sessions.
 
+## Features and Advantages
+
+- Support for private deployment, allowing you to ensure data security and controllability through private deployment;
+- Support for online collaboration, enabling you to add comments during collaborative editing sessions;
+- Support for offline commenting, allowing you to add comments while offline, which automatically sync to the server upon reconnection;
+- Support for adding comments to various node types and inline elements, enabling you to add and manage different types of comments in the document;
+- Support for @ mentions in comments, allowing you to mention other users for notifications;
+- Support for marking comments as complete/incomplete, editing, or deleting comments within comment threads;
+- Support for replying to comments within comment threads;
+- Support for adding custom data to comments.
+
 ## Core Concepts
 
 **Thread**: In the document commenting feature, a thread represents a group of comment messages associated with a specific position in the document. A thread may contain multiple comments along with metadata such as creation time and ID. A thread is bound to a specific range in the document. Each individual comment is part of a thread.
@@ -168,4 +179,3 @@ You can customize the style of comments using the following CSS variables:
 --umo-thread-inline-background: #ffcc00;
 --umo-thread-resolved-background: #63c493;
 --umo-thread-resolved-hover-background: #63c49340;
-```
