@@ -6,6 +6,10 @@
 
 在导出 HTML 文档时，您也可以注入自定义的 CSS 样式和 JS 脚本。
 
+## 效果预览
+
+<iframe src="/demos/export-html-cn.html" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
 ## 默认配置
 
 ``` js
@@ -54,6 +58,8 @@ export: {
 - `injectCSS`：`Array`，内联 CSS 样式数组，默认值为 `[]`。
 - `externalJS`：`Array`，外部 JS 文件 URL 路径数组，需为可访问的完整 URL，默认值为 `[]`。
 - `injectJS`：`Array`，内联 JS 脚本数组，默认值为 `[]`。
+- `withWrapper`：`Boolean`，是否包含外层容器，即是否包含页面背景等元素，默认值为 `true`。
+- `showBreakMarks`：`Boolean`，是否显示换行标记，默认值为 `true`。
 - `download`：`Boolean`，是否下载，默认值为 `false`。
 
 **返回值**：`string`，导出 HTML 字符串。
