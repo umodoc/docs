@@ -8,5 +8,6 @@ export default {
 	'getting-started': '快速开始',
 	chat: 'AI 聊天助手',
 	collaboration: '多人协作编辑',
-	comments: '文档批注(评论)',
+	comments: '文档批注/评论',
+	export: '文档导出/预览',
 };

@@ -1,0 +1,59 @@
+# 文档导出/预览
+
+此功能允许您获取文档的 HTML 格式，方便在其他地方查看，您也可以将文档直接导出为 HTML 格式的文件。
+
+导出的文件可以脱离 Umo Editor 使用，这意味着您可以将导出的 HTML 文档直接在浏览器中打开或者嵌入到其他 HTML 页面中，样式与编辑器中的样式一致。
+
+在导出 HTML 文档时，您也可以注入自定义的 CSS 样式和 JS 脚本。
+
+## 默认配置
+
+``` js
+const defaultOptions = {
+  // 文档导出相关配置
+  toolbar: {
+    disableMenuItems: ['exportHTML'], // 禁用工具栏中的导出 HTML 功能
+  },
+  export: {
+    styleURL: '',
+  },
+}
+```
+
+## 配置说明
+
+### export
+
+- `export.styleURL`
+
+**说明**：导出文档时，样式文件的 URL，样式文件中定义了导出文档时的样式，通常情况下，在运行 `npm run build` 后，样式为 `public/umo-editor-next.css`，您可以将样式文件的 URL 配置到 `styleURL` 中，当然您也可以将样式文件放到其他位置，然后配置此项为正确的 URL 路径。
+
+注意：此项必须配置，否则无法导出。且 `styleURL` 不能是相对路径或绝对路径，必须是可访问的完整 URL，否则可能会导致在其他地方使用时样式无法加载，导致文档将无法正确显示。
+
+**类型**：String
+
+**默认值**：`''`
+
+**示例**：
+
+``` js
+export: {
+  styleURL: `${window.location.origin}/umo-editor-next.css`,
+}
+```
+
+## 方法列表
+
+### exportHTML
+
+**说明**：导出 HTML 格式文档。
+
+**参数**：
+
+- `externalCSS`：`Array`，外部 CSS 文件 URL 路径数组，需为可访问的完整 URL，默认值为 `[]`。
+- `injectCSS`：`Array`，内联 CSS 样式数组，默认值为 `[]`。
+- `externalJS`：`Array`，外部 JS 文件 URL 路径数组，需为可访问的完整 URL，默认值为 `[]`。
+- `injectJS`：`Array`，内联 JS 脚本数组，默认值为 `[]`。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+
+**返回值**：`string`，导出 HTML 字符串。

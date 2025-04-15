@@ -1,0 +1,59 @@
+# Document Export/Preview
+
+This feature allows you to get the HTML format of the document, making it convenient to view in other places, you can also export documents directly as HTML format documents.
+
+Exported files can be used independently of Umo Editor, meaning you can open or embed the exported HTML documents directly in the browser or other HTML pages, with styles consistent with the editor.
+
+When exporting HTML documents, you can also inject custom CSS styles and JS scripts.
+
+## Default Configuration
+
+``` js
+const defaultOptions = {
+  // Export related configuration
+  toolbar: {
+    disableMenuItems: ['exportHTML'], // Disable export HTML functionality in the toolbar
+  },
+  export: {
+    styleURL: '',
+  },
+}
+```
+
+## Configuration Description
+
+### export
+
+- `export.styleURL`
+
+**Description**：The URL of the style file when exporting documents, the style file defines the styles used when exporting documents, usually after running `npm run build`, the style is `public/umo-editor-next.css`, you can configure the style file URL to `styleURL`, of course you can also place the style file in other locations, then configure this item to the correct URL path.
+
+Note: This item must be configured, otherwise it will not be exported. And `styleURL` cannot be a relative path or absolute path, must be a complete URL, otherwise it may cause the style to fail to load in other places, resulting in the document not being displayed correctly.
+
+**Type**：String
+
+**Default Value**：`''`
+
+**Example**：
+
+``` js
+export: {
+  styleURL: `${window.location.origin}/umo-editor-next.css`,
+}
+```
+
+## Method List
+
+### exportHTML
+
+**Description**：Export HTML format document.
+
+**Parameters**：
+
+- `externalCSS`：`Array`，External CSS file URL path array, must be a complete URL, default value is `[]`.
+- `injectCSS`：`Array`，Inline CSS styles array, default value is `[]`.
+- `externalJS`：`Array`，External JS file URL path array, must be a complete URL, default value is `[]`.
+- `injectJS`：`Array`，Inline JS scripts array, default value is `[]`.
+- `download`：`Boolean`，Whether to download, default value is `false`.
+
+**Return Value**：`string`，Exported HTML string.

@@ -9,4 +9,5 @@ export default {
 	chat: 'AI Chat Assistant',
 	collaboration: 'Collaborative Editing',
 	comments: 'Document Comments',
+	export: 'Document Export/Preview',
 };
