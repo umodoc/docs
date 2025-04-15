@@ -1,0 +1,99 @@
+# 导出为 PDF
+
+此功能允许将当前文档导出为 PDF 格式，方便在其他地方查看或编辑。
+
+PDF 导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 已经启动。
+
+导出效果和文档编辑时的显示效果 **完全一致**，包括各类节点的显示和页面布局等，您也可以在导出时自定义 CSS 样式和 JS 脚本，也可以配置导出 PDF 的其他配置，如导出的页面范围等。
+
+某些场景下，您可以使用 PDF 来做文档预览，或者在其他地方展示文档内容，做文档预览时，您可以将 PDF 通过 Umo Editor Server 保存在服务器端，然后在需要的时候，通过 URL 访问即可。
+
+## 导出效果预览
+
+<iframe src="/demos/export-pdf-cn.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+## 默认配置
+
+``` js
+const defaultOptions = {
+  // 文档导出相关配置
+  export: {
+    styleURL: '',
+    serverURL: '',
+  },
+}
+```
+
+## 配置说明
+
+### export
+
+- `export.styleURL`
+
+**说明**：导出文档时，样式文件的 URL，样式文件中定义了导出文档时的样式，通常情况下，在运行 `npm run build` 后，样式为 `dist/style.css`，您可以将样式文件放到其他位置，然后配置此项为正确的 URL 路径。
+
+注意：此项必须配置，否则无法导出。且 `styleURL` 不能是相对路径或绝对路径，必须是可访问的完整 URL，否则可能会导致在其他地方使用时样式无法加载，导致文档将无法正确显示。
+
+**类型**：String
+
+**默认值**：`''`
+
+**示例**：
+
+``` js
+export: {
+  styleURL: `${window.location.origin}/css/umo-editor-next.css`,
+}
+```
+
+- `export.serverURL`
+
+**说明**：导出 PDF 时，Umo Editor Server 的 URL，Umo Editor Server 提供了 PDF 导出的 API，您需要确保 Umo Editor Server 已经启动。
+
+注意：如果未配置 `export.serverURL`，则在用户点击工具栏中的导出 PDF 按钮时，会降级使用前端导出。
+
+**类型**：String
+
+**默认值**：`''`
+
+**示例**：
+
+``` js
+export: {
+  serverURL: 'http://127.0.0.1:1235',
+}
+```
+
+## 方法列表
+
+### exportPDF
+
+**说明**：导出 PDF 格式文档。
+
+**参数**：`{ exportHtmlParams, pdfOptions, filename, download }`
+
+- `exportHtmlParams`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
+- `pdfOptions`：`Object`，导出 PDF 的配置项，可选，包含以下配置项：
+  - `pdfOptions.pageRanges`：`String`，要打印的纸张范围，例如 1-5, 8, 11-13。
+  - `pdfOptions.omitBackground`：`Boolean`，是否隐藏默认的白色背景，设置为 `true` 可以生成具有透明度的 PDF。
+  - `pdfOptions.scale`：`Number`，缩放比例，必须介于 0.1 和 2 之间。
+  - `pdfOptions.timeout`：`Number`，超时时间，单位为毫秒，`0` 表示不设置超时时间。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+
+**返回值**：`Blob | undefined`，`download` 为 `true` 时，返回导出的 PDF 文件二进制数据，当 `download` 为 `true` 时，返回 `undefined`。
+
+
+
+  
+  
+  
+
+
+
+
+
+
+
+
+

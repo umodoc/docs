@@ -30,7 +30,7 @@ const defaultOptions = {
 
 - `export.styleURL`
 
-**说明**：导出文档时，样式文件的 URL，样式文件中定义了导出文档时的样式，通常情况下，在运行 `npm run build` 后，样式为 `public/umo-editor-next.css`，您可以将样式文件的 URL 配置到 `styleURL` 中，当然您也可以将样式文件放到其他位置，然后配置此项为正确的 URL 路径。
+**说明**：导出文档时，样式文件的 URL，样式文件中定义了导出文档时的样式，通常情况下，在运行 `npm run build` 后，样式为 `dist/style.css`，您可以将样式文件放到其他位置，然后配置此项为正确的 URL 路径。
 
 注意：此项必须配置，否则无法导出。且 `styleURL` 不能是相对路径或绝对路径，必须是可访问的完整 URL，否则可能会导致在其他地方使用时样式无法加载，导致文档将无法正确显示。
 
@@ -42,7 +42,7 @@ const defaultOptions = {
 
 ``` js
 export: {
-  styleURL: `${window.location.origin}/umo-editor-next.css`,
+  styleURL: `${window.location.origin}/css/umo-editor-next.css`,
 }
 ```
 
@@ -52,7 +52,7 @@ export: {
 
 **说明**：导出 HTML 格式文档。
 
-**参数**：
+**参数**：`{ externalCSS, injectCSS, externalJS, injectJS, withWrapper, showBreakMarks, download, filename }`
 
 - `externalCSS`：`Array`，外部 CSS 文件 URL 路径数组，需为可访问的完整 URL，默认值为 `[]`。
 - `injectCSS`：`Array`，内联 CSS 样式数组，默认值为 `[]`。
@@ -61,5 +61,6 @@ export: {
 - `withWrapper`：`Boolean`，是否包含外层容器，即是否包含页面背景等元素，默认值为 `true`。
 - `showBreakMarks`：`Boolean`，是否显示换行标记，默认值为 `true`。
 - `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 
-**返回值**：`string`，导出 HTML 字符串。
+**返回值**：`string | undefined`，`download` 为 `true` 时，返回 `undefined`，否则返回导出的 HTML 字符串。

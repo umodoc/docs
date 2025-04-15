@@ -1,0 +1,84 @@
+# Exporting PDF
+
+This feature allows you to export the current document as a PDF format, making it convenient to view or edit in other places.
+
+PDF export function depends on Umo Editor Server, you need to ensure that Umo Editor Server is started.
+
+The exported PDF document has the same display effect as the document when editing, including the display of various nodes and page layout, you can also inject custom CSS styles and JS scripts when exporting, or configure other PDF export options, such as page ranges.
+
+Some scenarios, you can use PDF to do document preview, or display document content in other places, when doing document preview, you can save the PDF through Umo Editor Server in the server, then access it when needed.
+
+## Export Effect Preview
+
+<iframe src="/demos/export-pdf-en.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+## Default Configuration
+
+``` js
+const defaultOptions = {
+  // Document export related configuration
+  export: {
+    styleURL: '',
+    serverURL: '',
+  },
+}
+```
+
+## Configuration Description
+
+### export
+
+- `export.styleURL`
+
+**Description**：The URL of the style file when exporting documents, the style file defines the styles used when exporting documents, usually after running `npm run build`, the style is `dist/style.css`, you can configure the style file URL to `styleURL`, of course you can also place the style file in other locations, then configure this item to the correct URL path.
+
+Note: This item must be configured, otherwise it will not be exported. And `styleURL` cannot be a relative path or absolute path, must be a complete URL, otherwise it may cause the style to fail to load in other places, resulting in the document not being displayed correctly.
+
+**Type**：String
+
+**Default Value**：`''`
+
+**Example**：
+
+``` js
+export: {
+  styleURL: `${window.location.origin}/css/umo-editor-next.css`,
+}
+```
+
+- `export.serverURL`
+
+**Description**：Export PDF when Umo Editor Server URL, Umo Editor Server provides PDF export API, you need to ensure that Umo Editor Server is started.
+
+Note: If `export.serverURL` is not configured, then when the user clicks the export PDF button in the toolbar, it will downgrade to use the front-end export.
+
+**Type**：String
+
+**Default Value**：`''`
+
+**Example**：
+
+``` js
+export: {
+  serverURL: 'http://127.0.0.1:1235',
+}
+```
+
+## Method List
+
+### exportPDF
+
+**Description**：Export PDF format document.
+
+**Parameters**：`{ exportHtmlParams, pdfOptions, filename, download }`
+
+- `exportHtmlParams`：`Object`，Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml)。
+- `pdfOptions`：`Object`，Export PDF configuration items, optional, containing the following configuration items:
+  - `pdfOptions.pageRanges`：`String`，Paper ranges to print, e.g. 1-5, 8, 11-13.
+  - `pdfOptions.omitBackground`：`Boolean`，Hides default white background and allows generating pdfs with transparency.
+  - `pdfOptions.scale`：`Number`，Scales the rendering of the web page. Amount must be between 0.1 and 2.
+  - `pdfOptions.timeout`：`Number`，Timeout in milliseconds. Pass 0 to disable timeout.
+- `download`：`Boolean`，Whether to download, default value is `false`.
+- `filename`：`String`，Download file name, without file extension, default uses document name.
+
+**Return Value**：`Blob | undefined`，When `download` is `true`, returns the exported PDF file binary data, when `download` is `true`, returns `undefined`.

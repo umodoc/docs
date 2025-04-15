@@ -9,5 +9,6 @@ export default {
 	chat: 'AI 聊天助手',
 	collaboration: '多人协作编辑',
 	comments: '文档批注/评论',
-	export: '导出为 HTML',
+	'export-html': '导出 HTML',
+	'export-pdf': '导出 PDF',
 };
