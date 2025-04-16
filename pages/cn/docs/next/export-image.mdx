@@ -1,0 +1,81 @@
+# 导出为图片
+
+此功能允许将当前文档导出为图片格式。图片导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 已经启动。
+
+导出效果和文档编辑时的显示效果完全一致，包括各类节点的显示和页面布局等，您也可以在导出时自定义 CSS 样式和 JS 脚本，也可以配置导出图片的其他配置。
+
+使用 Umo Editor Server 导出图片可以避免在客户端生成图片时可能遇到的性能问题，并且可以有效防止因为引用第三方资源而产生的跨域报错等问题。
+
+## 默认配置
+
+``` js
+const defaultOptions = {
+  // 文档导出相关配置
+  export: {
+    styleURL: '',
+    serverURL: '',
+  },
+}
+```
+
+## 不支持的方法
+
+- `getImage`
+
+**说明**：`getImage` 在 Umo Editor Next 中已被废弃，请使用 `exportIMAGE` 替代，见下方方法列表。
+
+## 配置说明
+
+### export
+
+- `export.styleURL`
+
+**说明**：导出文档时，样式文件的 URL，样式文件中定义了导出文档时的样式，通常情况下，在运行 `npm run build` 后，样式为 `dist/style.css`，您可以将样式文件放到其他位置，然后配置此项为正确的 URL 路径。
+
+注意：此项必须配置，否则无法导出。且 `styleURL` 不能是相对路径或绝对路径，必须是可访问的完整 URL，否则可能会导致在其他地方使用时样式无法加载，导致文档将无法正确显示。
+
+**类型**：String
+
+**默认值**：`''`
+
+**示例**：
+
+``` js
+export: {
+  styleURL: `${window.location.origin}/css/umo-editor-next.css`,
+}
+```
+
+- `export.serverURL`
+
+**说明**：导出图片时，Umo Editor Server 的 URL，Umo Editor Server 提供了图片导出的 API，您需要确保 Umo Editor Server 已经启动。
+
+**类型**：String
+
+**默认值**：`''`
+
+**示例**：
+
+``` js
+export: {
+  serverURL: 'http://127.0.0.1:1235',
+}
+```
+
+## 方法列表
+
+### exportIMAGE
+
+**说明**：导出图片格式文档。
+
+**参数**：`{ exportHtmlParams, exportType, imageOptions, filename, download }`
+
+- `exportHtmlParams`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
+- `exportType`：`String`，要导出的图片格式，可选值为 `jpeg`、`png`、`webp`。
+- `imageOptions`：`Object`，导出图片的配置项，可选，包含以下配置项：
+  - `imageOptions.quality`：`Number`，图片质量，取值范围为 0 到 100，`0` 表示最低质量，`100` 表示最高质量，对 `png` 格式无效。
+  - `imageOptions.omitBackground`：`Boolean`，是否隐藏默认的白色背景，设置为 `true` 可以生成背景透明的图片，仅对 `png` 格式有效。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+
+**返回值**：`Blob | undefined`，`download` 为 `true` 时，返回导出的图片文件二进制数据，当 `download` 为 `true` 时，返回 `undefined`。

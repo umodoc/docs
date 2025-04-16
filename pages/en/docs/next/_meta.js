@@ -11,4 +11,5 @@ export default {
 	comments: 'Document Comments',
 	'export-html': 'Export HTML',
 	'export-pdf': 'Export PDF',
+	'export-image': 'Export Image',
 };

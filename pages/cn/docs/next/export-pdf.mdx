@@ -75,7 +75,7 @@ export: {
 - `exportHtmlParams`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
 - `pdfOptions`：`Object`，导出 PDF 的配置项，可选，包含以下配置项：
   - `pdfOptions.pageRanges`：`String`，要打印的纸张范围，例如 1-5, 8, 11-13。
-  - `pdfOptions.omitBackground`：`Boolean`，是否隐藏默认的白色背景，设置为 `true` 可以生成具有透明度的 PDF。
+  - `pdfOptions.omitBackground`：`Boolean`，是否隐藏默认的白色背景，设置为 `true` 可以生成背景透明的 PDF。
   - `pdfOptions.scale`：`Number`，缩放比例，必须介于 0.1 和 2 之间。
   - `pdfOptions.timeout`：`Number`，超时时间，单位为毫秒，`0` 表示不设置超时时间。
 - `download`：`Boolean`，是否下载，默认值为 `false`。

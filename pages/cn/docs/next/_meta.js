@@ -11,4 +11,5 @@ export default {
 	comments: '文档批注/评论',
 	'export-html': '导出 HTML',
 	'export-pdf': '导出 PDF',
+	'export-image': '导出图片',
 };
