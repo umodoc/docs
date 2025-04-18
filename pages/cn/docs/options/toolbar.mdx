@@ -19,6 +19,7 @@ import { Badge } from '/components/badge'
       useCustomMethod: false,
       onCustomImportMethod() {},
     },
+    extensions:[],
   },
 }
 ```
@@ -98,4 +99,38 @@ import { Badge } from '/components/badge'
     },
   ],
 }
+```
+
+
+### toolbar.extensions <Badge theme="success">v6.0.0 新增</Badge>
+**说明**：工具栏菜单分组扩展。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+**举例**
+```js
+extensions: [
+  { name: '公文办公', value: 'office' },
+  { name: 'AI助手', value: 'aihelp' },
+]
+```
+数组下每一个对象都是一个新的分组。
+
+**配置项**
+
+- `name`：分组显示名称。
+- `value`：分组唯一标识，是插槽注入的重要依据。其中不允许和默认分组标识重复。所以不可设置值有`base`、`insert`、`table`、`tools`、`page`、`export`
+
+**插槽配置项**
+插槽设置和标准的工具栏插槽格式相同，其中标识为`#toolbar_{value}` 依据配置项中`value`值的不同来处理。
+**举例**
+```js
+<template #toolbar_office="props">
+  <span>toolbar_office slot：{{ props }}</span>
+</template>
+<template #toolbar_aihelp="props">
+  <span>toolbar_aihelp slot：{{ props }}</span>
+</template>
 ```
