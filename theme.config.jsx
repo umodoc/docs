@@ -110,6 +110,10 @@ export default {
 			</>
 		);
 	},
+	sidebar: {
+		autoCollapse: true,
+		defaultMenuCollapseLevel: 1,
+	},
 	toc: {
 		title() {
 			const router = useRouter();

@@ -1,0 +1,65 @@
+# Method List
+
+In addition to the methods provided by Umo Editor [Method List](../methods), Umo Editor Next also provides the following methods:
+
+## Method Description
+
+The usage method is the same as Umo Editor [Method List](../methods)。
+
+### insertMarkdown
+
+**Description**：Insert Markdown formatted text.
+
+**Parameters**：
+
+- `markdown`，String，Markdown text.
+- `exRules`，object，Markdown extension rules.
+
+**Return Value**：None
+
+### getJSONByMarkdown
+
+**Description**：Convert Markdown text to JSON format data that Umo Editor can recognize.
+
+**Parameters**：
+
+- `markdown`，String，Markdown text.
+- `exRules`，object，Markdown extension rules.
+
+**Return Value**：Valid [Tiptap JSON document format](https://tiptap.dev/docs/editor/guide/output) or `null`.
+
+### startTypewriter
+
+**Description**：Insert content with a typewriter effect.
+
+**Parameters**：
+
+- `content` : `String`，Valid [Tiptap JSON document format](https://tiptap.dev/docs/editor/guide/output)。
+- `options` : 
+  - `timerCount`: `Number`，Typewriter effect interval time.
+  - `state`: `Number`，Typewriter state, optional values are: `0`: start; `1`: refresh; `2`: stop; `3`: restart; `4`: clear typewriter.
+  - `speed`: `Number`，Typewriter effect interval time.
+  - `step`: `Number`，Typewriter step, the number of characters displayed each time.
+
+**Return Value**：None.
+
+### stopTypewriter
+
+**Description**：Stop the typewriter effect.
+
+**Parameters**：None.
+
+**Return Value**：None.
+
+### getTypewriterState
+
+**Description**：Get the running state of the typewriter.
+
+**Parameters**：None.
+
+**Return Value**：
+- `isRunning` :  `Boolean` The running state of the typewriter, `true` means running, `false` means stopped.
+- `content` :  `currentParagraph` The current paragraph position of the typewriter.
+- `content` : `currentTextNode` The current text node position of the paragraph.
+- `content` :  `currentChar` The current character position of the paragraph.
+

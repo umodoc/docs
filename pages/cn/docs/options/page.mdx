@@ -28,10 +28,6 @@ import { Badge } from '/components/badge'
       fontWeight: 'normal',
       text: '',
     },
-    aside: {
-      show: [], 
-      extensions: [],
-    },
   },
 }
 ```
@@ -101,56 +97,3 @@ import { Badge } from '/components/badge'
 - `fontFamily`: `Number`，字体，合法的[CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)值。
 - `fontWeight`: `Sring`，字体粗细，可选值为：`normal`、`bold`、`bolder`。
 - `text`: `String`，水印内容，建议不超过 30 个字符。
-
-
-### page.aside <Badge theme="success">v6.0.0 新增</Badge>
-
-**说明**：侧边栏设置，可以通过[openAside 方法](../methods#openAside)、[closeAside 方法](../methods#closeAside)来动态显示或隐藏页面侧边栏。
-
-**类型**：`Obejct`
-
-**配置项**：
-- `show`: `Array`, 可以展示的侧边栏集合，默认展示当前数组的最后一个值对应的面板。
-- `extensions`:`Array`, 侧边栏扩展配置，可通过此配置动态注入个性化侧边栏
-
-
-**配置项show**
-
-**举例**
-
-```js
-show: [
-  'pagerightonesetting',
-  'chat'
- ]
-```
-依据`show`中值的顺序依次显示。
-
-**配置项extensions**
-
-**举例**
-```js
-extensions: [
-  { title: '个性化设置', key: 'pagerightonesetting' },
-  { title: '对话式查询', key: 'chat' },
- ]
-```
-数组下每一个对象都是一个新的分组。
-
-**配置项**
-
-- `title`：自定义扩展侧边栏的显示名称。
-- `key`：自定义扩展侧边栏的唯一标识，是插槽注入的重要依据。不允许和默认分组标识重复。所以不可设置值有`chatPage`
-
-**插槽配置项**
-插槽设置和标准的工具栏插槽格式相同，其中标识为`#page_aside_{key}` 依据扩展配置项中`key`值来处理。
-**举例**
-```js
-<template #page_aside_pagerightonesetting="props">
-  <span>pagerightonesetting slot：{{ props }}</span>
-</template>
-<template #page_aside_chat="props">
-  <span>chat slot：{{ props }}</span>
-</template>
-```
-

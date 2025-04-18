@@ -1,0 +1,130 @@
+# Page Aside
+
+Page aside (page aside) essentially is a configurable slot, it allows you to add custom content to it to achieve personalized content display, and can also be linked with the toolbar, see [Toolbar Extensions](./toolbar) for details.
+
+## Page Aside Configuration
+
+```js
+const defaultOptions = {
+  // Page aside related configuration
+  page: {
+    aside: {
+      show: [], 
+      extensions: [],
+    },
+  },
+}
+```
+
+## Configuration Description
+
+### page.aside.show 
+
+**Description**：Page aside configuration, you can use `openAside`、`closeAside` methods to dynamically display or hide the page aside.
+
+**Type**：`Array`
+
+**Configuration Items**：
+
+- `show`： `Array`, can display the side panel collection, the default is the last value in the array.
+- `extensions`： `Array`, page aside extension configuration, you can dynamically inject personalized page aside through this configuration.
+
+**Configuration Item Example**
+
+```js
+aside: {
+  show: ['office', 'plugins'], // display the side panel collection in order
+},
+```
+
+### page.aside.extensions 
+
+**Description**：Page aside extension configuration, you can dynamically inject personalized page aside through this configuration.
+
+**Type**：`Array`
+
+**Configuration Items**
+
+- `title`：`String`，custom extension page aside display name.
+- `key`：`String`，custom extension page aside unique identifier, is the important basis for slot injection, must be unique and cannot be duplicated with default group identifier. Values such as chatPage cannot be set.
+
+**Configuration Item Example**
+
+```js
+aside: {
+  extensions: [
+    // Each item in the array represents a new group
+    { title: 'Office Assistant', key: 'office' },
+    { title: 'Extension Plugins', key: 'plugins' },
+  ],
+},
+```
+
+**Slot Configuration Items**
+
+The slot setting is the same as the standard toolbar slot format, the identifier is `#page_aside_{key}` and is processed based on the `key` value in the extension configuration item.
+
+**Slot Example**
+
+```vue
+<template #page_aside_office="props">
+  <span>page_aside_office slot：{{ props }}</span>
+</template>
+<template #page_aside_plugins="props">
+  <span>page_aside_plugins slot：{{ props }}</span>
+</template>
+```
+
+## Page Aside Slot
+
+Through named slots, insert custom content into the page aside.
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #page_aside_office="props">
+      <span>page_aside_office slot：{{ props }}</span>
+    </template>
+    <template #page_aside_plugins="props">
+      <span>page_aside_plugins slot：{{ props }}</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { UmoEditor } from '@umoteam/editor';
+
+  const options = ref({
+    // Configuration items
+    // ...
+    page: {
+      aside: {
+        show: ['office', 'plugins'],
+        extensions: [
+          { title: '办公助手', key: 'office' },
+          { title: '扩展插件', key: 'plugins' },
+        ],
+      },
+    },
+  });
+</script>
+```
+
+## Method List
+
+### openAside
+
+**Description**：Open the page aside panel based on the page aside identifier.
+
+**Parameters**：`extensions[].key`，String，page aside unique identifier.
+
+**Return Value**：None
+
+### closeAside
+
+**Description**：Close the page aside panel based on the page aside identifier.
+
+**Parameters**：`extensions[].key`，String，page aside unique identifier.
+
+**Return Value**：None

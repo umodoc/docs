@@ -131,7 +131,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
-### startTypewriter
+### setContentTypeWriter
 
 **说明**：以打字机效果插入内容。 <Badge theme="success">v6.0.0 新增</Badge>
 
@@ -139,30 +139,10 @@ import { Badge } from '/components/badge'
 
 - `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
 - `options` : 
-  - `speed`: `Number`，打字机效果的间隔时间。
-  - `step`: `Number`，打字机步长，每次打字的显示数量。
+  - `timerCount`: `Number`，打字机效果的间隔时间。
+  - `state`: `Number`，打字机状态，可选值为：`0`:开始；`1`:刷新；`2`:停止；`3`:重新开始；`4`:清空打字机。
 
 **返回值**：无。
-
-### stopTypewriter
-
-**说明**：终止打字机插入内容效果。 <Badge theme="success">v6.0.0 新增</Badge>
-
-**参数**：无。
-
-**返回值**：无。
-
-### getTypewriterState
-
-**说明**：得到打字机的运行状态。 <Badge theme="success">v6.0.0 新增</Badge>
-
-**参数**：无。
-
-**返回值**：
-- `isRunning` :  `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
-- `content` :  `currentParagraph` 当前打字机运行到的段落位置。
-- `content` : `currentTextNode` 当前打字机运行到的段落下的文本节点位置。
-- `content` :  `currentChar` 当前打字机运行到段落下的字符位置。
 
 ### setLocale 
 
@@ -422,43 +402,43 @@ import { Badge } from '/components/badge'
 
 ### insertMarkdown
 
-**说明**：插入Markdown格式文本。<Badge theme="success">v6.0.0 新增</Badge>
+**说明**：插入markdwon格式文本。<Badge theme="success">v6.0.0 新增</Badge>
 
-**参数**：`markData`，String，Markdown文本。
+**参数**：`markData`，String，markdown文本。
 
-**参数**：`exRules`，object，Markdown扩展规则。
+**参数**：`exRules`，object，markdown扩展规则。
 
 **返回值**：无
 
 ### getDocJSONByMarkdown
 
-**说明**：把Markdown格式文本转成 Umo Editor 可识别的JSON结构数据。<Badge theme="success">v6.0.0 新增</Badge>
+**说明**：把markdown文本转成Umo Editor 可识别的JSON格式数据。<Badge theme="success">v6.0.0 新增</Badge>
 
-**参数**：`markData`，String，Markdown文本。
+**参数**：`markData`，String，markdown文本。
 
-**参数**：`exRules`，object，Markdown扩展规则。
+**参数**：`exRules`，object，markdown扩展规则。
 
-**返回值**：Umo Editor 可识别的JSON结构数据/null
+**返回值**：Umo Editor 可识别的JSON格式数据或null
 
 ### openAside
 
-**说明**：打开右侧边栏展示区域。<Badge theme="success">v6.0.0 新增</Badge>
+**说明**：根据右侧面板标识展开右侧面板。<Badge theme="success">v6.0.0 新增</Badge>
 
-**参数**：`key`，String，右侧边栏唯一标识。
+**参数**：`key`，String，右侧面板的唯一标识符。
 
 **返回值**：无
 
 ### closeAside
 
-**说明**：关闭右侧边栏展示区域。<Badge theme="success">v6.0.0 新增</Badge>
+**说明**：根据右侧面板表示关闭右侧面板。<Badge theme="success">v6.0.0 新增</Badge>
 
-**参数**：`key`，String，右侧边栏唯一标识。
+**参数**：`key`，String，右侧面板的唯一标识符。
 
 **返回值**：无
 
 ### openAIChat
 
-**说明** ：打开 AI 聊天助手。 <Badge theme="success">v6.0.0 新增</Badge>
+**说明**：打开右侧Chat聊天框。<Badge theme="success">v6.0.0 新增</Badge>
 
 **参数**：无
 
@@ -466,7 +446,7 @@ import { Badge } from '/components/badge'
 
 ### closeAIChat
 
-**说明** ：关闭 AI 聊天助手。<Badge theme="success">v6.0.0 新增</Badge>
+**说明**：关闭右侧Chat聊天框。<Badge theme="success">v6.0.0 新增</Badge>
 
 **参数**：无
 

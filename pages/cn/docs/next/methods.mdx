@@ -1,0 +1,63 @@
+# 方法列表
+
+除 Umo Editor [方法列表](../methods)中提供的方法外，Umo Editor Next 还提供了以下方法：
+
+## 方法说明
+
+使用方法同 Umo Editor [方法列表](../methods)。
+
+### insertMarkdown
+
+**说明**：插入 Markdown 格式文本。
+
+**参数**：
+
+- `markdown`，String，Markdown 文本。
+- `exRules`，object，Markdown 扩展规则。
+
+**返回值**：无
+
+### getJSONByMarkdown
+
+**说明**：把 Markdown 文本转成 Umo Editor 可识别的 JSON 格式数据。
+
+**参数**：
+
+- `markdown`，String，Markdown 文本。
+- `exRules`，object，Markdown 扩展规则。
+
+**返回值**：Umo Editor 可识别的 JSON 格式数据或 `null` 。
+
+### startTypewriter
+
+**说明**：以打字机效果插入内容。
+
+**参数**：
+- `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+- `options` : 
+  - `timerCount`: `Number`，打字机效果的间隔时间。
+  - `state`: `Number`，打字机状态，可选值为：`0`:开始；`1`:刷新；`2`:停止；`3`:重新开始；`4`:清空打字机。
+  - `speed`: `Number`，打字机效果的间隔时间。
+  - `step`: `Number`，打字机步长，每次打字的显示数量。
+
+**返回值**：无。
+
+### stopTypewriter
+
+**说明**：终止打字机插入内容效果。
+**参数**：无。
+
+**返回值**：无。
+
+### getTypewriterState
+
+**说明**：获取打字机的运行状态。
+
+**参数**：无。
+
+**返回值**：
+- `isRunning` :  `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
+- `content` :  `currentParagraph` 当前打字机运行到的段落位置。
+- `content` : `currentTextNode` 当前打字机运行到的段落下的文本节点位置。
+- `content` :  `currentChar` 当前打字机运行到段落下的字符位置。
+

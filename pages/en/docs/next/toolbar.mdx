@@ -1,0 +1,57 @@
+# Toolbar Extensions
+
+Through toolbar extensions, you can add custom menu groups to the toolbar to achieve personalized toolbar configuration. At the same time, you can also link with the [page aside](../aside) and add custom content in the page aside, or manually control the opening and closing of the toolbar.
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  // Toolbar extension configuration
+  toolbar: {
+    extensions: [],
+  },
+}
+```
+
+## Configuration Description
+
+### toolbar.extensions
+
+**Description**：Toolbar menu group extension.
+
+**Type**：`Array`
+
+**Default Value**：`[]`
+
+**Example**
+
+```js
+extensions: [
+  { title: 'Office Assistant', key: 'office' },
+  { title: 'Extension Plugins', key: 'plugins' },
+]
+```
+
+Each item in the array represents a group.
+
+**Configuration Items**
+
+- `title`：Group display name.
+- `key`：Group unique identifier, is the important basis for slot injection, must be unique and cannot be duplicated with default group identifier. Values such as `base` 、`insert` 、`table` 、`tools` 、`page` 、`export` cannot be set.
+
+**Slot Configuration Items**
+
+The slot setting is the same as the standard toolbar slot format, the identifier is `#toolbar_{key}` and is processed based on the `key` value in the extension configuration item.
+
+Other toolbar slot configurations see [Slot List](../slots)。
+
+**Example**
+
+```vue
+<template #toolbar_office="props">
+  <span>toolbar_office slot：{{ props }}</span>
+</template>
+<template #toolbar_plugins="props">
+  <span>toolbar_plugins slot：{{ props }}</span>
+</template>
+```
