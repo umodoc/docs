@@ -9,66 +9,67 @@ import { Badge } from '/components/badge'
 本次更新经历大约 200 次提交，包含一些破坏性的更新，比如重构状态管理，以更好的支持多实例，并重写了一些方法和组件，新增了若干节点扩展和方法，同时一些配置项也发生了变化，所以本次更新以大版本的形式发布。
 </Callout>
 
-1. 修复标题 1 大小显示异常 @YFLmwh [(#248)](https://github.com/umodoc/editor/issues/248)；
-2. 修复水印文字不能输入空格的问题
-3. `onCustomImportWordMethod` 改为 `toolbar.importWord.onCustomImportMethod`，见[方法列表](./options/toolbar)；
-4. 修复打印文档时，页面不足一页时会多余出一个空页面的问题；
-5. 对于一些频繁的操作添加防抖节流方法，提高响应效率；
-6. 深色主题下页边距标记颜色异常，由 @Mikasa33 在 [(#241)](https://github.com/umodoc/editor/pull/241) 提交；
-7. 调整 AI 助手配置项，见[AI 文档助手](./options/ai)
-8. 大纲节点改为树形结构展示；
-9. 替换原 CodeBlock 扩展，启用新的 CodeBlock 扩展；
-10. 修复当图片节点 id 为 `null` 时，图片预览顺序不正确的问题；
-11. 修复了文档中的一些问题，并重新翻译英文文档；
-12. 修复已完成的待办事项打印时未正确勾选的问题 @48747776 [(#214)](https://github.com/umodoc/editor/issues/214)；
-13. 修复 css * 通配符影响页面其他样式的问题 @kawais [(#215)](https://github.com/umodoc/editor/issues/215)；
-14. 移除了源代码编辑器；
-15. 调整 `getSelectionNode` 方法和 `deleteSelectionNode` 方法，见[方法列表](./methods#getselectionnode)，使其能够在嵌套节点中正确的获取节点，@yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218)；
-16. 修复插入文件时，节点类型未正确按类型正确显示的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
-17. 调整文件相关节点，不再通过自定义节点属性传递 ProseMirror 无法识别的 File 对象；
-18. 修复复制节点时显示“附件”类型的图标发生错误的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
-19. 修复保存方法未正确返回页面信息的问题；
-20. 修复代码块在预览模式下仍然可编辑的问题，同时在预览模式下，代码块不显示菜单栏；
-21. 修复图片在 1:1 等比例缩放时高度仍可自由拖动的问题；
-22. 优化预览模式下的页面显示；
-23. 修复工具栏点击向右滚动时，滚动不完全的问题；
-24. 修改尾随虚拟光标样式，以区别于普通光标，防止造成误解；
-25. 保存提示信息优化，由 @china-wangxu 在 [(#201)](https://github.com/umodoc/editor/pull/201) 提交；
-26. 增加了工具栏按钮显示隐藏控制，部分控制也影响节点浮动按钮，见[工具栏设置](./options/toolbar#toolbardisablemenuitems)；
-27. 调整工具栏的滚动距离，使其更符合预期；
-28. 全屏模式改为仅窗口视口全屏；
-29. 修复列表在某些情况下异常，无法退出的问题，@BOKE2014 [(#158)](https://github.com/umodoc/editor/issues/158)。
-30. 调整换行符扩展及配置；
-31. Gapcursor 样式调整；
-32. 块菜单跟随光标聚焦节点位置；
-33. 添加分栏功能；
-34. NPM 打包包时，包含 types，以更好的支持 TypeScript 类型检查和推导；
-35. 增加了块节点的拖动排序功能，@BOKE2014 [(#163)](https://github.com/umodoc/editor/issues/163)。
-36. 增加日期扩展；
-37. 修复退出演示模式时文档不可编辑的问题；
-38. 演示模式下，文档设为只读模式；
-39. 添加”提及(@)“功能；
-40. 增强“网页”节点功能等；
-41. 添加高亮块功能；
-42. 书签支持配置默认是否显示，见[页面设置](./options/page#pageshowbookmark)，由 @china-wangxu 在 [(#178)](https://github.com/umodoc/editor/pull/178) 提交；
-43. 浏览文件修复流程图使用本地部署时不显示的问题；
-44. 大纲增加拖拽手柄，大纲区域可以拖动调整大小，由 @china-wangxu 在 [(#177)](https://github.com/umodoc/editor/pull/177) 提交；
-45. 删除全局状态管理，改为通过跨组件通信的方式实现，修复多实例时，组件状态相互污染的问题，@Carrie-sxy[#118](https://github.com/umodoc/editor/issues/118)； 
-46. 大纲面板改为通过树形结构显示；
-47. 修改默认 emojis 配置，见[字典配置](./options/dicts#dictsemojis)；
-48. 修复分页符等节点无法通过块菜单删除的问题；
-49. 优化代码块，并修复代码块高亮报错的问题；
-50. 有序列表、无序列表和任务列表支持子列表，有序列表支持多级连续编号；
-51. 从 Word 和 Excel 中粘贴表格时，保留字体颜色，单元格背景、字体对齐等样式；
-52. 增加了添加标签功能；
-53. 增加了若干对外方法，见[方法列表](./methods)；
-54. 修复空文档插入表格不生效的问题，并优化 Placeholder 显示，@china-wangxu [(#165)](https://github.com/umodoc/editor/issues/165)；
-55. 初次加载支持 `showBreakMarks` 设置和水印设置，由 @china-wangxu 在 [(#161)](https://github.com/umodoc/editor/pull/161) 提交；
-56. 修复页面配置不生效的问题，@china-wangxu [(#163)](https://github.com/umodoc/editor/issues/163)。
-57. 修复 iframe 节点拖动大小时可以超过页面宽度的问题；
-58. 锁定部分依赖，防止引起意外错误；
-59. 优化图片节点选中；，@china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157)。
-60. 修复和优化了诸多细节问题。
+1. 文件上传状态不加入历史状态管理中，防止被用户撤销或退回；
+2. 修复标题 1 大小显示异常 @YFLmwh [(#248)](https://github.com/umodoc/editor/issues/248)；
+3. 修复水印文字不能输入空格的问题
+4. `onCustomImportWordMethod` 改为 `toolbar.importWord.onCustomImportMethod`，见[方法列表](./options/toolbar)；
+5. 修复打印文档时，页面不足一页时会多余出一个空页面的问题；
+6. 对于一些频繁的操作添加防抖节流方法，提高响应效率；
+7. 深色主题下页边距标记颜色异常，由 @Mikasa33 在 [(#241)](https://github.com/umodoc/editor/pull/241) 提交；
+8. 调整 AI 助手配置项，见[AI 文档助手](./options/ai)
+9. 大纲节点改为树形结构展示；
+10. 替换原 CodeBlock 扩展，启用新的 CodeBlock 扩展；
+11. 修复当图片节点 id 为 `null` 时，图片预览顺序不正确的问题；
+12. 修复了文档中的一些问题，并重新翻译英文文档；
+13. 修复已完成的待办事项打印时未正确勾选的问题 @48747776 [(#214)](https://github.com/umodoc/editor/issues/214)；
+14. 修复 css * 通配符影响页面其他样式的问题 @kawais [(#215)](https://github.com/umodoc/editor/issues/215)；
+15. 移除了源代码编辑器；
+16. 调整 `getSelectionNode` 方法和 `deleteSelectionNode` 方法，见[方法列表](./methods#getselectionnode)，使其能够在嵌套节点中正确的获取节点，@yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218)；
+17. 修复插入文件时，节点类型未正确按类型正确显示的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
+18. 调整文件相关节点，不再通过自定义节点属性传递 ProseMirror 无法识别的 File 对象；
+19. 修复复制节点时显示“附件”类型的图标发生错误的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
+20. 修复保存方法未正确返回页面信息的问题；
+21. 修复代码块在预览模式下仍然可编辑的问题，同时在预览模式下，代码块不显示菜单栏；
+22. 修复图片在 1:1 等比例缩放时高度仍可自由拖动的问题；
+23. 优化预览模式下的页面显示；
+24. 修复工具栏点击向右滚动时，滚动不完全的问题；
+25. 修改尾随虚拟光标样式，以区别于普通光标，防止造成误解；
+26. 保存提示信息优化，由 @china-wangxu 在 [(#201)](https://github.com/umodoc/editor/pull/201) 提交；
+27. 增加了工具栏按钮显示隐藏控制，部分控制也影响节点浮动按钮，见[工具栏设置](./options/toolbar#toolbardisablemenuitems)；
+28. 调整工具栏的滚动距离，使其更符合预期；
+29. 全屏模式改为仅窗口视口全屏；
+30. 修复列表在某些情况下异常，无法退出的问题，@BOKE2014 [(#158)](https://github.com/umodoc/editor/issues/158)。
+31. 调整换行符扩展及配置；
+32. Gapcursor 样式调整；
+33. 块菜单跟随光标聚焦节点位置；
+34. 添加分栏功能；
+35. NPM 打包包时，包含 types，以更好的支持 TypeScript 类型检查和推导；
+36. 增加了块节点的拖动排序功能，@BOKE2014 [(#163)](https://github.com/umodoc/editor/issues/163)。
+37. 增加日期扩展；
+38. 修复退出演示模式时文档不可编辑的问题；
+39. 演示模式下，文档设为只读模式；
+40. 添加”提及(@)“功能；
+41. 增强“网页”节点功能等；
+42. 添加高亮块功能；
+43. 书签支持配置默认是否显示，见[页面设置](./options/page#pageshowbookmark)，由 @china-wangxu 在 [(#178)](https://github.com/umodoc/editor/pull/178) 提交；
+44. 浏览文件修复流程图使用本地部署时不显示的问题；
+45. 大纲增加拖拽手柄，大纲区域可以拖动调整大小，由 @china-wangxu 在 [(#177)](https://github.com/umodoc/editor/pull/177) 提交；
+46. 删除全局状态管理，改为通过跨组件通信的方式实现，修复多实例时，组件状态相互污染的问题，@Carrie-sxy[#118](https://github.com/umodoc/editor/issues/118)； 
+47. 大纲面板改为通过树形结构显示；
+48. 修改默认 emojis 配置，见[字典配置](./options/dicts#dictsemojis)；
+49. 修复分页符等节点无法通过块菜单删除的问题；
+50. 优化代码块，并修复代码块高亮报错的问题；
+51. 有序列表、无序列表和任务列表支持子列表，有序列表支持多级连续编号；
+52. 从 Word 和 Excel 中粘贴表格时，保留字体颜色，单元格背景、字体对齐等样式；
+53. 增加了添加标签功能；
+54. 增加了若干对外方法，见[方法列表](./methods)；
+55. 修复空文档插入表格不生效的问题，并优化 Placeholder 显示，@china-wangxu [(#165)](https://github.com/umodoc/editor/issues/165)；
+56. 初次加载支持 `showBreakMarks` 设置和水印设置，由 @china-wangxu 在 [(#161)](https://github.com/umodoc/editor/pull/161) 提交；
+57. 修复页面配置不生效的问题，@china-wangxu [(#163)](https://github.com/umodoc/editor/issues/163)。
+58. 修复 iframe 节点拖动大小时可以超过页面宽度的问题；
+59. 锁定部分依赖，防止引起意外错误；
+60. 优化图片节点选中；，@china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157)。
+61. 修复和优化了诸多细节问题。
 
 
 ## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
