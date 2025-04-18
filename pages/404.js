@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 export default function Error404() {
 	const router = useRouter();
 	useEffect(() => {
-		router.push(`/cn/docs`);
+		router.push(`/en/docs`);
 	}, []);
 	return null;
 }
