@@ -131,7 +131,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
-### setContentTypeWriter
+### startTypewriter
 
 **说明**：以打字机效果插入内容。 <Badge theme="success">v6.0.0 新增</Badge>
 
@@ -139,10 +139,30 @@ import { Badge } from '/components/badge'
 
 - `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
 - `options` : 
-  - `timerCount`: `Number`，打字机效果的间隔时间。
-  - `state`: `Number`，打字机状态，可选值为：`0`:开始；`1`:刷新；`2`:停止；`3`:重新开始；`4`:清空打字机。
+  - `speed`: `Number`，打字机效果的间隔时间。
+  - `step`: `Number`，打字机步长，每次打字的显示数量。
 
 **返回值**：无。
+
+### stopTypewriter
+
+**说明**：终止打字机插入内容效果。 <Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：无。
+
+### getTypewriterState
+
+**说明**：得到打字机的运行状态。 <Badge theme="success">v6.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：
+- `isRunning` :  `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
+- `content` :  `currentParagraph` 当前打字机运行到的段落位置。
+- `content` : `currentTextNode` 当前打字机运行到的段落下的文本节点位置。
+- `content` :  `currentChar` 当前打字机运行到段落下的字符位置。
 
 ### setLocale 
 
