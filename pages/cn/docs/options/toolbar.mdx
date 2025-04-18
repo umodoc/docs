@@ -76,6 +76,7 @@ import { Badge } from '/components/badge'
   enabled: true, 
   options: {},
   useCustomMethod: false,
+  onCustomImportMethod: undefined
 }
 ```
 **配置项**：
@@ -85,3 +86,16 @@ import { Badge } from '/components/badge'
 - `useCustomMethod`：是否使用自定义方法导入 Word 文件，可以通过配置该选项，使用自定义导入方法导入 Word 文件，默认为 `false`，如果为 `true`，则使用 `onCustomImportMethod` 方法导入 Word 文档。
 - `onCustomImportMethod`：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `toolbar.importWord.useCustomMethod` 选项为 `true`。
 
+**返回值**：同 [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api) 返回的数据格式，示例如下：
+
+```js
+{
+  value: '<p>Hello world</p>',
+  messages: [
+    {
+      type: 'success', 
+      message: 'Converted 1 paragraph',
+    },
+  ],
+}
+```

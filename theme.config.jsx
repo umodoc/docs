@@ -4,6 +4,24 @@ import pkg from './package.json';
 
 export default {
 	docsRepositoryBase: 'https://github.com/umodoc/docs/tree/main',
+	banner: {
+    key: 'umo-editor-next',
+    content(){
+			const router = useRouter();
+			if(router.locale === 'cn'){
+				return (
+					<a href="/cn/docs/next">
+					  🎉 Umo Editor Next 即将推出，增强了对在线协作、文档批注、历史版本管理、AI 创作、导入导出、表格等功能的支持，了解更多 →
+					</a>
+				)
+			}
+			return (
+				<a href="/en/docs/next">
+				  🎉 Umo Editor Next will be released soon, it focuses on adding or enhancing features such as online collaboration, document comments, document version history management, AI creation, document import/export, and table support. Learn more →
+				</a>
+			)
+    }
+  },
 	head() {
 		const { title, frontMatter } = useConfig();
 		const router = useRouter();

@@ -24,7 +24,9 @@ npm install
 Umo Editor Server does not provide unified configuration options. Some sensitive configurations are set through environment variables. Following the plug-and-play philosophy of Umo Editor, you only need to add an `.env` file in the project root directory and include the environment variable information to quickly start the server. Below is an example of environment variables:
 
 ```bash filename=".env"
-## Service
+NODE_ENV = development
+
+## Server
 PORT = 1235
 SERVER_NAME = Umo Editor Server
 
@@ -42,7 +44,9 @@ DOC_SAVE_INTERVAL = 5000 # Unit: milliseconds
 DEEPSEEK_API_KEY = your-api-key
 DEEPSEEK_API_URL = https://api.deepseek.com/v1
 OPENAI_API_KEY = your-api-key
-OPENAI_API_URL = https://api.moonshot.cn/v1
+OPENAI_API_URL = https://api.openai.com/v1
+MOONSHOT_API_KEY = your-api-key
+MOONSHOT_API_URL = https://api.moonshot.cn/v1
 
 ## Authentication
 JWT_SECRET = your-secret-key

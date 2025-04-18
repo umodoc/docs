@@ -28,6 +28,9 @@ body {
 .nextra-breadcrumb {
 	margin-bottom: 40px;
 }
+.nextra-sidebar-footer {
+	background-color: var(--nextra-bg);
+}
 .nextra-content a:not(._flex) {
 	display: inline-block;
 	margin: 0 0.3rem;
@@ -111,4 +114,8 @@ body {
 	.nextra-search-results {
 		background-color: #fff;
 	}
+}
+html.dark .nextra-toc-footer, 
+html.dark .nextra-sidebar-footer {
+	background-color: rgb(var(--nextra-bg));
 }

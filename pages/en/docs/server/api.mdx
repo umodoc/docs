@@ -13,7 +13,7 @@ A brief description of the currently available interfaces is provided below. For
 `GET /provider`: WebSocket interface, which should be connected via the ws(s):// protocol. Most of the content of this interface is stored and transmitted in binary form. For its configuration and related instructions, please refer to the source code.
 
 ## AI Service Provider Proxy
-`GET | POST /ai/{provider}/{endpoint}`: Dynamically proxies GET and POST requests to different AI service providers (e.g., DeepSeek, OpenAI) based on the `provider` and `endpoint` parameters. This can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response. For specific implementation and usage, please refer to the code comments.
+`GET | POST /ai/{provider}/{endpoint}`: Dynamically proxies GET and POST requests to different AI service providers (e.g., DeepSeek, OpenAI, Moonshot AI) based on the `provider` and `endpoint` parameters. This can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response. For specific implementation and usage, please refer to the code comments.
 
 
 ## Document Export

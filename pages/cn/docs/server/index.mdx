@@ -24,6 +24,8 @@ npm install
 Umo Editor Server 并不提供统一的配置项，部分敏感配置通过环境变量的形式配置。延续了 Umo Editor 开箱即用的思路，您只需要在项目根目录下添加 `.env` 文件并添加环境变量信息即可快速启动，以下是一个环境变量的示例：
 
 ```bash filename=".env"
+NODE_ENV = development
+
 ## 服务相关
 PORT = 1235
 SERVER_NAME = Umo Editor Server
@@ -42,7 +44,9 @@ DOC_SAVE_INTERVAL = 5000 # 单位为毫秒
 DEEPSEEK_API_KEY = your-api-key
 DEEPSEEK_API_URL = https://api.deepseek.com/v1
 OPENAI_API_KEY = your-api-key
-OPENAI_API_URL = https://api.moonshot.cn/v1
+OPENAI_API_URL = https://api.openai.com/v1
+MOONSHOT_API_KEY = your-api-key
+MOONSHOT_API_URL = https://api.moonshot.cn/v1
 
 ## 鉴权相关
 JWT_SECRET = your-secret-key
