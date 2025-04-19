@@ -101,9 +101,9 @@ import { Badge } from '/components/badge'
 
 **默认值**：`true`
 
-### document.enableBlockMenu <Badge theme="success">v1.3.0 新增</Badge>
+### document.enableBlockMenu
 
-**说明**：是否启用块级菜单，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否显示块级菜单。
+**说明**：是否启用块级菜单，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否显示块级菜单。 <Badge theme="success">v1.3.0 新增</Badge>
 
 **类型**：`Boolean`
 
@@ -202,9 +202,9 @@ import { UmoEditor } from '@umoteam/editor'
 </Tabs.Tab>
 </Tabs>
 
-### document.autoSave <Badge theme="success">v1.4.0 新增</Badge> [#autosave]
+### document.autoSave
 
-**说明**：文档自动保存配置，您可以通过[setDocument 方法](/methods#setdocument)来动态设置或修改此配置。
+**说明**：文档自动保存配置，您可以通过[setDocument 方法](/methods#setdocument)来动态设置或修改此配置。 <Badge theme="success">v1.4.0 新增</Badge>
 
 **类型**：`Object`
 
@@ -212,9 +212,9 @@ import { UmoEditor } from '@umoteam/editor'
 - `enabled`: Boolean，是否启用自动保存，默认值为 `true`。
 - `interval`: Number，自动保存的间隔时间，单位为毫秒，默认值为 `300000`（5 分钟）。
 
-### document.editorProps <Badge theme="success">v2.3.0 新增</Badge>
+### document.editorProps
 
-**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps
+**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps 。  <Badge theme="success">v2.3.0 新增</Badge>
 
 **示例**：
 ```js
@@ -234,9 +234,9 @@ import { UmoEditor } from '@umoteam/editor'
 
 **默认值**：`{}`
 
-### document.parseOptions <Badge theme="success">v2.3.0 新增</Badge>
+### document.parseOptions
 
-**说明**：定义[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)解析行为，当你需要解析一个 DOM 节点或者一个原始文本字符串到 ProseMirror 的文档模型时，你可以使用 `document.parseOptions` 来自定义解析过程。更多信息见：https://prosemirror.net/docs/ref/#model.ParseOptions
+**说明**：定义[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)解析行为，当你需要解析一个 DOM 节点或者一个原始文本字符串到 ProseMirror 的文档模型时，你可以使用 `document.parseOptions` 来自定义解析过程。更多信息见：https://prosemirror.net/docs/ref/#model.ParseOptions 。 <Badge theme="success">v2.3.0 新增</Badge>
 
 **类型**：`Object`
 

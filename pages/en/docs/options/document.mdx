@@ -100,9 +100,9 @@ Used to configure the display and behavior of the Umo Editor document area and d
 
 **Default Value**: `true`
 
-### document.enableBlockMenu <Badge theme="success">Added in v1.3.0</Badge>
+### document.enableBlockMenu
 
-**Description**: Whether to enable the block menu. You can dynamically set whether to display the block menu using the [`setDocument`](../methods#setdocument).
+**Description**: Whether to enable the block menu. You can dynamically set whether to display the block menu using the [`setDocument`](../methods#setdocument). <Badge theme="success">Added in v1.3.0</Badge>
 
 **Type**: `Boolean`
 
@@ -200,9 +200,9 @@ import { UmoEditor } from '@umoteam/editor'
 </Tabs.Tab>
 </Tabs>
 
-### document.autoSave <Badge theme="success">Added in v1.4.0</Badge> [#autosave]
+### document.autoSave
 
-**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [`setDocument`](/methods#setdocument).
+**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [`setDocument`](/methods#setdocument). <Badge theme="success">Added in v1.4.0</Badge>
 
 **Type**: `Object`
 
@@ -210,9 +210,9 @@ import { UmoEditor } from '@umoteam/editor'
 - `enabled`: Boolean, whether to enable auto-save. Default value is `true`.
 - `interval`: Number, auto-save interval in milliseconds. Default value is `300000` (5 minutes).
 
-### document.editorProps <Badge theme="success">Added in v2.3.0</Badge>
+### document.editorProps
 
-**Description**: For advanced scenarios, you can pass some configurations to [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) via `document.editorProps`. You can use it to override various editor events or change editor DOM element attributes. More information: https://prosemirror.net/docs/ref/#view.EditorProps
+**Description**: For advanced scenarios, you can pass some configurations to [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) via `document.editorProps`. You can use it to override various editor events or change editor DOM element attributes. More information: https://prosemirror.net/docs/ref/#view.EditorProps . <Badge theme="success">Added in v2.3.0</Badge>
 
 **Example**:
 ```js
@@ -232,9 +232,9 @@ import { UmoEditor } from '@umoteam/editor'
 
 **Default Value**: `{}`
 
-### document.parseOptions <Badge theme="success">Added in v2.3.0</Badge>
+### document.parseOptions
 
-**Description**: Defines [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) parsing behavior. When you need to parse a DOM node or a raw text string into ProseMirror's document model, you can use `document.parseOptions` to customize the parsing process. More information: https://prosemirror.net/docs/ref/#model.ParseOptions
+**Description**: Defines [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) parsing behavior. When you need to parse a DOM node or a raw text string into ProseMirror's document model, you can use `document.parseOptions` to customize the parsing process. More information: https://prosemirror.net/docs/ref/#model.ParseOptions . <Badge theme="success">Added in v2.3.0</Badge>
 
 **Type**: `Object`
 
