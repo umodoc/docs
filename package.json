@@ -1,6 +1,6 @@
 {
 	"name": "umo-editor-docs",
-	"version": "6.0.0",
+	"version": "6.1.0",
 	"description": "Umo Editor Documentation. Umo Editor 文档",
 	"license": "SEE LICENSE IN https://creativecommons.org/licenses/by-nc-sa/4.0",
 	"type": "module",
@@ -10,6 +10,14 @@
 		"url": "https://www.umodoc.com"
 	},
 	"homepage": "https://editor.umodoc.com/en/docs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umodoc/editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/umodoc/editor/issues",
+    "email": "contact@umodoc.com"
+  },
 	"scripts": {
 		"dev": "next -p 9002",
 		"build": "next build",
