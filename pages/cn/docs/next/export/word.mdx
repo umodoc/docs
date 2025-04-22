@@ -6,70 +6,21 @@
 
 ## 方法列表
 
-### exportWord
+### exportDocx
 
 **说明**：导出 Word 文档。
 
-**参数**：`node`: `合法的[Tiptap 文档JSON格式]` 可缺省，当缺省自动读取当前编辑器的所有内容。
+**参数**：`{ content, download, filename, docxOption }`
 
-**参数**：`write`：可缺省，自定义文档下载方法，若未定义，则走默认下载方法。
+- `content`：`合法的[Tiptap 文档 JSON 格式]`，默认为当前编辑器的所有内容。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+- `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
+  - `docxOption.getCustomImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
+    - `src: string` 图片加载读取路径
+    - `id: string` 标记当前图片的唯一标识
+    - `type: string` 需要获取的图片类型，`image` 图片、`echarts` 图表
+    - `node: [Tiptap 文档 JSON 格式]` Tiptap 节点
+  - `docxOption.page.backColor`：`String`，导出文档背景色
 
-**参数**：`docxOption`：控制文档生成过程的配置信息
-
-- `docxOption.getCustomImageBase64`:图片自定义读取方法
-- - **参数**： `src: string` 图片加载读取路径
-
-- - **参数**： `id: string` 标记当前图片的唯一标识
-
-- - **参数**： `type: string` 需要获取的图片类型，`image` 图片、`echarts` 图表
-
-- - **参数**： `node`:[Tiptap 文档JSON格式]的具体单个节点
-
-- - **返回值**： 合法的base64字符串
-
-- `docxOption.download`:文档下载标记 `true`允许下载，此时参数`write`生效，`false`不允许下载，此时方法返回值为`Blob`类型
-
-- `docxOption.filename`: 导出文档名称
-
-- `docxOption.page.backColor`: 导出文档背景色
-
-**示例：标准方法**
-
-``` js
-editorRef.exportWord()
-```
-
-**示例：自定义下载**
-
-``` js
-editorRef.exportWord(null,writeToBrowser,null)
-
- const writeToBrowser = (blob: Blob) => {
-    const filename ='导出文档'
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${filename}.docx`
-    a.click()
-    URL.revokeObjectURL(url)
-  }
- 
-```
-
-**示例：自定义内容**
-
-仅借用插件方法，把`合法的[Tiptap 文档JSON格式]`转成文档
-
-``` js
-  const getCustomImageBase64 = (
-    src: string,
-    id: string,
-    type: string,
-    node: any,
-  ) => {
-    //自定义图片读取方法
-    return null
-  }
-  const docxOption = { getCustomImageBase64 }
-  editorRef.exportWord(JSON, null, docxOption)
-  ```
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。

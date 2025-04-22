@@ -72,13 +72,13 @@ export: {
 
 **说明**：导出图片格式文档。
 
-**参数**：`{ exportHtmlParams, exportType, imageOptions, filename, download }`
+**参数**：`{ htmlOptions, exportType, imageOptions, filename, download }`
 
-- `exportHtmlParams`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
+- `htmlOptions`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
 - `exportType`：`String`，要导出的图片格式，可选值为 `jpeg`、`png`、`webp`。
 - `imageOptions`：`Object`，导出图片的配置项，可选，包含以下配置项：
   - `imageOptions.quality`：`Number`，图片质量，取值范围为 0 到 100，`0` 表示最低质量，`100` 表示最高质量，对 `png` 格式无效。
 - `download`：`Boolean`，是否下载，默认值为 `false`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 
-**返回值**：`Blob | undefined`，`download` 为 `true` 时，返回导出的图片文件二进制数据，当 `download` 为 `true` 时，返回 `undefined`。
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。

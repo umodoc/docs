@@ -68,15 +68,15 @@ export: {
 
 **说明**：导出 PDF 格式文档。
 
-**参数**：`{ exportHtmlParams, pdfOptions, filename, download }`
+**参数**：`{ htmlOptions, pdfOptions, filename, download }`
 
-- `exportHtmlParams`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
+- `htmlOptions`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
 - `pdfOptions`：`Object`，导出 PDF 的配置项，可选，包含以下配置项：
   - `pdfOptions.timeout`：`Number`，超时时间，单位为毫秒，`0` 表示不设置超时时间。
 - `download`：`Boolean`，是否下载，默认值为 `false`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 
-**返回值**：`Blob | undefined`，`download` 为 `true` 时，返回导出的 PDF 文件二进制数据，当 `download` 为 `true` 时，返回 `undefined`。
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
 
 
 

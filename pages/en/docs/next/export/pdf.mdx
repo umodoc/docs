@@ -68,12 +68,12 @@ export: {
 
 **Description**：Export PDF format document.
 
-**Parameters**：`{ exportHtmlParams, pdfOptions, filename, download }`
+**Parameters**：`{ htmlOptions, pdfOptions, filename, download }`
 
-- `exportHtmlParams`：`Object`，Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml)。
+- `htmlOptions`：`Object`，Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml)。
 - `pdfOptions`：`Object`，Export PDF configuration items, optional, containing the following configuration items:
   - `pdfOptions.timeout`：`Number`，Timeout in milliseconds. Pass 0 to disable timeout.
-- `download`：`Boolean`，Whether to download, default value is `false`.
+- `download`：`Boolean`，Whether to download, default value is `false`。
 - `filename`：`String`，Download file name, without file extension, default uses document name.
 
-**Return Value**：`Blob | undefined`，When `download` is `true`, returns the exported PDF file binary data, when `download` is `true`, returns `undefined`.
+**Return Value**：`Blob | undefined`，When `download` is `false`, returns `Blob`, when `download` is `true`, returns `undefined`.
