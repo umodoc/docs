@@ -5,6 +5,16 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://editor.umodoc.com/cn/docs/next/changelog
 
+## 🚀  v6.1.1 <Badge>2025-04-23</Badge>
+
+1. Add `showToc` and `showLineNumber` configuration items, see [Configuration Items](./options/page);
+2. Roll back the modification of node alignment, which fixes the issue where node alignment fails [#254](https://github.com/umodoc/editor/issues/254) [#259](https://github.com/umodoc/editor/issues/259);
+3. Optimize typing machine related methods, submitted by @china-wangxu in [(#260)](https://github.com/umodoc/editor/issues/260);
+4. Fix the issue where pasting and inserting images would automatically scroll to the start position, submitted by @china-wangxu in [(#258)](https://github.com/umodoc/editor/issues/258);
+5. Fix the issue where ordered list uppercase sorting does not take effect [#257](https://github.com/umodoc/editor/issues/257).
+
+## 🚀  v6.1.0 <Badge>2025-04-22</Badge>
+
 1. Lock version dependencies to prevent errors caused by inconsistent `prosemirror-model` versions @BOKE2014 [(#257)](https://github.com/umodoc/editor/issues/257);
 2. Add bubble menu for link nodes;
 3. Fix the issue where when file extensions are not fully matched, alignment fails @liushiji123 [(#254)](https://github.com/umodoc/editor/issues/254)；
