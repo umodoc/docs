@@ -12,6 +12,10 @@ Some scenarios, you can use PDF to do document preview, or display document cont
 
 <iframe src="/demos/export-pdf-en.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
 
+## About Fonts
+
+When exporting PDF, if some fonts are not displayed correctly, please check whether these fonts are installed on the server. If not installed, the system will automatically replace them with similar fonts. To ensure the correct display of the document, please make sure that all [configured fonts](../../options/dicts#dictsfonts) are installed on the server.
+
 ## Default Configuration
 
 ``` js
@@ -30,13 +34,13 @@ const defaultOptions = {
 
 - `export.styleURL`
 
-**Description**：The URL of the style file when exporting documents, the style file defines the styles used when exporting documents, usually after running `npm run build`, the style is `dist/style.css`, you can configure the style file URL to `styleURL`, of course you can also place the style file in other locations, then configure this item to the correct URL path.
+**Description**: The URL of the style file when exporting documents, the style file defines the styles used when exporting documents, usually after running `npm run build`, the style is `dist/style.css`. You can configure the style file URL to `styleURL`. Of course, you can also place the style file in other locations, then configure this item to the correct URL path.
 
-**Type**：String
+**Type**: String
 
-**Default Value**：`''`
+**Default Value**: `''`
 
-**Example**：
+**Example**:
 
 ``` js
 export: {
@@ -46,15 +50,15 @@ export: {
 
 - `export.serverURL`
 
-**Description**：Export PDF when Umo Editor Server URL, Umo Editor Server provides PDF export API, you need to ensure that Umo Editor Server is started.
+**Description**: When exporting PDF, the URL of Umo Editor Server. Umo Editor Server provides a PDF export API, you need to ensure that Umo Editor Server is started.
 
 Note: If `export.serverURL` is not configured, then when the user clicks the export PDF button in the toolbar, it will downgrade to use the front-end export.
 
-**Type**：String
+**Type**: String
 
-**Default Value**：`''`
+**Default Value**: `''`
 
-**Example**：
+**Example**:
 
 ``` js
 export: {
@@ -66,14 +70,14 @@ export: {
 
 ### exportPDF
 
-**Description**：Export PDF format document.
+**Description**: Export PDF format document.
 
-**Parameters**：`{ htmlOptions, pdfOptions, filename, download }`
+**Parameters**: `{ htmlOptions, pdfOptions, filename, download }`
 
-- `htmlOptions`：`Object`，Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml)。
-- `pdfOptions`：`Object`，Export PDF configuration items, optional, containing the following configuration items:
-  - `pdfOptions.timeout`：`Number`，Timeout in milliseconds. Pass 0 to disable timeout.
-- `download`：`Boolean`，Whether to download, default value is `false`。
-- `filename`：`String`，Download file name, without file extension, default uses document name.
+- `htmlOptions`: `Object`, Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml).
+- `pdfOptions`: `Object`, Export PDF configuration items, optional, containing the following configuration items:
+  - `pdfOptions.timeout`: `Number`, Timeout in milliseconds. Pass 0 to disable timeout.
+- `download`: `Boolean`, Whether to download, default value is `false`.
+- `filename`: `String`, Download file name, without file extension, default uses document name.
 
-**Return Value**：`Blob | undefined`，When `download` is `false`, returns `Blob`, when `download` is `true`, returns `undefined`.
+**Return Value**: `Blob | undefined`, When `download` is `false`, returns `Blob`, when `download` is `true`, returns `undefined`.

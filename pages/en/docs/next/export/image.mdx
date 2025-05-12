@@ -10,6 +10,10 @@ Using Umo Editor Server to export images can avoid the performance issues that m
 
 <img src="/demos/export-image-en.png" alt="Export Image" width="400" style={{ margin: '1.5rem auto 0' }} />
 
+## About Fonts
+
+When exporting images, if some fonts are not displayed correctly, please check whether these fonts are installed on the server. If not installed, the system will automatically replace them with similar fonts. To ensure the correct display of the document, please make sure that all [configured fonts](../../options/dicts#dictsfonts) are installed on the server.
+
 ## Default Configuration
 
 ``` js
@@ -26,7 +30,7 @@ const defaultOptions = {
 
 - `getImage`
 
-**Description**：`getImage` has been deprecated in Umo Editor Next, please use `exportImage` instead, see the method list below.
+**Description**: `getImage` has been deprecated in Umo Editor Next, please use `exportImage` instead, see the method list below.
 
 ## Configuration Description
 
@@ -34,15 +38,15 @@ const defaultOptions = {
 
 - `export.styleURL`
 
-**Description**：When exporting a document, the URL of the style file, the style file defines the styles used when exporting the document, usually after running `npm run build`, the style is `dist/style.css`, you can place the style file in other locations, then configure this item to the correct URL path.
+**Description**: When exporting a document, the URL of the style file, the style file defines the styles used when exporting the document, usually after running `npm run build`, the style is `dist/style.css`. You can place the style file in other locations, then configure this item to the correct URL path.
 
-**Note**：This item must be configured, otherwise it cannot be exported. And `styleURL` cannot be a relative path or absolute path, must be a complete URL, otherwise it may cause the style to fail to load in other places, resulting in the document not being displayed correctly.
+**Note**: This item must be configured, otherwise it cannot be exported. And `styleURL` cannot be a relative path or absolute path, must be a complete URL, otherwise it may cause the style to fail to load in other places, resulting in the document not being displayed correctly.
 
-**Type**：String
+**Type**: String
 
-**Default Value**：`''`
+**Default Value**: `''`
 
-**Example**：
+**Example**:
 
 ``` js
 export: {
@@ -52,13 +56,13 @@ export: {
 
 - `export.serverURL`
 
-**Description**：When exporting an image, the URL of Umo Editor Server, Umo Editor Server provides an API for exporting images, you need to ensure that Umo Editor Server is started.
+**Description**: When exporting an image, the URL of Umo Editor Server, Umo Editor Server provides an API for exporting images, you need to ensure that Umo Editor Server is started.
 
-**Type**：String
+**Type**: String
 
-**Default Value**：`''`
+**Default Value**: `''`
 
-**Example**：
+**Example**:
 
 ``` js
 export: {
@@ -70,15 +74,15 @@ export: {
 
 ### exportImage
 
-**Description**：Export image format document.
+**Description**: Export image format document.
 
-**Parameters**：`{ htmlOptions, exportType, imageOptions, filename, download }`
+**Parameters**: `{ htmlOptions, exportType, imageOptions, filename, download }`
 
-- `htmlOptions`：`Object`，Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml)。
-- `exportType`：`String`，The image format to export, optional values are `jpeg`、`png`、`webp`。
-- `imageOptions`：`Object`，Export image configuration items, optional, containing the following configuration items:
-  - `imageOptions.quality`：`Number`，Image quality, the value range is 0 to 100, Not applicable to `png` format.
-- `download`：`Boolean`，Whether to download, default value is `false`。
-- `filename`：`String`，Download file name, without file extension, default uses document name.
+- `htmlOptions`: `Object`, Generate HTML parameters, optional, see [`exportHTML`](./export-html#exporthtml).
+- `exportType`: `String`, The image format to export, optional values are `jpeg`, `png`, `webp`.
+- `imageOptions`: `Object`, Export image configuration items, optional, containing the following configuration items:
+  - `imageOptions.quality`: `Number`, Image quality, the value range is 0 to 100, Not applicable to `png` format.
+- `download`: `Boolean`, Whether to download, default value is `false`.
+- `filename`: `String`, Download file name, without file extension, default uses document name.
 
-**Return Value**：`Blob | undefined`，When `download` is `false`, returns `Blob`, when `download` is `true`, returns `undefined`.
+**Return Value**: `Blob | undefined`, When `download` is `false`, returns `Blob`, when `download` is `true`, returns `undefined`.

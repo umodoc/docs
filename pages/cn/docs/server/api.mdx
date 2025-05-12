@@ -2,21 +2,23 @@
 
 Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor Next 的能力，在开发环境下，您可以启动项目后，通过 http://127.0.0.1:1235/docs 访问 Swagger 文档。
 
-目前提供的接口简要说明如下，更详细的信息请查看 Swagger 文档和代码注释。
+目前提供的接口简要说明如下，更详细的信息请查看接口文档和代码注释。
 
 ## 检查服务状态
 
-`GET /`：返回服务是否正在运行的信息，如果无法访问该路由，则代表服务可能未启动或服务异常。
+- `GET /`：返回服务是否正在运行的信息，如果无法访问该路由，则代表服务可能未启动或服务异常。
+
+## 接口文档
+- `GET /docs`：接口文档，用于查看和测试接口，该接口在生产环境下不可用。
 
 ## 协作编辑、文档批注等
 
-`GET /provider`：WebSocket 接口，应通过 ws(s):// 协议连接，该接口的大部分内容是以二进制的形式存储和传输。其配置和相关说明等见源代码。
+- `GET /provider`：WebSocket 接口，应通过 ws(s):// 协议连接，该接口的大部分内容是以二进制的形式存储和传输。其配置和相关说明等见源代码。
 
 ## AI 服务商代理
-`GET | POST /ai/{provider}/{endpoint}`：根据 provider 和 endpoint 参数动态代理 GET 请求到不同的 AI 服务商（如 DeepSeek、OpenAI、Moonshot AI 等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回响应结果。具体实现和使用方式请参考代码注释。
+- `GET | POST /ai/{provider}/{endpoint}`：根据 provider 和 endpoint 参数动态代理 GET 请求到不同的 AI 服务商（如 DeepSeek、OpenAI、Moonshot AI 等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回响应结果。具体实现和使用方式请参考代码注释。
 
 ## 文档导出
 
-`POST /export/pdf`：将文档导出为 PDF 格式。
-
-`POST /export/image/:type`：将文档导出为图片格式，支持 `jpeg`、`png`、`webp` 格式图片的导出。
+- `POST /export/pdf`：将文档导出为 PDF 格式。
+- `POST /export/image/:type`：将文档导出为图片格式，支持 `jpeg`、`png`、`webp` 格式图片的导出。

@@ -1,16 +1,16 @@
 # Basic Introduction
 
-Umo Editor Server is a companion server-side software developed to enhance certain features of Umo Editor Next, such as multi-user online collaborative editing, document comments, and document import/export. If you have purchased the [commercial license](../next/buy) for Umo Editor Next, you can use Umo Editor Server for free under the terms of the [Umo Team Commercial Software License Agreement](../next/license).
+Umo Editor Server is a companion server-side software developed to enhance some features of Umo Editor Next, such as multi-user online collaborative editing, document comments, document import/export, etc. If you have already purchased the [commercial license](../next/buy) for Umo Editor Next, you can use Umo Editor Server for free under the [Umo Team Commercial Software License Agreement](../next/license).
 
-Umo Editor Server is a Node.js server-side software implemented based on [Express](https://expressjs.com/). Its primary function is to enhance the capabilities of Umo Editor Next through HTTP or WebSocket interfaces, and supports private deployment.
+Umo Editor Server is a Nodejs server-side software based on [Express](https://expressjs.com/?hl=zh-CN). Its main function and purpose is to enhance the capabilities of Umo Editor Next through HTTP or WebSocket interfaces, supporting private deployment.
 
-Umo Editor Server is not distributed as an NPM package. After obtaining the [commercial license](../next/buy), you can directly pull the source code from the private repository and modify or deploy it as needed.
+Umo Editor Server is not distributed as an NPM package. After obtaining a [commercial license](../next/buy), you can directly pull the source code from the private repository and modify and deploy it as needed.
 
-## Starting the Project
+## Start the Project
 
 ### 1. Clone the Official Repository
 ```bash
-git clone <Path to the official private repository of Umo Editor Server>
+git clone <Umo Editor Server official private repository URL>
 ```
 
 ### 2. Install NPM Dependencies
@@ -21,35 +21,32 @@ npm install
 
 ### 3. Configure Environment Variables
 
-Umo Editor Server does not provide unified configuration options. Some sensitive configurations are set through environment variables. Following the plug-and-play philosophy of Umo Editor, you only need to add an `.env` file in the project root directory and include the environment variable information to quickly start the server. Below is an example of environment variables:
+Umo Editor Server does not provide unified configuration items. Some sensitive configurations are set through environment variables. Continuing the philosophy of Umo Editor's out-of-the-box experience, you only need to add a `.env` file in the project root directory and add environment variable information to quickly start. Here is an example of environment variables:
 
 ```bash filename=".env"
 NODE_ENV = development
 
-## Server
+## Service related
 PORT = 1235
 SERVER_NAME = Umo Editor Server
 
-## Logging
+## Log related
 LOG_DIR = ./logs
 
-## Database
+## Database related
 SQLITE_DB_PATH = ./db
 SQLITE_DB_NAME = umo-editor-server.sqlite
 
-## Collaboration
+## Collaboration related
 DOC_SAVE_INTERVAL = 5000 # Unit: milliseconds
 
-## AI
+## AI related
 DEEPSEEK_API_KEY = your-api-key
 DEEPSEEK_API_URL = https://api.deepseek.com/v1
 OPENAI_API_KEY = your-api-key
 OPENAI_API_URL = https://api.openai.com/v1
 MOONSHOT_API_KEY = your-api-key
 MOONSHOT_API_URL = https://api.moonshot.cn/v1
-
-## Authentication
-JWT_SECRET = your-secret-key
 ```
 
 You can also copy this information directly from `.env.example`.
@@ -61,12 +58,15 @@ npm run dev
 ```
 
 ### 5. All Set
-
-After completing the above steps, you have successfully started Umo Editor Server. Visit http://127.0.0.1:1235/docs to view the Swagger documentation.
+ 
+After the above steps, you have successfully started Umo Editor Server. Visit http://127.0.0.1:1235/docs to view the Swagger documentation.
 
 ## Development Notes
 
-- For scenarios such as multi-user collaborative editing and document comments, Umo Editor Server provides detailed configurations and hook methods. By default, it uses SQLite to store data (different documents should use different document IDs). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For detailed instructions, refer to the code comments.
-- You can deploy Umo Editor Server as a standalone service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication](./server/auth)). If needed, please implement it yourself.
-- Umo Editor Server provides the ability to log local files by default, but you can also extend this functionality as needed.
-- If you need to perform secondary development, the source code contains extensive and detailed comments that should be very helpful to you.
+- For scenarios such as multi-user collaborative editing and document comments, Umo Editor Server provides detailed configuration and hook methods. By default, SQLite is used to store data (please use different document IDs for different documents). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For details, see the code comments.
+- You can deploy Umo Editor Server as a separate service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication Instructions](./server/auth)). If needed, please implement it yourself.
+- If you need secondary development, the source code provides a large number of detailed comments that should be very helpful to you.
+
+## Deployment Notes
+- In an environment that supports `nodejs`, you can directly run the project using `npm run production`. This command provides the ability to use the `[pm2](https://pm2.io/)` daemon and record logs.
+- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed.
