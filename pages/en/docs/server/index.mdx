@@ -61,6 +61,16 @@ npm run dev
  
 After the above steps, you have successfully started Umo Editor Server. Visit http://127.0.0.1:1235/docs to view the Swagger documentation.
 
+## Whitelist Configuration
+
+Umo Editor Server provides whitelist configuration capability. If a whitelist is configured, access requests not in the whitelist will be denied.
+
+You can add a `WHITE_LIST` environment variable in the `.env` file. The value of this environment variable is a comma-separated string, where each string represents an IP address or domain name ([URL hostname](https://developer.mozilla.org/en-US/docs/Web/API/URL/hostname) format, no protocol or port required), for example:
+
+```bash filename=".env"
+WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
+```
+
 ## Development Notes
 
 - For scenarios such as multi-user collaborative editing and document comments, Umo Editor Server provides detailed configuration and hook methods. By default, SQLite is used to store data (please use different document IDs for different documents). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For details, see the code comments.
