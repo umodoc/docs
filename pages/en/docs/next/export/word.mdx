@@ -16,9 +16,9 @@ The exported Word document is in `docx` format, you can open and edit it in Micr
 - `download`：`Boolean`，Whether to download, default value is `true`.
 - `filename`：`String`，Download file name, without file extension, default uses document name.
 - `docxOption`：Control the document generation process configuration information, optional, containing the following configuration items:
-  - `docxOption.getCustomImageBase64`：`Async Function`，Custom image reading method, returns a valid `base64` string. Optional, containing the following parameters:
-    - `src: string` Image loading reading path
+  - `docxOption.getImageBase64`：`Async Function`，Custom image reading method, returns a valid `base64` string. Optional, containing the following parameters:
     - `id: string` Mark the unique identifier of the current image
+    - `src: string` Image loading reading path
     - `type: string` The type of the image to be retrieved, `image` image, `echarts` chart
     - `node: [Tiptap JSON document]` Tiptap node
   - `docxOption.page.backColor`：`String`，Export document background color
