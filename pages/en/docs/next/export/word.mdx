@@ -13,7 +13,7 @@ The exported Word document is in `docx` format, you can open and edit it in Micr
 **Parameters**：`{ content, download, filename, docxOption }`
 
 - `content`：`[Tiptap JSON document]`，default value is the content of the current editor.
-- `download`：`Boolean`，Whether to download, default value is `false`.
+- `download`：`Boolean`，Whether to download, default value is `true`.
 - `filename`：`String`，Download file name, without file extension, default uses document name.
 - `docxOption`：Control the document generation process configuration information, optional, containing the following configuration items:
   - `docxOption.getCustomImageBase64`：`Async Function`，Custom image reading method, returns a valid `base64` string. Optional, containing the following parameters:

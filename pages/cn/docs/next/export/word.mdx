@@ -13,7 +13,7 @@
 **参数**：`{ content, download, filename, docxOption }`
 
 - `content`：`合法的[Tiptap 文档 JSON 格式]`，默认为当前编辑器的所有内容。
-- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `download`：`Boolean`，是否下载，默认值为 `true`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 - `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
   - `docxOption.getCustomImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
