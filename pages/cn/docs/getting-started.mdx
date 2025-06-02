@@ -1,4 +1,4 @@
-import { Callout } from 'nextra/components'
+import { Callout, Tabs } from 'nextra/components'
 
 # 快速开始
 
@@ -82,7 +82,52 @@ app.mount('#app');
 
 ### 在 Nuxt3 中使用
 
-Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<client-only>` 组件来保证 Umo Editor 在客户端渲染和使用。
+<Tabs items={['方法1：使用 Nuxt 模块', '方法2：直接引入']}>
+<Tabs.Tab>
+
+#### 安装
+
+```bash
+npx nuxi module add @umoteam/umo-editor-nuxt
+# 或
+npm i @umoteam/umo-editor-nuxt
+```
+
+#### 使用
+
+1. 安装和配置 `@umoteam/umo-editor-nuxt` 模块
+
+```ts filename="nuxt.config.ts"
+export default defineNuxtConfig({
+  modules: ['@umoteam/umo-editor-nuxt'],
+  umoEditor: {
+    // 全局配置项，默认配置见：
+    // https://editor.umodoc.com/cn/docs/options/default
+    locale: 'en-US',
+  },
+})
+```
+
+2. 使用 Umo Editor 组件
+
+```vue
+<template>
+  <div style="height: 600px;">
+    <UmoEditor v-bind="options" />
+  </div>
+</template>
+
+<script setup>
+const options = ref({
+    // 配置项，见:
+    // https://editor.umodoc.com/cn/docs/options/default
+})
+</script>
+```
+</Tabs.Tab>
+<Tabs.Tab>
+
+Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<client-only>` 组件或其他方式来保证 Umo Editor 在客户端渲染和使用。
 
 ```vue {2,4} filename="component.vue"
 <template>
@@ -100,6 +145,10 @@ Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<clien
   });
 </script>
 ```
+
+更多使用方式参考 [使用](#使用)。
+</Tabs.Tab>
+</Tabs>
 
 ## 配置
 
