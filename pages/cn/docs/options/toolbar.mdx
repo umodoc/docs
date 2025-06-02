@@ -15,6 +15,7 @@ import { Badge } from '/components/badge'
     disableMenuItems: [],
     importWord: {
       enabled: true,
+      maxSize: 1024 * 1024 * 5, // 5MB
       options: {},
       useCustomMethod: false,
       onCustomImportMethod() {},
@@ -74,6 +75,7 @@ import { Badge } from '/components/badge'
 ```js
 {
   enabled: true, 
+  maxSize: 1024 * 1024 * 5, // 5MB
   options: {},
   useCustomMethod: false,
   onCustomImportMethod: undefined
@@ -82,6 +84,7 @@ import { Badge } from '/components/badge'
 **配置项**：
 
 - `enabled`：是否启用导入 Word 文件功能，默认为 `true`。
+- `maxSize`：可导入的文件大小限制，单位为字节(B)，默认为 5MB，不建议设置过大，避免导入后的性能问题。<Badge theme="danger">v6.2.0 新增</Badge>
 - `options`：Mammoth 的配置项 (options)，详情请见 [Mammoth](https://www.npmjs.com/package/mammoth#api)。
 - `useCustomMethod`：是否使用自定义方法导入 Word 文件，可以通过配置该选项，使用自定义导入方法导入 Word 文件，默认为 `false`，如果为 `true`，则使用 `onCustomImportMethod` 方法导入 Word 文档。
 - `onCustomImportMethod`：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `toolbar.importWord.useCustomMethod` 选项为 `true`。
