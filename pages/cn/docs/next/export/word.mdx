@@ -13,12 +13,12 @@
 **参数**：`{ content, download, filename, docxOption }`
 
 - `content`：`合法的[Tiptap 文档 JSON 格式]`，默认为当前编辑器的所有内容。
-- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `download`：`Boolean`，是否下载，默认值为 `true`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 - `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
-  - `docxOption.getCustomImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
-    - `src: string` 图片加载读取路径
+  - `docxOption.getImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
     - `id: string` 标记当前图片的唯一标识
+    - `src: string` 图片加载读取路径
     - `type: string` 需要获取的图片类型，`image` 图片、`echarts` 图表
     - `node: [Tiptap 文档 JSON 格式]` Tiptap 节点
   - `docxOption.page.backColor`：`String`，导出文档背景色
