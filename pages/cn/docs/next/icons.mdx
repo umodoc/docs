@@ -1,0 +1,42 @@
+# 插入图标
+
+在 Umo Editor Next 中，您可以方便快捷的插入各类图标，图标库默认采用 [IconPark](https://iconpark.oceanengine.com/official)，提供了 2000 多个图标和自定义选项，您也可以自定义图标或者扩展图标。
+
+## 效果截图
+
+![Umo Editor Icons](/demos/icons-cn.png)
+
+## 图标相关配置
+
+```js
+const defaultOptions = {
+  // 页边栏相关配置
+  icons: {
+    serverURL: '',
+    defaultLineWidth: 4
+  },
+}
+```
+
+## 配置项说明
+
+### icons.serverURL
+
+**说明**：图标列表的 API 接口请求地址。
+
+**类型**：`String`
+
+**配置项示例**
+
+```js
+icons: {
+  // 在使用 Umo Editor Server 时，本地开发的 API 接口可配置为：
+  serverURL: 'http://127.0.0.1:1235/icons',
+},
+```
+
+### icons.defaultLineWidth
+
+**说明**：图标默认的默认线条宽度。
+
+**类型**：`Number`

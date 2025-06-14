@@ -13,5 +13,6 @@ export default {
 	comments: '文档批注/评论',
 	export: '文档导出',
 	import: '文档导入',
+	icons: '插入图标',
 	methods: '方法列表',
 };

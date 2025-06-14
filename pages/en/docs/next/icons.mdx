@@ -1,0 +1,42 @@
+# Insert Icons
+
+In Umo Editor Next, you can easily insert a wide variety of icons. By default, the icon library uses [IconPark](https://iconpark.oceanengine.com/official), which offers over 2,000 icons and customization options. You can also add your own icons or extend the icon set as needed.
+
+## Example Screenshot
+
+![Umo Editor Icons](/demos/icons-en.png)
+
+## Icon Configuration
+
+```js
+const defaultOptions = {
+  // Sidebar related configuration
+  icons: {
+    serverURL: '',
+    defaultLineWidth: 4
+  },
+}
+```
+
+## Configuration Details
+
+### icons.serverURL
+
+**Description**: The API endpoint for fetching the icon list.
+
+**Type**: `String`
+
+**Example**
+
+```js
+icons: {
+  // When using Umo Editor Server, you can set the local API endpoint for development as:
+  serverURL: 'http://127.0.0.1:1235/icons',
+},
+```
+
+### icons.defaultLineWidth
+
+**Description**: The default line width for icons.
+
+**Type**: `Number`
