@@ -10,21 +10,7 @@ export default {
 	demo: {
 		title: 'Playground',
 		type: 'page',
-		href: 'https://demo.umodoc.com/editor?lang=en-US',
+		href: 'https://umodoc.com/en/demo',
 		newWindow: true
-	},
-	versions: {
-    title: 'Versions',
-    type: 'menu',
-    items: {
-      v4: {
-        title: 'v4.x',
-        href: 'https://v4.editor.umodoc.com/en/docs'
-      },
-      latest: {
-        title: 'Latest',
-        href: '/en/docs'
-      }
-    }
-  }
+	}
 };
