@@ -6,7 +6,7 @@ This project is the online documentation for Umo Editor, which can be accessed d
 
 Umo Editor is an open-source document editor, based on Vue3. It provides comprehensive document editing capabilities, supports Markdown syntax, basic rich-text editing features, a variety of node types in multiple formats, various practical tools, page style settings, export in multiple formats, printing and print preview, document block editing, custom extension addition, i18n setting, and dark mode support.
 
-[Website](https://umodoc.coms) | [Documentation](https://editor.umodoc.com/en/docs) | [Live Demo](https://umodoc.com/en/demo) | [GitHub](https://github.com/umodoc/editor) | [NPM](https://www.npmjs.com/package/@umodoc/editor)
+[Website](https://umodoc.com/en) | [Documentation](https://editor.umodoc.com/en/docs) | [Live Demo](https://umodoc.com/en/demo) | [GitHub](https://github.com/umodoc/editor) | [NPM](https://www.npmjs.com/package/@umodoc/editor)
 
 ## Open Source License
 
