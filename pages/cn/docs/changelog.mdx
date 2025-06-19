@@ -5,6 +5,25 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next 的更新日志请访问：https://editor.umodoc.com/cn/docs/next/changelog
 
+## 🎉  v7.0.0 <Badge>2025-06-23</Badge>
+1. [Umo Editor Next 7.0.0](./next/changelog.mdx) 正式版同步发布 🎉🎉🎉，详见：[Umo Editor Next 基础介绍](./next)；
+2. 增加模态展示时选中效果判断，当 AI 助手焦点在模态输入框时，选中效果仍然存在；
+3. AI 助手替换后自动给替换文本增加选中效果；
+4. 修复模态框通过组件引用时，样式丢失的问题；
+5. 修复 [`setPage`](./methods#setpage) 方法设置页面大小时的意外错误;
+6. 修复文档内容为空时，有序列表和无序列表渲染不正确的问题 @vCloudSail [#273](https://github.com/umodoc/editor/issues/273)；
+7. 文档内容支持包含 `\n` 特殊字符的内容换行；
+8. 修复文档中的链接打开无效的问题；
+9. Word 文档导入时，文件大小可配置 [#276](https://github.com/umodoc/editor/issues/276) [#279](https://github.com/umodoc/editor/issues/279)；
+10. 修复引入 `prosemirror-state` 依赖不存在的问题，改为从 `@tiptap/pm/state` 获取，由 @ChenErik 在 [(#281)](https://github.com/umodoc/editor/pull/281) 提交；
+11. 选中块失焦文本选中区域不正确的问题 #236 由 @ChenErik 在 [(#281)](https://github.com/umodoc/editor/pull/281) 提交；
+12. 修复 implicitly has an any type 错误 [#287](https://github.com/umodoc/editor/issues/287)；
+13. 修复配置为 `locale: "en-US"` 不生效的问题，[#290](https://github.com/umodoc/editor/issues/290)；
+14. 菜单项位置调整；
+15. 增强对 Typescript 的支持；
+16. 修复 Mention 扩展中 popup 定位与选择项显示问题 [#291](https://github.com/umodoc/editor/issues/291)；
+17. 修复 Tdesign vue next 中的 `.flex-center` 样式可能会污染全局样式的问题 [#292](https://github.com/umodoc/editor/issues/292)；
+
 ## 🚀  v6.1.1 <Badge>2025-04-23</Badge>
 
 1. 添加 `showToc` 和 `showLineNumber` 配置项等，见 [页面配置](./options/page)；

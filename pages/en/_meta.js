@@ -7,6 +7,12 @@ export default {
 		title: 'Documention',
 		type: 'page'
 	},
+	website: {
+		title: 'Website',
+		type: 'page',
+		href: 'https://umodoc.com/en',
+		newWindow: true
+	},
 	demo: {
 		title: 'Playground',
 		type: 'page',
