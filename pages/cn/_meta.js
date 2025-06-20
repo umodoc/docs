@@ -1,17 +1,13 @@
 export default {
-	index: {
-		title: '首页',
-		display: 'hidden'
+	home: {
+		title: '主页',
+		type: 'page',
+		href: 'https://umodoc.com',
+		newWindow: true
 	},
 	docs: {
 		title: '开发文档',
 		type: 'page'
-	},
-	website: {
-		title: '官网',
-		type: 'page',
-		href: 'https://umodoc.com',
-		newWindow: true
 	},
 	demo: {
 		title: '在线示例',

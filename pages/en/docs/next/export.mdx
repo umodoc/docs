@@ -1,0 +1,158 @@
+# Document Export
+
+This feature allows you to export content from Umo Editor as Word, PDF, HTML, image files, and more, while preserving the original formatting. We are actively improving this feature, especially the Word export functionality.
+
+## Example Configuration
+
+```js
+const defaultOptions = {
+  // Document export related configuration
+  export: {
+    styleURL: '',
+    serverURL: '',
+  },
+}
+```
+
+## Configuration Details
+
+### export.styleURL
+
+**Description:**
+
+The URL of the stylesheet used when exporting documents. This file defines the styles for exported documents. Typically, after running `npm run build`, the stylesheet is located at `dist/style.css`. You can move the stylesheet elsewhere and set this option to the correct URL.
+
+**Note:**
+
+This option is required for export to work properly. `styleURL` must be a fully accessible URL, not a relative or absolute path. Otherwise, styles may not load correctly and exported documents may not display as intended.
+
+**Type:** `String`
+
+**Default:** `''`
+
+**Example:** `${window.location.origin}/umo-editor-next/style.css`
+
+### export.serverURL
+
+**Description:**
+
+When exporting certain files, you need to set the correct Umo Editor Server URL. The server provides export APIs. Make sure the server is running, or implement your own export logic on the backend. Just set this to the correct URL.
+
+**Type:** `String`
+
+**Default:** `''`
+
+**Example:** `http://127.0.0.1:1235`
+
+## Methods
+
+### exportDocx
+
+**Description:**
+
+Export the content of Umo Editor as a Word document. Most node types and page configurations are supported, and we are continuously improving this feature.
+
+The exported file is in `docx` format, which can be opened and edited in Microsoft Word and similar software.
+
+**Parameters:** `{ content, download, filename, docxOption }`
+
+- `content`: Valid [Tiptap document JSON format]. Defaults to all content in the editor, or you can specify a subset.
+- `download`: `Boolean`, whether to download the file. Default is `true`.
+- `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
+- `docxOption`: Options for document generation (optional), including:
+  - `docxOption.getImageBase64`: `Async Function`, custom image loader, returns a valid base64 string. Parameters:
+    - `id: string` Unique identifier for the image
+    - `src: string` Image source path
+    - `type: string` Type of image: `image` or `echarts`
+    - `node: [Tiptap document JSON format]` Tiptap node
+  - `docxOption.page.backColor`: `String`, background color for the exported document
+
+**Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.
+
+### exportPDF
+
+**Description:**
+
+Export the current document as a PDF for easy viewing or editing elsewhere.
+
+PDF export requires Umo Editor Server to be running.
+
+The exported PDF looks exactly like the document in the editor, including all nodes and page layout. You can also customize CSS and JS, and configure other PDF export options such as page range.
+
+In some scenarios, you can use PDF for document preview or display elsewhere. You can save the PDF on the server and access it via URL when needed.
+
+**Parameters:** `{ htmlOptions, pdfOptions, filename, download }`
+
+- `htmlOptions`: `Object`, parameters for generating HTML (optional), see [`exportHTML`](#exporthtml).
+- `pdfOptions`: `Object`, PDF export options (optional), including:
+  - `pdfOptions.timeout`: `Number`, timeout in milliseconds. `0` means no timeout.
+- `download`: `Boolean`, whether to download the file. Default is `false`.
+- `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
+
+**Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.
+
+**Export Example:**
+
+<iframe src="/demos/export-pdf-en.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+---
+
+### exportHTML
+
+**Description:**
+
+Export the document as HTML for use elsewhere, or directly as an HTML file.
+
+The exported file is standalone, so you can open it in a browser or embed it in another HTML page. The styles match those in the editor.
+
+You can also inject custom CSS and JS when exporting HTML.
+
+**Parameters:** `{ externalCSS, injectCSS, externalJS, injectJS, withWrapper, showBreakMarks, download, filename }`
+
+- `externalCSS`: `Array`, URLs of external CSS files (must be fully accessible). Default: `[]`.
+- `injectCSS`: `Array`, inline CSS styles. Default: `[]`.
+- `externalJS`: `Array`, URLs of external JS files (must be fully accessible). Default: `[]`.
+- `injectJS`: `Array`, inline JS scripts. Default: `[]`.
+- `withWrapper`: `Boolean`, include outer container (background, etc). Default: `true`.
+- `showBreakMarks`: `Boolean`, show break marks. Default: `true`.
+- `download`: `Boolean`, whether to download the file. Default: `false`.
+- `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
+
+**Return Value:** `string | undefined`. Returns the exported HTML string if `download` is `false`, otherwise returns `undefined`.
+
+**Export Example:**
+
+<iframe src="/demos/export-html-en.html" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+---
+
+### exportImage
+
+**Description:**
+
+Export the current document as an image. This feature requires Umo Editor Server to be running.
+
+The exported image looks exactly like the document in the editor, including all nodes and page layout. You can also customize CSS and JS, and configure other image export options.
+
+Using the server for image export avoids client-side performance issues and cross-origin errors from third-party resources.
+
+**Parameters:** `{ htmlOptions, exportType, imageOptions, filename, download }`
+
+- `htmlOptions`: `Object`, parameters for generating HTML (optional), see [`exportHTML`](./export-html#exporthtml).
+- `exportType`: `String`, image format to export (`jpeg`, `png`, `webp`).
+- `imageOptions`: `Object`, image export options (optional), including:
+  - `imageOptions.quality`: `Number`, image quality (0-100, 0 = lowest, 100 = highest, not applicable to `png`).
+- `download`: `Boolean`, whether to download the file. Default: `false`.
+- `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
+
+**Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.
+
+**Export Example:**
+
+<img src="/demos/export-image-en.png" alt="Export Example" width="400" style={{ margin: '1.5rem auto 0' }} />
+
+---
+
+## About Fonts
+
+When exporting images, if some fonts do not display correctly, please check whether the required fonts are installed on the server. If not, the system will automatically substitute similar fonts. To ensure correct document display, make sure all [configured fonts](../../options/dicts#dictsfonts) are installed on the server.

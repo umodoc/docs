@@ -10,8 +10,8 @@ export default {
 	chat: 'AI 聊天助手',
 	collaboration: '多人协作编辑',
 	comments: '文档批注/评论',
-	export: '文档导出',
 	import: '文档导入',
+	export: '文档导出',
 	icons: '插入图标',
 	methods: '方法列表',
 };

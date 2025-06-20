@@ -1,0 +1,156 @@
+# 文档导出
+
+此功能允许将 Umo Editor 中的内容导出为 Word、PDF、HTML、图片等文件并保留原格式。我们正在积极完善该功能，尤其是针对 Word 导出功能的优化。
+
+## 配置项示例
+
+```js
+const defaultOptions = {
+  // 文档导出的相关配置项
+  export: {
+    styleURL: '',
+    serverURL: '',
+  },
+}
+```
+
+## 配置项说明
+
+### export.styleURL
+
+**说明**：
+
+导出文档时，样式文件的 URL，样式文件中定义了导出文档时的样式，通常情况下，在运行 `npm run build` 后，样式为 `dist/style.css`，您可以将样式文件放到其他位置，然后配置此项为正确的 URL 路径。
+
+**注意**：
+
+此项必须配置，否则无法正常导出。且 `styleURL` 不能是相对路径或绝对路径，必须是可访问的完整 URL，否则可能会导致在其他地方使用时样式无法加载，导致导出后的文档将无法正确显示。
+
+**类型**：`String`
+
+**默认值**：`''`
+
+**示例**：`${window.location.origin}/umo-editor-next/style.css`
+
+### export.serverURL
+
+**说明**：在导出部分文件时，需要正确的配置 Umo Editor Server 的 URL，Umo Editor Server 提供了相关导出的 API，您需要确保 Umo Editor Server 已经启动，当然您也可以在服务端自行实现导出功能，这里填写正确的 URL 即可。
+
+**类型**：`String`
+
+**默认值**：`''`
+
+**示例**：`http://127.0.0.1:1235`
+
+## 方法列表
+
+### exportDocx
+
+**说明**：
+
+此功能允许将 Umo Editor 中的文档内容导出为 Word 文档。导出 Word 文档的功能目前支持绝大部分的节点类型和页面配置等，我们会逐步完善该功能。
+
+导出的 Word 文档为 `docx` 格式，您可以在 Microsoft Word 或者 WPS Office 等办公软件中打开和编辑。
+
+**参数**：`{ content, download, filename, docxOption }`
+
+- `content`：`合法的[Tiptap 文档 JSON 格式]`，默认为当前编辑器的所有内容，您也可以通过修改此项导出部分内容。
+- `download`：`Boolean`，是否下载，默认值为 `true`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+- `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
+  - `docxOption.getImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
+    - `id: string` 标记当前图片的唯一标识
+    - `src: string` 图片加载读取路径
+    - `type: string` 需要获取的图片类型，`image` 图片、`echarts` 图表
+    - `node: [Tiptap 文档 JSON 格式]` Tiptap 节点
+  - `docxOption.page.backColor`：`String`，导出文档背景色
+
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
+
+### exportPDF
+
+**说明**：
+
+此功能允许将当前文档导出为 PDF 格式，方便在其他地方查看或编辑。
+
+PDF 导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 已经启动。
+
+导出效果和文档编辑时的显示效果 **完全一致**，包括各类节点的显示和页面布局等，您也可以在导出时自定义 CSS 样式和 JS 脚本，也可以配置导出 PDF 的其他配置，如导出的页面范围等。
+
+某些场景下，您可以使用 PDF 来做文档预览，或者在其他地方展示文档内容，做文档预览时，您可以将 PDF 通过 Umo Editor Server 保存在服务器端，然后在需要的时候，通过 URL 访问即可。
+
+**参数**：`{ htmlOptions, pdfOptions, filename, download }`
+
+- `htmlOptions`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](#exporthtml)。
+- `pdfOptions`：`Object`，导出 PDF 的配置项，可选，包含以下配置项：
+  - `pdfOptions.timeout`：`Number`，超时时间，单位为毫秒，`0` 表示不设置超时时间。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
+
+**导出效果**：
+
+<iframe src="/demos/export-pdf-cn.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+---
+
+### exportHTML
+
+**说明**：
+
+此功能允许您获取文档的 HTML 格式，方便在其他地方查看，您也可以将文档直接导出为 HTML 格式的文件。
+
+导出的文件可以脱离 Umo Editor 使用，这意味着您可以将导出的 HTML 文档直接在浏览器中打开或者嵌入到其他 HTML 页面中，样式与编辑器中的样式一致。
+
+在导出 HTML 文档时，您也可以注入自定义的 CSS 样式和 JS 脚本。
+
+**参数**：`{ externalCSS, injectCSS, externalJS, injectJS, withWrapper, showBreakMarks, download, filename }`
+
+- `externalCSS`：`Array`，外部 CSS 文件 URL 路径数组，需为可访问的完整 URL，默认值为 `[]`。
+- `injectCSS`：`Array`，内联 CSS 样式数组，默认值为 `[]`。
+- `externalJS`：`Array`，外部 JS 文件 URL 路径数组，需为可访问的完整 URL，默认值为 `[]`。
+- `injectJS`：`Array`，内联 JS 脚本数组，默认值为 `[]`。
+- `withWrapper`：`Boolean`，是否包含外层容器，即是否包含页面背景等元素，默认值为 `true`。
+- `showBreakMarks`：`Boolean`，是否显示换行标记，默认值为 `true`。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+
+**返回值**：`string | undefined`，`download` 为 `false` 时，返回导出的 HTML 字符串，当 `download` 为 `true` 时，返回 `undefined`。
+
+**导出效果**：
+
+<iframe src="/demos/export-html-cn.html" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+---
+
+### exportImage
+
+**说明**：
+
+此功能允许将当前文档导出为图片格式。图片导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 已经启动。
+
+导出效果和文档编辑时的显示效果完全一致，包括各类节点的显示和页面布局等，您也可以在导出时自定义 CSS 样式和 JS 脚本，也可以配置导出图片的其他配置。
+
+使用 Umo Editor Server 导出图片可以避免在客户端生成图片时可能遇到的性能问题，并且可以有效防止因为引用第三方资源而产生的跨域报错等问题。
+
+**参数**：`{ htmlOptions, exportType, imageOptions, filename, download }`
+
+- `htmlOptions`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
+- `exportType`：`String`，要导出的图片格式，可选值为 `jpeg`、`png`、`webp`。
+- `imageOptions`：`Object`，导出图片的配置项，可选，包含以下配置项：
+  - `imageOptions.quality`：`Number`，图片质量，取值范围为 0 到 100，`0` 表示最低质量，`100` 表示最高质量，对 `png` 格式无效。
+- `download`：`Boolean`，是否下载，默认值为 `false`。
+- `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
+
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
+
+**导出效果**：
+
+<img src="/demos/export-image-cn.png" alt="导出效果" width="400" style={{ margin: '1.5rem auto 0' }} />
+
+---
+
+## 关于字体的说明
+
+在导出图片时，如果某些字体未能正常显示，请检查服务器上是否已安装这些字体。若未安装，系统将自动替换为相似的字体。为了确保文档的正确显示，请确保服务器上安装了所有[配置的字体](../../options/dicts#dictsfonts)。

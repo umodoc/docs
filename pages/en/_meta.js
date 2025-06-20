@@ -1,17 +1,13 @@
 export default {
-	index: {
+	website: {
 		title: 'Home',
-		display: 'hidden'
+		type: 'page',
+		href: 'https://umodoc.com/en',
+		newWindow: true
 	},
 	docs: {
 		title: 'Documention',
 		type: 'page'
-	},
-	website: {
-		title: 'Website',
-		type: 'page',
-		href: 'https://umodoc.com/en',
-		newWindow: true
 	},
 	demo: {
 		title: 'Playground',

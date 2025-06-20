@@ -10,7 +10,8 @@ export default {
 	chat: 'AI Chat Assistant',
 	collaboration: 'Collaborative',
 	comments: 'Comments',
-	export: 'Export',
 	import: 'Import',
+	export: 'Export',
+	icons: 'Insert Icons',
 	methods: 'Methods',
 };

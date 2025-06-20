@@ -1,3 +1,4 @@
+import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
 # Toolbar Configuration
@@ -66,6 +67,10 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
 
 ### toolbar.importWord
 
+<Callout type="error" emoji="❗">
+**Note:** In Umo Editor Next version, the `toolbar.importWord` configuration option has been removed. Please use the `import.docx` configuration option instead. See [Umo Editor Next - Document Import](../next/import).
+</Callout>
+
 **Description**: Configuration related to importing Word documents. <Badge theme="success">Added in v3.1.0</Badge>
 
 **Type**: `Object`
@@ -84,7 +89,7 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
 **Options**:
 
 - `enabled`: Whether to enable the Word file import feature. Default is `true`.
-- `maxSize`: The file size limit for imports, in bytes (B). Default is 5MB. Not recommended to set too large to avoid performance issues after import. <Badge theme="danger">Added in v6.2.0</Badge>
+- `maxSize`: The file size limit for imports, in bytes (B). Default is 5MB. Not recommended to set too large to avoid performance issues after import. <Badge theme="success">Added in v7.0.0</Badge>
 - `options`: Configuration options for Mammoth. For details, see [Mammoth](https://www.npmjs.com/package/mammoth#api).
 - `useCustomMethod`: Whether to use a custom method to import Word files. By configuring this option, you can use a custom method to import Word files. Default is `false`. If set to `true`, the `onCustomImportMethod` method will be used to import Word documents.
 - `onCustomImportMethod`: Custom import Word document method, if you want to use a custom import method, you need to configure the `toolbar.importWord.useCustomMethod` option to `true`.

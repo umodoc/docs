@@ -1,0 +1,156 @@
+import { Callout } from 'nextra/components'
+
+# Document Import
+
+This feature allows you to import files such as Word, Markdown, and plain text documents into the Umo Editor.
+
+## Example Configuration
+
+```js {2-7}
+const defaultOptions = {
+  // The toolbar.importWord option has been removed. Please use import.docx instead.
+  toolbar: {
+    importWord: {
+      // ...
+    },
+  },
+  // Document import related configuration
+  import: {
+    docx: {
+      enabled: true,
+      maxSize: 1024 * 1024 * 5, // 5MB
+      options: {},
+      useCustomMethod: false,
+      async onCustomImportMethod() {
+        return await new Promise((_, reject) => {
+          reject(
+            new Error(
+              'Key "import": Key "docx": Key "onCustomImportMethod": Please set the onCustomImportMethod method',
+            ),
+          )
+        })
+      },
+    },
+    markdown: {
+      enabled: true,
+      options: {},
+    },
+    text: {
+      enabled: true,
+      replaceEmptyLines: false,
+    },
+  },
+}
+```
+<Callout type="error" emoji="❗">
+**Note:** In Umo Editor Next, the `toolbar.importWord` option has been removed. Please use the `import.docx` option instead.
+</Callout>
+
+## Configuration Details
+
+### import.docx
+
+**Description:** Configuration for importing Word documents.
+
+**Type:** `Object`
+
+**Default Value:**
+
+```js
+{
+  enabled: true,
+  maxSize: 1024 * 1024 * 5, // 5MB
+  options: {},
+  useCustomMethod: false,
+  onCustomImportMethod: undefined,
+}
+```
+
+**Options:**
+
+- `enabled`: Enable Word file import. Default is `true`.
+- `maxSize`: Maximum file size allowed (in bytes). Default is 5MB. Setting this too high may affect performance.
+- `options`: Options for Mammoth. See [Mammoth](https://www.npmjs.com/package/mammoth#api) for details.
+- `useCustomMethod`: Use a custom method to import Word files. If set to `true`, the `onCustomImportMethod` will be used. Default is `false`.
+- `onCustomImportMethod`: Custom method for importing Word documents. To use this, set `toolbar.importWord.useCustomMethod` to `true`.
+
+**Return Value:** Same as [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api). Example:
+
+```js
+{
+  value: '<p>Hello world</p>',
+  messages: [
+    {
+      type: 'success',
+      message: 'Converted 1 paragraph',
+    },
+  ],
+}
+```
+
+### import.markdown
+
+**Description:** Configuration for importing Markdown documents.
+
+**Type:** `Object`
+
+**Default Value:**
+
+```js
+{
+  enabled: true,
+  options: {},
+}
+```
+
+**Options:**
+
+- `enabled`: Enable Markdown file import. Default is `true`.
+- `options`: Options for MarkdownIt. See: https://markdown-it.github.io/markdown-it/#MarkdownIt.new
+
+## Methods
+
+### importDocx
+
+**Description:** Import a Word document.
+
+**Parameters:**
+
+- `file`: File object, the Word document.
+- `options`: Object, Mammoth options. See: https://www.npmjs.com/package/mammoth#api. Defaults to `import.docx.options`.
+
+**Return Value:** `Boolean`, whether the import was successful.
+
+### importMarkdown
+
+**Description:** Import Markdown content.
+
+**Parameters:**
+
+- `markdown`: Markdown content.
+- `options`: Object, MarkdownIt options. See: https://markdown-it.github.io/markdown-it/#MarkdownIt.new. Defaults to `import.markdown.options`.
+
+**Return Value:** `Boolean`, whether the import was successful.
+
+### importText
+
+**Description:** Import plain text content.
+
+**Parameters:**
+
+- `text`: String, the text content.
+- `replaceEmptyLines`: Boolean, whether to replace empty lines. Defaults to `import.text.replaceEmptyLines`.
+
+**Return Value:** `Boolean`, whether the import was successful.
+
+## Markdown Syntax Extension
+
+### Highlight Block
+
+Use `:::` to mark the start and end of a highlight block.
+
+```
+:::info
+Content inside the highlight block
+:::
+```
