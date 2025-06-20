@@ -1,5 +1,5 @@
 export default {
-	website: {
+	home: {
 		title: 'Home',
 		type: 'page',
 		href: 'https://umodoc.com/en',
