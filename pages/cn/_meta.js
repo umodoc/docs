@@ -1,4 +1,8 @@
 export default {
+	index: {
+		title: '首页',
+		display: 'hidden'
+	},
 	home: {
 		title: '主页',
 		type: 'page',

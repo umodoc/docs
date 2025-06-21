@@ -1,4 +1,8 @@
 export default {
+	index: {
+		title: 'index',
+		display: 'hidden'
+	},
 	home: {
 		title: 'Home',
 		type: 'page',
