@@ -387,16 +387,6 @@ import { Badge } from '/components/badge'
 
 **返回值**：`Boolean`，是否删除成功。
 
-### getDocJSONByMarkdown
-
-**说明**：把markdown文本转成Umo Editor 可识别的JSON格式数据。<Badge theme="success">v6.0.0 新增</Badge>
-
-**参数**：`markData`，String，markdown文本。
-
-**参数**：`exRules`，object，markdown扩展规则。
-
-**返回值**：Umo Editor 可识别的JSON格式数据或null
-
 ### openAside
 
 **说明**：根据右侧面板标识展开右侧面板。<Badge theme="success">v6.0.0 新增</Badge>
@@ -428,6 +418,39 @@ import { Badge } from '/components/badge'
 **参数**：无
 
 **返回值**：无
+
+### startTypewriter
+
+**说明**：以打字机效果插入内容。<Badge theme="success">v7.0.0 新增</Badge>
+
+**参数**：
+- `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+- `options` : 
+  - `speed`: `Number`，打字机效果的间隔时间。
+  - `step`: `Number`，打字机步长，每次打字的显示数量,为了效果，建议不超过10。
+  - `onComplete`: `function`，打字机完成后的回调函数。
+
+**返回值**：无。
+
+### stopTypewriter
+
+**说明**：终止打字机插入内容效果。<Badge theme="success">v7.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：无。
+
+### getTypewriterState
+
+**说明**：获取打字机的运行状态。<Badge theme="success">v7.0.0 新增</Badge>
+
+**参数**：无。
+
+**返回值**：
+- `isRunning` :  `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
+- `currentParagraph` :  `Number` 当前打字机运行到的段落位置。
+- `currentTextNode` : `Number` 当前打字机运行到的段落下的文本节点位置。
+- `currentChar` :  `Number` 当前打字机运行到段落下的字符位置。
 
 ### useAlert
 

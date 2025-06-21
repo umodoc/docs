@@ -63,9 +63,12 @@ The exported file is in `docx` format, which can be opened and edited in Microso
   - `docxOption.getImageBase64`: `Async Function`, custom image loader, returns a valid base64 string. Parameters:
     - `id: string` Unique identifier for the image
     - `src: string` Image source path
-    - `type: string` Type of image: `image` or `echarts`
+    - `nodeType: string` Type of image: `image` or `echarts`
     - `node: [Tiptap document JSON format]` Tiptap node
-  - `docxOption.page.backColor`: `String`, background color for the exported document
+  - `docxOption.page.backColor`: `String`, background color for the exported document   `#FFFFFF`
+  - `docxOption.page.orientation`：`String`,export paper orientation ：`landscape` or `portrait`
+  - `docxOption.page.size.height`：`Number`,paper height in paper size, unit`cm`
+  - `docxOption.page.size.width`：`Number`,paper width in paper size, unit`cm`
 
 **Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.
 
