@@ -1,65 +1,159 @@
-# Method List
+# Document Export
 
-In addition to the methods provided by Umo Editor [Method List](../methods), Umo Editor Next also provides the following methods:
+This feature allows you to export content from Umo Editor as Word, PDF, HTML, image, and other file formats while preserving the original formatting. We are actively improving this feature, especially the Word export functionality.
 
-## Method Description
+## Example Configuration
 
-The usage method is the same as Umo Editor [Method List](../methods)。
+```js
+const defaultOptions = {
+  // Configuration options for document export
+  export: {
+    styleURL: '',
+    serverURL: '',
+  },
+}
+```
 
-### insertMarkdown
+## Configuration Options
 
-**Description**：Insert Markdown formatted text.
+### export.styleURL
 
-**Parameters**：
+**Description**:
 
-- `markdown`，String，Markdown text.
-- `exRules`，object，Markdown extension rules.
+The URL of the stylesheet used when exporting documents. The stylesheet defines the styles for the exported document. Typically, after running `npm run build`, the style file is `dist/style.css`. You can place the stylesheet elsewhere and set this option to the correct URL path.
 
-**Return Value**：None
+**Note**:
 
-### getJSONByMarkdown
+This option must be configured, otherwise export will not work properly. The `styleURL` must be a fully accessible URL, not a relative or absolute path. Otherwise, styles may not load when used elsewhere, resulting in incorrectly displayed exported documents.
 
-**Description**：Convert Markdown text to JSON format data that Umo Editor can recognize.
+**Type**: `String`
 
-**Parameters**：
+**Default**: `''`
 
-- `markdown`，String，Markdown text.
-- `exRules`，object，Markdown extension rules.
+**Example**: `${window.location.origin}/umo-editor-next/style.css`
 
-**Return Value**：Valid [Tiptap JSON document format](https://tiptap.dev/docs/editor/guide/output) or `null`.
+### export.serverURL
 
-### startTypewriter
+**Description**: When exporting certain files, you need to correctly configure the URL of the Umo Editor Server. The server provides export-related APIs. Please ensure the Umo Editor Server is running. You can also implement export functionality on your own server; just provide the correct URL here.
 
-**Description**：Insert content with a typewriter effect.
+**Type**: `String`
 
-**Parameters**：
+**Default**: `''`
 
-- `content` : `String`，Valid [Tiptap JSON document format](https://tiptap.dev/docs/editor/guide/output)。
-- `options` : 
-  - `timerCount`: `Number`，Typewriter effect interval time.
-  - `state`: `Number`，Typewriter state, optional values are: `0`: start; `1`: refresh; `2`: stop; `3`: restart; `4`: clear typewriter.
-  - `speed`: `Number`，Typewriter effect interval time.
-  - `step`: `Number`，Typewriter step, the number of characters displayed each time.
+**Example**: `http://127.0.0.1:1235`
 
-**Return Value**：None.
+## Method List
 
-### stopTypewriter
+### exportDocx
 
-**Description**：Stop the typewriter effect.
+**Description**:
 
-**Parameters**：None.
+This feature allows you to export document content from Umo Editor as a Word document. The Word export currently supports most node types and page configurations, and we will continue to improve this feature.
 
-**Return Value**：None.
+The exported Word document is in `docx` format and can be opened and edited in Microsoft Word, WPS Office, and other office software.
 
-### getTypewriterState
+**Parameters**: `{ content, download, filename, docxOption }`
 
-**Description**：Get the running state of the typewriter.
+- `content`: Valid [Tiptap document JSON format]. By default, exports all content in the editor, but you can modify this to export part of the content.
+- `download`: Boolean. Whether to download the file. Default is `true`.
+- `filename`: String. The name of the downloaded file, without extension. Defaults to the document name.
+- `docxOption`: Configuration options for document generation. Optional. Includes:
+  - `docxOption.getImageBase64`: Async Function. Custom image reading method, returns a valid base64 string. Optional. Parameters include:
+    - `id`: String. Unique identifier for the image.
+    - `src`: String. Image loading path.
+    - `nodeType`: String. Type of image to get, `image` for images, `echarts` for charts.
+    - `node`: Tiptap document JSON node.
+  - `docxOption.page.backColor`: String. Background color of the exported document, e.g., `#FFFFFF`.
+  - `docxOption.page.orientation`: String. Page orientation for export, `landscape` for horizontal, `portrait` for vertical.
+  - `docxOption.page.size.height`: Number. Height of the page in centimeters.
+  - `docxOption.page.size.width`: Number. Width of the page in centimeters.
 
-**Parameters**：None.
+**Returns**: `Blob | undefined`. Returns a `Blob` if `download` is `false`, otherwise returns `undefined` when `download` is `true`.
 
-**Return Value**：
-- `isRunning` :  `Boolean` The running state of the typewriter, `true` means running, `false` means stopped.
-- `content` :  `currentParagraph` The current paragraph position of the typewriter.
-- `content` : `currentTextNode` The current text node position of the paragraph.
-- `content` :  `currentChar` The current character position of the paragraph.
+### exportPDF
 
+**Description**:
+
+This feature allows you to export the current document as a PDF file for easy viewing or editing elsewhere.
+
+PDF export relies on the Umo Editor Server, so please ensure the server is running.
+
+The exported PDF will look exactly the same as the document in the editor, including all node types and page layouts. You can also customize CSS styles and JS scripts during export, as well as configure other PDF export options such as page range.
+
+In some scenarios, you can use PDF for document preview or to display content elsewhere. For previews, you can save the PDF on the server via Umo Editor Server and access it via URL when needed.
+
+**Parameters**: `{ htmlOptions, pdfOptions, filename, download }`
+
+- `htmlOptions`: Object. Parameters for generating HTML. Optional. See [`exportHTML`](#exporthtml).
+- `pdfOptions`: Object. PDF export options. Optional. Includes:
+  - `pdfOptions.timeout`: Number. Timeout in milliseconds. `0` means no timeout.
+- `download`: Boolean. Whether to download the file. Default is `false`.
+- `filename`: String. The name of the downloaded file, without extension. Defaults to the document name.
+
+**Returns**: `Blob | undefined`. Returns a `Blob` if `download` is `false`, otherwise returns `undefined` when `download` is `true`.
+
+**Export Example**:
+
+<iframe src="/demos/export-pdf-en.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+---
+
+### exportHTML
+
+**Description**:
+
+This feature allows you to obtain the document in HTML format for viewing elsewhere, or to export the document directly as an HTML file.
+
+The exported file can be used independently of Umo Editor, meaning you can open the exported HTML in a browser or embed it in other HTML pages, with styles consistent with the editor.
+
+You can also inject custom CSS styles and JS scripts when exporting HTML documents.
+
+**Parameters**: `{ externalCSS, injectCSS, externalJS, injectJS, withWrapper, showBreakMarks, download, filename }`
+
+- `externalCSS`: Array. Array of external CSS file URLs. Must be accessible full URLs. Default is `[]`.
+- `injectCSS`: Array. Array of inline CSS styles. Default is `[]`.
+- `externalJS`: Array. Array of external JS file URLs. Must be accessible full URLs. Default is `[]`.
+- `injectJS`: Array. Array of inline JS scripts. Default is `[]`.
+- `withWrapper`: Boolean. Whether to include the outer container (e.g., page background). Default is `true`.
+- `showBreakMarks`: Boolean. Whether to show line break marks. Default is `true`.
+- `download`: Boolean. Whether to download the file. Default is `false`.
+- `filename`: String. The name of the downloaded file, without extension. Defaults to the document name.
+
+**Returns**: `string | undefined`. Returns the exported HTML string if `download` is `false`, otherwise returns `undefined` when `download` is `true`.
+
+**Export Example**:
+
+<iframe src="/demos/export-html-en.html" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+
+---
+
+### exportImage
+
+**Description**:
+
+This feature allows you to export the current document as an image. Image export relies on the Umo Editor Server, so please ensure the server is running.
+
+The exported image will look exactly the same as the document in the editor, including all node types and page layouts. You can also customize CSS styles and JS scripts during export, as well as configure other image export options.
+
+Using Umo Editor Server for image export avoids performance issues on the client and prevents cross-origin errors caused by third-party resources.
+
+**Parameters**: `{ htmlOptions, exportType, imageOptions, filename, download }`
+
+- `htmlOptions`: Object. Parameters for generating HTML. Optional. See [`exportHTML`](./export-html#exporthtml).
+- `exportType`: String. The image format to export. Options: `jpeg`, `png`, `webp`.
+- `imageOptions`: Object. Image export options. Optional. Includes:
+  - `imageOptions.quality`: Number. Image quality, from 0 (lowest) to 100 (highest). Not applicable to `png` format.
+- `download`: Boolean. Whether to download the file. Default is `false`.
+- `filename`: String. The name of the downloaded file, without extension. Defaults to the document name.
+
+**Returns**: `Blob | undefined`. Returns a `Blob` if `download` is `false`, otherwise returns `undefined` when `download` is `true`.
+
+**Export Example**:
+
+<img src="/demos/export-image-en.png" alt="Export Example" width="400" style={{ margin: '1.5rem auto 0' }} />
+
+---
+
+## About Fonts
+
+When exporting images, if some fonts do not display correctly, please check whether these fonts are installed on the server. If not, the system will automatically substitute similar fonts. To ensure correct document display, please make sure all [configured fonts](../../options/dicts#dictsfonts) are installed on the server.

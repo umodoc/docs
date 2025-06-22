@@ -13,7 +13,7 @@
 **参数**：
 
 - `markdown`，String，Markdown 文本。
-- `exRules`，object，Markdown 扩展规则。
+- `options`，MarkdownIt 的配置项，见：https://markdown-it.github.io/markdown-it/#MarkdownIt.new 。
 
 **返回值**：无
 
@@ -24,7 +24,7 @@
 **参数**：
 
 - `markdown`，String，Markdown 文本。
-- `exRules`，object，Markdown 扩展规则。
+- `exRules`，Object，Markdown 扩展规则。
 
 **返回值**：Umo Editor 可识别的 JSON 格式数据或 `null` 。
 
@@ -33,10 +33,11 @@
 **说明**：以打字机效果插入内容。
 
 **参数**：
-- `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
+
+- `content` : Umo Editor 可识别的 JSON 格式数据。
 - `options` : 
-  - `speed`: `Number`，打字机效果的间隔时间。
-  - `step`: `Number`，打字机步长，每次打字的显示数量,为了效果，建议不超过10。
+  - `speed`: `Number`，打字机文字键入的间隔时间。
+  - `step`: `Number`，打字机步长，每次打字的显示数量，为了保证效果，建议不要过长。
   - `onComplete`: `function`，打字机完成后的回调函数。
 
 **返回值**：无。
@@ -44,6 +45,7 @@
 ### stopTypewriter
 
 **说明**：终止打字机插入内容效果。
+
 **参数**：无。
 
 **返回值**：无。
@@ -55,8 +57,8 @@
 **参数**：无。
 
 **返回值**：
-- `isRunning` :  `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
+
+- `isRunning` :  `Boolean` 当前打字机的运行状态，`true` 表示正在运行，`false` 表示打字机已停止。
 - `currentParagraph` :  `Number` 当前打字机运行到的段落位置。
 - `currentTextNode` : `Number` 当前打字机运行到的段落下的文本节点位置。
 - `currentChar` :  `Number` 当前打字机运行到段落下的字符位置。
-

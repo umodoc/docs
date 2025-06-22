@@ -59,14 +59,14 @@ const defaultOptions = {
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 - `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
   - `docxOption.getImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
-    - `id: string` 标记当前图片的唯一标识
-    - `src: string` 图片加载读取路径
-    - `nodeType: string` 需要获取的图片类型，`image` 图片、`echarts` 图表
-    - `node: [Tiptap 文档 JSON 格式]` Tiptap 节点
-  - `docxOption.page.backColor`：`String`，导出文档背景色 比如  `#FFFFFF`
-  - `docxOption.page.orientation`：`String`,导出纸张方向 `landscape` 横向、`portrait` 纵向
-  - `docxOption.page.size.height`：`Number`,纸张尺寸中的纸张高度，单位`cm`
-  - `docxOption.page.size.width`：`Number`,纸张尺寸中的纸张宽度，单位`cm`
+    - `id`：`String` 标记当前图片的唯一标识。
+    - `src`：`String` 图片加载读取路径。
+    - `nodeType`：`String` 需要获取的图片类型，`image` 图片、`echarts` 图表。
+    - `node`：Tiptap 文档 JSON 格式` Tiptap 节点。
+  - `docxOption.page.backColor`：`String`，导出文档背景色，如  `#FFFFFF`。
+  - `docxOption.page.orientation`：`String`，导出纸张方向，`landscape` 横向、`portrait` 纵向。
+  - `docxOption.page.size.height`：`Number`，纸张尺寸中的纸张高度，单位`cm`。
+  - `docxOption.page.size.width`：`Number`，纸张尺寸中的纸张宽度，单位`cm`。
   
 
 **返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
