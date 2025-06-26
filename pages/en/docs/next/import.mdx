@@ -2,7 +2,7 @@ import { Callout } from 'nextra/components'
 
 # Document Import
 
-This feature allows you to import Umo Editor proprietary document formats, Office and WPS documents (including: doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, etc.), Markdown, and plain text documents into the Umo Editor.
+This feature allows you to import Umo Editor proprietary document formats, Office and WPS documents (including: doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps, etc.), Markdown, and plain text documents into the Umo Editor.
 
 ## Configuration Example
 
@@ -34,7 +34,7 @@ const defaultOptions = {
 
 ### import.office
 
-**Description:** Configuration for importing Office documents, supports importing Office and WPS documents in formats such as doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, etc. You can also extend supported formats.
+**Description:** Configuration for importing Office documents, supports importing Office and WPS documents in formats such as doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps, etc. You can also extend supported formats.
 
 **Type:** `Object`
 
@@ -63,6 +63,18 @@ const defaultOptions = {
 - `enabled`: Enable importing Markdown files, default is `true`.
 - `options`: Configuration for MarkdownIt, see: https://markdown-it.github.io/markdown-it/#MarkdownIt.new .
 
+### import.text
+
+**Description:** Configuration for importing text documents, used to configure text document import functionality.
+
+**Type:** `Object`
+
+**Default:** `{}`
+
+**Options:**
+
+- `replaceEmptyLines`: Whether to replace empty lines in the document, default is `false`.
+
 ## Methods
 
 ### importDocument
@@ -77,7 +89,7 @@ const defaultOptions = {
 
 ### importOffice
 
-**Description:** Import Office documents, supports formats such as doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, etc.
+**Description:** Import Office documents, supports formats such as doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps, etc.
 
 **Parameters:**
 
