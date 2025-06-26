@@ -5,6 +5,7 @@ export default {
 	changelog: '更新日志',
 	roadmap: '开发计划',
 	'getting-started': '快速开始',
+	server: '服务配置',
 	toolbar: '工具栏扩展',
 	aside: '页面侧边栏',
 	chat: 'AI 聊天助手',

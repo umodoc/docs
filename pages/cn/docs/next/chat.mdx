@@ -157,6 +157,7 @@ AI 聊天助手相关配置，更多信息见[AI 文档助手](../ai)。
 | `value` | String | 模型值，传递给的后端的实际值 |
 | `avatar` | URL | 模型头像的 URL，在消息列表中显示|
 | `provider` | URL | AI 服务提供商，即 AI 模型所需要请求的接口地址 |
+| `withToken` | Boolean | 请求时是否在 header 中携带 token |
 | `supportReason` | Boolean | 该模型是否支持推理模式 |
 | `file` | Object | 上传文件配置，支持 `accept`、`multiple`、`maxSize`、`limit` 等属性 |
 
@@ -171,6 +172,7 @@ AI 聊天助手相关配置，更多信息见[AI 文档助手](../ai)。
     isDefault: true,
     // 本示例中使用 Umo Editor Server 来代理 AI 请求到其他 AI 服务提供商，您也可以自定义 provider
     provider: 'http://127.0.0.1:1235/ai/deepseek/chat%2Fcompletions',
+    withToken: true,
     supportReason: true,
     file: {
       accept: '.docx,.doc,.xls,.xlsx,.txt', // 支持的文件类型
@@ -185,6 +187,7 @@ AI 聊天助手相关配置，更多信息见[AI 文档助手](../ai)。
     value: 'moonshot-v1-8k',
     avatar: kimiLogo,
     provider: 'http://127.0.0.1:1235/ai/moonshot/chat%2Fcompletions',
+    withToken: true,
   },
 ]
 ```

@@ -1,6 +1,6 @@
 # 文档导出
 
-此功能允许将 Umo Editor 中的内容导出为 Word、PDF、HTML、图片等文件并保留原格式。我们正在积极完善该功能，尤其是针对 Word 导出功能的优化。
+此功能允许将 Umo Editor 中的内容导出为 Umo Editor 文档、Word、PDF、HTML、图片等文件并保留原格式。我们正在积极完善该功能，尤其是针对 Word 导出功能的优化。
 
 ## 配置项示例
 
@@ -9,7 +9,6 @@ const defaultOptions = {
   // 文档导出的相关配置项
   export: {
     styleURL: '',
-    serverURL: '',
   },
 }
 ```
@@ -32,17 +31,15 @@ const defaultOptions = {
 
 **示例**：`${window.location.origin}/umo-editor-next/style.css`
 
-### export.serverURL
-
-**说明**：在导出部分文件时，需要正确的配置 Umo Editor Server 的 URL，Umo Editor Server 提供了相关导出的 API，您需要确保 Umo Editor Server 已经启动，当然您也可以在服务端自行实现导出功能，这里填写正确的 URL 即可。
-
-**类型**：`String`
-
-**默认值**：`''`
-
-**示例**：`http://127.0.0.1:1235`
-
 ## 方法列表
+
+### exportDocument
+
+**说明**：此功能允许将 Umo Editor 中的文档内容导出为 Umo Editor 文档。
+
+**参数**：`download`，Boolean，是否下载，默认值为 `true`。
+
+**返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
 
 ### exportDocx
 

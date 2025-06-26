@@ -9,7 +9,6 @@ const defaultOptions = {
   // Document export related configuration
   export: {
     styleURL: '',
-    serverURL: '',
   },
 }
 ```
@@ -32,19 +31,15 @@ This option is required for export to work properly. `styleURL` must be a fully 
 
 **Example:** `${window.location.origin}/umo-editor-next/style.css`
 
-### export.serverURL
-
-**Description:**
-
-When exporting certain files, you need to set the correct Umo Editor Server URL. The server provides export APIs. Make sure the server is running, or implement your own export logic on the backend. Just set this to the correct URL.
-
-**Type:** `String`
-
-**Default:** `''`
-
-**Example:** `http://127.0.0.1:1235`
-
 ## Methods
+
+### exportDocument
+
+**Description:** This feature allows you to export document content from Umo Editor as a Umo Editor document.
+
+**Parameters:** `download`, Boolean, whether to download the file. Default is `true`.
+
+**Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.
 
 ### exportDocx
 

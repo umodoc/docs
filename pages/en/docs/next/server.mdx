@@ -1,0 +1,46 @@
+# Server Configuration
+
+Umo Editor Next uses the [Umo Editor Server](../server) as the default backend service. You can deploy your own server to provide the required services, or simply use the official Umo Editor Server.
+
+It is recommended to proxy the Umo Editor Server through a gateway or other backend application. This allows you to intercept and process requests, enhancing the security and robustness of the Umo Editor Server.
+
+The Umo Editor Server is designed to extend the capabilities of Umo Editor Next. To ensure these enhanced features work properly, please configure the following options correctly.
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  // Server-related configuration, Added in v7.1.0
+  server: {
+    host: '',
+    ssl: false,
+    token: ''
+  },
+}
+```
+
+## Configuration Details
+
+### server.host
+
+**Description:** The server host address. For local development, if you use the official Umo Editor Server, you can set this to: http://127.0.0.0:1235 .
+
+**Type:** `String`
+
+**Required:** `true`
+
+### server.ssl
+
+**Description:** Whether to use HTTPS protocol.
+
+**Type:** `String`
+
+**Default:** `false`
+
+### server.token
+
+**Description:** Access token. For standard HTTP requests, this will be added to the request header as `Authorization: {token}`. For WebSocket requests, the encrypted `token` will be appended to the URL as a parameter.
+
+**Type:** `String`
+
+**Default:** `''`

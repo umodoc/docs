@@ -1,0 +1,46 @@
+# 服务配置
+
+Umo Editor Next 采用[Umo Editor Server](../server)作为默认服务器提供服务，你可以根据需要自行搭建服务器，实现 Umo Editor Server 的相关服务，也可以直接使用 Umo Editor Server 提供的服务。
+
+推荐的做法是通过网关或其他后端程序等代理 Umo Editor Server 服务，通过网关或其他后端程序等对请求进行拦截和处理，以增强 Umo Editor Server 的安全性和健壮性。
+
+Umo Editor Server 用于增强 Umo Editor Next 的功能，为了保证这些增强功能能正常使用，需要正确配置以下配置项。
+
+## 默认配置
+
+```js
+const defaultOptions = {
+  // 服务器相关配置项，v7.1.0 新增
+  server: {
+    host: '',
+    ssl: false,
+    token: ''
+  },
+}
+```
+
+## 配置项说明
+
+### server.host
+
+**说明**：服务器主机地址，本地开发时如果使用 Umo Editor Server 提供的服务，可配置为： http://127.0.0.0:1235 。
+
+**类型**：`String`
+
+**必填**：`true`
+
+### server.ssl
+
+**说明**：是否使用 HTTPS 协议。
+
+**类型**：`String`
+
+**默认值**：`false`
+
+### server.token
+
+**说明**：访问令牌，对于常见的 HTTP 请求，该项默认在请求头中添加 `Authorization: {token}`，Websocket 请求会在 URL 中添加加密后的 `token` 参数。
+
+**类型**：`String`
+
+**默认值**：`''`

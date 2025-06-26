@@ -157,6 +157,7 @@ AI Chat Assistant configuration. For more details, see [AI Document Assistant](.
 | `value` | String | Model identifier sent to the backend |
 | `avatar` | URL | URL of the model avatar shown in the message list |
 | `provider` | URL | AI service provider endpoint for the model |
+| `withToken` | Boolean | Whether to include token in request headers |
 | `supportReason` | Boolean | Whether the model supports reasoning mode |
 | `file` | Object | Upload file configuration; supports `accept`, `multiple`, `maxSize`, `limit`, etc. |
 
@@ -171,6 +172,7 @@ AI Chat Assistant configuration. For more details, see [AI Document Assistant](.
     isDefault: true,
     // In this example, Umo Editor Server proxies AI requests to other providers, but you can customize the provider
     provider: 'http://127.0.0.1:1235/ai/deepseek/chat%2Fcompletions',
+    withToken: true,
     supportReason: true,
     file: {
       accept: '.docx,.doc,.xls,.xlsx,.txt', // Supported file types
@@ -185,6 +187,7 @@ AI Chat Assistant configuration. For more details, see [AI Document Assistant](.
     value: 'moonshot-v1-8k',
     avatar: kimiLogo,
     provider: 'http://127.0.0.1:1235/ai/moonshot/chat%2Fcompletions',
+    withToken: true,
   },
 ]
 ```
