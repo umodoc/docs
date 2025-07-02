@@ -22,6 +22,9 @@
 ``` js
 const defaultOptions = {
   // 多人协作编辑相关配置
+  document: {
+    id: '', // 多人协作场景下，文档 ID 是必填的，用于唯一标识一个文档
+  },
   collaboration: {
     enabled: false,
     provider: {},

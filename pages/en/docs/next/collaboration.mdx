@@ -22,6 +22,9 @@ Collaborative editing requires server-side support from [Umo Editor Server](../s
 ```js
 const defaultOptions = {
   // Collaborative editing configuration
+  document: {
+    id: '', // In multi-user collaboration scenarios, document ID is required to uniquely identify a document
+  },
   collaboration: {
     enabled: false,
     provider: {},
