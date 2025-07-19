@@ -17,6 +17,7 @@ export default {
 	methods: 'Methods',
 	ai: 'AI Assistant',
 	tiptap: 'Tiptap Editor',
+	locales: 'Locales',
 	'--ui': {
 		type: 'separator',
 		title: 'UI Design'

@@ -18,6 +18,7 @@ export default {
 	methods: '方法列表',
 	ai: 'AI 文档助手',
 	tiptap: 'Tiptap 编辑器',
+	locales: '多语言支持',
 	'--ui': {
 		type: 'separator',
 		title: 'UI 相关'
