@@ -9,7 +9,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 ```js
 {
   page: {
-    defaultLayout: 'page', // v8.0.0
+    layouts: ['page', 'web'], // v8.0.0
     defaultMargin: {
       left: 3.18,
       right: 3.18,
@@ -37,15 +37,13 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 ## Configuration Description
 
-### page.defaultLayout
+### page.layouts
 
-**Description**: Default page layout, can be set to page mode or web mode. You can dynamically modify the default layout using the [`setPage`](../methods#setpage) method. <Badge theme="success">Added in v8.0.0</Badge>
+**Description**: List of available page layouts that can be set to page mode (page) and web mode (web). The first item in the array is used as the initial layout by default, and users can freely choose between them. If you want to use only page mode, set it to `['page']`; for web mode only, set it to `['web']`. You can dynamically modify the default layout using the [`setPage` method](../methods#setpage). <Badge theme="success">Added in v8.0.0</Badge>
 
-**Type**: `String`
+**Type**: `Array`
 
-**Default Value**: `page`
-
-**Options**: `page`, `web`
+**Default Value**: `['page', 'web']`
 
 ### page.defaultMargin
 

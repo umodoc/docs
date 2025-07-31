@@ -9,7 +9,7 @@ import { Badge } from '/components/badge'
 ```js
 {
   page: {
-    defaultLayout: 'page', // v8.0.0
+    layouts: ['page', 'web'], // v8.0.0
     defaultMargin: {
       left: 3.18,
       right: 3.18,
@@ -37,15 +37,13 @@ import { Badge } from '/components/badge'
 
 ## 配置项说明
 
-### page.defaultLayout
+### page.layouts
 
-**说明**：默认页面布局，可设为页面模式和 web 模式，您可以通过[setPage 方法](../methods#setpage)来动态修改默认布局。<Badge theme="success">v8.0.0 新增</Badge>
+**说明**：可选的页面布局列表，可设为页面模式(page)和 Web 模式(web)，默认使用数组第 1 项作为初始布局，用户可自由选择。如果你想仅使用页面模式，将其设为`['page']`即可，仅使用 Web 模式设为 `['web']`。您可以通过[setPage 方法](../methods#setpage)来动态修改默认布局。<Badge theme="success">v8.0.0 新增</Badge>
 
-**类型**：`String`
+**类型**：`Array`
 
-**默认值**：`page`
-
-**可选值**：`page`, `web`
+**默认值**：`['page', 'web']`
 
 ### page.defaultMargin
 

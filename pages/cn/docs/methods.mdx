@@ -159,7 +159,12 @@ import { Badge } from '/components/badge'
 
 **说明**：设置 Umo Editor 的页面配置信息。 <Badge theme="success">v5.0.0 新增</Badge>
 
-**参数**：页面配置信息。
+**参数**：Object，包含要设置的页面信息。
+
+- `size`：String，页面大小，应为 `dicts.pageSizes` 中提供的 `label` 值，如 A4。
+- `orientation`：String，页面方向，可选值为 `portrait`、`landscape`。
+- `background`：String，页面背景，合法的[CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。
+- `layout`：String，页面布局，必须是 `options.page.layouts` 中的一个值。
 
 **返回值**：无。
 
