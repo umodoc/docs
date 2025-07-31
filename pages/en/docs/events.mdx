@@ -6,7 +6,7 @@ This section introduces the events of Umo Editor. Events allow you to monitor th
 
 ## Example
 
-```vue {4-26}
+```vue {4-27}
 <template>
   <umo-editor
     v-bind="options"
@@ -17,6 +17,7 @@ This section introduces the events of Umo Editor. Events allow you to monitor th
     @changed:transaction="onChangedTransaction"
     @changed:menu="onChangedMenu"
     @changed:toolbar="onChangedToolbar"
+    @changed:page-size="onChangedPageLayout"
     @changed:page-size="onChangedPageSize"
     @changed:page-orientation="onChangedPageOrientation"
     @changed:page-margin="onChangedPageMargin"
@@ -89,6 +90,14 @@ const onChangedToolbar = ({ toolbar, oldToolbar }) => {
     'Toolbar information has changed, available parameters:', { toolbar, oldToolbar }
   );
 };
+
+// Page layout change hook
+const onChangedPageLayout = ({ pageLayout, oldPageLayout }) => {
+  console.log(
+    'onChanged:pageLayout',
+    'Page layout has changed, available parameters:',  { pageLayout, oldPageLayout }
+  )
+}
 
 // Page size change hook
 const onChangedPageSize = ({ pageSize, oldPageSize }) => {
@@ -213,6 +222,7 @@ const onDestroy = () => {
 | changed:transaction | The editor state has changed                                  | `{ editor, transaction }`                    |
 | changed:menu        | The menu state has changed                                    | `currentMenu`                                |
 | changed:toolbar     | Toolbar information has changed                               | `{ toolbar, oldToolbar }`                    |
+| changed:pageLayout | Page layout has changed  <Badge theme="success">v8.0.0</Badge>  | `{ pageLayout, oldPageLayout }` |
 | changed:pageSize    | Page size information has changed                             | `{ pageSize, oldPageSize }`                  |
 | changed:pageOrientation | Page orientation has changed                              | `{ pageOrientation, oldPageOrientation }`    |
 | changed:pageMargin  | Page margin information has changed                           | `{ pageMargin, oldPageMargin }`              |

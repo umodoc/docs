@@ -6,7 +6,7 @@ import { Badge } from '/components/badge'
 
 ## 示例
 
-```vue {4-26}
+```vue {4-27}
 <template>
   <umo-editor
     v-bind="options"
@@ -17,6 +17,7 @@ import { Badge } from '/components/badge'
     @changed:transaction="onChangedTransaction"
     @changed:menu="onChangedMenu"
     @changed:toolbar="onChangedToolbar"
+    @changed:page-size="onChangedPageLayout"
     @changed:page-size="onChangedPageSize"
     @changed:page-orientation="onChangedPageOrientation"
     @changed:page-margin="onChangedPageMargin"
@@ -73,6 +74,12 @@ import { Badge } from '/components/badge'
     console.log(
       'onChanged:toolbar',
       '工具栏信息发生变化，可用参数:',  { toolbar, oldToolbar }
+    )
+  }
+  const onChangedPageLayout = ({ pageLayout, oldPageLayout }) => {
+    console.log(
+      'onChanged:pageLayout',
+      '页面布局发生变化，可用参数:',  { pageLayout, oldPageLayout }
     )
   }
   const onChangedPageSize = ({ pageSize, oldPageSize }) => {
@@ -170,6 +177,7 @@ import { Badge } from '/components/badge'
 | changed:transaction | 编辑器状态已发生变化 | \{ editor, transaction \} |
 | changed:menu | 菜单状态发生变化 | currentMenu |
 | changed:toolbar | 工具栏信息发生变化  | \{ toolbar, oldToolbar \} |
+| changed:pageLayout | 页面布局发生变化  <Badge theme="success">v8.0.0 新增</Badge>  | \{ pageLayout, oldPageLayout \} |
 | changed:pageSize | 页面大小信息发生变化  | \{ pageSize, oldPageSize \} |
 | changed:pageOrientation | 页面方向发生变化  | \{ pageOrientation, oldPageOrientation \} |
 | changed:pageMargin | 页面边距信息发生变化  | \{ pageMargin, oldPageMargin \} |
