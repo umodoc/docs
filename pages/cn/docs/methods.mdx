@@ -61,6 +61,14 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
+### setLayout
+
+**说明**：设置 Umo Editor 的布局信息，可设为页面视图或者 Web 视图，设置为某种布局时，需要[`pages.layouts`](./options/pages#pagelayouts)中包含该布局，否则设置不成功。
+
+**参数**：`page` 或 `web`。
+
+**返回值**：无。
+
 ### setPage
 
 **说明**：设置 Umo Editor 的页面信息。
@@ -70,6 +78,7 @@ import { Badge } from '/components/badge'
 - `size`：String，页面大小，应为 `dicts.pageSizes` 中提供的 `label` 值，如 A4。
 - `orientation`：String，页面方向，可选值为 `portrait`、`landscape`。
 - `background`：String，页面背景，合法的[CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value)值。
+- `layout`：String，页面布局，可选值为 `page`、`web`。
 
 **返回值**：无。
 
