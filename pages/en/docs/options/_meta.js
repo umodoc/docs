@@ -4,6 +4,7 @@ export default {
 	toolbar: 'Toolbar',
 	page: 'Page',
 	document: 'Document',
+	'import-word': 'Word Import Configuration',
 	ai: 'AI Assistant',
 	echarts: 'ECharts',
 	webpages: 'Web Page',

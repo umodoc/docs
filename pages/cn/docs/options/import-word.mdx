@@ -1,0 +1,78 @@
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Word 文档导入配置
+
+用于 Word 文档导入配置，在 v8.0.0 之前，通过 `toolbar.importWord` 配置项进行配置。<Badge theme="success">v8.0.0 新增</Badge>
+
+## 默认配置
+
+```js
+{
+  importWord: {
+    maxSize: 1024 * 1024 * 5, // 5MB
+    options: {},
+    useCustomMethod: false,
+    async onCustomImportMethod() { 
+    },
+  },
+}
+```
+
+## 配置项说明
+
+<Callout type="error" emoji="❗">
+**注意：** 在 Umo Editor Next 版本中，`importWord` 配置项已被移除，请使用 `import.office` 配置项代替，见[Umo Editor Next - 文档导入](../next/import#importoffice)。
+
+[Umo Editor Next](../next/import) 版本采用服务器端导出的方式，支持的格式包括：doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等，并可自行扩展。
+</Callout>
+
+### importWord.maxSize
+
+**说明**：可导入的文件大小限制，单位为字节(B)，默认为 5MB，不建议设置过大，避免导入后的性能问题。
+
+**类型**：`Number`
+
+**默认值**：`1024 * 1024 * 5`
+
+### importWord.options
+
+**说明**：Mammoth 的配置项 (options)，详情请见 [Mammoth](https://www.npmjs.com/package/mammoth#api)。
+
+**类型**：`Object`
+
+**默认值**：`{}`
+
+### importWord.useCustomMethod
+
+**说明**：是否使用自定义方法导入 Word 文件，可以通过配置该选项，使用自定义导入方法导入 Word 文件，默认为 `false`，如果为 `true`，则使用 `onCustomImportMethod` 方法导入 Word 文档。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### importWord.onCustomImportMethod
+
+**说明**：自定义导入 Word 文档的方法，如果要使用自定导入方法，需要配置 `importWord.useCustomMethod` 选项为 `true`。
+
+**类型**：`Function`
+
+**默认值**：`undefined`
+
+**参数**：
+
+- `file`：Word 文档文件对象，详情请见 [File](https://developer.mozilla.org/en-US/docs/Web/API/File)。
+
+**返回值**：同 [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api) 返回的数据格式，示例如下：
+
+```js
+{
+  value: '<p>Hello world</p>',
+  messages: [
+    {
+      type: 'success', 
+      message: 'Converted 1 paragraph',
+    },  
+  ],
+}
+```
