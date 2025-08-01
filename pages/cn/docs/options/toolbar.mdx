@@ -11,15 +11,17 @@ import { Badge } from '/components/badge'
 {
   toolbar: {
     defaultMode: 'ribbon',
-    // enableSourceEditor: true, v6.0.0 已移除
+    // enableSourceEditor: true, // v6.0.0 已移除
     menus: ['base', 'insert', 'table', 'tools', 'page', 'import', 'export'],
-    disableMenuItems: [],
+    // disableMenuItems: [], // v8.0.0 已移除
     importWord: {
       enabled: true,
       maxSize: 1024 * 1024 * 5, // 5MB
       options: {},
       useCustomMethod: false,
-      onCustomImportMethod() {},
+      // v6.0.0 调整
+      async onCustomImportMethod() { 
+      },
     },
   },
 }
@@ -57,7 +59,7 @@ import { Badge } from '/components/badge'
 
 ### toolbar.disableMenuItems
 
-**说明**：要禁用的菜单项，默认不禁用任何菜单项。
+**说明**：要禁用的菜单项，默认不禁用任何菜单项。该配置在 v8.0.0 及以后版本中已移除，请使用更友好的 [`disableExtensions` 配置项](./extensions#disableextensions)。<Badge theme="danger">v8.0.0 已移除</Badge>
 
 **类型**：`Array`
 

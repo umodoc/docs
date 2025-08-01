@@ -19,7 +19,9 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
       maxSize: 1024 * 1024 * 5, // 5MB
       options: {},
       useCustomMethod: false,
-      onCustomImportMethod() {},
+      // Adjusted in v6.0.0
+      async onCustomImportMethod() { 
+      },
     },
   },
 }
@@ -57,7 +59,7 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
 
 ### toolbar.disableMenuItems
 
-**Description**: Menu items to disable. By default, no menu items are disabled.
+**Description**: Menu items to disable. By default, no menu items are disabled. This configuration has been removed in v8.0.0 and later versions. Please use the more user-friendly [`disableExtensions` configuration option](./extensions#disableextensions) instead. <Badge theme="danger">Removed in v8.0.0</Badge>
 
 **Type**: `Array`
 
