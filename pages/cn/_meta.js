@@ -6,7 +6,7 @@ export default {
 	home: {
 		title: '主页',
 		type: 'page',
-		href: 'https://umodoc.com',
+		href: 'https://www.umodoc.com',
 		newWindow: true
 	},
 	docs: {
@@ -16,7 +16,7 @@ export default {
 	demo: {
 		title: '在线示例',
 		type: 'page',
-		href: 'https://umodoc.com/demo',
+		href: 'https://www.umodoc.com/demo',
 		newWindow: true
 	}
 };

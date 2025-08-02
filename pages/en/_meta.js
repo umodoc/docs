@@ -6,7 +6,7 @@ export default {
 	home: {
 		title: 'Home',
 		type: 'page',
-		href: 'https://umodoc.com/en',
+		href: 'https://www.umodoc.com/en',
 		newWindow: true
 	},
 	docs: {
@@ -16,7 +16,7 @@ export default {
 	demo: {
 		title: 'Playground',
 		type: 'page',
-		href: 'https://umodoc.com/en/demo',
+		href: 'https://www.umodoc.com/en/demo',
 		newWindow: true
 	}
 };
