@@ -328,15 +328,8 @@ const defaultOptions = {
   toolbar: {
     defaultMode: 'ribbon',
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
-    disableMenuItems: [],
-    importWord: {
-      enabled: true,
-      maxSize: 1024 * 1024 * 5, // 5MB
-      options: {},
-      useCustomMethod: false,
-      // v 6.0.0
-      onCustomImportMethod() {},
-    },
+    // disableMenuItems: [], // toolbar.disableMenuItems was removed in v8.0.0, see the disableExtensions configuration
+    // importWord: { ... },  // toolbar.importWord was removed in v8.0.0, see the importWord configuration
   },
   page: {
     layouts: ['page', 'web'], // v8.0.0
@@ -531,6 +524,13 @@ const defaultOptions = {
       },
     ],
   },
+  importWord: {
+    maxSize: 1024 * 1024 * 5, // 5M
+    options: {},
+    useCustomMethod: false,
+    async onCustomImportMethod() { 
+    },
+  },
   user: {},
   users: [],
   extensions: [],
@@ -575,8 +575,10 @@ The configuration options of Umo Editor are mainly divided into the following pa
 - `user`: Object, current user configuration, see [User Configuration](./user). <Badge theme="success">Added in v4.0.0</Badge>
 - `users`: Array, related user configuration, see [Related User Configuration](./users). <Badge theme="success">Added in v6.0.0</Badge>
 - `file`: Object, file upload configuration, see [File Upload Configuration](./file).
-- `extensions`: Array, see [Custom Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
-- `translations`: Object, see [Custom Translation Information](./locales). <Badge theme="success">Added in v2.0.0</Badge>
+- `importWord`: Object, Word document import configuration, see [Word Import Configuration](./import-word). <Badge theme="success">Added in v8.0.0</Badge>
+- `extensions`: Array, see [Features and Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
+- `disableExtensions`: Array, see [Features and Extensions](./extensions). <Badge theme="success">Added in v8.0.0</Badge>
+- `translations`: Object, see [Localization Language](./locales). <Badge theme="success">Added in v2.0.0</Badge>
 - `onSave(content, page, document)`: Async Function, document save method, should return a Promise, see [Method Configuration](./methods#onsave).
 - `onFileUpload(file)`: Async Function, file upload method, should return a Promise, see [Method Configuration](./methods#onfileupload).
 - `onFileDelete(id, url)`: Function, file delete method, see [Method Configuration](./methods#onfiledelete).

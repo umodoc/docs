@@ -4,6 +4,7 @@ export default {
 	toolbar: '工具栏配置',
 	page: '页面配置',
 	document: '文档配置',
+	'import-word': 'Word 导入配置',
 	ai: 'AI 文档助手配置',
 	echarts: 'ECharts 图表配置',
 	webpages: 'Web 页面配置',
@@ -14,8 +15,8 @@ export default {
 	user: '用户配置',
 	users: '相关用户配置',
 	file: '文件上传配置',
-	extensions: '自定义扩展配置',
-	locale: '自定义本地化语言配置',
+	extensions: '功能及扩展配置',
+	locale: '本地化语言配置',
 	theme: '主题配置',
 	methods: '方法配置'
 };

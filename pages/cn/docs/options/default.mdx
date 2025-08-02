@@ -328,16 +328,8 @@ const defaultOptions = {
   toolbar: {
     defaultMode: 'ribbon',
     menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
-    disableMenuItems: [],
-    importWord: {
-      enabled: true,
-      maxSize: 1024 * 1024 * 5, // 5M
-      options: {},
-      useCustomMethod: false,
-      // v6.0.0 调整
-      async onCustomImportMethod() { 
-      },
-    },
+    // disableMenuItems: [], // toolbar.disableMenuItems 在 v8.0.0 已移除，见 disableExtensions 配置
+    // importWord: { ... }, // toolbar.importWord 在 v8.0.0 已移除，见 importWord 配置
   },
   page: {
     layouts: ['page', 'web'], // v8.0.0
@@ -531,6 +523,13 @@ const defaultOptions = {
       },
     ],
   },
+  importWord: {
+    maxSize: 1024 * 1024 * 5, // 5M
+    options: {},
+    useCustomMethod: false,
+    async onCustomImportMethod() { 
+    },
+  },
   user: {},
   users: [],
   extensions: [],
@@ -574,9 +573,11 @@ Umo Editor 的配置项主要分为以下几部分：
 - `diagrams`：Object，Diagrams 图表配置，详见[Diagrams 图表配置](./diagrams)。
 - `user`：Object，当前用户配置，详见[用户配置](./user)。<Badge theme="success">v4.0.0 新增</Badge>
 - `users`：Array，相关用户配置，详见[相关用户配置](./users)。<Badge theme="success">v6.0.0 新增</Badge>
-- `file`：Object，文件上传配置，详见[文件上传配置](./file)。
+- `file`：Object，文件上传配置，详见[功能及扩展配置](./file)。
+- `importWord`：Object，Word 文档导入配置，详见[Word 导入配置](./import-word)。<Badge theme="success">v8.0.0 新增</Badge>
 - `extensions`：Array 详见[自定义扩展](./extensions)。 <Badge theme="success">v1.4.0 新增</Badge>
-- `translations`：Object 详见[自定义翻译信息](./locales)。 <Badge theme="success">v2.0.0 新增</Badge>
+- `disableExtensions`：Array 详见[功能及扩展配置](./extensions)。 <Badge theme="success">v8.0.0 新增</Badge>
+- `translations`：Object 详见[本地化语言配置](./locales)。 <Badge theme="success">v2.0.0 新增</Badge>
 - `onSave(content, page, document)`：Async Function，文档保存方法，应返回 Promise，详见[方法配置](./methods#onsave)。
 - `onFileUpload(file)`：Async Function，Async Function，文件上传方法，应返回 Promise，详见[方法配置](./methods#onfileupload)。
 - `onFileDelete(id, url)`：Function，文件删除方法，详见[方法配置](./methods#onfiledelete)。
