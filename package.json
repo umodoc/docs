@@ -9,7 +9,7 @@
 		"email": "contact@umodoc.com",
 		"url": "https://www.umodoc.com"
 	},
-	"homepage": "https://editor.umodoc.com/en/docs",
+	"homepage": "https://dev.umodoc.com/en/docs",
   "repository": {
     "type": "git",
     "url": "https://github.com/umodoc/editor.git"

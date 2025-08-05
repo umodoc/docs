@@ -62,7 +62,7 @@ export default {
 				</svg>
 				<span style={{ margin: '0 1.2em', color: 'rgb(229, 231, 235)' }}> | </span>
 				<span style={{ fontSize: '16px' }} className="_text-gray-500">
-					Umo Editor <small>v{pkg.version}</small>
+					{router.locale === 'cn' ? '在线文档 ' : 'Documentation'} <small>v{pkg.version}</small>
 				</span>
 			</>
 		);

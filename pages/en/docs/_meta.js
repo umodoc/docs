@@ -1,39 +1,19 @@
 export default {
-	'--overview': {
-		type: 'separator',
-		title: 'Overview'
+	index: {
+		title: 'Home',
+		display: 'hidden'
 	},
-	index: 'Introduction',
-	features: 'Features',
-	'getting-started': 'Getting Started',
-	changelog: 'Changelog',
-	roadmap: 'Roadmap',
-	'--api': {
+	'--editor': {
 		type: 'separator',
-		title: 'Global Config'
+		title: 'Umo Editor'
 	},
-	options: 'Configuration',
-	events: 'Events',
-	methods: 'Methods',
-	ai: 'AI Assistant',
-	tiptap: 'Tiptap Editor',
-	locales: 'Locales',
-	'--ui': {
-		type: 'separator',
-		title: 'UI Design'
-	},
-	themes: 'Themes',
-	slots: 'Slots',
-	components: 'Components',
-	notifications: 'Notifications',
-	'--extensions': {
-		type: 'separator',
-		title: 'Extensions'
-	},
-	extensions: 'Overview',
+	guide: 'Guide',
+	api: 'API',
+	ui: 'UI Design',
+	extensions: 'Extensions',
 	'--business': {
 		type: 'separator',
-		title:"Commercial Version"
+		title:"Commercial"
 	},
 	next:'Umo Editor Next',
 	server:'Umo Editor Server'
