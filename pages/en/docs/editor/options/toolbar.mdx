@@ -1,0 +1,89 @@
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Toolbar Configuration
+
+Used to configure the display and behavior of the Umo Editor toolbar area.
+
+## Default Configuration
+
+```js
+{
+  toolbar: {
+    defaultMode: 'ribbon',
+    // enableSourceEditor: true, // v6.0.0 已移除
+    menus: ['base', 'insert', 'table', 'tools', 'page', 'import', 'export'],
+    // disableMenuItems: [], // toolbar.disableMenuItems was removed in v8.0.0, see the disableExtensions configuration
+    // importWord: { ... },  // toolbar.importWord was removed in v8.0.0, see the importWord configuration
+  },
+}
+```
+
+## Configuration Options
+
+### toolbar.defaultMode
+
+**Description**: The default mode of the toolbar. After configuration, users can still switch modes themselves, and their choice will be saved locally. By default, the toolbar uses the mode selected by the user, but you can still force a change using the [`setToolbar`](../methods#settoolbar).
+
+**Type**: `String`
+
+**Default Value**: `ribbon`
+
+**Options**: `ribbon`, `classic`
+
+### toolbar.enableSourceEditor
+
+**Description**: Whether to enable the editor's source code mode. In source code mode, users can edit the source code and preview the effects. This is suitable for developers with programming skills and is not recommended for general users. <Badge theme="danger">Removed in v6.0.0</Badge>
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+### toolbar.menus
+
+**Description**: The list of toolbar menus to enable. By default, all menus are enabled. You can disable some menus by configuring this option, but disabling all menus is not supported, and the `base` menu must be included.
+
+**Type**: `Array`
+
+**Default Value**: `['base', 'insert', 'table', 'tools', 'page', 'export']`
+
+**Options**: `base`, `insert`, `table`, `tools`, `page`, `export`
+
+### toolbar.disableMenuItems
+
+**Description**: Menu items to disable. By default, no menu items are disabled. This configuration has been removed in v8.0.0 and later versions. Please use the more user-friendly [`disableExtensions` configuration](./extensions#disableextensions) instead. <Badge theme="danger">Removed in v8.0.0</Badge>
+
+**Type**: `Array`
+
+**Default Value**: `[]`
+
+**Options**: 
+
+Umo Editor：`highlight`, `ordered-list`, `bullet-list`, `task-list`, `line-height`, `margin`, `quote`, `code`, `select-all`, `markdown`, `print`, `link`, `image`, `video`, `audio`, `file`, `code-block`, `symbol`, `chineseDate`, `emoji`, `math`, `tag`, `columns`, `callout`, `mention`, `bookmark`, `hard-break`, `hr`, `toc`, `textBox`, `template`, `webPage`, `qrcode`, `barcode`, `signature`, `seal`, `diagrams`, `echarts`, `mermaid`, `chineseCase`, `exportImage`, `exportPDF`, `exportText`, `share`, `embed`...
+
+[Umo Editor Next](../../next)：`icon`, `importWord`, `importExcel`, `importPPT`, `importWPS`, `importMarkdown`, `importText`, `exportWord`, `exportHtml`, ...
+### toolbar.importWord
+
+**Description**: Configuration related to importing Word documents. This configuration has been removed in v8.0.0 and later versions. Please use the [`importWord` configuration](./import-word) instead. <Badge theme="danger">Removed in v8.0.0</Badge>
+
+**Type**: `Object`
+
+**Default Value**:
+
+```js
+{
+  enabled: true, 
+  maxSize: 1024 * 1024 * 5, // 5MB
+  options: {},
+  useCustomMethod: false,
+  onCustomImportMethod() {},
+}
+```
+**Options**:
+
+- `enabled`: Whether to enable the Word file import feature. Default is `true`.
+- `maxSize`: The file size limit for imports, in bytes (B). Default is 5MB. Not recommended to set too large to avoid performance issues after import. <Badge theme="success">Added in v7.0.0</Badge>
+- `options`: Configuration options for Mammoth. For details, see [Mammoth](https://www.npmjs.com/package/mammoth#api).
+- `useCustomMethod`: Whether to use a custom method to import Word files. By configuring this option, you can use a custom method to import Word files. Default is `false`. If set to `true`, the `onCustomImportMethod` method will be used to import Word documents.
+- `onCustomImportMethod`: Custom import Word document method, if you want to use a custom import method, you need to configure the `toolbar.importWord.useCustomMethod` option to `true`.
+

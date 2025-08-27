@@ -13,6 +13,6 @@ export default {
 	comments: 'Comments',
 	import: 'Import',
 	export: 'Export',
-	icons: 'Insert Icons',
+	other: 'Other Configurations',
 	methods: 'Methods',
 };

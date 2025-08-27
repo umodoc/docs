@@ -3,17 +3,15 @@ export default {
 		title: '首页',
 		display: 'hidden'
 	},
-	'--editor': {
+	'--free': {
 		type: 'separator',
-		title: 'Umo Editor'
+		title: '开源项目'
 	},
-	guide:'基础指南',
-	api:'接口说明',
-	ui:'用户界面',
-	extensions: '扩展说明',
+	editor:'Umo Editor',
+	viewer: 'Umo Viewer',
 	'--business': {
 		type: 'separator',
-		title: '商业版本'
+		title: '商业项目'
 	},
 	next:'Umo Editor Next',
 	server:'Umo Editor Server'

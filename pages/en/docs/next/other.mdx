@@ -1,0 +1,67 @@
+# Other Features and Configurations
+
+## Inserting Icons
+
+In Umo Editor Next, you can easily insert a wide variety of icons. The default icon library uses [IconPark](https://iconpark.oceanengine.com/official), offering over 2,000 icons and customization options. You can also add your own icons or extend the icon set.
+
+### Effect Screenshot
+
+![Umo Editor Icons](/demos/icons-en.png)
+
+### Icon Configuration
+
+```js
+const defaultOptions = {
+  // Icon configuration
+  icons: {
+    defaultLineWidth: 4
+  },
+}
+```
+
+### Configuration Details
+
+#### icons.defaultLineWidth
+
+**Description**: The default line width for icons.
+
+**Type**: `Number`
+
+## PlantUML Diagrams
+
+[PlantUML](https://www.plantuml.com/) is a text-based diagram tool that lets you describe diagrams using PlantUML syntax. In Umo Editor Next, you can easily insert and edit PlantUML diagrams.
+
+### Effect Screenshot
+
+![Umo Editor PlantUML](/demos/plantuml-en.png)
+
+### PlantUML Configuration
+
+```js
+const defaultOptions = {
+  // PlantUML configuration
+  plantuml: {
+    serverURL: 'https://www.plantuml.com/plantuml',
+  },
+}
+```
+
+### Configuration Details
+
+#### plantuml.serverURL
+
+**Description**: The PlantUML server address. You can self-host a PlantUML server and use your own address. The default is: `https://www.plantuml.com/plantuml`. See: https://plantuml.com/server
+
+**Type**: `String`
+
+## FlowChart Diagrams
+
+[FlowChart.js](https://flowchart.js.org/) supports rendering simple SVG flowcharts from text descriptions. In Umo Editor Next, you can easily insert and edit FlowChart diagrams.
+
+### Effect Screenshot
+
+![Umo Editor PlantUML](/demos/flowchart-en.png)
+
+### FlowChart Configuration
+
+FlowChart works out of the box without any configuration needed.

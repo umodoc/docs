@@ -1,0 +1,78 @@
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Word Document Import Configuration
+
+This section describes how to configure Word document import. Before v8.0.0, this was set via the `toolbar.importWord` option. <Badge theme="success">New in v8.0.0</Badge>
+
+## Default Configuration
+
+```js
+{
+  importWord: {
+    maxSize: 1024 * 1024 * 5, // 5MB
+    options: {},
+    useCustomMethod: false,
+    async onCustomImportMethod() {
+    },
+  },
+}
+```
+
+## Configuration Options
+
+<Callout type="error" emoji="❗">
+**Note:** In Umo Editor Next, the `importWord` option has been removed. Please use the `import.office` option instead. See [Umo Editor Next - Document Import](../../next/import#importoffice).
+
+[Umo Editor Next](../../next/import) uses server-side conversion and supports formats such as: doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps, etc. You can also extend the supported formats.
+</Callout>
+
+### importWord.maxSize
+
+**Description**: Maximum file size allowed for import, in bytes (B). Default is 5MB. It is not recommended to set this too high to avoid performance issues after import.
+
+**Type**: `Number`
+
+**Default**: `1024 * 1024 * 5`
+
+### importWord.options
+
+**Description**: Options for Mammoth. See [Mammoth](https://www.npmjs.com/package/mammoth#api) for details.
+
+**Type**: `Object`
+
+**Default**: `{}`
+
+### importWord.useCustomMethod
+
+**Description**: Whether to use a custom method to import Word files. If set to `true`, the `onCustomImportMethod` function will be used for importing Word documents. Default is `false`.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### importWord.onCustomImportMethod
+
+**Description**: Custom method for importing Word documents. To use this, set `importWord.useCustomMethod` to `true`.
+
+**Type**: `Function`
+
+**Default**: `undefined`
+
+**Parameters**:
+
+- `file`: Word document file object. See [File](https://developer.mozilla.org/en-US/docs/Web/API/File) for details.
+
+**Return Value**: Should match the data format returned by [Mammoth.convertToHtml()](https://www.npmjs.com/package/mammoth#api). Example:
+
+```js
+{
+  value: '<p>Hello world</p>',
+  messages: [
+    {
+      type: 'success',
+      message: 'Converted 1 paragraph',
+    },
+  ],
+}
+```

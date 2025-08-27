@@ -1,0 +1,67 @@
+# 其他功能及配置
+
+## 插入图标
+
+在 Umo Editor Next 中，您可以方便快捷的插入各类图标，图标库默认采用 [IconPark](https://iconpark.oceanengine.com/official)，提供了 2000 多个图标和自定义选项，您也可以自定义图标或者扩展图标。
+
+### 效果截图
+
+![Umo Editor Icons](/demos/icons-cn.png)
+
+### 图标相关配置
+
+```js
+const defaultOptions = {
+  // 图标相关配置
+  icons: {
+    defaultLineWidth: 4
+  },
+}
+```
+
+### 配置项说明
+
+#### icons.defaultLineWidth
+
+**说明**：图标默认的默认线条宽度。
+
+**类型**：`Number`
+
+## PlantUML 图表
+
+[PlantUML](https://www.plantuml.com/) 是一个基于文本的图表工具，您可以使用 PlantUML 语法来描述图表。在 Umo Editor Next 中，您可以方便快捷的插入和编辑 PlantUML 图表。
+
+### 效果截图
+
+![Umo Editor PlantUML](/demos/plantuml-cn.png)
+
+### PlantUML 相关配置
+
+```js
+const defaultOptions = {
+  // PlantUML 相关配置
+  plantuml: {
+    serverURL: 'https://www.plantuml.com/plantuml',
+  },
+}
+```
+
+### 配置项说明
+
+#### plantuml.serverURL
+
+**说明**：PlantUML 服务器地址，您可以根据自行托管 PlantUML 服务并使用托管后的服务地址，默认值为：`https://www.plantuml.com/plantuml`。见：https://plantuml.com/zh/server
+
+**类型**：`String`
+
+## FlowChart 图表
+
+[FlowChart.js](https://flowchart.js.org/) 支持从图表的文本表示绘制简单的SVG流程图图表。在 Umo Editor Next 中，您可以方便快捷的插入和编辑 FlowChart 图表。
+
+### 效果截图
+
+![Umo Editor PlantUML](/demos/flowchart-cn.png)
+
+### FlowChart 相关配置
+
+FlowChart 开箱即用，无需配置。

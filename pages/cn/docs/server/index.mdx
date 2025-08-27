@@ -1,6 +1,6 @@
 # 基础介绍
 
-Umo Editor Server 是为了增强 Umo Editor Next 的部分功能，如多用户在线协作编辑、文档批注(评论)、文档导入导出等功能而开发的配套服务器端软件，如果您已经购买了 Umo Editor Next，那您可以在遵守[Umo Team 商业软件许可协议](../next/license)的基础上，免费使用 Umo Editor Server。
+Umo Editor Server 是为了增强 Umo Editor Next 的部分功能，如多用户在线协作编辑、文档批注(评论)、文档导入导出等功能而开发的配套服务器端软件，如果您已经购买了 Umo Editor Next，那您可以在遵守[Umo Team 商业软件许可协议](./next/license)的基础上，免费使用 Umo Editor Server。
 
 Umo Editor Server 是一款 Nodejs 的服务器端软件，基于 [Express](https://expressjs.com/?hl=zh-CN) 实现，其主要功能和作用是，通过 http 或 websocket 接口的形式，增强 Umo Editor Next 的能力，支持私有化部署。
 
@@ -82,5 +82,5 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 - 如果需要二次开发，源代码中提供了大量详尽的注释应该会对您非常有帮助。
 
 ## 部署说明
-- 在支持 `nodejs` 的环境中，您可以直接使用 `npm run production` 运行项目，此命令提供了通过 `[pm2](https://pm2.io/)` 守护进程的能力和记录日志的能力。
+- 在支持 `nodejs` 的环境中，您可以直接使用 `npm run production` 运行项目，此命令提供了通过 [pm2](https://pm2.io/) 守护进程的能力和记录日志的能力。
 - 也可以直接将项目部署到 `docker` 容器中，您可以根据实际需要修改 `Dockerfile`。

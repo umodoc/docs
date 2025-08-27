@@ -3,17 +3,15 @@ export default {
 		title: 'Home',
 		display: 'hidden'
 	},
-	'--editor': {
+	'--free': {
 		type: 'separator',
-		title: 'Umo Editor'
+		title: 'Free Projects'
 	},
-	guide: 'Guide',
-	api: 'API',
-	ui: 'UI Design',
-	extensions: 'Extensions',
+	editor:'Umo Editor',
+	viewer: 'Umo Viewer',
 	'--business': {
 		type: 'separator',
-		title:"Commercial"
+		title: 'Commercial Projects'
 	},
 	next:'Umo Editor Next',
 	server:'Umo Editor Server'

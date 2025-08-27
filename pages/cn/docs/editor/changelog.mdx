@@ -1,0 +1,386 @@
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# 更新日志
+
+Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/changelog
+
+## 🎉  v7.0.0 <Badge>2025-06-21</Badge>
+1. [Umo Editor Next 7.0.0](../next/changelog.mdx) 正式版同步发布 🎉🎉🎉，详见：[Umo Editor Next 基础介绍](../next)；
+2. 增加模态展示时选中效果判断，当 AI 助手焦点在模态输入框时，选中效果仍然存在；
+3. AI 助手替换后自动给替换文本增加选中效果；
+4. 修复模态框通过组件引用时，样式丢失的问题；
+5. 修复 [`setPage`](./methods#setpage) 方法设置页面大小时的意外错误;
+6. 修复文档内容为空时，有序列表和无序列表渲染不正确的问题 @vCloudSail [#273](https://github.com/umodoc/editor/issues/273)；
+7. 文档内容支持包含 `\n` 特殊字符的内容换行；
+8. 修复文档中的链接打开无效的问题；
+9. Word 文档导入时，文件大小可配置 [#276](https://github.com/umodoc/editor/issues/276) [#279](https://github.com/umodoc/editor/issues/279)，见[配置项-工具栏](./options/toolbar#toolbarimportword)；
+10. 修复引入 `prosemirror-state` 依赖不存在的问题，改为从 `@tiptap/pm/state` 获取，由 @ChenErik 在 [(#281)](https://github.com/umodoc/editor/pull/281) 提交；
+11. 选中块失焦文本选中区域不正确的问题 #236 由 @ChenErik 在 [(#281)](https://github.com/umodoc/editor/pull/281) 提交；
+12. 修复 implicitly has an any type 错误 [#287](https://github.com/umodoc/editor/issues/287)；
+13. 修复配置为 `locale: "en-US"` 不生效的问题，[#290](https://github.com/umodoc/editor/issues/290)；
+14. 菜单项位置调整；
+15. 增强对 Typescript 的支持；
+16. 修复 Mention 扩展中 popup 定位与选择项显示问题 [#291](https://github.com/umodoc/editor/issues/291)；
+17. 修复 Tdesign vue next 中的 `.flex-center` 样式可能会污染全局样式的问题 [#292](https://github.com/umodoc/editor/issues/292)；
+18. 优化 Word 文档的导入效果；
+19. 针对于 Nuxt3 用户，发布了 [Umo Editor Nuxt](https://www.npmjs.com/package/@umoteam/umo-editor-nuxt)。
+
+## 🚀  v6.1.1 <Badge>2025-04-23</Badge>
+
+1. 添加 `showToc` 和 `showLineNumber` 配置项等，见 [页面配置](./options/page)；
+2. 回滚对节点对齐的修改，修复了节点对齐失效的问题 [#254](https://github.com/umodoc/editor/issues/254) [#259](https://github.com/umodoc/editor/issues/259)；
+3. 优化打字机相关方法，由 @china-wangxu 在 [(#260)](https://github.com/umodoc/editor/issues/260) 提交；
+4. 粘贴插入图片时，会自动滚动到起始位置问题修复，由 @china-wangxu 在 [(#258)](https://github.com/umodoc/editor/issues/258) 提交；
+5. 修复有序列表大写字母排序不生效的问题 [#257](https://github.com/umodoc/editor/issues/257)。
+
+## 🚀  v6.1.0 <Badge>2025-04-22</Badge>
+
+1. 锁定版本依赖，防止因为 `prosemirror-model` 版本不一致引起的错误 @BOKE2014 [(#257)](https://github.com/umodoc/editor/issues/257)；
+2. 添加链接节点的气泡菜单；
+3. 修复当文件扩展没有被全量匹配时，会导致对齐失效的问题 @liushiji123 [(#254)](https://github.com/umodoc/editor/issues/254)；
+4. 修复双击某个大纲标题会报错 @nishizbdjy [(#256)](https://github.com/umodoc/editor/issues/256)；
+5. 修复退出格式刷后，气泡菜单不显示的问题；
+6. 修复气泡菜单可能会显示不全的问题；
+7. 增加对 Markdown 图片输入和粘贴的支持。
+
+## 🎉  v6.0.0 <Badge>2025-04-19</Badge>
+
+<Callout type="warning" emoji="❗">
+本次更新经历大约 200 次提交，包含一些破坏性的更新，比如重构状态管理，以更好的支持多实例，并重写了一些方法和组件，新增了若干节点扩展和方法，同时一些配置项也发生了变化，所以本次更新以大版本的形式发布。
+
+同时自 v6.0.0 起，Umo Editor 推出了 Umo Editor Next，提供更先进的编辑体验，更多更新内容请访问：https://dev.umodoc.com/cn/docs/next 。
+</Callout>
+
+1. 文件上传状态不加入历史状态管理中，防止被用户撤销或退回；
+2. 修复标题 1 大小显示异常 @YFLmwh [(#248)](https://github.com/umodoc/editor/issues/248)；
+3. 修复水印文字不能输入空格的问题
+4. `onCustomImportWordMethod` 改为 `toolbar.importWord.onCustomImportMethod`，见[方法列表](./options/toolbar)；
+5. 修复打印文档时，页面不足一页时会多余出一个空页面的问题；
+6. 对于一些频繁的操作添加防抖节流方法，提高响应效率；
+7. 深色主题下页边距标记颜色异常，由 @Mikasa33 在 [(#241)](https://github.com/umodoc/editor/pull/241) 提交；
+8. 调整 AI 助手配置项，见[AI 文档助手](./options/ai)
+9. 大纲节点改为树形结构展示；
+10. 替换原 CodeBlock 扩展，启用新的 CodeBlock 扩展；
+11. 修复当图片节点 id 为 `null` 时，图片预览顺序不正确的问题；
+12. 修复了文档中的一些问题，并重新翻译英文文档；
+13. 修复已完成的待办事项打印时未正确勾选的问题 @48747776 [(#214)](https://github.com/umodoc/editor/issues/214)；
+14. 修复 css * 通配符影响页面其他样式的问题 @kawais [(#215)](https://github.com/umodoc/editor/issues/215)；
+15. 移除了源代码编辑器；
+16. 调整 `getSelectionNode` 方法和 `deleteSelectionNode` 方法，见[方法列表](./methods#getselectionnode)，使其能够在嵌套节点中正确的获取节点，@yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218)；
+17. 修复插入文件时，节点类型未正确按类型正确显示的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
+18. 调整文件相关节点，不再通过自定义节点属性传递 ProseMirror 无法识别的 File 对象；
+19. 修复复制节点时显示“附件”类型的图标发生错误的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
+20. 修复保存方法未正确返回页面信息的问题；
+21. 修复代码块在预览模式下仍然可编辑的问题，同时在预览模式下，代码块不显示菜单栏；
+22. 修复图片在 1:1 等比例缩放时高度仍可自由拖动的问题；
+23. 优化预览模式下的页面显示；
+24. 修复工具栏点击向右滚动时，滚动不完全的问题；
+25. 修改尾随虚拟光标样式，以区别于普通光标，防止造成误解；
+26. 保存提示信息优化，由 @china-wangxu 在 [(#201)](https://github.com/umodoc/editor/pull/201) 提交；
+27. 增加了工具栏按钮显示隐藏控制，部分控制也影响节点浮动按钮，见[工具栏设置](./options/toolbar#toolbardisablemenuitems)；
+28. 调整工具栏的滚动距离，使其更符合预期；
+29. 全屏模式改为仅窗口视口全屏；
+30. 修复列表在某些情况下异常，无法退出的问题，@BOKE2014 [(#158)](https://github.com/umodoc/editor/issues/158)。
+31. 调整换行符扩展及配置；
+32. Gapcursor 样式调整；
+33. 块菜单跟随光标聚焦节点位置；
+34. 添加分栏功能；
+35. NPM 打包包时，包含 types，以更好的支持 TypeScript 类型检查和推导；
+36. 增加了块节点的拖动排序功能，@BOKE2014 [(#163)](https://github.com/umodoc/editor/issues/163)。
+37. 增加日期扩展；
+38. 修复退出演示模式时文档不可编辑的问题；
+39. 演示模式下，文档设为只读模式；
+40. 添加”提及(@)“功能；
+41. 增强“网页”节点功能等；
+42. 添加高亮块功能；
+43. 书签支持配置默认是否显示，见[页面设置](./options/page#pageshowbookmark)，由 @china-wangxu 在 [(#178)](https://github.com/umodoc/editor/pull/178) 提交；
+44. 浏览文件修复流程图使用本地部署时不显示的问题；
+45. 大纲增加拖拽手柄，大纲区域可以拖动调整大小，由 @china-wangxu 在 [(#177)](https://github.com/umodoc/editor/pull/177) 提交；
+46. 删除全局状态管理，改为通过跨组件通信的方式实现，修复多实例时，组件状态相互污染的问题，@Carrie-sxy[#118](https://github.com/umodoc/editor/issues/118)； 
+47. 大纲面板改为通过树形结构显示；
+48. 修改默认 emojis 配置，见[字典配置](./options/dicts#dictsemojis)；
+49. 修复分页符等节点无法通过块菜单删除的问题；
+50. 优化代码块，并修复代码块高亮报错的问题；
+51. 有序列表、无序列表和任务列表支持子列表，有序列表支持多级连续编号；
+52. 从 Word 和 Excel 中粘贴表格时，保留字体颜色，单元格背景、字体对齐等样式；
+53. 增加了添加标签功能；
+54. 增加了若干对外方法，见[方法列表](./methods)；
+55. 修复空文档插入表格不生效的问题，并优化 Placeholder 显示，@china-wangxu [(#165)](https://github.com/umodoc/editor/issues/165)；
+56. 初次加载支持 `showBreakMarks` 设置和水印设置，由 @china-wangxu 在 [(#161)](https://github.com/umodoc/editor/pull/161) 提交；
+57. 修复页面配置不生效的问题，@china-wangxu [(#163)](https://github.com/umodoc/editor/issues/163)。
+58. 修复 iframe 节点拖动大小时可以超过页面宽度的问题；
+59. 锁定部分依赖，防止引起意外错误；
+60. 优化图片节点选中；，@china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157)。
+61. 修复和优化了诸多细节问题。
+
+
+## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
+
+<Callout type="warning" emoji="❗">
+感谢大家长久以来对 Umo Editor 的支持，因为面临的诸多挑战，在经过长久慎重且艰难的思想斗争之后，我们决定 v4.6 是最后一个支持分页的版本，自 v5.0 版本开始，Umo Editor 将暂时放弃对分页的支持，不排除不远的将来分页功能可能会再次回归。
+
+好消息是，Tiptap 官方团队已经注意到了社区对分页功能需求的迫切性，并且已经着手开发，但是还没有明确的发布时间，见：https://x.com/tiptap_editor/status/1812154617733538288 。
+
+如果您仍然需要分页功能，可以继续使用 v4.x 版本，但是此版本将不再维护，当然，您也可以拉取代码自行修改，支持分页的代码分支为：[page-break-v4](https://github.com/umodoc/editor/tree/page-break-v4)。
+</Callout>
+
+1. ⚠️ 彻底删除了对分页的支持。
+2. 添加了分页符、换行符扩展，替换了原来的 Placeholder 扩展等；
+3. 优化打印功能；
+4. 增加了书签功能，由 @china-wangxu 在 [(#137)](https://github.com/umodoc/editor/pull/137) 提交；
+5. 增加了文件预览功能，相关配置见 [文件上传配置](./options/file#filepreview)；
+6. 组件销毁后解绑所有快捷键 @Liuxl945 [(#135)](https://github.com/umodoc/editor/issues/135)；
+7. 优化了文本框、图片、链接等多个内部扩展；
+8. 添加 [`getPage`](./methods#getpage) 方法以便获取页面设置等信息 @SerRashin [(#120)](https://github.com/umodoc/editor/issues/120)。
+9. 修复组件多次销毁后，使用 Ctrl+S 保存多次调用保存方法的问题 @fjll-425361
+ [(#96)](https://github.com/umodoc/editor/issues/96)；
+10. 删除了无用的功能模块，减小打包体积；
+11. 其他细节调整和优化。
+
+## 🚀  v4.6.2 <Badge>2025-02-07</Badge>
+
+1. 错误修复；
+
+## 🚀  v4.6.1 <Badge>2025-01-15</Badge>
+
+1. 错误修复；
+
+## 🚀  v4.6.0 <Badge>2025-01-15</Badge>
+
+1. 简化 placeholder 扩展，通过 css 实现；
+2. 修复选中文字时鼠标移动到 block-handler 上导致选中项乱闪的问题，由 @ChenErik 在 [(#72)](https://github.com/umodoc/editor/pull/72) 修复；
+3. placeholder扩展增加鼠标样式，增加颜色高亮扩展表格开启大小拖拽，由 @ChenErik 在 [(#73)](https://github.com/umodoc/editor/pull/73) 修复；
+4. 修复待办事项设为子任务时显示错误 @BOKE2014 [(#74)](https://github.com/umodoc/editor/issues/46)；
+5. 将整个代码库转换为 TypeScript 等，由 @Goldziher 在 [(#80)](https://github.com/umodoc/editor/pull/80) 提交；
+6. 修复自定义节点显示错误的问题；
+7. 修改图片节点高度精度；
+8. 修复视频节点高度为默认高度的问题；
+9. 修复电子签名被遮挡和保持长宽比的问题 @BOKE2014 [(#75)](https://github.com/umodoc/editor/issues/75)；
+10. 修复表格插入错误；
+11. 修复对齐方式菜单不起作用的问题；
+12. 修复文本框被其他元素遮挡的问题；
+13. 修复菜单按钮下拉框不显示的问题；
+14. 修复修复语言配置项不生效的问题等 I18n 相关错误；
+15. 修复二维码生成参数不生效的问题；
+16. 修复图片加载错误时，仍然显示气泡菜单的问题；
+17. 电子章默认设为自动高度；
+18. 修复 base64 转图片文件错误；
+19. 修复删除文件报错；
+20. 提高页面扩展加载优先级；
+21. 修复页面背景默认背景不生效的问题；
+22. 优化字数统计；
+23. 优化链接按钮显示；
+24. 修复重置编辑器时不显示提示的问题；
+25. 修复文档链接错误；
+26. 优化源代码编辑器，修复显示语言不正确的问题；
+27. Node、Vue、Vite及部分开发依赖降级，以更好的向下兼容；
+28. 重写签名组件；
+29. 打印时防止删除水印；
+30. 文件节点在文件上传完成后显示文件下载气泡菜单按钮；
+31. 修复有序列表和无序列表不生效的问题；
+32. 演示模式增加倒计时功能 @BOKE2014 [(#61)](https://github.com/umodoc/editor/issues/61)；
+33. 添加文件节点的预览功能，同时图片、视频、音频等节点和文件节点可相互转换 @BOKE2014 [(#92)](https://github.com/umodoc/editor/issues/92)；
+34. 添加 [`useEditor`](/methods#useeditor) 方法，用以简化 [`getEditor`](./methods#geteditor) 方法用于主动分页；
+35. 优化块菜单显示；
+36. 修复placeholder扩展不支持markdown语法的问题
+37. 添加俄语支持，由 @SerRashin 在 [(#117)](https://github.com/umodoc/editor/pull/117) 提交；
+38. 修复预览模式退出后无法重新进入的错误；
+39. 其他细节调整和优化及错误修复。
+
+## 🚀  v4.5.0 <Badge>2024-09-04</Badge>
+
+1. 增强对 Typescript 的支持；
+2. 修复图片浮动时不显示的问题 @ChenErik [(#54)](https://github.com/umodoc/editor/issues/54)；
+3. 修复代码块光标丢失的问题；
+4. 在调用 [`setContent`](./methods#setcontent) 方法和导入 word 文档后，调用分页方法对新插入内容进行分页，以免出现分页错误；
+5. 对外提供 [`autoPagination`](./methods#autopagination) 方法用于主动分页；
+6. 修复设置为暗色模式显示不正确的问题；
+7. 修复文档为空时气泡菜单显示不正确的问题；
+8. 优化打印逻辑，仅当文档内容不为空时可以打印；
+9. 修复只读模式下图片依旧可以拖拽缩放的问题，由 @ChenErik 在 [(#62)](https://github.com/umodoc/editor/pull/62) 修复；
+10. 修复全屏模式下，预览模式无法打开的问题 @BOKE2014 [(#61)](https://github.com/umodoc/editor/issues/61)，由 @ChenErik 在 [(#62)](https://github.com/umodoc/editor/pull/62) 修复；
+12. 修复svgIcon的问题冲突等问题，由 @ChenErik 在 [(#67)](https://github.com/umodoc/editor/pull/67) 修复；
+13. 修复从其他 Umo Editor 文档复制内容后，内容显示不正确的问题;
+14. tiptap 相关依赖升级到 2.2.6，以解决一些已知问题。
+15. 其他细节调整和优化及错误修复。
+
+## 🚀  v4.1.2 <Badge>2024-08-21</Badge>
+
+1. 类名添加前缀，防止样式被污染导致组件显示不正常；
+2. 添加图片和视频的懒加载功能 @shenghui-shan [(#31)](https://github.com/umodoc/editor/issues/31)；
+3. 添加自定义节点分页计算配置，优化分页内部计算逻辑；
+4. 其他细节调整和优化。
+
+## 🚀  v4.1.1 <Badge>2024-08-20</Badge>
+
+1. 修复工具栏显示/隐藏页眉按钮逻辑错误；
+2. 修复插入已保存的文档内容后，页眉页脚不显示的问题。
+
+## 🚀  v4.1.0 <Badge>2024-08-19</Badge>
+
+1. 添加了页眉页脚插槽，可以通过插槽自定义页眉页脚，详见[插槽列表](./slots)；
+2. 添加了分页符功能，通过插入分页符即可直接进入下一页，无需重复敲回车；
+3. 在底部状态栏添加了页面信息统计；
+4. 优化了图片和视频节点的初始宽高度，提高分页响应速度；
+5. 修复块菜单在页边距发生变化后错位的问题；
+6. Word 导入的脚本改为通过 CDN 加载 @qtch [(#46)](https://github.com/umodoc/editor/issues/46)；
+7. 页面设置改为设置完成后统一提交，减少性能损耗；
+8. 其他细节调整。
+
+## 🎉  v4.0.0 <Badge>2024-08-15</Badge>
+
+> 本次更新前后历经了 200 多次的 Commits 和 Merges，修改内容较多，主要工作围绕分页功能及其适配展开，同时带来了新的打印功能，感谢长的又帅，又会写代码的 [Cassie](https://github.com/Cassielxd) 大佬多个日夜的辛勤付出。
+
+**本次更新内容较多，不一一列举，以下是一些主要变更：**
+
+1. 带来了类似 MicroSoft Word 的分页功能，并添加了分页的开启和关闭功能，默认开启，由用户选择；
+2. 重写了打印功能，和分页功能完美契合，并大幅度提升了响应速度；
+3. 废弃了 `page.showBreakMarks` 配置，并删除了显示换行符的功能;
+4. 修复图片和视频节点的拖动手柄上下拖动边界超过节点自身高度的问题；
+5. 修复点击页面大纲时，页面伴随滚动的问题；
+6. 其他细节调整和优化。
+
+## 🚀  v3.1.2 <Badge>2024-08-12</Badge>
+修复 `mammoth.js` 导入错误的问题。
+
+## 🚀  v3.1.1 <Badge>2024-08-10</Badge>
+修复 word 文件导入默认调用自定义方法的问题。
+
+## 🚀  v3.1.0 <Badge>2024-08-10</Badge>
+1. 添加了导入 Word 功能，支持从本地直接导入 Word 文档啦，见[工具栏配置](./options/toolbar)；
+2. 添加了简易的格式刷功能；
+3. 添加了调整节点上下间距的功能；
+4. 添加了页面滚动时页面大纲同步高亮和滚动功能 @qtch [(#21)](https://github.com/umodoc/editor/issues/21)；
+5. 修复 [`getSelectionNode`](./methods#getselectionnode) 方法返回的结果不准确的问题；
+6. 添加 [`setCurrentNodeSelection`](./methods#setcurrentnodeselection) 方法，用于选中当前整个节点；
+7. 添加文字选中降级方案，防止选中的内容看起来丢失的问题；
+8. 修复图片上传进度条一直显示的问题。
+
+## 🎉 v3.0.0<Badge>2024-08-05</Badge>
+1. **[重磅更新]** 添加 AI 文档助手，详见[AI 文档助手](./ai)；
+2. **[重磅更新]** 添加工具栏和气泡菜单插槽，可以通过插槽实现更多自定义功能，详见[插槽列表](./slots)；
+3. **[重磅更新]** 开放了部分 UI 组件，详见[组件列表](./components)；
+4. **[重要提醒]** 从 v3.0 起不再支持通过浏览器直接引入的方式安装；
+5. 添加[`getTableOfContents`](./methods#gettableofcontents)方法，用以获取页面大纲信息，@qtch [(#26)](https://github.com/umodoc/editor/issues/26)；
+6. 添加[`getSelectionText`](./methods#getselectiontext)方法，用以获取当前选中文字文字内容，@qtch [(#35)](https://github.com/umodoc/editor/issues/35)；
+7. 添加[`getSelectionNode`](./methods#getselectionnode)方法，用以获取当前选中文字文字内容，@qtch [(#35)](https://github.com/umodoc/editor/issues/35)；
+8. 添加[`deleteSelectionNode`](./methods#deleteselectionnode)方法，用以删除当前选中节点；
+9. 添加缺少的依赖，解决 pnpm 幽灵依赖的问题，@xuzhenjun130 [(#27)](https://github.com/umodoc/editor/issues/27)；
+10. 修复电子签章插入按钮多语言不正确的问题，@shenghui-shan [(#30)](https://github.com/umodoc/editor/issues/30)；
+11. 修复菜单项中，下拉列表展开时，编辑器焦点丢失的问题，@qtch [(#33)](https://github.com/umodoc/editor/issues/30)；
+12. 修复图片上传触发两次上传方法的问题；
+13. 通过块级菜单中删除节点时，同步删除文件节点中已上传的文件；
+14. 修复插入图片、视频等节点宽度不正确问题；
+15. 按条件动态导入 KaTex 样式，大幅度减小样式打包体积；
+16. 更新 Tiptap 依赖到最新版本，同时修复因为升级依赖带来的各种兼容性问题；
+17. 调整依赖关系，简化 NPM 包安装方式；
+18. 其他细节调整。
+
+## 🚀 v2.3.1<Badge>2024-07-22</Badge>
+1. `setContent` 方法默认触发更新方法，@qtch [(#24)](https://github.com/umodoc/editor/issues/25)，见[setContent 方法](./methods#setcontent)；
+2. 修复数学公式样式错误 @GhostyCHEN [(#25)](https://github.com/umodoc/editor/issues/25)。
+
+## 🚀 v2.3.0<Badge>2024-07-22</Badge>
+1. 标题栏增加 6 级标题 @shenghui-shan [(#23)](https://github.com/umodoc/editor/issues/23)；
+2. 处理页面高度更新时，.page-content 不存在的问题 @shenghui-shan [(#22)](https://github.com/umodoc/editor/issues/22)；
+3. 文档和打印添加默认行高；
+4. 优化页面大纲；
+5. 修复导出文本文档后缀名错误；
+6. 添加 document.editorProps 和 document.parseOptions 配置项，见：[配置项-文档配置](./options/document)；
+7. 添加 contentError 事件，见：[事件列表](./events)；
+8. 更新依赖项；
+9. 其他细节调整。
+
+## 🚀 v2.2.0<Badge>2024-07-16</Badge>
+1. 增加 `focus` 方法的参数，见[focus 方法](./methods#focus)；
+2. `setContent` 方法提供更多配置项，用以控制设置内容后的行为，见[setContent 方法](./methods#setcontent) @shenghui-shan [(#15)](https://github.com/umodoc/editor/issues/15)；
+3. 修复重新加载组件后，气泡菜单不显示的 Bug  @shenghui-shan [(#12)](https://github.com/umodoc/editor/issues/12)；
+4. 修复改变文字颜色和背景颜色时，选择更多颜色时，选中的文本背景丢失的 Bug @qtch [(#17)](https://github.com/umodoc/editor/issues/13)；
+5. 修复 readonly 为 true 的时候 ，目录大纲跳转定位失效的 Bug @shenghui-shan [(#17)](https://github.com/umodoc/editor/issues/17)；
+6. 更新部分依赖；
+7. Bug 修复和代码优化。
+
+
+## 🚀 v2.1.0<Badge>2024-07-06</Badge>
+添加暗色模式支持，见 https://www.umodoc.com/demo?theme=dark。
+
+## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
+1. 添加多语言支持，目前已支持简体中文和 English，见[`locales`](./options/locales)；
+2. 代码仓库中的目录、文件、代码结构调整和重构；
+3. 提供中英文开发文档和在线示例；
+4. 部分 API 发生变化，主要变更如下：
+    - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见[页面配置](./options/page#pagedefaultorientation)；
+    - 新增 `locale` 和 `translations` 配置，见[自定义本地化语言配置](./options/locales)；
+    - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见[方法列表](./methods#getlocale)；
+    - 新增 `changed:locale` 事件，见[事件列表](./events)。
+    - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见[默认配置](./options/default)；
+5. 更新依赖项；
+6. 修复若干错误和问题；
+7. 优化部分细节。
+
+## 🚀 v1.4.1 \~ 2 <Badge>2024-06-13</Badge>
+添加 `npm` 安装说明等 @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5)。
+
+## 🚀 v1.4.0<Badge>2024-06-03</Badge>
+1. 添加自定义扩展支持，见[`extensions`](./options/extensions)；
+2. 添加自动保存参数，见[`document.autoSave`](./options/document#autosave)；
+3. 修复页面大纲内容过多时显示错乱的 Bug @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2)。
+
+## 🚀 v1.3.1<Badge>2024-06-02</Badge>
+优化块级菜单相关的样式和显示。
+
+## 🚀 v1.3.0<Badge>2024-06-01</Badge>
+1. 添加块级菜单支持；
+2. 修复“增加缩进”和“减少缩进”不起作用的 Bug；
+3. 添加“引用”样式；
+4. 细节调整及优化。
+
+
+## 🚀 v1.2.2<Badge>2024-05-24</Badge>
+1. 打印设置使用本地缓存；
+2. 还原[`cdnUrl`](../options/cdn)的默认值；
+3. 简化菜单按钮配置，提高响应速度；
+4. 更新依赖项；
+
+## 🚀 v1.2.1<Badge>2024-05-24</Badge>
+和 `@umoteam/editor-external` 版本号保持同步。
+
+## 🚀 v1.2.0<Badge>2024-05-24</Badge>
+1. 添加打印设置；
+2. 减小打包体积。
+
+## 🚀 v1.2.0-beta.0 \~ 1<Badge>2024-05-23</Badge>
+1. 更新依赖项；
+2. 添加删除表格、表格行、表格列的确认删除框；
+3. 优化页面大纲，按大纲层级缩进显示；
+4. 修复插入链接弹框不显示标题的 Bug；
+5. 修复分割线气泡菜单显示错误的 Bug；
+6. 修改[`cdnUrl`](../options/cdn)的默认值；
+7. 优化细节。
+
+## 🚀 v1.1.2<Badge>2024-05-22</Badge>
+修复打印页面样式无法加载的 Bug 等。
+
+## 🚀 v1.1.1<Badge>2024-05-22</Badge>
+优化部分细节。
+
+## 🚀 v1.1.0<Badge>2024-05-22</Badge>
+1. 新增文档预览功能；
+2. 新增文档打印功能；
+3. 将 Umo Editor 所依赖的部分第三方模块单独发布成[@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external)包；
+4. 优化部分细节。
+
+
+## 🚀 v1.0.1 <Badge>2024-05-13</Badge>
+Umo Editor 第一个正式版本发布。
+
+## 🚀 v1.0.0-beta.2 \~ 7 <Badge>2024-05-12</Badge>
+
+1. 打包测试；
+2. 细节调整及优化；
+3. Bug 修复。
+
+## 🎉 v1.0.0-beta.1 <Badge>2024-05-10</Badge>
+
+Umo Editor 1.0.0 beta.1 发布。

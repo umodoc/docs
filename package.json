@@ -1,7 +1,7 @@
 {
-	"name": "umo-editor-docs",
-	"version": "7.0.0",
-	"description": "Umo Editor Documentation. Umo Editor 文档",
+	"name": "umo-docs",
+	"version": "8.0.0",
+	"description": "Umo Team Documentation. Umo Team 文档",
 	"license": "SEE LICENSE IN https://creativecommons.org/licenses/by-nc-sa/4.0",
 	"type": "module",
 	"author": {

@@ -1,0 +1,278 @@
+import { Tabs, Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# AI Document Assistant
+
+Used to configure information related to the AI Document Assistant. For more information, see [AI Document Assistant](../ai). <Badge theme="success">Added in v3.0.0</Badge>
+
+<Callout type="error" emoji="❗">
+**Note:** The original `assistant` configuration has been changed to `ai.assistant` in version `v6.0.0`. Additionally, the `onAssistant` method has been renamed to `ai.assistant.onMessage`. Please update accordingly.
+</Callout>
+
+In the Umo Editor Next version, we provide a more powerful AI Chat Assistant feature. See [Umo Editor Next AI Chat Assistant](../../next/chat#aichat) for details.
+
+## Default Configuration
+
+```js
+{
+  ai: {
+    assistant: {
+      enabled: false,
+      maxlength: 100,
+      commands: [
+        {
+          label: { en_US: 'Continuation', zh_CN: '续写' },
+          value: { en_US: 'Continuation', zh_CN: '续写' },
+        },
+        {
+          label: { en_US: 'Rewrite', zh_CN: '重写' },
+          value: { en_US: 'Rewrite', zh_CN: '重写' },
+        },
+        {
+          label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+          value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+        },
+        {
+          label: { en_US: 'Expansion', zh_CN: '扩写' },
+          value: { en_US: 'Expansion', zh_CN: '扩写' },
+        },
+        {
+          label: { en_US: 'Polish', zh_CN: '润色' },
+          value: { en_US: 'Polish', zh_CN: '润色' },
+        },
+        {
+          label: { en_US: 'Proofread', zh_CN: '校阅' },
+          value: { en_US: 'Proofread', zh_CN: '校阅' },
+        },
+        {
+          label: { en_US: 'Translate', zh_CN: '翻译' },
+          value: { en_US: 'Translate', zh_CN: '翻译' },
+          autoSend: false,
+        },
+      ],
+      async onMessage() {
+        return await new Promise((_, reject) => {
+          reject(
+            new Error(
+              'Key "ai": Key "assistant": Key "onMessage": Please set the onMessage method',
+            ),
+          )
+        })
+      },
+    },
+  },
+}
+```
+
+## Configuration Description
+
+### ai.assistant.enabled
+
+**Description**: Whether to enable the AI Document Assistant feature.
+
+**Type**: `Boolean`
+
+**Default Value**: `false`
+
+### ai.assistant.maxlength
+
+**Description**: The maximum length of commands that the AI Document Assistant can process.
+
+**Type**: `Number`
+
+**Default Value**: `100`
+
+### ai.assistant.commands
+
+**Description**: Common command configurations for the AI Document Assistant panel.
+
+**Type**: `Array`
+
+**Default Value**:
+
+```js
+[
+  {
+    label: { en_US: 'Continuation', zh_CN: '续写' },
+    value: { en_US: 'Continuation', zh_CN: '续写' },
+  },
+  {
+    label: { en_US: 'Rewrite', zh_CN: '重写' },
+    value: { en_US: 'Rewrite', zh_CN: '重写' },
+  },
+  {
+    label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+    value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+  },
+  {
+    label: { en_US: 'Expansion', zh_CN: '扩写' },
+    value: { en_US: 'Expansion', zh_CN: '扩写' },
+  },
+  {
+    label: { en_US: 'Polish', zh_CN: '润色' },
+    value: { en_US: 'Polish', zh_CN: '润色' },
+  },
+  {
+    label: { en_US: 'Proofread', zh_CN: '校阅' },
+    value: { en_US: 'Proofread', zh_CN: '校阅' },
+  },
+  {
+    label: { en_US: 'Translate', zh_CN: '翻译' },
+    value: { en_US: 'Translate', zh_CN: '翻译' },
+    autoSend: false,
+  },
+]
+```
+
+**Configuration Items**:
+
+- `item.label`: `String` or `Object`, the text displayed in the AI Document Assistant panel.
+- `item.value`: `String` or `Object`, the actual command sent to `onMessage`.
+- `item.autoSend`: `Boolean`, whether to automatically send the command to `onMessage` when the user selects it. Default is `true`. If set to `false`, the user can modify the command and manually click the button to send it.
+
+### ai.assistant.onMessage
+
+**Description**: Configures the method for returning data from the AI Document Assistant. For more information, see [AI Document Assistant](../ai).
+
+**Type**: `AsyncFunction`, `Promise`.
+
+**Parameters**:
+
+- `payload`: Request parameters for the AI Document Assistant, which can be passed to the AI model.
+  1. `payload.lang`: `String`, the current interface language.
+  2. `payload.input`: `String`, the text content selected by the user.
+  3. `payload.command`: `String`, the command entered by the user.
+  4. `payload.output`: `String`, the desired content format from the AI Document Assistant. Possible values: `rich-text`, `text`.
+- `content`: The current document content. You can pass the document content to the AI model, but note that overly long documents may exceed the AI model's processing capabilities. If using a commercial AI model, long token inputs may also significantly increase costs.
+  1. `content.text`: `String`, the text content of the current document.
+  2. `content.html`: `String`, the HTML content of the current document.
+  3. `content.json`: `Object`, the JSON content of the current document.
+
+**Example**:
+
+The following example demonstrates how to configure the `onMessage` method to pass document content to an AI model, process it, and return the AI model's response using OpenAI as an example.
+
+The OpenAI API specification has become an industry standard. In fact, many AI models support being called via the [`OpenAI SDK`](https://www.npmjs.com/package/openai).
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+import { useUmoEditor } from '@umoteam/editor'
+import OpenAI from 'openai'
+
+const onMessage = async (payload, content) => {
+  console.log(payload, content)
+  const { command, lang, input, output } = payload
+  const client = new OpenAI({
+    baseURL: '...',
+    apiKey: '...',
+    dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
+  })
+  const langs = {
+    'en-US': 'English',
+    'zh-CN': 'Chinese',
+  }
+  const options = {
+    stream: true,
+    model: '...',
+    messages: [
+      {
+        role: 'system',
+        content: `You are a document assistant. Based on the user's input text or HTML content and the corresponding operation command, generate document content that meets the requirements. Requirements: 1. If the command does not require translation, return in ${langs[lang]}; otherwise, return in the language specified by the user. 2. Return in ${output === 'rich-text' ? 'rich-text (HTML)' : 'plain text (remove HTML tags)'} format. 3. If you cannot understand the user's command, prepend "[ERROR]: " to the returned content. 4. Do not return any other unnecessary content.`,
+      },
+      {
+        role: 'user',
+        content: `Perform the following operation: [${command}].\n${input}`,
+      },
+    ],
+  }
+  const completion = await client.chat.completions.create(options)
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of completion) {
+        controller.enqueue(chunk.choices[0]?.delta?.content || '')
+      }
+      controller.close()
+    },
+  })
+  return stream
+}
+
+const options = {
+  ai: {
+    assistant: {
+      onMessage,
+    },
+  },
+};
+
+app.use(useUmoEditor, options)
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor 
+    v-bind="options"
+  />
+</template>
+ 
+<script setup>
+import { UmoEditor } from '@umoteam/editor'
+import OpenAI from 'openai'
+
+const onMessage = async (payload, content) => {
+  console.log(payload, content)
+  const { command, lang, input, output } = payload
+  const client = new OpenAI({
+    baseURL: '...',
+    apiKey: '...',
+    dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
+  })
+  const langs = {
+    'en-US': 'English',
+    'zh-CN': 'Chinese',
+  }
+  const options = {
+    stream: true,
+    model: '...',
+    messages: [
+      {
+        role: 'system',
+        content: `You are a document assistant. Based on the user's input text or HTML content and the corresponding operation command, generate document content that meets the requirements. Requirements: 1. If the command does not require translation, return in ${langs[lang]}; otherwise, return in the language specified by the user. 2. Return in ${output === 'rich-text' ? 'rich-text (HTML)' : 'plain text (remove HTML tags)'} format. 3. If you cannot understand the user's command, prepend "[ERROR]: " to the returned content. 4. Do not return any other unnecessary content.`,
+      },
+      {
+        role: 'user',
+        content: `Perform the following operation: [${command}].\n${input}`,
+      },
+    ],
+  }
+  const completion = await client.chat.completions.create(options)
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of completion) {
+        controller.enqueue(chunk.choices[0]?.delta?.content || '')
+      }
+      controller.close()
+    },
+  })
+  return stream
+}
+
+const options = {
+  ai: {
+    assistant: {
+      onMessage,
+    },
+  },
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+<Callout type="error">
+**Note:** The above code is for demonstration purposes only. In actual applications, sensitive information such as `apiKey` should not be exposed on the client side. Instead, the AI model should be called through a backend service, and the `apiKey` should be stored on the backend to protect sensitive information. The above logic should also be implemented on the backend as much as possible to reduce request load.
+</Callout>
+
+**Return Value**: `String`, `ReadableStream`.
