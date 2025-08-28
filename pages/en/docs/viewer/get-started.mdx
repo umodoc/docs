@@ -1,1 +1,80 @@
-// Todo
+import { Tabs } from 'nextra/components'
+
+# Getting Started
+
+Umo Viewer is a document viewer built with Vue3. You can visit [https://www.umodoc.com/en/demo?target=viewer](https://www.umodoc.com/en/demo?target=viewer) to experience and test some of Umo Viewer's features.
+
+## Installation
+
+### Install via NPM
+
+```sh npm2yarn
+npm install --save @umoteam/viewer
+```
+
+## Usage
+
+Choose one of the following usage methods:
+
+### Global Installation
+```js filename="main.js"
+import { createApp } from 'vue';
+import { useUmoViewer } from '@umoteam/viewer';
+
+const app = createApp(App);
+app.use(useUmoViewer, {
+  // options
+  // ...
+});
+app.mount('#app');
+```
+
+### Direct Import
+
+You can use either the Composition API or Options API as shown below:
+
+```vue filename="component.vue"
+<template>
+  <umo-viewer v-bind="options" />
+  <!-- Or -->
+  <!-- 
+  <umo-viewer 
+    lang="en-US"
+    ... 
+  /> -->
+</template>
+
+// Using Composition API
+<script setup>
+  import { ref } from 'vue'
+  import { UmoViewer } from '@umoteam/viewer';
+
+  const options = ref({
+    // options
+    // ...
+  });
+</script>
+
+// Or using Options API
+<script>
+  import { UmoViewer } from '@umoteam/viewer';
+
+  export default {
+    components: {
+      UmoViewer
+    },
+    data() {
+      return {
+        options: {
+          // options
+          // ...
+        }
+      }
+    }
+  }
+</script>
+```
+
+## Configuration
+
+See [Options](./options).

@@ -36,7 +36,7 @@ app.mount('#app');
 
 ### 直接引入
 
-以下组合式 API 和选项式 API 的 JS 示例任选一种使用。
+以下组合式 API 和选项式 API 的示例，任选一种使用即可。
 
 ```vue filename="component.vue"
 <template>
@@ -102,8 +102,8 @@ export default defineNuxtConfig({
   modules: ['@umoteam/umo-editor-nuxt'],
   umoEditor: {
     // 全局配置项，默认配置见：
-    // https://dev.umodoc.com/cn/docs/options/default
-    locale: 'en-US',
+    // https://dev.umodoc.com/cn/docs/editor/options/default
+    locale: 'zh-CN',
   },
 })
 ```
@@ -120,7 +120,7 @@ export default defineNuxtConfig({
 <script setup>
 const options = ref({
     // 配置项，见:
-    // https://dev.umodoc.com/cn/docs/options/default
+    // https://dev.umodoc.com/cn/docs/editor/options/default
 })
 </script>
 ```

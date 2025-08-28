@@ -1,0 +1,57 @@
+# 事件列表
+
+本章介绍 Umo Viewer 的所有事件。
+
+## 使用示例
+
+```vue {4-5}
+<template>
+  <umo-viewer
+    v-bind="options"
+    @close="onClose"
+    @validate-password="onValidatePassword"
+  />
+</template>
+
+<script setup>
+  import { ref } from 'vue';
+  import { UmoViewer } from '@umoteam/viewer';
+
+  const options = ref({
+    // 配置项
+    lang: 'zh-CN',
+    // ...
+  });
+
+  // 关闭事件，例如在关闭事件中关闭弹窗
+  const onClose = () => {
+    console.log('关闭事件');
+  };
+
+  // 验证密码事件
+  const onValidatePassword = (password) => {
+    if (password === '123456') {
+      return true;
+    }
+    return false;
+  };
+</script>
+```
+
+## 事件说明
+
+### onClose
+
+**说明**: 点击关闭按钮的关闭事件，例如在关闭事件中关闭弹窗。
+
+**类型**: `() => void`
+
+**默认值**: `undefined`
+
+### onValidatePassword
+
+**说明**: 文档验证密码事件，当需要输入密码才能访问文档时，会触发该事件。如果密码正确，则需要返回 `true`，否则返回 `false`。该事件支持异步验证。
+
+**类型**: `(password: string) => boolean`
+
+**默认值**: `undefined`

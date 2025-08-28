@@ -1,0 +1,57 @@
+# Event List
+
+This chapter introduces all events available in Umo Viewer.
+
+## Usage Example
+
+```vue {4-5}
+<template>
+  <umo-viewer
+    v-bind="options"
+    @close="onClose"
+    @validate-password="onValidatePassword"
+  />
+</template>
+
+<script setup>
+  import { ref } from 'vue';
+  import { UmoViewer } from '@umoteam/viewer';
+
+  const options = ref({
+    // options
+    lang: 'en-US',
+    // ...
+  });
+
+  // Close event, e.g., close a modal dialog
+  const onClose = () => {
+    console.log('Closed');
+  };
+
+  // Password validation event
+  const onValidatePassword = (password) => {
+    if (password === '123456') {
+      return true;
+    }
+    return false;
+  };
+</script>
+```
+
+## Event Details
+
+### onClose
+
+**Description**: Triggered when the close button is clicked, e.g., to close a modal dialog.
+
+**Type**: `() => void`
+
+**Default**: `undefined`
+
+### onValidatePassword
+
+**Description**: Triggered when a password is required to access the document. Return `true` if the password is correct, otherwise return `false`. Supports async validation.
+
+**Type**: `(password: string) => boolean`
+
+**Default**: `undefined`

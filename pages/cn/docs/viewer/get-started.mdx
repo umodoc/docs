@@ -1,1 +1,80 @@
-// Todo
+import { Tabs } from 'nextra/components'
+
+# 快速开始
+
+Umo Viewer 是一个基于 Vue3 的文档查看器。您可以访问[https://www.umodoc.com/demo?target=viewer](https://www.umodoc.com/demo?target=viewer)，体验和测试 Umo Viewer 的部分功能。
+
+## 安装
+
+### 使用 NPM 安装
+
+```sh npm2yarn
+npm install --save @umoteam/viewer
+```
+
+## 使用
+
+以下使用方式任选一种即可：
+
+### 全局安装
+```js filename="main.js"
+import { createApp } from 'vue';
+import { useUmoViewer } from '@umoteam/viewer';
+
+const app = createApp(App);
+app.use(useUmoViewer, {
+  // 配置项
+  // ...
+});
+app.mount('#app');
+```
+
+### 直接引入
+
+以下组合式 API 和选项式 API 的示例，任选一种使用即可。
+
+```vue filename="component.vue"
+<template>
+  <umo-viewer v-bind="options" />
+  <!-- 或者 -->
+  <!-- 
+  <umo-viewer 
+    lang="zh-CN"
+    ... 
+  /> -->
+</template>
+
+// 使用组合式 API
+<script setup>
+  import { ref } from 'vue'
+  import { UmoViewer } from '@umoteam/viewer';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+</script>
+
+// 或使用选项式 API
+<script>
+  import { UmoViewer } from '@umoteam/viewer';
+
+  export default {
+    components: {
+      UmoViewer
+    },
+    data() {
+      return {
+        options: {
+          // 配置项
+          // ...
+        }
+      }
+    }
+  }
+</script>
+```
+
+## 配置
+
+见[配置项](./options)。

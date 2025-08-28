@@ -1,1 +1,244 @@
-// Todo
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# 配置项
+
+本章介绍 Umo Viewer 的配置项。
+
+## 所有配置
+
+``` js showLineNumbers
+{
+  lang: 'zh-CN',
+  theme: 'light',
+  showHeader: true,
+  showAside: false,
+  mode: ['html', 'pdf'],
+  title: undefined,
+  meta: [],
+  editUrl: undefined,
+  shareUrl: undefined,
+  printable: true,
+  downloadable: true,
+  closeable: false,
+  content: undefined,
+  pdfUrl: undefined,
+  activeHeading: undefined,
+  activePage: undefined,
+  showMultiPage: false,
+  fitWidth: false,
+  needPassword: false,
+}
+```
+
+## 配置说明
+
+### lang
+
+**说明**: 默认语言，可选值：`zh-CN`, `en-US`。
+
+**类型**: `string`
+
+**默认值**: `zh-CN`
+
+**是否必填**: 否
+
+### theme
+
+**说明**: 默认主题，可选值：`light`, `dark`, `auto`。
+
+**类型**: `string`
+
+**默认值**: `light`
+
+**是否必填**: 否
+
+### showHeader
+
+**说明**: 是否显示顶部导航栏。
+
+**类型**: `boolean`
+
+**默认值**: `true`
+
+**是否必填**: 否
+
+### showAside
+
+**说明**: 默认是否展开左侧边栏，左侧边栏主要用于显示文档缩略图、文档大纲以及文档元信息等。
+
+**类型**: `boolean`
+
+**默认值**: `false`
+
+**是否必填**: 否
+
+### mode
+
+**说明**: 文档预览模式。如果同时配置了 `pdf` 和 `html`，则会显示一个切换按钮，用户可以在两种模式之间切换。如果仅配置了其中一种模式，则不会显示切换按钮。注意：该数组的顺序会决定预览模式，默认预览模式使用配置项的第一项，同时切换列表的顺序也会遵循此配置。
+
+**类型**: `string[]`
+
+**默认值**: `['pdf', 'html']`
+
+**是否必填**: 否
+
+### title
+
+**说明**: 文档标题。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 是
+
+### meta
+
+**说明**: 文档元信息，可用于展示额外的文档信息，每个元信息项包含 `label` 和 `content` 两个属性，默认值为 `[]`。
+
+**类型**: `object[]`
+
+**默认值**: `[]`
+
+**是否必填**: 否
+
+**示例**:
+
+```js
+meta: [
+  {
+    label: '作者',
+    content: 'Umo Team',
+  },
+  {
+    label: '简介',
+    content: 'Umo Viewer 是一款 PDF 文档查看器，同时也支持预览富文本内容',
+  },
+  {
+    label: '创建时间',
+    content: '2025-09-01 00:00:00',
+  },
+  // ……
+]
+```
+
+### editUrl
+
+**说明**: 文档编辑 URL，默认值为 `undefined`，如果未配置该项，则不会显示编辑按钮。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 否
+
+### shareUrl
+
+**说明**: 文档分享 URL，默认值为 `undefined`，如果未配置该项，则不会显示分享按钮。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 否
+
+### printable
+
+**说明**: 是否可打印，默认值为 `true`。
+
+**类型**: `boolean`
+
+**默认值**: `true`
+
+**是否必填**: 否
+
+### downloadable
+
+**说明**: 是否可下载，默认值为 `true`。
+
+**类型**: `boolean`
+
+**默认值**: `true`
+
+**是否必填**: 否
+
+### closeable
+
+**说明**: 是否显示关闭按钮，默认值为 `false`，如果配置为 `true`，则会在顶部导航栏显示一个关闭按钮，此时需要配置[onClose 事件](./events#onclose)。
+
+**类型**: `boolean`
+
+**默认值**: `false`
+
+**是否必填**: 否
+
+### content
+
+**说明**: 要预览的 HTML 富文本文档内容。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 当 `mode` 配置中包含 `html` 时，该配置项为必填项。
+
+### pdfUrl
+
+**说明**: 要预览的 PDF 文档 URL。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 当 `mode` 配置中包含 `pdf` 时，该配置项为必填项。
+
+### activeHeading
+
+**说明**: 默认激活的 HTML 富文本文档标题，需要激活的标题需要包含 `data-toc-id` 属性，该配置值为要激活的标题的 `data-toc-id` 属性值，默认值为 `undefined`。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 否
+
+### activePage
+
+**说明**: 默认激活的 PDF 文档页码，默认值为 `undefined`。
+
+**类型**: `number`
+
+**默认值**: `undefined`
+
+**是否必填**: 否
+
+### showMultiPage
+
+**说明**: 默认是否显示多页模式，仅在 PDF 文档中生效，默认值为 `false`。
+
+**类型**: `boolean`
+
+**默认值**: `false`
+
+**是否必填**: 否
+
+### fitWidth
+
+**说明**: 是否自动调整文档宽度，默认值为 `false`。
+
+**类型**: `boolean`
+
+**默认值**: `false`
+
+**是否必填**: 否
+
+### needPassword
+
+**说明**: 是否需要输入密码才能访问文档，默认值为 `false`。如果配置为 `true`，则需要配置 [onValidatePassword 事件](./events#onvalidatepassword)。
+
+**类型**: `boolean`
+
+**默认值**: `false`
+
+**是否必填**: 否

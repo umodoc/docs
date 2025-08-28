@@ -1,1 +1,244 @@
-// Todo
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Options
+
+This chapter introduces the configuration options for Umo Viewer.
+
+## All Options
+
+```js showLineNumbers
+{
+  lang: 'en-US',
+  theme: 'light',
+  showHeader: true,
+  showAside: false,
+  mode: ['html', 'pdf'],
+  title: undefined,
+  meta: [],
+  editUrl: undefined,
+  shareUrl: undefined,
+  printable: true,
+  downloadable: true,
+  closeable: false,
+  content: undefined,
+  pdfUrl: undefined,
+  activeHeading: undefined,
+  activePage: undefined,
+  showMultiPage: false,
+  fitWidth: false,
+  needPassword: false,
+}
+```
+
+## Option Details
+
+### lang
+
+**Description**: Default language. Options: `zh-CN`, `en-US`.
+
+**Type**: `string`
+
+**Default**: `en-US`
+
+**Required**: No
+
+### theme
+
+**Description**: Default theme. Options: `light`, `dark`, `auto`.
+
+**Type**: `string`
+
+**Default**: `light`
+
+**Required**: No
+
+### showHeader
+
+**Description**: Show the top navigation bar.
+
+**Type**: `boolean`
+
+**Default**: `true`
+
+**Required**: No
+
+### showAside
+
+**Description**: Expand the left sidebar by default. The sidebar displays document thumbnails, outline, and metadata.
+
+**Type**: `boolean`
+
+**Default**: `false`
+
+**Required**: No
+
+### mode
+
+**Description**: Document preview mode. If both `pdf` and `html` are configured, a toggle button will appear for switching between modes. If only one is configured, no toggle button is shown. The array order determines the preview mode and toggle list order; the first item is the default preview mode.
+
+**Type**: `string[]`
+
+**Default**: `['pdf', 'html']`
+
+**Required**: No
+
+### title
+
+**Description**: Document title.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: Yes
+
+### meta
+
+**Description**: Document metadata, used to display additional information. Each item contains `label` and `content` properties. Default is `[]`.
+
+**Type**: `object[]`
+
+**Default**: `[]`
+
+**Required**: No
+
+**Example**:
+
+```js
+meta: [
+  {
+    label: 'Author',
+    content: 'Umo Team',
+  },
+  {
+    label: 'Description',
+    content: 'Umo Viewer is a PDF document viewer that also supports rich text content.',
+  },
+  {
+    label: 'Created At',
+    content: '2025-09-01 00:00:00',
+  },
+  // ...
+]
+```
+
+### editUrl
+
+**Description**: Document edit URL. Default is `undefined`. If not set, the edit button will not be shown.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: No
+
+### shareUrl
+
+**Description**: Document share URL. Default is `undefined`. If not set, the share button will not be shown.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: No
+
+### printable
+
+**Description**: Allow printing. Default is `true`.
+
+**Type**: `boolean`
+
+**Default**: `true`
+
+**Required**: No
+
+### downloadable
+
+**Description**: Allow downloading. Default is `true`.
+
+**Type**: `boolean`
+
+**Default**: `true`
+
+**Required**: No
+
+### closeable
+
+**Description**: Show close button. Default is `false`. If set to `true`, a close button will appear in the top navigation bar. You need to configure the [onClose event](./events#onclose).
+
+**Type**: `boolean`
+
+**Default**: `false`
+
+**Required**: No
+
+### content
+
+**Description**: HTML rich text document content to preview.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: Required when `html` is included in `mode`.
+
+### pdfUrl
+
+**Description**: PDF document URL to preview.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: Required when `pdf` is included in `mode`.
+
+### activeHeading
+
+**Description**: Default active HTML heading. The heading must have a `data-toc-id` attribute. This value should be the `data-toc-id` of the heading to activate. Default is `undefined`.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: No
+
+### activePage
+
+**Description**: Default active PDF page number. Default is `undefined`.
+
+**Type**: `number`
+
+**Default**: `undefined`
+
+**Required**: No
+
+### showMultiPage
+
+**Description**: Show multi-page mode by default (PDF only). Default is `false`.
+
+**Type**: `boolean`
+
+**Default**: `false`
+
+**Required**: No
+
+### fitWidth
+
+**Description**: Automatically adjust document width. Default is `false`.
+
+**Type**: `boolean`
+
+**Default**: `false`
+
+**Required**: No
+
+### needPassword
+
+**Description**: Require password to access document. Default is `false`. If set to `true`, you need to configure the [onValidatePassword event](./events#onvalidatepassword).
+
+**Type**: `boolean`
+
+**Default**: `false`
+
+**Required**: No
