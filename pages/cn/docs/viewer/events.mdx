@@ -4,11 +4,12 @@
 
 ## 使用示例
 
-```vue {4-5}
+```vue {4-6}
 <template>
   <umo-viewer
     v-bind="options"
     @close="onClose"
+    @edit="onEdit"
     @validate-password="onValidatePassword"
   />
 </template>
@@ -26,6 +27,11 @@
   // 关闭事件，例如在关闭事件中关闭弹窗
   const onClose = () => {
     console.log('关闭事件');
+  };
+
+  // 编辑事件
+  const onEdit = () => {
+    console.log('编辑事件');
   };
 
   // 验证密码事件
@@ -48,10 +54,18 @@
 
 **默认值**: `undefined`
 
+### onEdit
+
+**说明**: 文档编辑事件，当点击编辑按钮时，会触发该事件。如果配置了[editable 选项](./options#editable)，则需要配置该事件。
+
+**类型**: `() => void`
+
+**默认值**: `undefined`
+
 ### onValidatePassword
 
 **说明**: 文档验证密码事件，当需要输入密码才能访问文档时，会触发该事件。如果密码正确，则需要返回 `true`，否则返回 `false`。该事件支持异步验证。
 
-**类型**: `(password: string) => boolean`
+**类型**: `(password: string) => boolean | Promise<boolean>`
 
 **默认值**: `undefined`

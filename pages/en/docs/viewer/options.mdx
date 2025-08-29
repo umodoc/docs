@@ -1,35 +1,35 @@
 import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
-# Options
+# Configuration Options
 
 This chapter introduces the configuration options for Umo Viewer.
 
-## All Options
+## All Configuration Options
 
 ```js showLineNumbers
 {
-  lang: 'en-US',
+  lang: 'zh-CN',
   theme: 'light',
-  showHeader: true,
-  showAside: false,
   mode: ['html', 'pdf'],
   title: undefined,
   meta: [],
-  editUrl: undefined,
-  shareUrl: undefined,
+  showHeader: true,
+  showAside: false,
+  editable: false,
   printable: true,
   downloadable: true,
   closeable: false,
-  content: undefined,
-  pdfUrl: undefined,
+  shareUrl: undefined,
+  html: undefined,
+  pdf: undefined,
   showMultiPage: false,
   fitWidth: false,
   needPassword: false,
 }
 ```
 
-## Option Details
+## Configuration Details
 
 ### lang
 
@@ -37,7 +37,7 @@ This chapter introduces the configuration options for Umo Viewer.
 
 **Type**: `string`
 
-**Default**: `en-US`
+**Default**: `zh-CN`
 
 **Required**: No
 
@@ -51,29 +51,9 @@ This chapter introduces the configuration options for Umo Viewer.
 
 **Required**: No
 
-### showHeader
-
-**Description**: Show the top navigation bar.
-
-**Type**: `boolean`
-
-**Default**: `true`
-
-**Required**: No
-
-### showAside
-
-**Description**: Expand the left sidebar by default. The sidebar displays document thumbnails, outline, and metadata.
-
-**Type**: `boolean`
-
-**Default**: `false`
-
-**Required**: No
-
 ### mode
 
-**Description**: Document preview mode. If both `pdf` and `html` are configured, a toggle button will appear for switching between modes. If only one is configured, no toggle button is shown. The array order determines the preview mode and toggle list order; the first item is the default preview mode.
+**Description**: Document preview mode. If both `pdf` and `html` are configured, a toggle button will appear for users to switch between the two modes. If only one is configured, the toggle will not appear. Note: The order of the array determines the preview mode order; the first item is the default preview mode, and the toggle list follows this order.
 
 **Type**: `string[]`
 
@@ -93,7 +73,7 @@ This chapter introduces the configuration options for Umo Viewer.
 
 ### meta
 
-**Description**: Document metadata, used to display additional information. Each item contains `label` and `content` properties. Default is `[]`.
+**Description**: Document metadata, used to display additional document information. Each item contains `label` and `content` properties. Default is `[]`.
 
 **Type**: `object[]`
 
@@ -111,7 +91,7 @@ meta: [
   },
   {
     label: 'Description',
-    content: 'Umo Viewer is a PDF document viewer that also supports rich text content.',
+    content: 'Umo Viewer is a PDF document viewer that also supports rich text preview.',
   },
   {
     label: 'Created At',
@@ -121,29 +101,39 @@ meta: [
 ]
 ```
 
-### editUrl
+### showHeader
 
-**Description**: Document edit URL. Default is `undefined`. If not set, the edit button will not be shown.
+**Description**: Whether to display the top navigation bar.
 
-**Type**: `string`
+**Type**: `boolean`
 
-**Default**: `undefined`
+**Default**: `true`
 
 **Required**: No
 
-### shareUrl
+### showAside
 
-**Description**: Document share URL. Default is `undefined`. If not set, the share button will not be shown.
+**Description**: Whether to expand the left sidebar by default. The sidebar mainly displays document thumbnails, outlines, and metadata.
 
-**Type**: `string`
+**Type**: `boolean`
 
-**Default**: `undefined`
+**Default**: `false`
+
+**Required**: No
+
+### editable
+
+**Description**: Whether the document is editable. Default is `false`. If set to `true`, you must configure the [onEdit event](./events#onedit).
+
+**Type**: `boolean`
+
+**Default**: `false`
 
 **Required**: No
 
 ### printable
 
-**Description**: Allow printing. Default is `true`.
+**Description**: Whether the document can be printed. Default is `true`.
 
 **Type**: `boolean`
 
@@ -153,7 +143,7 @@ meta: [
 
 ### downloadable
 
-**Description**: Allow downloading. Default is `true`.
+**Description**: Whether the document can be downloaded. Default is `true`.
 
 **Type**: `boolean`
 
@@ -163,7 +153,7 @@ meta: [
 
 ### closeable
 
-**Description**: Show close button. Default is `false`. If set to `true`, a close button will appear in the top navigation bar. You need to configure the [onClose event](./events#onclose).
+**Description**: Whether to display a close button. Default is `false`. If set to `true`, a close button will appear in the top navigation bar, and you must configure the [onClose event](./events#onclose).
 
 **Type**: `boolean`
 
@@ -171,29 +161,39 @@ meta: [
 
 **Required**: No
 
-### content
+### shareUrl
 
-**Description**: HTML rich text document content to preview.
-
-**Type**: `string`
-
-**Default**: `undefined`
-
-**Required**: Required when `html` is included in `mode`.
-
-### pdfUrl
-
-**Description**: PDF document URL to preview.
+**Description**: Document sharing URL. Default is `undefined`. If not set, the share button will not be displayed.
 
 **Type**: `string`
 
 **Default**: `undefined`
 
-**Required**: Required when `pdf` is included in `mode`.
+**Required**: No
+
+### html
+
+**Description**: The HTML rich text content to preview.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: Required if `mode` includes `html`.
+
+### pdf
+
+**Description**: The URL of the PDF document to preview.
+
+**Type**: `string`
+
+**Default**: `undefined`
+
+**Required**: Required if `mode` includes `pdf`.
 
 ### showMultiPage
 
-**Description**: Show multi-page mode by default (PDF only). Default is `false`.
+**Description**: Whether to show multi-page mode by default (PDF only). Default is `false`.
 
 **Type**: `boolean`
 
@@ -203,7 +203,7 @@ meta: [
 
 ### fitWidth
 
-**Description**: Automatically adjust document width. Default is `false`.
+**Description**: Whether to automatically adjust the document width. Default is `false`.
 
 **Type**: `boolean`
 
@@ -213,7 +213,7 @@ meta: [
 
 ### needPassword
 
-**Description**: Require password to access document. Default is `false`. If set to `true`, you need to configure the [onValidatePassword event](./events#onvalidatepassword).
+**Description**: Whether a password is required to access the document. Default is `false`. If set to `true`, you must configure the [onValidatePassword event](./events#onvalidatepassword).
 
 **Type**: `boolean`
 

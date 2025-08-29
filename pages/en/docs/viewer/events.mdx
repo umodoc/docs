@@ -4,11 +4,12 @@ This chapter introduces all events available in Umo Viewer.
 
 ## Usage Example
 
-```vue {4-5}
+```vue {4-6}
 <template>
   <umo-viewer
     v-bind="options"
     @close="onClose"
+    @edit="onEdit"
     @validate-password="onValidatePassword"
   />
 </template>
@@ -18,14 +19,19 @@ This chapter introduces all events available in Umo Viewer.
   import { UmoViewer } from '@umoteam/viewer';
 
   const options = ref({
-    // options
-    lang: 'en-US',
+    // Configuration options
+    lang: 'zh-CN',
     // ...
   });
 
-  // Close event, e.g., close a modal dialog
+  // Close event, e.g., close a dialog when triggered
   const onClose = () => {
-    console.log('Closed');
+    console.log('Close event');
+  };
+
+  // Edit event
+  const onEdit = () => {
+    console.log('Edit event');
   };
 
   // Password validation event
@@ -42,7 +48,15 @@ This chapter introduces all events available in Umo Viewer.
 
 ### onClose
 
-**Description**: Triggered when the close button is clicked, e.g., to close a modal dialog.
+**Description**: Triggered when the close button is clicked, e.g., to close a dialog.
+
+**Type**: `() => void`
+
+**Default**: `undefined`
+
+### onEdit
+
+**Description**: Triggered when the edit button is clicked. If the [editable option](./options#editable) is enabled, this event must be configured.
 
 **Type**: `() => void`
 
@@ -50,8 +64,8 @@ This chapter introduces all events available in Umo Viewer.
 
 ### onValidatePassword
 
-**Description**: Triggered when a password is required to access the document. Return `true` if the password is correct, otherwise return `false`. Supports async validation.
+**Description**: Triggered when a password is required to access the document. Return `true` if the password is correct, otherwise return `false`. Supports asynchronous validation.
 
-**Type**: `(password: string) => boolean`
+**Type**: `(password: string) => boolean | Promise<boolean>`
 
 **Default**: `undefined`

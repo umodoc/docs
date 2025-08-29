@@ -11,18 +11,18 @@ import { Badge } from '/components/badge'
 {
   lang: 'zh-CN',
   theme: 'light',
-  showHeader: true,
-  showAside: false,
   mode: ['html', 'pdf'],
   title: undefined,
   meta: [],
-  editUrl: undefined,
-  shareUrl: undefined,
+  showHeader: true,
+  showAside: false,
+  editable: false,
   printable: true,
   downloadable: true,
   closeable: false,
-  content: undefined,
-  pdfUrl: undefined,
+  shareUrl: undefined,
+  html: undefined,
+  pdf: undefined,
   showMultiPage: false,
   fitWidth: false,
   needPassword: false,
@@ -48,26 +48,6 @@ import { Badge } from '/components/badge'
 **类型**: `string`
 
 **默认值**: `light`
-
-**是否必填**: 否
-
-### showHeader
-
-**说明**: 是否显示顶部导航栏。
-
-**类型**: `boolean`
-
-**默认值**: `true`
-
-**是否必填**: 否
-
-### showAside
-
-**说明**: 默认是否展开左侧边栏，左侧边栏主要用于显示文档缩略图、文档大纲以及文档元信息等。
-
-**类型**: `boolean`
-
-**默认值**: `false`
 
 **是否必填**: 否
 
@@ -121,23 +101,33 @@ meta: [
 ]
 ```
 
-### editUrl
+### showHeader
 
-**说明**: 文档编辑 URL，默认值为 `undefined`，如果未配置该项，则不会显示编辑按钮。
+**说明**: 是否显示顶部导航栏。
 
-**类型**: `string`
+**类型**: `boolean`
 
-**默认值**: `undefined`
+**默认值**: `true`
 
 **是否必填**: 否
 
-### shareUrl
+### showAside
 
-**说明**: 文档分享 URL，默认值为 `undefined`，如果未配置该项，则不会显示分享按钮。
+**说明**: 默认是否展开左侧边栏，左侧边栏主要用于显示文档缩略图、文档大纲以及文档元信息等。
 
-**类型**: `string`
+**类型**: `boolean`
 
-**默认值**: `undefined`
+**默认值**: `false`
+
+**是否必填**: 否
+
+### editable
+
+**说明**: 是否可编辑，默认值为 `false`，如果配置为 `true`，则需要配置[onEdit 事件](./events#onedit)。
+
+**类型**: `boolean`
+
+**默认值**: `false`
 
 **是否必填**: 否
 
@@ -171,7 +161,17 @@ meta: [
 
 **是否必填**: 否
 
-### content
+### shareUrl
+
+**说明**: 文档分享 URL，默认值为 `undefined`，如果未配置该项，则不会显示分享按钮。
+
+**类型**: `string`
+
+**默认值**: `undefined`
+
+**是否必填**: 否
+
+### html
 
 **说明**: 要预览的 HTML 富文本文档内容。
 
@@ -181,7 +181,7 @@ meta: [
 
 **是否必填**: 当 `mode` 配置中包含 `html` 时，该配置项为必填项。
 
-### pdfUrl
+### pdf
 
 **说明**: 要预览的 PDF 文档 URL。
 
