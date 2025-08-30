@@ -21,6 +21,9 @@ npm install --save @umoteam/viewer
 import { createApp } from 'vue';
 import { useUmoViewer } from '@umoteam/viewer';
 
+// 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+// import '@umoteam/editor/style'
+
 const app = createApp(App);
 app.use(useUmoViewer, {
   // 配置项
@@ -49,6 +52,9 @@ app.mount('#app');
   import { ref } from 'vue'
   import { UmoViewer } from '@umoteam/viewer';
 
+  // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+  // import '@umoteam/editor/style'
+
   const options = ref({
     // 配置项
     // ...
@@ -58,6 +64,9 @@ app.mount('#app');
 // 或使用选项式 API
 <script>
   import { UmoViewer } from '@umoteam/viewer';
+
+  // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+  // import '@umoteam/editor/style'
 
   export default {
     components: {
