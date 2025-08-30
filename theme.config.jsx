@@ -29,7 +29,7 @@ export default {
 				<title>
 					{title} - {router.locale === 'cn' ? 'Umo Editor 在线文档' : 'Umo Editor Documention'}
 				</title>
-				<link rel="icon" href="/images/favicon.png" />
+				<link rel="icon" href="https://s2.umodoc.com/images/favicon.png" />
 				<meta name="description" content={frontMatter.description} />
 				<meta name="msvalidate.01" content="238678E9B05B3DE2E35D891334FC842E" />
 				<script
