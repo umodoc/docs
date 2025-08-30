@@ -22,6 +22,7 @@ import { createApp } from 'vue';
 import { useUmoViewer } from '@umoteam/viewer';
 
 // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+// Umo Editor 版本不能不小于 8.0.0
 // import '@umoteam/editor/style'
 
 const app = createApp(App);
@@ -53,6 +54,7 @@ app.mount('#app');
   import { UmoViewer } from '@umoteam/viewer';
 
   // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+  // Umo Editor 版本不能不小于 8.0.0
   // import '@umoteam/editor/style'
 
   const options = ref({
@@ -66,6 +68,7 @@ app.mount('#app');
   import { UmoViewer } from '@umoteam/viewer';
 
   // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+  // Umo Editor 版本不能不小于 8.0.0
   // import '@umoteam/editor/style'
 
   export default {
@@ -83,7 +86,6 @@ app.mount('#app');
   }
 </script>
 ```
-
 ## 配置
 
 见[配置项](./options)。
