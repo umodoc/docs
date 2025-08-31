@@ -5,7 +5,36 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next/changelog
 
+## 🎉  v8.0.0 <Badge>2025-09-01</Badge>
+
+<Callout type="info" emoji="❗">
+Starting from v8.0, we have open-sourced [Umo Viewer](https://github.com/umodoc/viewer) to address document preview functionality in Umo Editor.
+
+Umo Viewer is a PDF document viewer built with Vue3 and [PDF.js](https://github.com/mozilla/pdf.js). It supports direct preview of PDF documents in browsers and can also preview Umo Editor document content.
+
+For more information, see: [Umo Viewer Documentation](../viewer).
+</Callout>
+
+1. Added document preview functionality using [Umo Viewer](https://github.com/umodoc/viewer);
+2. Added web layout with configurable display modes, see [`page.layouts`](./options/page#pagelayouts);
+3. Enhanced image node display with default width set to 100%;
+4. Improved echarts visualization;
+5. Refactored [Dialog component](./components/dialog) to support TDialog properties, events, slots, and methods;
+6. Added [`getVanillaHTML`](./methods#getvanillahtml) method to retrieve complete native HTML content;
+7. Removed line breaks and carriage returns from print output;
+8. Removed `toolbar.disableMenuItems` and `toolbar.importWord` options, replaced with new [`disableExtensions`](./options/extensions#disableextensions) and [`importWord`](./options/extensions#importword) configurations;
+9. Fixed floating image position issues in read-only mode @alsdn123123 [#309](https://github.com/umodoc/editor/issues/309);
+10. Fixed onFileDelete method not triggering when deleting or replacing document content @ChenErik [#300](https://github.com/umodoc/editor/issues/300);
+11. Fixed display issues after page zoom;
+12. Fixed production environment error `Key "xxxx" must be a async function` @SevenDreamYang [#319](https://github.com/umodoc/editor/issues/319);
+13. Removed default Russian language support;
+14. Added Italian language translations @claudiorivetti [#311](https://github.com/umodoc/editor/issues/311);
+15. Enhanced Word document import support;
+16. Fixed TypeScript type hints and improved TypeScript support, contributed by @SevenDreamYang in [(#303)](https://github.com/umodoc/editor/pull/303);
+17. Various minor adjustments and optimizations.
+
 ## 🎉  v7.0.0 <Badge>2025-06-21</Badge>
+
 1. [Umo Editor Next 7.0.0](../next/changelog.mdx) official release is now available 🎉🎉🎉. For details, see: [Introduction to Umo Editor Next](../next).
 2. Added selection effect detection for modal displays: when the AI assistant's focus is on the modal input box, the selection effect remains visible.
 3. After the AI assistant replaces text, the replaced text is automatically highlighted.
