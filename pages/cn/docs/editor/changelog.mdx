@@ -5,6 +5,16 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/changelog
 
+## 🚀  v8.1.0 <Badge>2025-09-06</Badge>
+
+1. 将页面设置、页面水印等操作加入历史记录，支持撤销和重做，由 @china-wangxu 在 [(#336)](https://github.com/umodoc/editor/issues/258) 提交；
+2. 修复 echarts 图表打开编辑图表无法显示的问题，由 @china-wangxu 在 [(#336)](https://github.com/umodoc/editor/issues/258) 提交；
+3. 修复菜单栏表格图标显示不正确的问题 [#337](https://github.com/umodoc/editor/issues/337)，由 @china-wangxu 在 [(#336)](https://github.com/umodoc/editor/issues/258) 提交；
+4. 修复插入网页节点(iframe)后会导致撤销和重做失效的问题 [#317](https://github.com/umodoc/editor/issues/317)，由 @china-wangxu 在 [(#336)](https://github.com/umodoc/editor/issues/258) 提交；
+5. 更新 vite 依赖，解决可能因为对等依赖问题会导出打包错误的问题 [#334](https://github.com/umodoc/editor/issues/334)；
+6. 回退和优化文件节点被删除或替换时调用文件删除方法的逻辑代码，修复在某些情况下出现可能会误删文件的情况；
+7. 一些细节调整。
+
 ## 🎉  v8.0.0 <Badge>2025-08-31</Badge>
 
 <Callout type="info" emoji="❗">
