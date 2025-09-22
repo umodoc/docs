@@ -13,11 +13,9 @@ Umo Editor Server is not distributed as an NPM package. After obtaining a commer
 git clone <Umo Editor Server official private repository URL>
 ```
 
-### 2. Install NPM Dependencies
+### 2. Install Dependencies
 
-```sh npm2yarn
-npm install
-```
+Please refer to the "Installing Dependencies" section in the project's `README.md` document, **make sure to install the required dependencies according to the instructions**.
 
 ### 3. Configure Environment Variables
 
@@ -79,4 +77,4 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 
 ## Deployment Notes
 - In an environment that supports `nodejs`, you can directly run the project using `npm run production`. This command provides the ability to use the `[pm2](https://pm2.io/)` daemon and record logs.
-- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed.
+- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed. For details, see [Docker Deployment](./server/docker).

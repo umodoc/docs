@@ -13,11 +13,9 @@ Umo Editor Server 不以 NPM 包的形式发行，在获得商业许可后，您
 git clone <Umo Editor Server 官方私有仓库路径>
 ```
 
-### 2. 安装 NPM 依赖
+### 2. 安装依赖
 
-```sh npm2yarn
-npm install
-```
+详见项目 `README.md` 文档中对应的“安装依赖”部分，**请务必按说明安装所需依赖**。
 
 ### 3. 配置环境变量
 
@@ -83,4 +81,4 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 
 ## 部署说明
 - 在支持 `nodejs` 的环境中，您可以直接使用 `npm run production` 运行项目，此命令提供了通过 [pm2](https://pm2.io/) 守护进程的能力和记录日志的能力。
-- 也可以直接将项目部署到 `docker` 容器中，您可以根据实际需要修改 `Dockerfile`。
+- 也可以直接将项目部署到 `docker` 容器中，您可以根据实际需要修改 `Dockerfile`，见[docker 部署](./server/docker)。

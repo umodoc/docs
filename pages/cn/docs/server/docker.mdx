@@ -1,0 +1,51 @@
+# 通过 Docker 部署
+
+Umo Editor Server 提供了 Docker 镜像（位于 `docker/` 中），您可以通过 Docker 部署 Umo Editor Server，您可以根据实际需要修改项目根目录下的 `Dockerfile`。
+
+通过 Docker 部署，可以简化部署过程，尤其适合 **内网部署** 的情况。
+
+以下是通过 Docker 部署的步骤说明，在此之前，您需要安装 [Docker](https://www.docker.com/) 并登录。
+
+## 1. 使用官方提供的 Docker 镜像部署
+
+此类情况适用于没有修改过源代码（包括 `Dockerfile`）的情况。
+
+### 1）加载最新 Docker 镜像
+
+```bash
+# 在项目根目录下执行
+docker load -i ./docker/umo-editor-server.tar
+```
+### 2）启动容器
+
+```bash
+# 在项目根目录下执行
+docker run -d --name umo-editor-server -p 1235:1235 umo-editor-server:latest
+```
+
+### 3）验证容器运行状态
+
+```bash
+# 查看容器运行状态
+docker ps | grep umo-editor-server
+```
+
+### 4）访问 Umo Editor Server
+
+通过浏览器访问 `http://127.0.0.1:1235` 查看服务是否正常运行。
+
+## 2. 自定义部署
+
+此类情况适用于修改了源代码（包括 `Dockerfile`），则需要自定义部署，请按照以下步骤进行。
+
+### 1）构建自定义的 Docker 镜像
+
+```sh npm2yarn
+npm run build:docker
+```
+
+打包后的 Docker 镜像位于 `docker/umo-editor-server:latest`，后续您可以使用该镜像在本机或者服务器上进行部署。
+
+### 2）后续步骤
+
+参考 [1. 使用官方提供的 Docker 镜像部署](#1-使用官方提供的-docker-镜像部署) 中的步骤。

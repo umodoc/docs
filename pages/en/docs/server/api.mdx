@@ -31,3 +31,10 @@ A brief description of the currently provided interfaces is as follows. For more
 ## Icons
 
 - `GET /icons`: Returns a list of all available icon information.
+
+## 静态文件
+
+Returns static files such as Umo Editor Next bundled files and `@umoteam/editor-external`, for example:
+
+- `GET /static`: Returns the main CSS file of Umo Editor Next, which can be used to configure the [`cdnUrl`](../editor/options/cdn) option of Umo Editor Next.
+- `GET /static/next/7.1.0/style.css`: Returns the style file of Umo Editor Next, which can be used to configure the [`export.styleURL`](../next/export) option of Umo Editor Next.

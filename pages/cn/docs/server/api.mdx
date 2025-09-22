@@ -30,3 +30,10 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 ## 图标
 
 - `GET /icons`：图标列表，返回所有可用的图标信息。
+
+## 静态文件
+
+返回 Umo Editor Next 的打包文件和 `@umoteam/editor-external` 等静态文件，例如：
+
+- `GET /static`：返回 Umo Editor Next 的主 CSS 文件，可用于配置 Umo Editor Next 的 [`cdnUrl`](../editor/options/cdn) 配置项。
+- `GET /static/next/7.1.0/style.css`：返回 Umo Editor Next 的样式文件，可用于配置 Umo Editor Next 的 [`export.styleURL`](../next/export) 配置项。

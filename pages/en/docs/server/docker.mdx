@@ -1,0 +1,51 @@
+# Deployment with Docker
+
+Umo Editor Server provides Docker images (located in `docker/`), allowing you to deploy Umo Editor Server using Docker. You can modify the `Dockerfile` in the project root directory according to your specific requirements.
+
+Deploying with Docker simplifies the deployment process and is particularly suitable for **internal network deployment** scenarios.
+
+Below are the steps for deploying with Docker. Before proceeding, you need to install [Docker](https://www.docker.com/) and log in.
+
+## 1. Deploying with the Official Docker Image
+
+This approach is suitable when you haven't modified the source code (including the `Dockerfile`).
+
+### 1) Load the Latest Docker Image
+
+```bash
+# Execute in the project root directory
+docker load -i ./docker/umo-editor-server.tar
+```
+### 2) Start the Container
+
+```bash
+# Execute in the project root directory
+docker run -d --name umo-editor-server -p 1235:1235 umo-editor-server:latest
+```
+
+### 3) Verify Container Status
+
+```bash
+# Check the container running status
+docker ps | grep umo-editor-server
+```
+
+### 4) Access Umo Editor Server
+
+Open your browser and navigate to `http://127.0.0.1:1235` to verify that the service is running properly.
+
+## 2. Custom Deployment
+
+This approach is necessary when you've modified the source code (including the `Dockerfile`). Follow these steps for custom deployment.
+
+### 1) Build a Custom Docker Image
+
+```sh npm2yarn
+npm run build:docker
+```
+
+The built Docker image will be located at `docker/umo-editor-server:latest`. You can then use this image to deploy on your local machine or server.
+
+### 2) Next Steps
+
+Refer to the steps in [1. Deploying with the Official Docker Image](#1-deploying-with-the-official-docker-image).
