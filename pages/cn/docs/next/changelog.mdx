@@ -6,17 +6,29 @@ import { Callout } from 'nextra/components'
 为了和 Umo Editor 的代码保持同步，Umo Editor Next 采用和 Umo Editor 大版本号，直接从 v7.0.0 开始发布。
 </Callout>
 
-## 🚀  v7.1.0
+## 🎉  v8.0.0
 
-### 新增功能
+1. 同步 Umo Editor 开源版本的代码更改，详细更新日志见：[Umo Editor v8.0.0](../editor/changelog#--v800-2025-08-31) 及 [Umo Editor v8.1.0](../editor/changelog#--v810-2025-09-06)；
+2. 添加 PlantUML 支持，可在 Umo Editor Next 中直接插入和编辑 plantuml 图表，见 [PlantUML](./other#plantuml-图表)；
+3. 添加 Flowchart 支持，可在 Umo Editor Next 中直接插入和编辑 Flowchart 图表，见 [Flowchart](./other#flowchart-图表)；
+4. AI 聊天助手聊天框中增加内容由 AI 生成标签（国标）；
+5. AI 聊天助手对话深度思考未选择时，不展示思考过程；
+6. 优化 word 文档、HTML 、PDF、图片等导出效果；
+7. 修复 [exportImage](./export#exportimage) 在配置 `download` 为 `false` 时，返回 `undefined` 的问题；
+8. 修复导出及打印时样式分页异常的问题；
+9. 细节调整和优化。
+
+## 🚀  v7.1.1
+
+1. 修复若干问题。
+
+## 🚀  v7.1.0
 
 1. 增加 [`server`](./server) 配置项，并删除其他配置 server 相关的配置，用以简化和统一配置；
 2. 增加 Office 及 WPS 文档导入功能，支持 doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等格式，并可在 Umo Editor Server 中自行扩展；
 3. 增加 Umo Editor 专有文档格式（.umo）导入和导出功能。
 
 ## 🎉  v7.0.0
-
-### 新增功能
 
 1. 增加多人协作编辑功能；
 2. 增加 AI 文档助手功能；
