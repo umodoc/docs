@@ -18,6 +18,15 @@ import { Callout } from 'nextra/components'
 8. 修复导出及打印时样式分页异常的问题；
 9. 细节调整和优化。
 
+### Umo Editor Server 更新
+
+1. 添加静态文件路由，包含 `Umo Editor Next` 静态资源及 `@umoteam/editor-external` 等资源文件；
+2. 增加 docker 镜像打包及相关支持，见 [通过 Docker 部署](../server/docker)；
+3. 修复图片导出失败的问题；
+4. 锁定版本依赖，修复由于相关依赖升级带来的错误；
+5. 优化 word 文档导入效果；
+6. 其他优化与细节调整。
+
 ## 🚀  v7.1.1
 
 1. 修复若干问题。
@@ -27,6 +36,11 @@ import { Callout } from 'nextra/components'
 1. 增加 [`server`](./server) 配置项，并删除其他配置 server 相关的配置，用以简化和统一配置；
 2. 增加 Office 及 WPS 文档导入功能，支持 doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等格式，并可在 Umo Editor Server 中自行扩展；
 3. 增加 Umo Editor 专有文档格式（.umo）导入和导出功能。
+
+### Umo Editor Server 更新
+
+1. 增加对 Word 文档导入的支持，支持的格式包括：doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等；
+2. 细节调整与优化。
 
 ## 🎉  v7.0.0
 
