@@ -8,26 +8,32 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 
 - `GET /`：返回服务是否正在运行的信息，如果无法访问该路由，则代表服务可能未启动或服务异常。
 
-## 接口文档
+## Open API 接口文档
 - `GET /docs`：接口文档，用于查看和测试接口，该接口在生产环境下不可用。
 
-## 文档导入
+## 文档导入导出
 
 - `POST /import/office`：将 Office 等格式的文档转换为 Umo Editor 所支持的格式，支持的格式包括：doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等，并可自行扩展。
-
-## 文档导出
-
 - `POST /export/pdf`：将文档导出为 PDF 格式。
 - `POST /export/image/:type`：将文档导出为图片格式，支持 `jpeg`、`png`、`webp` 格式图片的导出。
+- `POST /export/thumbnail`：导出文档缩略图（仅导出文档第一页内容）。
 
-## AI 服务商代理
+## AI 服务代理
 - `GET | POST /ai/{provider}/{endpoint}`：根据 provider 和 endpoint 参数动态代理 GET 请求到不同的 AI 服务商（如 DeepSeek、OpenAI、Moonshot AI 等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回响应结果。具体实现和使用方式请参考代码注释。
 
-## 协作编辑、文档批注等
+## 文档协作、批注
 
 - `GET /provider`：WebSocket 接口，应通过 ws(s):// 协议连接，该接口的大部分内容是以二进制的形式存储和传输。其配置和相关说明等见源代码。
 
-## 图标
+## 示例接口
+
+- `GET /template`：模板列表，返回所有可用的模板信息。
+- `GET /template/:id`：模板详情，返回指定 ID 的模板详情信息。
+- `POST /template`：创建模板，根据请求体创建新的模板并返回模板详情信息。
+- `PUT /template/:id`：更新模板，根据请求体更新指定 ID 的模板信息并返回更新后的模板详情信息。
+- `DELETE /template/:id`：删除模板，根据指定 ID 删除模板并返回删除结果信息。
+
+## 图标列表
 
 - `GET /icons`：图标列表，返回所有可用的图标信息。
 

@@ -4,7 +4,7 @@ export default {
 		display: 'hidden'
 	},
 	home: {
-		title: '主页',
+		title: '官网',
 		type: 'page',
 		href: 'https://www.umodoc.com',
 		newWindow: true

@@ -4,7 +4,7 @@ export default {
 		display: 'hidden'
 	},
 	home: {
-		title: 'Home',
+		title: 'Website',
 		type: 'page',
 		href: 'https://www.umodoc.com/en',
 		newWindow: true
