@@ -4,6 +4,9 @@ body {
 .nextra-nav-container a {
 	font-size: 14px;
 }
+.nextra-nav-container a[href="/"] {
+	pointer-events: none;
+}
 .no-result {
 	display: flex;
 	justify-content: center;
