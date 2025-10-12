@@ -1,0 +1,97 @@
+# Template Management
+
+Umo Editor Next provides template management functionality, allowing you to create, manage, and use document templates within Umo Editor.
+
+## Screenshots
+
+![Template Management](https://s2.umodoc.com/demos/template-cn.png)
+
+## Configuration Example
+
+```js
+const defaultOptions = {
+  // Template configuration options
+  template: {
+    categories: [],
+    async onList() {},
+    async onGet() {},
+    async onCreate() {},
+    async onUpdate() {},
+    async onDelete() {},
+  },
+}
+```
+
+## Configuration Options
+
+### template.categories
+
+**Description**: A list of template categories. You can customize template categories according to your needs. Each category is an object containing a category name and ID.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+**Example**: `[{ label: 'Example Category', value: '1' }]`
+
+### template.onList
+
+**Description**: An asynchronous method to retrieve the template list. You need to return the template list in this method.
+
+**Type**: `Async Function`
+
+**Parameters**: `Object`
+
+- `pageIndex`: Current page number, starting from 1.
+- `pageSize`: Number of templates per page, default is 10.
+- `keyword`: Search keyword, used to search template names.
+- `category`: Category value, see [`template.categories`](#templatecategories), used to filter templates by category value.
+
+**Return Value**: See the corresponding example API in the [Document Template Example API](../server/api#document-template-example-api) section of Umo Editor Server.
+
+### template.onGet
+
+**Description**: An asynchronous method to retrieve template details. You need to return the template details in this method.
+
+**Type**: `Async Function`
+
+**Parameters**: `String`
+
+- `id`: Template ID, used to retrieve template details by ID.
+
+**Return Value**: See the corresponding example API in the [Document Template Example API](../server/api#document-template-example-api) section of Umo Editor Server.
+
+### template.onCreate
+
+**Description**: An asynchronous method to create a template. You need to create the template and return the template details in this method.
+
+**Type**: `Async Function`
+
+**Parameters**: `Object`, the template content to be created.
+
+**Return Value**: See the corresponding example API in the [Document Template Example API](../server/api#document-template-example-api) section of Umo Editor Server.
+
+### template.onUpdate
+
+**Description**: An asynchronous method to update a template. You need to update the template and return the template details in this method.
+
+**Type**: `Async Function`
+
+**Parameters**: `Object`
+
+- `id`: Template ID, used to update the template by ID.
+- `data`: The template content to be updated.
+
+**Return Value**: See the corresponding example API in the [Document Template Example API](../server/api#document-template-example-api) section of Umo Editor Server.
+
+### template.onDelete
+
+**Description**: An asynchronous method to delete a template. You need to delete the template and return the deletion result in this method.
+
+**Type**: `Async Function`
+
+**Parameters**: `String`
+
+- `id`: Template ID, used to delete the template by ID.
+
+**Return Value**: See the corresponding example API in the [Document Template Example API](../server/api#document-template-example-api) section of Umo Editor Server.

@@ -1,0 +1,62 @@
+# Enhanced Table Features
+
+Tables are essential elements in documents. Umo Editor Next provides the following enhanced table features:
+
+- Custom table border styles
+- Custom table themes
+- Custom cell colors
+- Table property settings
+- Drag to adjust row height and column width
+- Drag to resize tables
+- Quick selection of entire tables, rows, or columns
+- Quick addition of rows or columns
+
+## Screenshots
+
+![Enhanced Table Features](https://s2.umodoc.com/demos/table-en.png)
+
+## Demo Video
+
+<video src="https://s1.umodoc.com/videos/table.mp4" controls="true"></video>
+
+## Configuration Example
+
+```js
+const defaultOptions = {
+  // Table configuration options
+  table: {
+    border: {
+      width: 1,
+      style: 'solid',
+      color: '#333',
+    },
+    cellsPadding: [3, 5, 3, 5],
+  },
+}
+```
+
+## Configuration Options
+
+### table.border
+
+**Description**:
+
+Default table border style. You can customize the border style according to your needs, including border width, style, and color. The property values are the same as [CSS border properties](https://developer.mozilla.org/en-US/docs/Web/CSS/border).
+
+**Type**: `Object`
+
+**Default**: `{ width: 1, style: 'solid', color: '#333' }`
+
+**Example**: `{ width: 2, style: 'dashed', color: '#000' }`
+
+### table.cellsPadding
+
+**Description**:
+
+Default padding for table cells. You can customize the cell padding according to your needs. The property values are the same as [CSS padding properties](https://developer.mozilla.org/en-US/docs/Web/CSS/padding), representing top, right, bottom, and left padding in pixels.
+
+**Type**: `Array`
+
+**Default**: `[3, 5, 3, 5]`
+
+**Example**: `[10, 15, 10, 15]`

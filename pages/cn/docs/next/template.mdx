@@ -1,0 +1,97 @@
+# 模板管理
+
+Umo Editor Next 提供了模板管理功能，您可以在 Umo Editor Next 中创建、管理和使用文档模板。
+
+## 效果截图
+
+![模板管理](https://s2.umodoc.com/demos/template-cn.png)
+
+## 配置项示例
+
+```js
+const defaultOptions = {
+  // 模板的相关配置项
+  template: {
+    categories: [],
+    async onList() {},
+    async onGet() {},
+    async onCreate() {},
+    async onUpdate() {},
+    async onDelete() {},
+  },
+}
+```
+
+## 配置项说明
+
+### template.categories
+
+**说明**：模板分类列表，您可以根据需要自定义模板分类，每个分类为一个对象，包含分类名称和分类 ID。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+**示例**：`[{ label: '示例分类', value: '1' }]`
+
+### template.onList
+
+**说明**：获取模板列表的异步方法，您需要在该方法中返回模板列表。
+
+**类型**：`Async Function`
+
+**参数**：`Object`
+
+- `pageIndex`：当前页码，从 1 开始。
+- `pageSize`：每页模板数量，默认值为 10。
+- `keyword`：搜索关键词，根据关键词搜索模板名称。
+- `category`：分类的 value 值，见 [`template.categories`](#templatecategories)，根据分类 value 筛选模板。
+
+**返回值**：见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口) 中的对应示例接口。
+
+### template.onGet
+
+**说明**：获取模板详情的异步方法，您需要在该方法中返回模板详情，返回示例见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口)。
+
+**类型**：`Async Function`
+
+**参数**：`String`
+
+- `id`：模板 ID，根据 ID 获取模板详情。
+
+**返回值**：见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口) 中的对应示例接口。
+
+### template.onCreate
+
+**说明**：创建模板的异步方法，您需要在该方法中创建模板并返回模板详情，返回示例见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口)。
+
+**类型**：`Async Function`
+
+**参数**：`Object`，要创建的模板内容。
+
+**返回值**：见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口) 中的对应示例接口。
+
+### template.onUpdate
+
+**说明**：更新模板的异步方法，您需要在该方法中更新模板并返回模板详情，返回示例见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口)。
+
+**类型**：`Async Function`
+
+**参数**：`Object`
+
+- `id`：模板 ID，根据 ID 更新模板。
+- `data`：要更新的模板内容。
+
+**返回值**：见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口) 中的对应示例接口。
+
+### template.onDelete
+
+**说明**：删除模板的异步方法，您需要在该方法中删除模板并返回删除结果，返回示例见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口)。
+
+**类型**：`Async Function`
+
+**参数**：`String`
+
+- `id`：模板 ID，根据 ID 删除模板。
+
+**返回值**：见 Umo Editor Server 中的 [文档模板示例接口](../server/api#文档模板示例接口) 中的对应示例接口。

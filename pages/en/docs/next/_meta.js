@@ -13,6 +13,8 @@ export default {
 	comments: 'Comments',
 	import: 'Import',
 	export: 'Export',
+	table: 'Table Enhancement',
+	template: 'Template Management',
 	other: 'Other Configurations',
 	methods: 'Methods',
 };

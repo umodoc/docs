@@ -13,6 +13,8 @@ export default {
 	comments: '文档批注/评论',
 	import: '文档导入',
 	export: '文档导出',
+	table: '表格增强',
+	template: '模板管理',
 	other: '其他配置',
 	methods: '方法列表',
 };

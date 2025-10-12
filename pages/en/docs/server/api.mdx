@@ -8,15 +8,12 @@ A brief description of the currently provided interfaces is as follows. For more
 
 - `GET /`: Returns information about whether the service is running. If this route is inaccessible, it indicates that the service is not started or is experiencing issues.
 
-## API Documentation
+## Open API Documentation
 - `GET /docs`: API documentation for viewing and testing interfaces. This interface is not available in the production environment.
 
-## Document Import
+## Document Import/Export
 
 - `POST /import/office`: Converts documents in formats like Office to formats supported by Umo Editor, including: doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps, etc. The supported formats can be extended as needed.
-
-## Document Export
-
 - `POST /export/pdf`: Export the document as a PDF.
 - `POST /export/image/:type`: Export the document as an image, supports `jpeg`, `png`, `webp` formats.
 
@@ -24,15 +21,23 @@ A brief description of the currently provided interfaces is as follows. For more
 
 - `GET | POST /ai/{provider}/{endpoint}`: Dynamically proxies GET and POST requests to different AI service providers (e.g., DeepSeek, OpenAI, Moonshot AI) based on the `provider` and `endpoint` parameters. This can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response. For specific implementation and usage, please refer to the code comments.
 
-## Collaborative Editing, Document Comments, etc.
+## Collaborative and Comments
 
 - `GET /provider`: WebSocket interface, which should be connected via the ws(s):// protocol. Most of the content of this interface is stored and transmitted in binary form. For its configuration and related instructions, please refer to the source code.
 
-## Icons
+## Template Endpoints
+
+- `GET /template`: List all available templates.
+- `GET /template/:id`: Retrieve detailed information for the template with the specified ID.
+- `POST /template`: Create a new template based on the request body and return the created template details.
+- `PUT /template/:id`: Update the template with the specified ID using the request body and return the updated template details.
+- `DELETE /template/:id`: Delete the template with the specified ID and return the deletion result.
+
+## Other
 
 - `GET /icons`: Returns a list of all available icon information.
 
-## 静态文件
+## Static Files
 
 Returns static files such as Umo Editor Next bundled files and `@umoteam/editor-external`, for example:
 

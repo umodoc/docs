@@ -1,0 +1,62 @@
+# 表格功能增强
+
+表格作为文档中常用的一种元素节点，在 Umo Editor Next 中提供了以下增强功能：
+
+- 自定义表格边框样式
+- 自定义表格主题
+- 自定义单元格颜色
+- 表格属性设置
+- 拖动调整表格行高和列宽
+- 拖动调整表格大小
+- 快速选中整个表格或行列
+- 快速添加行或列
+
+## 效果截图
+
+![表格功能增强](https://s2.umodoc.com/demos/table-cn.png)
+
+## 演示视频
+
+<video src="https://s1.umodoc.com/videos/table.mp4" controls="true"></video>
+
+## 配置项示例
+
+```js
+const defaultOptions = {
+  // 表格的相关配置项
+  table: {
+    border: {
+      width: 1,
+      style: 'solid',
+      color: '#333',
+    },
+    cellsPadding: [3, 5, 3, 5],
+  },
+}
+```
+
+## 配置项说明
+
+### table.border
+
+**说明**：
+
+表格默认边框样式，您可以根据需要自定义边框样式，包括边框宽度、边框样式和边框颜色，属性值同 [CSS border 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border)。
+
+**类型**：`Object`
+
+**默认值**：`{ width: 1, style: 'solid', color: '#333' }`
+
+**示例**：`{ width: 2, style: 'dashed', color: '#000' }`
+
+### table.cellsPadding
+
+**说明**：
+
+表格单元格默认内边距，您可以根据需要自定义单元格内边距，属性值同 [CSS padding 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/padding)，分别为上、右、下、左，单位为像素。
+
+**类型**：`Array`
+
+**默认值**：`[3, 5, 3, 5]`
+
+**示例**：`[10, 15, 10, 15]`
