@@ -1,0 +1,60 @@
+# 部署与运行指南
+
+## 前置条件
+
+- Node.js 18+（建议）
+- MySQL 5.7+/8.0+
+- 可选：PM2（进程管理）或 Docker（容器化部署）
+
+## 开发环境启动
+
+1. 安装依赖：`npm install`
+2. 配置环境变量：复制 `.env.example` 为 `.env` 并修改
+3. 启动服务：`npm start`
+4. 访问：
+   - 基础健康检查：`http://localhost:[PORT]/`
+   - Swagger 文档（非生产环境）：`http://localhost:[PORT]/openapi`
+
+## PM2 部署
+
+使用 `ecosystem.config.cjs`：
+
+```bash
+npm i -g pm2
+pm2 start ecosystem.config.cjs --env production
+pm2 status
+pm2 logs
+```
+
+- 日志位置：`logs/`
+- 关闭：`pm2 stop umo-office-convert`
+
+## Docker 部署
+
+见 [Docker 部署](./docker) 。
+
+- 注意：将 MySQL 服务暴露给容器，并确保服务可达（如使用主机网络或容器网络）。
+
+## 数据库准备
+
+- 创建数据库与用户（示例）：
+  ```sql
+  CREATE DATABASE IF NOT EXISTS `umo_office_convert` DEFAULT CHARACTER SET utf8mb4;
+  CREATE USER 'convert_user'@'%' IDENTIFIED BY 'strong_password';
+  GRANT ALL PRIVILEGES ON `umo_office_convert`.* TO 'convert_user'@'%';
+  FLUSH PRIVILEGES;
+  ```
+- 服务启动后会自动创建表 `convert_tasks`
+
+## 运行时目录
+
+- 原始文件保存目录（可选）
+- 转换后的文档保存目录
+- 日志目录
+
+## 生产建议
+
+- 使用对象存储（S3/OSS）替代本地磁盘
+- 通过反向代理（Nginx）启用 HTTPS 与限流
+- 配置 `WHITE_LIST` 严格控制跨域来源
+- 调整 `MAX_FILE_SIZE` 与 `FILE_HASH_ALGORITHM` 以适配业务

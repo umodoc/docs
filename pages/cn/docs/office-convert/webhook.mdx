@@ -1,0 +1,46 @@
+# Webhook 回调通知说明
+
+当文件上传或转换完成后，服务可向配置的 Webhook 地址发送通知，便于业务系统接收并触发后续流程。通过环境变量 `CONVERTED_WEBHOOK_URL` 开启。
+
+## 触发时机
+
+- 文档上传成功后发送一次通知
+- 文档成功转换后发送一次通知
+- 若命中缓存（同文件哈希），也会发送通知（标识 `fromCache=true`）
+
+## 回调请求
+
+- 方法：`POST`
+- 头信息：`Content-Type: application/json`
+- 目标：`CONVERTED_WEBHOOK_URL`
+
+## 负载示例
+
+```json
+{
+  "taskId": "bccbff66-fa2c-4d6d-bc30-a7c34ca0181b",
+  "type": "converted",
+  "fromCache": false,
+  "file": {
+    "filename": "测试文档.pdf",
+    "mime": "application/pdf",
+    "size": 90239,
+    "path": "/converted/2024/10/bccbff66fa2c.pdf"
+  }
+}
+```
+
+字段说明：
+- `taskId`: 转换任务 ID，用于后续查询原始文件或结果文件。
+- `type`: 事件类型，目前为 `converted`。
+- `fromCache`: 是否从缓存返回的结果。
+- `file`: 转换后文件的元信息。
+
+## 安全建议
+
+- 使用 HTTPS Webhook 地址。
+- 配置 IP 白名单或签名校验（如 HMAC），签名可在请求头或负载中携带。
+
+## 与下载接口协同
+
+- 收到回调后，业务可使用接口 `GET /convert/{taskId}` 下载文件。

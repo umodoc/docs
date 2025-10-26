@@ -1,0 +1,84 @@
+# 字体使用与中文兼容说明
+
+## 背景与问题
+
+在使用文档转换服务时，如果系统缺少文档中所使用的字体（尤其是中文字体），可能出现以下问题：
+- 乱码、方框（□）或拼音替代
+- 段落错位、换行异常、表格边界偏移
+- 西文字体正常，中文部分样式不一致
+
+根本原因：服务器/容器中缺失待转换文档中的字体时，使用不理想的回退字体，导致版式与字符渲染偏差。
+
+## 解决方案（复制 /fonts 到系统）
+
+项目自带 `./fonts` 目录，包含常见中文及相关字体。将该目录内容复制到系统的字体目录，并刷新字体缓存即可。
+
+### Linux（Debian/Ubuntu、CentOS/RHEL 等）
+
+- 复制字体：
+
+  ```bash
+  sudo mkdir -p /usr/share/fonts
+  sudo cp -r ./fonts/* /usr/share/fonts
+  sudo fc-cache -f -v
+  ```
+
+- 验证是否安装成功：
+
+  ```bash
+  fc-list
+  ```
+
+- 常见字体目录：`/usr/share/fonts/`、`/usr/local/share/fonts/`
+
+### macOS
+
+- 系统级安装：将字体复制到 `~/Library/Fonts/`（当前用户）或 `/Library/Fonts/`（全局）。
+
+  ```bash
+  mkdir -p ~/Library/Fonts
+  cp -r ./fonts/* ~/Library/Fonts/
+  ```
+
+- 安装后通常无需刷新缓存；若异常，可尝试重启或使用字体册（Font Book）验证。
+
+### Windows Server/Windows
+
+- 安装目录：`C:\Windows\Fonts`
+- 安装方式：选中 `./fonts` 下的字体文件，右键“安装”，或复制到系统字体目录（需管理员权限）。
+- 注意：部分环境仅复制可能不生效，推荐使用右键“安装”或 PowerShell 安装脚本。
+
+### Docker 容器（推荐做法）
+
+在镜像构建阶段复制并缓存字体：
+
+```dockerfile
+# 示例片段（基于 Debian/Ubuntu 镜像）
+COPY fonts /usr/share/fonts/
+RUN fc-cache -f -v
+```
+
+## 验证与排查
+
+- 检查中文字体是否被识别：
+
+  ```bash
+  fc-list : family | grep -E "SimSun|SimHei|Microsoft YaHei|KaiTi|NSimSun"
+  ```
+  
+- 快速转换验证：将包含中文的测试文档转换，重点校验：
+  - 中文是否显示正常、无方框
+  - 段落、行距、分页是否与原文一致或接近
+  - 表格对齐、边界不跑偏
+
+## 兼容性与注意事项
+
+- 字体版权与许可：生产环境请确保所用字体具有合法授权；某些系统字体禁止商业再分发。
+- 字体冲突：同一字体族的不同版本可能导致渲染差异；建议保留稳定版本并避免重复。
+- 字体缓存：Linux 更新字体后需执行 `fc-cache -f -v`；容器镜像中应在构建时完成缓存刷新。
+- 区域语言：若需繁体支持，可补充 `PMingLiU`（新细明体）等区域字体。
+
+## 与本项目的关系
+
+- 字体目录来源：项目根目录 `./fonts`
+- 将 `./fonts` 复制到系统字体目录后，在转换服务中即可使用这些中文字体，显著提升版式与渲染一致性。

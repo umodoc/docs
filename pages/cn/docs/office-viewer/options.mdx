@@ -1,0 +1,221 @@
+# 配置选项
+
+用于配置 Umo Office Viewer 组件的显示和行为。
+
+## 默认配置
+
+```javascript
+{
+  lang: 'zh-CN',
+  theme: 'light',
+  title: undefined,
+  meta: [],
+  showHeader: true,
+  showMenu: true,
+  showAside: false,
+  exportable: true,
+  printable: true,
+  closeable: false,
+  downloadUrl: undefined,
+  shareUrl: undefined,
+  source: undefined,
+  showMultiPage: false,
+  fitWidth: false,
+  watermark: {
+    text: '',
+    columns: 4,
+    rows: 4,
+    color: 'rgba(0, 0, 0, 0.2)',
+    rotation: 30,
+    fontSize: 12 * window.devicePixelRatio
+  },
+  needPassword: false,
+  onClose: undefined,
+  onValidatePassword: undefined
+}
+```
+
+## 配置项说明
+
+### lang
+
+**说明**：默认显示语言，可通过 `setLocale` 方法动态切换。
+
+**类型**：`String`
+
+**默认值**：`'zh-CN'`
+
+**可选值**：`'zh-CN'`、`'en-US'`
+
+### theme
+
+**说明**：主题模式，`auto` 将根据系统深浅色自动切换。
+
+**类型**：`String`
+
+**默认值**：`'light'`
+
+**可选值**：`'light'`、`'dark'`、`'auto'`
+
+### title
+
+**说明**：文档标题，在标题栏显示，同时用于下载、导出文件名。
+
+**类型**：`String`
+
+**默认值**：`''`
+
+**是否必填**：是
+
+### meta
+
+**说明**：文档元信息，在侧边栏信息面板展示。
+
+**类型**：`Array<{ label: String; content: any }>`
+
+**默认值**：`[]`
+
+### showHeader
+
+**说明**：是否显示标题栏。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`
+
+### showMenu
+
+**说明**：是否显示标题栏菜单（信息、下载、导出、打印、分享）。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`
+
+### showAside
+
+**说明**：默认是否显示侧边栏（信息、缩略图），可用 `openAside('info'|'thumbs')` 方法动态打开，用户也可手动打开。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：`true`、`false`
+
+### exportable
+
+**说明**：是否允许导出 PDF 文档。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`
+
+### printable
+
+**说明**：是否允许打印文档。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`
+
+### closeable
+
+**说明**：是否显示关闭按钮，点击将触发 `onClose` 回调与 `closed` 事件。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：`true`、`false`
+
+### downloadUrl
+
+**说明**：下载链接，配置后显示下载按钮，`download()` 方法将使用该链接。
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+### shareUrl
+
+**说明**：分享链接，配置后菜单中显示"分享"入口。
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+### source
+
+**说明**：要加载的文档地址，该地址可从 [Umo Office Convert](../office-convert) 服务接口中获取。
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+### showMultiPage
+
+**说明**：页面布局方向，`false` 为纵向单列，`true` 为横向多列。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：`true`、`false`
+
+### fitWidth
+
+**说明**：是否自适应容器宽度（内部计算缩放）。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：`true`、`false`
+
+### watermark
+
+**说明**：默认水印设置，用户可修改，您可以通过 `setWatermark` 方法来动态设置或修改页面水印。更多说明见：[水印与密码配置](./security)。
+
+**类型**：`Object`
+
+**配置项**：
+
+- `text`：`String`，水印内容，建议不超过 30 个字符。
+- `columns`：`Number`，水印列数，默认值为 `4`。
+- `rows`：`Number`，水印行数，默认值为 `4`。
+- `color`：`String`，字体颜色，默认值为 `'rgba(0, 0, 0, 0.2)'`，可选值为合法的 CSS 颜色值。
+- `rotation`：`Number`，旋转角度，默认值为 `30`。
+- `fontSize`：`Number`，字体大小，默认值为 `12 * window.devicePixelRatio`，单位为 px。
+
+### needPassword
+
+**说明**：是否需要密码，在加载 PDF 时会触发密码回调逻辑。更多说明见：[水印与密码配置](./security)。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：`true`、`false`
+
+### onClose
+
+**说明**：关闭按钮点击时调用的回调函数，不配置会在控制台报错提示。
+
+**类型**：`Function`
+
+**默认值**：`undefined`
+
+### onValidatePassword
+
+**说明**：密码校验逻辑回调函数，更多说明见：[水印与密码配置](./security)。
+
+**类型**：`Function`
+
+**默认值**：`undefined`

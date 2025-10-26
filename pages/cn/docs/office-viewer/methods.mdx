@@ -1,0 +1,140 @@
+# 方法列表
+
+本节介绍 Umo Office Viewer 的方法，通过 Umo Office Viewer 提供的方法，可以对 Umo Office Viewer 进行一些常规操作。
+
+## 示例
+
+```vue
+<template>
+  <umo-office-viewer ref="viewerRef" v-bind="options" />
+  <button @click="getOptions">获取配置</button>
+  <button @click="openSidebar">打开侧边栏</button>
+  <button @click="downloadFile">下载文档</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
+
+const viewerRef = ref(null)
+const options = ref({
+  // 配置项
+  // ...
+})
+
+const getOptions = () => {
+  const options = viewerRef.value.getOptions()
+  console.log(options)
+}
+
+const openSidebar = () => {
+  viewerRef.value.openAside('thumbs')
+}
+
+const downloadFile = () => {
+  viewerRef.value.download()
+}
+</script>
+```
+
+## 方法说明
+
+### setTheme
+
+**说明**：设置 Umo Office Viewer 的主题。
+
+**参数**：`light` 、 `dark` 、 `auto`。
+
+**返回值**：无。
+
+### setLocale
+
+**说明**：设置 Umo Office Viewer 的显示语言。
+
+**参数**：`zh-CN` 或 `en-US`。
+
+**返回值**：无。
+
+### openAside
+
+**说明**：打开侧边栏并切换到指定面板。
+
+**参数**：`info` 或 `thumbs`，默认为 `thumbs`。
+
+**返回值**：无。
+
+### download
+
+**说明**：下载文档，将使用 `options.downloadUrl` 与标题作为文件名。
+
+**参数**：String，可选，下载目标。
+
+**返回值**：无。
+
+### exportPDF
+
+**说明**：导出当前源为 PDF，将源文件名扩展名替换为 `.pdf`。
+
+**参数**：无。
+
+**返回值**：无。
+
+### print
+
+**说明**：执行打印操作。
+
+**参数**：无。
+
+**返回值**：无。
+
+### fullscreen
+
+**说明**：全屏状态切换，在 true/false 间切换。
+
+**参数**：无。
+
+**返回值**：无。
+
+### rotate
+
+**说明**：旋转文档，累加角度并对 360 取模。
+
+**参数**：Number，旋转角度。
+
+**返回值**：无。
+
+### gotoPage
+
+**说明**：跳转到指定页码并滚动进入视口。
+
+**参数**：Number，页码，可选。
+
+**返回值**：无。
+
+### getState
+
+**说明**：获取组件内部响应式状态引用。
+
+**参数**：无。
+
+**返回值**：`Ref<State>`，包含 `loaded`、`activePage`、`scale`、`rotate`、`page`、`document`、`printing`、`sharing`、`needPassword`、`fullscreen` 等状态。
+
+### getOptions
+
+**说明**：获取组件合并校验后的配置引用。
+
+**参数**：无。
+
+**返回值**：`Ref<Options>`，包含 Umo Office Viewer 的当前配置。
+
+## 异常处理
+
+调用方法时如果参数不正确或组件状态不允许，会抛出相应的错误。建议在调用时进行适当的错误处理：
+
+```javascript
+try {
+  viewerRef.value.gotoPage(5)
+} catch (error) {
+  console.error('跳转页面失败:', error.message)
+}
+```

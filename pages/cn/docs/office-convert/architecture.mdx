@@ -1,0 +1,58 @@
+# 系统架构说明
+
+Umo Office Convert Server 是一个基于 Node.js 与 Express 构建的文档转换服务，将各类办公文档转换为 Umo Office Viewer 支持查看的格式。系统同时集成 MySQL 用于持久化转换任务信息，并支持跨域访问与 Swagger 接口文档。
+
+## 架构组件
+
+- 应用服务：`Express` 提供 HTTP 接口
+- 路由层：`src/routes` 包含基础路由、转换路由、OpenAPI 文档路由
+- 转换引擎：完成 Office 文档到 Umo Office Viewer 所支持文档的转换
+- 数据库：`MySQL` 存储转换任务（表：`convert_tasks`），可替换成其他数据库
+- 存储：本地文件系统或网络对象存储
+- 配置：环境变量（`.env`），在 `src/utils/env.mjs` 读取
+- 认证与安全：CORS 白名单、文件大小限制、MIME 类型校验
+- 文档：Swagger（在非生产环境挂载 `/openapi`）
+- 日志：`LOG_DIR` 指定日志目录（PM2 可选）
+
+## 主要数据流
+
+1. 上传或提供文档路径 / URL 存入 `UPLOAD_DIR` 目录（如已配置）
+2. 服务为该任务生成 ID，并写入 `convert_tasks` 表（状态变更：uploaded → converted/failed）
+3. 使用文档转换引擎进行文档转换
+4. 结果文件写入 `CONVERTED_DIR` 目录
+5. 返回文件流，并通过响应头提供元信息（`X-Task-Id` 等信息）
+6. 可通过 `/convert/{taskId}` 下载转换后的文件或原始文件
+7. 若配置 `CONVERTED_WEBHOOK_URL`，则在对应时机发送回调通知和对应转换信息
+
+## 关键路径与模块
+
+- `src/index.mjs`：应用入口，挂载路由与中间件，初始化数据库
+- `src/routes/base.mjs`：服务健康检查
+- `src/routes/convert.mjs`：文件上传、转换、下载与缓存逻辑
+- `src/routes/openapi.mjs`：Swagger 文档
+- `src/utils/mysql.mjs`：数据库连接与表初始化
+- `src/utils/env.mjs`：环境变量加载
+
+## 部署拓扑
+
+- 单服务实例（PM2 / 容器）
+- 外部 MySQL 服务（推荐）
+- 挂载持久化卷：文档上传目录，文件转换后的存储目录和日志存储目录
+
+## 性能与可扩展性
+
+- 使用缓存（基于文件哈希）避免重复转换
+- 将存储迁移到对象存储（如 S3），减少磁盘 IO 压力
+- 使用 Nginx 代理与限流策略，保护服务
+
+## 可观测性
+
+- 标准化日志目录（`LOG_DIR`）与 PM2 日志收集
+- 针对关键异常进行记录
+
+## 安全要点
+
+- 严格 CORS 白名单控制（`WHITE_LIST`）
+- 限制上传文件大小（`MAX_FILE_SIZE`）
+- 校验 MIME 与扩展名一致性
+- 路径与 URL 处理避免目录穿越与 SSRF 风险

@@ -1,0 +1,41 @@
+# 通过 Docker 部署
+
+Umo Office Convert Server 提供了通过 Docker 镜像部署的能力（位于 `docker/` 中），您可以通过 Docker 部署 Umo Office Convert Server，您可以根据实际需要修改项目根目录下的 `Dockerfile`。
+
+通过 Docker 部署，可以简化部署过程，尤其适合 **内网部署** 的情况。
+
+## 0. 准备工作
+
+安装 [Docker](https://www.docker.com/) 并登录。
+
+## 1. 构建 Docker 镜像
+
+```sh npm2yarn
+npm run build:docker
+```
+
+打包后的 Docker 镜像位于 `docker/umo-office-convert:latest`，后续您可以使用该镜像在本机或者服务器上进行部署。
+
+## 2. 加载 Docker 镜像
+
+```bash
+# 在项目根目录下执行
+docker load -i ./docker/umo-office-convert.tar
+```
+## 3.启动容器
+
+```bash
+# 在项目根目录下执行
+docker run -d --name umo-office-convert -p 1236:1236 umo-office-convert:latest
+```
+
+## 4.验证容器运行状态
+
+```bash
+# 查看容器运行状态
+docker ps | grep umo-office-convert
+```
+
+## 5.访问 Umo Office Convert Server
+
+通过浏览器访问 `http://127.0.0.1:1236` 查看服务是否正常运行。

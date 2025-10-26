@@ -14,5 +14,7 @@ export default {
 		title: '商业项目'
 	},
 	next:'Umo Editor Next',
-	server:'Umo Editor Server'
+	server:'Umo Editor Server',
+	'office-viewer':'Umo Office Viewer',
+	'office-convert':'Umo Office Convert'
 };
