@@ -1,6 +1,6 @@
 # 数据库说明
 
-本文描述 Umo Office Convert Server 服务所使用的数据库设计。该服务使用 MySQL 数据库来存储文档转换任务的相关信息。您也可以参考 MySQL 的实现，使用其他数据库来存储数据。
+本文描述 Umo Office Convert 服务所使用的数据库设计。该服务使用 MySQL 数据库来存储文档转换任务的相关信息。您也可以参考 MySQL 的实现，使用其他数据库来存储数据。
 
 ## 数据库配置
 
@@ -24,8 +24,6 @@
 | converted_path | VARCHAR(255) | 转换后文件路径       |                           |
 | status         | VARCHAR(255) | 转换状态             |                           |
 | converted_at   | TIMESTAMP    | 转换时间             | DEFAULT CURRENT_TIMESTAMP |
-
-#### 状态说明
 
 `status` 字段可能的值包括：
 

@@ -1,6 +1,6 @@
 # 配置选项
 
-用于配置 Umo Office Viewer 组件的显示和行为。
+用于配置 Umo Office Viewer 插件的显示和行为。Umo Office Viewer 需要和 [Umo Office Convert](../office-convert) 一起搭配完成文档预览。
 
 ## 默认配置
 
@@ -13,13 +13,15 @@
   showHeader: true,
   showMenu: true,
   showAside: false,
+  downloadable: true,
   exportable: true,
   printable: true,
   closeable: false,
-  downloadUrl: undefined,
+  serverUrl: undefined,
+  fileId: undefined,
+  fileUrl: undefined,
   shareUrl: undefined,
-  source: undefined,
-  showMultiPage: false,
+  multiPage: false,
   fitWidth: false,
   watermark: {
     text: '',
@@ -59,7 +61,7 @@
 
 ### title
 
-**说明**：文档标题，在标题栏显示，同时用于下载、导出文件名。
+**说明**：文档标题，必须包含文件后缀名（如 `.docx`、`.xlsx`、`.pptx` 等）。在标题栏显示，同时用于下载、导出文件名。
 
 **类型**：`String`
 
@@ -105,6 +107,16 @@
 
 **可选值**：`true`、`false`
 
+### downloadable
+
+**说明**：是否允许下载原始文档（未转换前的文档）。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`
+
 ### exportable
 
 **说明**：是否允许导出 PDF 文档。
@@ -135,13 +147,35 @@
 
 **可选值**：`true`、`false`
 
-### downloadUrl
+### serverUrl
 
-**说明**：下载链接，配置后显示下载按钮，`download()` 方法将使用该链接。
+**说明**：[Umo Office Convert](../office-convert)服务的 URL 地址，例如: `http://127.0.0.1:1236`。
 
 **类型**：`String`
 
 **默认值**：`undefined`
+
+**是否必填**：`是`
+
+### fileId
+
+**说明**：文件 ID，即任务 ID，配置该项可直接从[Umo Office Convert](../office-convert)服务中获取已转换完成的文件，而不经过转换服务，极大提高加载速度，减少服务器资源消耗。
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+**是否必填**：`fileId` 和 `fileUrl` 至少配置一项
+
+### fileUrl
+
+**说明**：要预览的文件地址 URL。
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+**是否必填**：`fileId` 和 `fileUrl` 至少配置一项
 
 ### shareUrl
 
@@ -151,17 +185,9 @@
 
 **默认值**：`undefined`
 
-### source
+### multiPage
 
-**说明**：要加载的文档地址，该地址可从 [Umo Office Convert](../office-convert) 服务接口中获取。
-
-**类型**：`String`
-
-**默认值**：`undefined`
-
-### showMultiPage
-
-**说明**：页面布局方向，`false` 为纵向单列，`true` 为横向多列。
+**说明**：默认是否开启多页模式，`false` 为横向单列，~~`true` 为横向多列。
 
 **类型**：`Boolean`
 
@@ -181,7 +207,7 @@
 
 ### watermark
 
-**说明**：默认水印设置，用户可修改，您可以通过 `setWatermark` 方法来动态设置或修改页面水印。更多说明见：[水印与密码配置](./security)。
+**说明**：默认水印设置，用户可修改，您可以通过 `setWatermark` 方法来动态设置或修改页面水印。更多说明见：[水印与密码](./security)。
 
 **类型**：`Object`
 
@@ -196,7 +222,7 @@
 
 ### needPassword
 
-**说明**：是否需要密码，在加载 PDF 时会触发密码回调逻辑。更多说明见：[水印与密码配置](./security)。
+**说明**：是否需要密码，在加载 PDF 时会触发密码回调逻辑。更多说明见：[水印与密码](./security)。
 
 **类型**：`Boolean`
 
@@ -214,7 +240,7 @@
 
 ### onValidatePassword
 
-**说明**：密码校验逻辑回调函数，更多说明见：[水印与密码配置](./security)。
+**说明**：密码校验逻辑回调函数，更多说明见：[水印与密码](./security)。
 
 **类型**：`Function`
 

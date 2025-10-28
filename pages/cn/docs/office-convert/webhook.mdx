@@ -19,22 +19,22 @@
 ```json
 {
   "taskId": "bccbff66-fa2c-4d6d-bc30-a7c34ca0181b",
-  "type": "converted",
+  "type": "uploaded",
   "fromCache": false,
   "file": {
-    "filename": "测试文档.pdf",
-    "mime": "application/pdf",
+    "filename": "测试文档.docx",
+    "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "size": 90239,
-    "path": "/converted/2024/10/bccbff66fa2c.pdf"
+    "path": "/uploads/2024/10/bccbff66-fa2c-4d6d-bc30-a7c34ca0181b.docx"
   }
 }
 ```
 
 字段说明：
 - `taskId`: 转换任务 ID，用于后续查询原始文件或结果文件。
-- `type`: 事件类型，目前为 `converted`。
+- `type`: 事件类型，目前为 `uploaded`。
 - `fromCache`: 是否从缓存返回的结果。
-- `file`: 转换后文件的元信息。
+- `file`: 文件的元信息。
 
 ## 安全建议
 

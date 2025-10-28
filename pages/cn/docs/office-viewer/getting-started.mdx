@@ -1,0 +1,107 @@
+# 快速开始
+
+本指南将帮助你在 Vue3 项目中快速开始使用 `umo-office-viewer` 插件。
+
+## 1. 安装
+
+### 1) 克隆官方仓库
+```bash
+git clone <Umo Office Viewer 官方私有仓库路径>
+```
+
+### 2) 安装依赖并打包项目代码
+
+```sh npm2yarn
+npm install
+npm run build
+```
+
+### 3) 安装 Umo Office Viewer
+
+假设您克隆的本地仓库路径相对于您的项目地址为 `../umo-office-viewer`，在您的项目中运行以下命令安装 Umo Office Viewer：
+ 
+```sh npm2yarn
+npm install --save ../umo-office-viewer/releases/umo-office-viewer-xxx.tgz
+```
+
+## 2. 使用
+
+以下使用方式任选一种即可：
+
+### 1) 全局安装
+```js filename="main.js"
+import { createApp } from 'vue';
+import { useUmoOfficeViewer } from '@umotem/office-viewer';
+
+const app = createApp(App);
+app.use(useUmoOfficeViewer, {
+  // 配置项
+  // ...
+});
+app.mount('#app');
+```
+
+### 2) 直接引入
+
+以下组合式 API 和选项式 API 的示例，任选一种使用即可。
+
+```vue filename="component.vue"
+<template>
+  <umo-office-viewer v-bind="options" />
+</template>
+
+// 使用组合式 API
+<script setup>
+  import { ref } from 'vue'
+  import { UmoOfficeViewer } from '@umotem/office-viewer';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+</script>
+
+// 或使用选项式 API
+<script>
+  import { UmoOfficeViewer } from '@umotem/office-viewer';
+
+  export default {
+    components: {
+      UmoOfficeViewer
+    },
+    data() {
+      return {
+        options: {
+          // 配置项
+          // ...
+        }
+      }
+    }
+  }
+</script>
+```
+
+### 3) 在 Nuxt3 中使用
+
+Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<client-only>` 插件或其他方式来保证 Umo Editor 在客户端渲染和使用。
+
+```vue {2,4} filename="component.vue"
+<template>
+  <client-only>
+    <umo-office-viewer v-bind="options" />
+  </client-only>
+</template>
+
+<script setup>
+  import { UmoOfficeViewer } from '@umotem/office-viewer';
+
+  const options = ref({
+    // 配置项
+    // ...
+  });
+</script>
+```
+
+## 3. 配置
+
+见[配置项](./options)。在配置之前，建议先启动 [Umo Office Convert](../office-convert/deployment) 服务。

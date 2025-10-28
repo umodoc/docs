@@ -36,7 +36,7 @@ body {
 }
 .nextra-content a:not(._flex) {
 	display: inline-block;
-	margin: 0 0.3rem;
+	margin: 0 0.1rem;
 }
 .nextra-content h1 {
 	font-size: 28px;

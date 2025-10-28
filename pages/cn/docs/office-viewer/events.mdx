@@ -1,5 +1,3 @@
-import { Badge } from '/components/badge'
-
 # 事件列表
 
 本节将介绍 Umo Office Viewer 的事件，通过事件可以监听 Umo Office Viewer 的完整生命周期以及状态的变化，进行更多操作。
@@ -12,11 +10,11 @@ import { Badge } from '/components/badge'
     v-bind="options"
     @loaded="onLoaded"
     @closed="onClosed"
-    @aside-change="onAsideChange"
-    @page-change="onPageChange"
-    @rotate-change="onRotateChange"
-    @scale-change="onScaleChange"
-    @fullscreen-change="onFullscreenChange"
+    @aside-changed="onAsideChanged"
+    @page-changed="onPageChanged"
+    @rotate-changed="onRotateChanged"
+    @scale-changed="onScaleChanged"
+    @fullscreen-changed="onFullscreenChanged"
     @download="onDownload"
     @export="onExport"
     @print="onPrint"
@@ -33,34 +31,34 @@ import { Badge } from '/components/badge'
   });
 
   const onLoaded = () => {
-    console.log('onLoaded', '文档加载完成')
+    console.log('emit:loaded', '文档加载完成')
   }
   const onClosed = () => {
-    console.log('onClosed', '点击了关闭按钮')
+    console.log('emit:closed', '点击了关闭按钮')
   }
-  const onAsideChange = (aside: 'info' | 'thumbs') => {
-    console.log('onAsideChange', '开启侧边栏并切换面板:', { aside })
+  const onAsideChanged = (aside: 'info' | 'thumbs') => {
+    console.log('emit:aside-changed', '开启侧边栏并切换面板:', { aside })
   }
-  const onPageChange = (activePage: number) => {
-    console.log('onPageChange', '当前页码变化:', { activePage })
+  const onPageChanged = (activePage: number) => {
+    console.log('emit:page-changed', '当前页码变化:', { activePage })
   }
-  const onRotateChange = (rotate: number) => {
-    console.log('onRotateChange', '旋转角度发生变化:', { rotate })
+  const onRotateChanged = (rotate: number) => {
+    console.log('emit:rotate-changed', '旋转角度发生变化:', { rotate })
   }
-  const onScaleChange = (scale: number) => {
-    console.log('onScaleChange', '缩放比例变化:', {scale})
+  const onScaleChanged = (scale: number) => {
+    console.log('emit:scale-changed', '缩放比例变化:', {scale})
   }
-  const onFullscreenChange = (fullscreen: boolean) => {
-    console.log('onFullscreenChange', '全屏状态发生变化:',  { fullscreen })
+  const onFullscreenChanged = (fullscreen: boolean) => {
+    console.log('emit:fullscreen-changed', '全屏状态发生变化:',  { fullscreen })
   }
   const onDownload = () => {
-    console.log('onDownload', '下载文档')
+    console.log('emit:download', '下载文档')
   }
   const onPrint = () => {
-    console.log('onPrint', '打印文档')
+    console.log('emit:print', '打印文档')
   }
   const onExport = () => {
-    console.log('onExport', '导出文档')
+    console.log('emit:export', '导出文档')
   }
 </script>
 ```
@@ -71,11 +69,11 @@ import { Badge } from '/components/badge'
 | --- | --- | --- |
 | loaded | 文档加载完成 | - |
 | closed | 点击标题栏关闭按钮并执行 `onClose()` 后 | - |
-| aside-change | 开启侧边栏并切换面板 | aside |
-| page-change | 当前页码变化（滚动或方法 `gotoPage`） | activePage |
-| rotate-change | 页面旋转角度变化 | rotate |
-| scale-change | 页面缩放比例变化 | scale |
-| fullscreen-change | 组件全屏状态切换  | fullscreen |
+| aside-changed | 开启侧边栏并切换面板后 | aside |
+| page-changed | 当前页码变化（滚动或方法 `gotoPage`）后  | activePage |
+| rotate-changed | 页面旋转角度变化后  | rotate |
+| scale-changed | 页面缩放比例变化后  | scale |
+| fullscreen-changed | 插件全屏状态切换后   | fullscreen |
 | download | 下载文档  | - |
 | export | 导出文档  | - |
 | print | 打印文档  | - |
