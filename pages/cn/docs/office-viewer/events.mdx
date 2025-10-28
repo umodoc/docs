@@ -4,7 +4,7 @@
 
 ## 示例
 
-```vue {4-13}
+```vue {4-14}
 <template>
   <umo-office-viewer
     v-bind="options"
@@ -18,6 +18,7 @@
     @download="onDownload"
     @export="onExport"
     @print="onPrint"
+    @error="onError"
   />
 </template>
  
@@ -60,6 +61,9 @@
   const onExport = () => {
     console.log('emit:export', '导出文档')
   }
+  const onError = (error) => {
+    console.log('emit:error', '文档加载出错', { errMsg: error.message })
+  }
 </script>
 ```
 
@@ -70,10 +74,11 @@
 | loaded | 文档加载完成 | - |
 | closed | 点击标题栏关闭按钮并执行 `onClose()` 后 | - |
 | aside-changed | 开启侧边栏并切换面板后 | aside |
-| page-changed | 当前页码变化（滚动或方法 `gotoPage`）后  | activePage |
+| page-changed | 当前页码变化后，鼠标滚动或插件内部触发  | activePage |
 | rotate-changed | 页面旋转角度变化后  | rotate |
 | scale-changed | 页面缩放比例变化后  | scale |
 | fullscreen-changed | 插件全屏状态切换后   | fullscreen |
 | download | 下载文档  | - |
 | export | 导出文档  | - |
 | print | 打印文档  | - |
+| error | 文档加载出错  | error |
