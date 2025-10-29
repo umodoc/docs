@@ -1,7 +1,6 @@
 export default {
 	index: 'Introduction',
 	features: 'Features',
-	license: 'License Agreement',
 	changelog: 'Changelog',
 	roadmap: 'Roadmap',
 	'getting-started': 'Getting Started',

@@ -14,5 +14,6 @@ export default {
 		title: 'Commercial Projects'
 	},
 	next:'Umo Editor Next',
-	server:'Umo Editor Server'
+	server:'Umo Editor Server',
+	license: 'License Agreement',
 };

@@ -16,5 +16,6 @@ export default {
 	next:'Umo Editor Next',
 	server:'Umo Editor Server',
 	'office-viewer':'Umo Office Viewer',
-	'office-convert':'Umo Office Convert'
+	'office-convert': 'Umo Office Convert',
+	license: '商业许可协议',
 };
