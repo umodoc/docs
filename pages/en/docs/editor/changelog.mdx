@@ -5,6 +5,34 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next/changelog
 
+## 🚀  v9.0.0 <Badge>2025-12-05</Badge>
+
+1. Fixed an issue where editing flowcharts could render a blank canvas [#403](https://github.com/umodoc/editor/issues/403).
+2. Bubble menu slots now support all node types; added slot parameters—see [Bubble Menu Slots](./slots#bubble-menu-slot).
+3. Fixed the bubble menu slot not rendering [#405](https://github.com/umodoc/editor/issues/405).
+4. To prevent mispositioning, the block menu is temporarily disabled when browser zoom is not 100%.
+5. Fixed bubble menu misalignment when browser zoom is not 100% [#395](https://github.com/umodoc/editor/issues/395).
+6. Fixed incorrect audio upload URL [#370](https://github.com/umodoc/editor/issues/370); contributed by @china-wangxu in [(#397)](https://github.com/umodoc/editor/pull/397).
+7. Fixed the inability to select a watermark type [#378](https://github.com/umodoc/editor/issues/378); contributed by @china-wangxu in [(#397)](https://github.com/umodoc/editor/pull/397).
+8. Fixed an issue where only the first ECharts chart was displayed [#371](https://github.com/umodoc/editor/issues/371); contributed by @china-wangxu in [(#397)](https://github.com/umodoc/editor/pull/397).
+9. Added an option to show the save label; see [`toolbar.showSaveLabel`](./options/toolbar#toolbarshowsavelabel).
+10. Optimized the invocation of `document.onSave`; contributed by @china-wangxu in [(#396)](https://github.com/umodoc/editor/pull/396).
+11. Refined editor option type definitions and the installation method; contributed by @SevenDreamYang in [(#389)](https://github.com/umodoc/editor/pull/389).
+12. Fixed an error thrown when clicking the Highlight button [#372](https://github.com/umodoc/editor/issues/372).
+13. Resolved several issues related to dragging image nodes [#342](https://github.com/umodoc/editor/issues/342).
+14. When resetting the editor, clear only Umo Editor–specific local storage [#362](https://github.com/umodoc/editor/issues/362).
+15. Fixed global style bleed caused by tdesign-next’s `.flex-center` [#361](https://github.com/umodoc/editor/issues/361) [#293](https://github.com/umodoc/editor/issues/293).
+16. Fixed cases where deletion events for images and other files might not fire [#363](https://github.com/umodoc/editor/issues/363).
+17. Enhanced file deletion and added conversion markers; addresses [#381](https://github.com/umodoc/editor/issues/381) and [#387](https://github.com/umodoc/editor/issues/387); contributed by @SevenDreamYang in [(#399)](https://github.com/umodoc/editor/pull/399).
+18. Improved the typewriter effect; contributed by @china-wangxu in [(#394)](https://github.com/umodoc/editor/pull/394) and [(#384)](https://github.com/umodoc/editor/pull/384).
+19. Images now support inline insertion; contributed by @china-wangxu in [(#366)](https://github.com/umodoc/editor/pull/366).
+20. Inserted images now display at their original size [#356](https://github.com/umodoc/editor/issues/356); contributed by @china-wangxu in [(#366)](https://github.com/umodoc/editor/pull/366).
+21. Fixed `onFileDelete` not being invoked [#358](https://github.com/umodoc/editor/issues/358); contributed by @china-wangxu in [(#365)](https://github.com/umodoc/editor/pull/365).
+22. Added the ability to insert checkboxes and radio buttons within documents; contributed by @china-wangxu in [(#364)](https://github.com/umodoc/editor/pull/364).
+23. Fixed left-hand table of contents misalignment after zooming [#347](https://github.com/umodoc/editor/issues/347); contributed by @china-wangxu in [(#353)](https://github.com/umodoc/editor/pull/353).
+24. Added default ProseMirror styles so documents render consistently outside the editor.
+25. Miscellaneous refinements and optimizations.
+
 ## 🚀  Version 8.1.0 <Badge>September 6, 2025</Badge>
 
 1. Added page settings and page watermark operations to history records, supporting undo and redo, submitted by @china-wangxu in [(#336)](https://github.com/umodoc/editor/issues/258);

@@ -10,8 +10,9 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
 ```js
 {
   toolbar: {
+    showSaveLabel: true, // v9.0.0 added
     defaultMode: 'ribbon',
-    // enableSourceEditor: true, // v6.0.0 已移除
+    // enableSourceEditor: true, // removed in v6.0.0
     menus: ['base', 'insert', 'table', 'tools', 'page', 'import', 'export'],
     // disableMenuItems: [], // toolbar.disableMenuItems was removed in v8.0.0, see the disableExtensions configuration
     // importWord: { ... },  // toolbar.importWord was removed in v8.0.0, see the importWord configuration
@@ -20,6 +21,19 @@ Used to configure the display and behavior of the Umo Editor toolbar area.
 ```
 
 ## Configuration Options
+
+
+## 配置项说明
+
+### toolbar.showSaveLabel
+
+**Description**: Whether to show the save prompt label; it is shown by default. <Badge theme="success">Added in v9.0.0</Badge>
+
+**Type**: `Boolean`
+
+**Default Value**: `true`
+
+**Options**: `true`, `false`
 
 ### toolbar.defaultMode
 
