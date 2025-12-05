@@ -1,3 +1,4 @@
+import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
 # Slots
@@ -64,13 +65,22 @@ Use slots to insert custom content after specific menus in the toolbar.
 
 ## Bubble Menu Slot
 
-Use slots to insert custom content after the bubble menu. Currently, only adding custom content to text nodes is supported.
+Use slots to insert custom content after the bubble menu. 
+
+<Callout type="error" emoji="❗">
+Before v8.2.0, only text nodes could have custom content added. Starting from v8.2.0, custom content can be added to all nodes, and slot parameters such as `nodeType` and `nodeAttrs` are supported for more flexible menu customization.
+</Callout>
+
+### Slot Parameters
+
+- `node-type`: `String` The type of the currently selected node, returning the tiptap node name.
+- `node-attrs`: `Object` The attributes of the currently selected node, returning the tiptap node attributes.
 
 ```vue
 <template>
   <umo-editor v-bind="options">
-    <template #bubble_menu>
-      <span>slot</span>
+    <template #bubble_menu="props">
+      <span>slot: {{props}}</span>
     </template>
   </umo-editor>
 </template>
