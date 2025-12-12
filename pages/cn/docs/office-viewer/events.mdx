@@ -16,11 +16,11 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
     v-bind="options"
     @loaded="onLoaded"
     @closed="onClosed"
-    @aside-change="onAsideChange"
-    @page-change="onPageChange"
-    @rotate-change="onRotateChange"
-    @scale-change="onScaleChange"
-    @fullscreen-change="onFullscreenChange"
+    @aside-changed="onAsideChanged"
+    @page-changed="onPageChanged"
+    @rotate-changed="onRotateChanged"
+    @scale-changed="onScaleChanged"
+    @fullscreen-changed="onFullscreenChanged"
     @download="onDownload"
     @export="onExport"
     @print="onPrint"
@@ -42,20 +42,20 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
   const onClosed = () => {
     console.log('emit:closed', '点击了关闭按钮')
   }
-  const onAsideChange = (aside: 'info' | 'thumbs') => {
-    console.log('emit:aside-change', '开启侧边栏并切换面板:', { aside })
+  const onAsideChanged = (aside: 'info' | 'thumbs') => {
+    console.log('emit:aside-changed', '开启侧边栏并切换面板:', { aside })
   }
-  const onPageChange = (activePage: number) => {
-    console.log('emit:page-change', '当前页码变化:', { activePage })
+  const onPageChanged = (activePage: number) => {
+    console.log('emit:page-changed', '当前页码变化:', { activePage })
   }
-  const onRotateChange = (rotate: number) => {
-    console.log('emit:rotate-change', '旋转角度发生变化:', { rotate })
+  const onRotateChanged = (rotate: number) => {
+    console.log('emit:rotate-changed', '旋转角度发生变化:', { rotate })
   }
-  const onScaleChange = (scale: number) => {
-    console.log('emit:scale-change', '缩放比例变化:', {scale})
+  const onScaleChanged = (scale: number) => {
+    console.log('emit:scale-changed', '缩放比例变化:', {scale})
   }
-  const onFullscreenChange = (fullscreen: boolean) => {
-    console.log('emit:fullscreen-change', '全屏状态发生变化:',  { fullscreen })
+  const onFullscreenChanged = (fullscreen: boolean) => {
+    console.log('emit:fullscreen-changed', '全屏状态发生变化:',  { fullscreen })
   }
   const onDownload = () => {
     console.log('emit:download', '下载文档')
@@ -75,11 +75,11 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 | --- | --- | --- |
 | loaded | 文档加载完成 | - |
 | closed | 点击标题栏关闭按钮并执行 `onClose()` 后 | - |
-| aside-change | 开启侧边栏并切换面板后 | aside |
-| page-change | 当前页码变化后，鼠标滚动或插件内部触发  | activePage |
-| rotate-change | 页面旋转角度变化后  | rotate |
-| scale-change | 页面缩放比例变化后  | scale |
-| fullscreen-change | 插件全屏状态切换后   | fullscreen |
+| aside-changed | 开启侧边栏并切换面板后 | aside |
+| page-changed | 当前页码变化后，鼠标滚动或插件内部触发  | activePage |
+| rotate-changed | 页面旋转角度变化后  | rotate |
+| scale-changed | 页面缩放比例变化后  | scale |
+| fullscreen-changed | 插件全屏状态切换后   | fullscreen |
 | download | 下载文档  | - |
 | export | 导出文档  | - |
 | print | 打印文档  | - |
