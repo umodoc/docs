@@ -19,13 +19,14 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
   showHeader: true,
   showMenu: true,
   showAside: false,
+  downloadable: true,
   exportable: true,
   printable: true,
   closeable: false,
+  fileId: undefined,
+  fileUrl: undefined,
   serverUrl: undefined,
-  downloadUrl: undefined,
   shareUrl: undefined,
-  source: undefined,
   multiPage: false,
   fitWidth: false,
   watermark: {
@@ -112,6 +113,16 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 **可选值**：`true`、`false`
 
+### downloadable
+
+**说明**：是否允许下载原始文档。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+**可选值**：`true`、`false`
+
 ### exportable
 
 **说明**：是否允许用户将预览文档导出为 PDF 文档。
@@ -142,6 +153,16 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 **可选值**：`true`、`false`
 
+### fileId
+
+**说明**：文件 ID，即任务 ID，配置该项可直接从[Umo Office Convert](../office-convert)服务中获取已转换完成的文件，而不经过转换服务，极大提高加载速度，减少服务器资源消耗。
+
+**类型**：`String`
+
+**默认值**：`undefined`
+
+**是否必填**：`fileId` 和 `fileUrl` 至少配置一项
+
 ### serverUrl
 
 **说明**：[Umo Office Convert](../office-convert)服务的 URL 地址，例如: `http://127.0.0.1:1236`。
@@ -152,15 +173,15 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 **是否必填**：`是`
 
-### downloadUrl
+### fileUrl
 
-**说明**：原始文档 URL 下载地址，配置后菜单中显示"下载"入口，用户可将原始文档下载到本地。
+**说明**：要预览的文件地址 URL。
 
 **类型**：`String`
 
-**默认值**：`true`
+**默认值**：`undefined`
 
-**可选值**：`true`、`false`
+**是否必填**：`fileId` 和 `fileUrl` 至少配置一项
 
 ### shareUrl
 
@@ -169,16 +190,6 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 **类型**：`String`
 
 **默认值**：`undefined`
-
-### source
-
-**说明**：要预览的文件地址 URL，通常文档地址为通过 Umo Office Convert 转换后的地址。
-
-**类型**：`String`
-
-**默认值**：`undefined`
-
-**是否必填**：`是`
 
 ### multiPage
 

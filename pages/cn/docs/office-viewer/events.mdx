@@ -10,7 +10,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ## 示例
 
-```vue {4-13}
+```vue {4-14}
 <template>
   <umo-office-viewer
     v-bind="options"
@@ -24,6 +24,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
     @download="onDownload"
     @export="onExport"
     @print="onPrint"
+    @error="onError"
   />
 </template>
  
@@ -66,6 +67,9 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
   const onExport = () => {
     console.log('emit:export', '导出文档')
   }
+  const onError = (error) => {
+    console.log('emit:error', '文档加载出错', { errMsg: error.message })
+  }
 </script>
 ```
 
@@ -83,3 +87,4 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 | download | 下载文档  | - |
 | export | 导出文档  | - |
 | print | 打印文档  | - |
+| error | 文档加载出错  | error |
