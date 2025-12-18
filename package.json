@@ -9,13 +9,13 @@
 		"email": "contact@umodoc.com",
 		"url": "https://www.umodoc.com"
 	},
-	"homepage": "https://dev.umodoc.com/en/docs/editor",
+	"homepage": "https://dev.umodoc.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/umodoc/editor.git"
+    "url": "https://github.com/umodoc/docs.git"
   },
   "bugs": {
-    "url": "https://github.com/umodoc/editor/issues",
+    "url": "https://github.com/umodoc/docs/issues",
     "email": "contact@umodoc.com"
   },
 	"scripts": {
