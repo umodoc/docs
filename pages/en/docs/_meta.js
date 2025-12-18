@@ -3,17 +3,21 @@ export default {
 		title: 'Home',
 		display: 'hidden'
 	},
-	'--free': {
+	'--editor': {
 		type: 'separator',
-		title: 'Free Projects'
+		title: 'Umo Editor'
 	},
 	editor:'Umo Editor',
-	viewer: 'Umo Viewer',
 	'--business': {
 		type: 'separator',
-		title: 'Commercial Projects'
+		title: 'Umo Editor Next'
 	},
 	next:'Umo Editor Next',
-	server:'Umo Editor Server',
+	server: 'Umo Editor Server',
+	'--other': {
+		type: 'separator',
+		title: 'Other'
+	},
+	viewer: 'Umo Viewer',
 	license: 'License Agreement',
 };

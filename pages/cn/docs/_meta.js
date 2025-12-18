@@ -3,19 +3,27 @@ export default {
 		title: '首页',
 		display: 'hidden'
 	},
-	'--free': {
+	'--editor': {
 		type: 'separator',
-		title: '开源项目'
+		title: 'Umo Editor'
 	},
 	editor:'Umo Editor',
-	viewer: 'Umo Viewer',
 	'--business': {
 		type: 'separator',
-		title: '商业项目'
+		title: 'Umo Editor Next'
 	},
 	next:'Umo Editor Next',
 	server:'Umo Editor Server',
+	'--office': {
+		type: 'separator',
+		title: 'Umo Office'
+	},
 	'office-viewer':'Umo Office Viewer',
 	'office-convert': 'Umo Office Convert',
+	'--other': {
+		type: 'separator',
+		title: '其它'
+	},
+	viewer: 'Umo Viewer',
 	license: '商业许可协议',
 };
