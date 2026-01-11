@@ -1,6 +1,6 @@
 {
 	"name": "umo-docs",
-	"version": "8.0.0",
+	"version": "10.0.0",
 	"description": "Umo Team Documentation. Umo Team 文档",
 	"license": "SEE LICENSE IN https://creativecommons.org/licenses/by-nc-sa/4.0",
 	"type": "module",
@@ -10,19 +10,20 @@
 		"url": "https://www.umodoc.com"
 	},
 	"homepage": "https://dev.umodoc.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/umodoc/docs.git"
-  },
-  "bugs": {
-    "url": "https://github.com/umodoc/docs/issues",
-    "email": "contact@umodoc.com"
-  },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/umodoc/docs.git"
+	},
+	"bugs": {
+		"url": "https://github.com/umodoc/docs/issues",
+		"email": "contact@umodoc.com"
+	},
 	"scripts": {
 		"dev": "next -p 9002",
 		"build": "next build",
 		"start": "next start",
-		"export": "next export"
+		"export": "next export",
+		"format": "prettier --write '**/*.mdx'"
 	},
 	"dependencies": {
 		"next": "^14.2.5",
@@ -31,5 +32,8 @@
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"typescript": "^5.5.3"
+	},
+	"devDependencies": {
+		"prettier": "^3.7.4"
 	}
 }

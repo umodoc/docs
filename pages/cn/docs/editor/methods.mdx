@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Badge } from '/components/badge'
@@ -14,27 +14,24 @@ import { Badge } from '/components/badge'
 
 ```vue
 <template>
-  <umo-editor
-    ref="editorRef"
-    v-bind="options"
-  />
+  <umo-editor ref="editorRef" v-bind="options" />
   <button @click="getOptions">获取配置</button>
 </template>
- 
+
 <script setup>
-  import { ref } from 'vue';
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const editorRef = ref(null);
-  const options = ref({
-    // 配置项
-    // ...
-  })
+const editorRef = ref(null)
+const options = ref({
+  // 配置项
+  // ...
+})
 
-  const getOptions = () => {
-    const options = editorRef.value.getOptions();
-    console.log(options);
-  }
+const getOptions = () => {
+  const options = editorRef.value.getOptions()
+  console.log(options)
+}
 </script>
 ```
 
@@ -112,7 +109,7 @@ import { Badge } from '/components/badge'
 **参数**：
 
 - `content` : 合法的 HTML 格式或其他合法的[Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
-- `options` :  // v2.2.0 新增
+- `options` : // v2.2.0 新增
   - `emitUpdate`: `true`，是否触发更新事件。
   - `focusPosition`: focus 位置，可选值为：'start' | 'end' | 'all' | number | boolean | null (false)。
   - `focusOptions`: `{ scrollIntoView: true }`。
@@ -126,14 +123,14 @@ import { Badge } from '/components/badge'
 **参数**：
 
 - `content` : 合法的 HTML 格式或其他合法的[Tiptap 文档格式](https://tiptap.dev/docs/editor/guide/output)。
-- `options` : 
+- `options` :
   - `updateSelection`: `true`，是否更新选区。
   - `focusPosition`: focus 位置，可选值为：'start' | 'end' | 'all' | number | boolean | null (false)。
   - `focusOptions`: `{ scrollIntoView: true }`。
 
 **返回值**：无。
 
-### setLocale 
+### setLocale
 
 **说明**：设置 Umo Editor 的显示语言。 <Badge theme="success">v2.0.0 新增</Badge>
 
@@ -141,7 +138,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
-### setTheme 
+### setTheme
 
 **说明**：设置 Umo Editor 的主题。 <Badge theme="success">v2.1.0 新增</Badge>
 
@@ -149,7 +146,15 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
-### getPage 
+### setSkin
+
+**说明**：设置 Umo Editor 的外观。 <Badge theme="success">v10.0.0 新增</Badge>
+
+**参数**：`default` 、 `modern`。
+
+**返回值**：无。
+
+### getPage
 
 **说明**：获取 Umo Editor 的页面配置信息。 <Badge theme="success">v5.0.0 新增</Badge>
 
@@ -157,7 +162,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：页面配置信息。
 
-### setPage 
+### setPage
 
 **说明**：设置 Umo Editor 的页面配置信息。 <Badge theme="success">v5.0.0 新增</Badge>
 
@@ -171,7 +176,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：无。
 
-### getContent 
+### getContent
 
 **说明**：获取 Umo Editor 的内容。
 
@@ -254,15 +259,16 @@ import { Badge } from '/components/badge'
 
 **返回值**：Tiptap Editor 实例。
 
-### getTableOfContents 
+### getTableOfContents
 
 **说明**：获取页面大纲，更多页面大纲信息可以通过 `getEditor()` 获取编辑器实例后，`editor.storage.tableOfContents` 获取。 <Badge theme="success">v3.0.0 新增</Badge>
 
 **参数**：无。
 
 **返回值**：
+
 ```js
-[
+;[
   {
     dom: HTMLElement, // 当前锚点对应的HTML元素
     editor: Editor, // 编辑器实例
@@ -274,12 +280,12 @@ import { Badge } from '/components/badge'
     node: Node, // 当前锚点对应的 ProseMirror 节点
     originalLevel: Number, // 实际层级
     pos: Number, // 锚点节点的位置
-    textContent: String // 锚点的文本内容
-  }
+    textContent: String, // 锚点的文本内容
+  },
 ]
 ```
 
-### getSelectionText 
+### getSelectionText
 
 **说明**：获取当前选中文字文字内容。 <Badge theme="success">v3.0.0 新增</Badge>
 
@@ -311,7 +317,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：无
 
-### getLocale 
+### getLocale
 
 **说明**：返回 Umo Editor 的显示语言。 <Badge theme="success">v2.0.0 新增</Badge>
 
@@ -319,7 +325,7 @@ import { Badge } from '/components/badge'
 
 **返回值**：`zh-CN` 或 `en-US`。
 
-### getI18n 
+### getI18n
 
 **说明**：返回[`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html)实例。 <Badge theme="success">v2.0.0 新增</Badge>
 
@@ -351,7 +357,6 @@ import { Badge } from '/components/badge'
 
 - `position` : 'start' | 'end' | 'all' | number | boolean | null (false)
 - `options` : \{ scrollIntoView: boolean \} // v2.2.0 新增
-
 
 **返回值**：无。
 
@@ -440,8 +445,9 @@ import { Badge } from '/components/badge'
 **说明**：以打字机效果插入内容。<Badge theme="success">v7.0.0 新增</Badge>
 
 **参数**：
+
 - `content` : 合法的[Tiptap JSON 文档格式](https://tiptap.dev/docs/editor/guide/output)。
-- `options` : 
+- `options` :
   - `speed`: `Number`，打字机效果的间隔时间。
   - `step`: `Number`，打字机步长，每次打字的显示数量,为了效果，建议不超过10。
   - `onComplete`: `function`，打字机完成后的回调函数。
@@ -463,10 +469,11 @@ import { Badge } from '/components/badge'
 **参数**：无。
 
 **返回值**：
-- `isRunning` :  `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
-- `currentParagraph` :  `Number` 当前打字机运行到的段落位置。
+
+- `isRunning` : `Boolean` 当前打字机的运行状态 `true`表示正在运行，`false` 表示打字机已停止。
+- `currentParagraph` : `Number` 当前打字机运行到的段落位置。
 - `currentTextNode` : `Number` 当前打字机运行到的段落下的文本节点位置。
-- `currentChar` :  `Number` 当前打字机运行到段落下的字符位置。
+- `currentChar` : `Number` 当前打字机运行到段落下的字符位置。
 
 ### useAlert
 
@@ -489,6 +496,7 @@ import { Badge } from '/components/badge'
 **说明**：使用 Umo Editor 的消息提示。
 
 **参数**：
+
 - `type`：String，消息类型，可选值为 `success`、`warning`、`error`、`info`。
 - `options`：[TDesign Next Message](https://tdesign.tencent.com/vue-next/components/message?tab=api)的相关配置。
 

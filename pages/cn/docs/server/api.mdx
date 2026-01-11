@@ -1,7 +1,7 @@
 ---
 target: Umo Editor Server
 keywords: Umo Editor Next,Umo Editor Server,Umo Editor后端,Umo Editor服务端
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 # 接口列表
@@ -15,6 +15,7 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 - `GET /`：返回服务是否正在运行的信息，如果无法访问该路由，则代表服务可能未启动或服务异常。
 
 ## Open API 接口文档
+
 - `GET /docs`：接口文档，用于查看和测试接口，该接口在生产环境下不可用。
 
 ## 文档导入导出
@@ -25,6 +26,7 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 - `POST /export/thumbnail`：导出文档缩略图（仅导出文档第一页内容）。
 
 ## AI 服务代理
+
 - `GET | POST /ai/{provider}/{endpoint}`：根据 provider 和 endpoint 参数动态代理 GET 请求到不同的 AI 服务商（如 DeepSeek、OpenAI、Moonshot AI 等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回响应结果。具体实现和使用方式请参考代码注释。
 
 ## 文档协作、批注

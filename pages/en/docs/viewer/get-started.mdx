@@ -17,20 +17,21 @@ npm install --save @umoteam/viewer
 Choose one of the following usage methods:
 
 ### Global Installation
+
 ```js filename="main.js"
-import { createApp } from 'vue';
-import { useUmoViewer } from '@umoteam/viewer';
+import { createApp } from 'vue'
+import { useUmoViewer } from '@umoteam/viewer'
 
 // If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
 // Umo Editor version must not be less than 8.0.0
 // import '@umoteam/editor/style'
 
-const app = createApp(App);
+const app = createApp(App)
 app.use(useUmoViewer, {
   // options
   // ...
-});
-app.mount('#app');
+})
+app.mount('#app')
 ```
 
 ### Direct Import
@@ -50,40 +51,40 @@ You can use either the Composition API or Options API as shown below:
 
 // Using Composition API
 <script setup>
-  import { ref } from 'vue'
-  import { UmoViewer } from '@umoteam/viewer';
+import { ref } from 'vue'
+import { UmoViewer } from '@umoteam/viewer'
 
-  // If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
-  // Umo Editor version must not be less than 8.0.0
-  // import '@umoteam/editor/style'
+// If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
+// Umo Editor version must not be less than 8.0.0
+// import '@umoteam/editor/style'
 
-  const options = ref({
-    // options
-    // ...
-  });
+const options = ref({
+  // options
+  // ...
+})
 </script>
 
 // Or using Options API
 <script>
-  import { UmoViewer } from '@umoteam/viewer';
+import { UmoViewer } from '@umoteam/viewer'
 
-  // If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
-  // Umo Editor version must not be less than 8.0.0
-  // import '@umoteam/editor/style'
+// If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
+// Umo Editor version must not be less than 8.0.0
+// import '@umoteam/editor/style'
 
-  export default {
-    components: {
-      UmoViewer
-    },
-    data() {
-      return {
-        options: {
-          // options
-          // ...
-        }
-      }
+export default {
+  components: {
+    UmoViewer,
+  },
+  data() {
+    return {
+      options: {
+        // options
+        // ...
+      },
     }
-  }
+  },
+}
 </script>
 ```
 

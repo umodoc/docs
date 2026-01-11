@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Tabs } from 'nextra/components'
@@ -39,34 +39,29 @@ import { Callout } from 'nextra/components'
 您可以在项目**根目录下**，通过以下命令快速拷贝文件：
 
 <Tabs items={['Windows', 'Linux / MacOS / Others']}>
-<Tabs.Tab>
-```bash
-mkdir -p public/libs
-mkdir -p public/icons
-mkdir -p public/static
-xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
-xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
-xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
-```
-</Tabs.Tab>
-<Tabs.Tab>
-```bash
-mkdir -p public/libs
-mkdir -p public/icons
-mkdir -p public/static
-cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
-cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
-cp -r node_modules/@umoteam/editor-external/static/* public/static/
-```
-</Tabs.Tab>
+  <Tabs.Tab>
+    ```bash mkdir -p public/libs mkdir -p public/icons mkdir -p public/static
+    xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I xcopy
+    node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I xcopy
+    node_modules\@umoteam\editor-external\static\* public\static\ /E /I ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash mkdir -p public/libs mkdir -p public/icons mkdir -p public/static cp
+    -r node_modules/@umoteam/editor-external/libs/* public/libs/ cp -r
+    node_modules/@umoteam/editor-external/icons/* public/icons/ cp -r
+    node_modules/@umoteam/editor-external/static/* public/static/ ```
+  </Tabs.Tab>
 </Tabs>
 
 <Callout type="warning" emoji="⚠️">
-**注意**：每次更新 `@umoteam/editor` 版本后，请复制最新的 `@umoteam/editor-external` 到 `public` 目录下。注意和 `@umoteam/editor-external` 版本号保持同步。
+  **注意**：每次更新 `@umoteam/editor` 版本后，请复制最新的
+  `@umoteam/editor-external` 到 `public` 目录下。注意和
+  `@umoteam/editor-external` 版本号保持同步。
 </Callout>
 
 <Callout type="info">
-您也可以将 `node_modules/@umoteam/editor-external/` 文件夹下的文件放置到合适的位置，并正确的配置 `cdnUrl`，注意不要以 `/` 结尾。
+  您也可以将 `node_modules/@umoteam/editor-external/`
+  文件夹下的文件放置到合适的位置，并正确的配置 `cdnUrl`，注意不要以 `/` 结尾。
 </Callout>
 
 ## 配置项说明

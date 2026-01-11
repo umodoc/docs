@@ -17,10 +17,12 @@ Used to configure the display and behavior of the Umo Editor document area and d
       en_US: 'Please enter the document content...',
       zh_CN: '请输入文档内容...',
     },
+    structure: 'block*', // Added in v10
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
     enableBlockMenu: true,
+    enableNodeId: false, // Added in v10
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
@@ -74,6 +76,15 @@ Used to configure the display and behavior of the Umo Editor document area and d
 - `zh_CN`: Simplified Chinese
 - `en_US`: English
 
+### document.structure
+
+**Description**: Configures the document structure. With this option, you can enforce a specific document structure—for example, to require the first node to be a document heading, you can set this option to `heading block*`.
+For a Tiptap example, see: [https://tiptap.dev/docs/examples/advanced/forced-content-structure](https://tiptap.dev/docs/examples/advanced/forced-content-structure) <Badge theme="success">Added in v10.0.0</Badge>
+
+**Type**: `String`
+
+**Default**: `block*`
+
 ### document.enableSpellcheck
 
 **Description**: Whether to enable browser spellcheck. Users can manually disable it when enabled. You can dynamically set whether to enable browser spellcheck using the [`setDocument`](../methods#setdocument).
@@ -105,6 +116,14 @@ Used to configure the display and behavior of the Umo Editor document area and d
 **Type**: `Boolean`
 
 **Default Value**: `true`
+
+### document.enableNodeId
+
+**Description**: Determines whether unique identifiers should be generated for document nodes. This option is disabled by default to achieve better performance. <Badge theme="success">Added in v10.0.0</Badge>
+
+**Type**: `Boolean`
+
+**Default**: `false`
 
 ### document.readOnly
 
@@ -140,30 +159,30 @@ Used to configure the display and behavior of the Umo Editor document area and d
 
 **Options**:
 
-| Name | Description | Enabled by Default |
-| :--- | :---: | :---: |
-| emDash | Converts double dashes `--` to em dashes `—`. | ✅ Enabled |
-| ellipsis | Converts three dots `...` to ellipsis `…`. | ✅ Enabled |
-| openDoubleQuote | “Smart” left double quotes. | ✅ Enabled |
-| closeDoubleQuote | “Smart” right double quotes. | ✅ Enabled |
-| openSingleQuote | ‘Smart’ left single quotes. | ✅ Enabled |
-| closeSingleQuote | ‘Smart’ right single quotes. | ✅ Enabled |
-| leftArrow | Converts `<-` to left arrow `←`. | ✅ Enabled |
-| rightArrow | Converts `->` to right arrow `→`. | ✅ Enabled |
-| copyright | Converts `(c)` to copyright symbol `©`. | ✅ Enabled |
-| registeredTrademark | Converts `(r)` to registered trademark symbol `®`. | ✅ Enabled |
-| trademark | Converts `(tm)` to trademark symbol `™`. | ✅ Enabled |
-| servicemark | Converts `(sm)` to service mark symbol `℠`. | ✅ Enabled |
-| oneHalf | Converts `1/2` to one-half `½`. | ✅ Enabled |
-| oneQuarter | Converts `1/4` to one-quarter `¼`. | ✅ Enabled |
-| threeQuarters | Converts `3/4` to three-quarters `¾`. | ✅ Enabled |
-| plusMinus | Converts `+/-` to plus-minus sign `±`. | ✅ Enabled |
-| notEqual | Converts `!=` to not equal sign `≠`. | ✅ Enabled |
-| laquo | Converts `<<` to left guillemet `«`. | ✅ Enabled |
-| raquo | Converts `>>` to right guillemet `»`. | ✅ Enabled |
-| multiplication | Converts `2 * 3` or `2x3` to multiplication sign `2×3`. | ✅ Enabled |
-| superscriptTwo | Converts `^2` to superscript two `²`. | ✅ Enabled |
-| superscriptThree | Converts `^3` to superscript three `³`. | ✅ Enabled |
+| Name                |                       Description                       | Enabled by Default |
+| :------------------ | :-----------------------------------------------------: | :----------------: |
+| emDash              |      Converts double dashes `--` to em dashes `—`.      |     ✅ Enabled     |
+| ellipsis            |       Converts three dots `...` to ellipsis `…`.        |     ✅ Enabled     |
+| openDoubleQuote     |               “Smart” left double quotes.               |     ✅ Enabled     |
+| closeDoubleQuote    |              “Smart” right double quotes.               |     ✅ Enabled     |
+| openSingleQuote     |               ‘Smart’ left single quotes.               |     ✅ Enabled     |
+| closeSingleQuote    |              ‘Smart’ right single quotes.               |     ✅ Enabled     |
+| leftArrow           |            Converts `<-` to left arrow `←`.             |     ✅ Enabled     |
+| rightArrow          |            Converts `->` to right arrow `→`.            |     ✅ Enabled     |
+| copyright           |         Converts `(c)` to copyright symbol `©`.         |     ✅ Enabled     |
+| registeredTrademark |   Converts `(r)` to registered trademark symbol `®`.    |     ✅ Enabled     |
+| trademark           |        Converts `(tm)` to trademark symbol `™`.         |     ✅ Enabled     |
+| servicemark         |       Converts `(sm)` to service mark symbol `℠`.       |     ✅ Enabled     |
+| oneHalf             |             Converts `1/2` to one-half `½`.             |     ✅ Enabled     |
+| oneQuarter          |           Converts `1/4` to one-quarter `¼`.            |     ✅ Enabled     |
+| threeQuarters       |          Converts `3/4` to three-quarters `¾`.          |     ✅ Enabled     |
+| plusMinus           |         Converts `+/-` to plus-minus sign `±`.          |     ✅ Enabled     |
+| notEqual            |          Converts `!=` to not equal sign `≠`.           |     ✅ Enabled     |
+| laquo               |          Converts `<<` to left guillemet `«`.           |     ✅ Enabled     |
+| raquo               |          Converts `>>` to right guillemet `»`.          |     ✅ Enabled     |
+| multiplication      | Converts `2 * 3` or `2x3` to multiplication sign `2×3`. |     ✅ Enabled     |
+| superscriptTwo      |          Converts `^2` to superscript two `²`.          |     ✅ Enabled     |
+| superscriptThree    |         Converts `^3` to superscript three `³`.         |     ✅ Enabled     |
 
 To disable an option, set it to `false`, for example:
 
@@ -205,6 +224,7 @@ import { UmoEditor } from '@umoteam/editor'
 **Type**: `Object`
 
 **Options**:
+
 - `enabled`: Boolean, whether to enable auto-save. Default value is `true`.
 - `interval`: Number, auto-save interval in milliseconds. Default value is `300000` (5 minutes).
 
@@ -213,6 +233,7 @@ import { UmoEditor } from '@umoteam/editor'
 **Description**: For advanced scenarios, you can pass some configurations to [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) via `document.editorProps`. You can use it to override various editor events or change editor DOM element attributes. More information: https://prosemirror.net/docs/ref/#view.EditorProps . <Badge theme="success">Added in v2.3.0</Badge>
 
 **Example**:
+
 ```js
 {
   editorProps: {

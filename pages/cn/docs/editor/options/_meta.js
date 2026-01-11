@@ -18,5 +18,6 @@ export default {
 	extensions: '功能及扩展配置',
 	locale: '本地化语言配置',
 	theme: '主题配置',
+	skin: '外观配置',
 	methods: '方法配置'
 };

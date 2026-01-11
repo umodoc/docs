@@ -1,7 +1,7 @@
 ---
 target: Umo Editor Server
 keywords: Umo Editor Next,Umo Editor Server,Umo Editor后端,Umo Editor服务端
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 # 基础介绍
@@ -15,6 +15,7 @@ Umo Editor Server 不以 NPM 包的形式发行，在获得商业许可后，您
 ## 启动项目
 
 ### 1. 克隆官方仓库
+
 ```bash
 git clone <Umo Editor Server 官方私有仓库路径>
 ```
@@ -65,9 +66,8 @@ npm run dev
 ```
 
 ### 5. 一切就绪
- 
-通过上述操作，您已经成功启动了 Umo Editor Server，访问 http://127.0.0.1:1235/docs 即可查看 Swagger 文档。
 
+通过上述操作，您已经成功启动了 Umo Editor Server，访问 http://127.0.0.1:1235/docs 即可查看 Swagger 文档。
 
 ## 白名单配置
 
@@ -86,6 +86,7 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 - 如果需要二次开发，源代码中提供了大量详尽的注释应该会对您非常有帮助。
 
 ## 部署说明
+
 - 在支持 `nodejs` 的环境中，您可以直接使用 `npm run production` 运行项目，此命令提供了通过 [pm2](https://pm2.io/) 守护进程的能力和记录日志的能力。
 - 也可以直接将项目部署到 `docker` 容器中，您可以根据实际需要修改 `Dockerfile`，见[docker 部署](./server/docker)。
 

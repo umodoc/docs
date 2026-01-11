@@ -8,27 +8,24 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 ```vue
 <template>
-  <umo-editor
-    ref="editorRef"
-    v-bind="options"
-  />
+  <umo-editor ref="editorRef" v-bind="options" />
   <button @click="getOptions">Get Configuration</button>
 </template>
- 
+
 <script setup>
-  import { ref } from 'vue';
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const editorRef = ref(null);
-  const options = ref({
-    // Configuration options
-    // ...
-  })
+const editorRef = ref(null)
+const options = ref({
+  // Configuration options
+  // ...
+})
 
-  const getOptions = () => {
-    const options = editorRef.value.getOptions();
-    console.log(options);
-  }
+const getOptions = () => {
+  const options = editorRef.value.getOptions()
+  console.log(options)
+}
 </script>
 ```
 
@@ -112,7 +109,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 **Parameters**:
 
 - `content`: Valid HTML format or other valid [Tiptap document](https://tiptap.dev/docs/editor/guide/output).
-- `options`:  // Added in v2.2.0
+- `options`: // Added in v2.2.0
   - `emitUpdate`: `true`, whether to trigger the update event.
   - `focusPosition`: Focus position, optional values are: 'start' | 'end' | 'all' | number | boolean | null (false).
   - `focusOptions`: `{ scrollIntoView: true }`.
@@ -126,14 +123,14 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 **Parameters**:
 
 - `content`: Valid HTML format or other valid [Tiptap document](https://tiptap.dev/docs/editor/guide/output).
-- `options`: 
+- `options`:
   - `updateSelection`: `true`, whether to update the selection.
   - `focusPosition`: Focus position, optional values are: 'start' | 'end' | 'all' | number | boolean | null (false).
   - `focusOptions`: `{ scrollIntoView: true }`.
 
 **Return Value**: None.
 
-### setLocale 
+### setLocale
 
 **Description**: Set the display language of Umo Editor. <Badge theme="success">Added in v2.0.0</Badge>
 
@@ -141,7 +138,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: None.
 
-### setTheme 
+### setTheme
 
 **Description**: Set the theme of Umo Editor. <Badge theme="success">Added in v2.1.0</Badge>
 
@@ -149,7 +146,15 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: None.
 
-### getPage 
+### setSkin
+
+**Description**：Set the appearance of Umo Editor <Badge theme="success">Added in v10.0.0</Badge>
+
+**Parameters**：`default` 、 `modern`。
+
+**Return Value**: None.
+
+### getPage
 
 **Description**: Get the page configuration information of Umo Editor. <Badge theme="success">Added in v5.0.0</Badge>
 
@@ -157,7 +162,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: Page configuration information.
 
-### setPage 
+### setPage
 
 **Description**: Set the page configuration information of Umo Editor. <Badge theme="success">Added in v5.0.0</Badge>
 
@@ -165,7 +170,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: None.
 
-### getContent 
+### getContent
 
 **Description**: Get the content of Umo Editor.
 
@@ -248,15 +253,16 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: Tiptap Editor instance.
 
-### getTableOfContents 
+### getTableOfContents
 
 **Description**: Get the page outline. For more page outline information, you can get the editor instance through `getEditor()` and then access `editor.storage.tableOfContents`. <Badge theme="success">Added in v3.0.0</Badge>
 
 **Parameters**: None.
 
 **Return Value**:
+
 ```js
-[
+;[
   {
     dom: HTMLElement, // The HTML element corresponding to the current anchor
     editor: Editor, // Editor instance
@@ -268,12 +274,12 @@ This section introduces the methods of Umo Editor. With the methods provided by 
     node: Node, // ProseMirror node corresponding to the current anchor
     originalLevel: Number, // Actual level
     pos: Number, // Position of the anchor node
-    textContent: String // Text content of the anchor
-  }
+    textContent: String, // Text content of the anchor
+  },
 ]
 ```
 
-### getSelectionText 
+### getSelectionText
 
 **Description**: Get the text content of the currently selected text. <Badge theme="success">Added in v3.0.0</Badge>
 
@@ -305,7 +311,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: None.
 
-### getLocale 
+### getLocale
 
 **Description**: Return the display language of Umo Editor. <Badge theme="success">Added in v2.0.0</Badge>
 
@@ -313,7 +319,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 
 **Return Value**: `zh-CN` or `en-US`.
 
-### getI18n 
+### getI18n
 
 **Description**: Return the [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html) instance. <Badge theme="success">Added in v2.0.0</Badge>
 
@@ -417,6 +423,7 @@ This section introduces the methods of Umo Editor. With the methods provided by 
 **Description**: Use the message prompt of Umo Editor.
 
 **Parameters**:
+
 - `type`: String, message type, optional values are `success`, `warning`, `error`, `info`.
 - `options`: Related configuration of [TDesign Next Message](https://tdesign.tencent.com/vue-next/components/message-en?tab=api).
 

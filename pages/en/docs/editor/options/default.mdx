@@ -7,11 +7,12 @@ The default configuration of Umo Editor. You can visit https://www.umodoc.com/en
 
 ## All Configurations
 
-``` js showLineNumbers
+```js showLineNumbers
 const defaultOptions = {
   editorKey: 'default',
   locale: 'zh-CN',
   theme: 'light',
+  skin: 'default', // Added in v10
   height: '100%',
   fullscreenZIndex: 10,
   dicts: {
@@ -328,7 +329,7 @@ const defaultOptions = {
   toolbar: {
     showSaveLabel: true, // Added in v9.0.0
     defaultMode: 'ribbon',
-    menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
+    menus: ['base', 'insert', 'table', 'tools', 'page', 'view', 'export'],
     // disableMenuItems: [], // toolbar.disableMenuItems was removed in v8.0.0, see the disableExtensions configuration
     // importWord: { ... },  // toolbar.importWord was removed in v8.0.0, see the importWord configuration
   },
@@ -363,10 +364,12 @@ const defaultOptions = {
       en_US: 'Please enter the document content...',
       zh_CN: '请输入文档内容...',
     },
+     structure: 'block*', // Added in v10
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
     enableBlockMenu: true,
+    enableNodeId: false, // Added in v10
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
@@ -421,7 +424,7 @@ const defaultOptions = {
     },
   },
   echarts: {
-    mode: 1, 
+    mode: 1,
     renderImage: false,
     onCustomSettings() {
       return null
@@ -529,7 +532,7 @@ const defaultOptions = {
     maxSize: 1024 * 1024 * 5, // 5M
     options: {},
     useCustomMethod: false,
-    async onCustomImportMethod() { 
+    async onCustomImportMethod() {
     },
   },
   user: {},
@@ -551,7 +554,7 @@ Starting from version v2.0.0, the `label` in `dicts` and items like `document.pl
 
 ## Zoning
 
-<img src="https://s2.umodoc.com/images/zoning.png"  width="1330" height="848" />
+<img src="https://s2.umodoc.com/images/zoning.png" width="1330" height="848" />
 
 ## Configuration Description
 
@@ -560,6 +563,7 @@ The configuration options of Umo Editor are mainly divided into the following pa
 - `editorKey`: String, the editor key, used to distinguish different editor instances.
 - `locale`: String, display language, default is Chinese. <Badge theme="success">Added in v2.0.0</Badge>
 - `theme`: String, theme setting, default is light theme. <Badge theme="success">Added in v2.1.0</Badge>
+- `skin`：String, appearance-related setting. <Badge theme="success">Added in v10.0.0</Badge>
 - `height`: String, editor height.
 - `fullscreenZIndex`: Number, the z-index of the container in fullscreen mode, used to prevent being covered by other elements, such as when used in a popup layer. <Badge theme="success">Added in v6.0.0</Badge>
 - `dicts`: Object, dictionary configuration, see [Dictionary Configuration](./dicts).

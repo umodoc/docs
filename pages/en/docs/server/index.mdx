@@ -13,6 +13,7 @@ Umo Editor Server is not distributed as an NPM package. After obtaining a commer
 ## Start the Project
 
 ### 1. Clone the Official Repository
+
 ```bash
 git clone <Umo Editor Server official private repository URL>
 ```
@@ -60,7 +61,7 @@ npm run dev
 ```
 
 ### 5. All Set
- 
+
 After the above steps, you have successfully started Umo Editor Server. Visit http://127.0.0.1:1235/docs to view the Swagger documentation.
 
 ## Whitelist Configuration
@@ -80,6 +81,7 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 - If you need secondary development, the source code provides a large number of detailed comments that should be very helpful to you.
 
 ## Deployment Notes
+
 - In an environment that supports `nodejs`, you can directly run the project using `npm run production`. This command provides the ability to use the `[pm2](https://pm2.io/)` daemon and record logs.
 - You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed. For details, see [Docker Deployment](./server/docker).
 

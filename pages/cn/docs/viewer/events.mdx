@@ -21,32 +21,32 @@ description: Umo Viewer 是一款开源的 PDF 文档查看器，基于 Vue3 和
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  import { UmoViewer } from '@umoteam/viewer';
+import { ref } from 'vue'
+import { UmoViewer } from '@umoteam/viewer'
 
-  const options = ref({
-    // 配置项
-    lang: 'zh-CN',
-    // ...
-  });
+const options = ref({
+  // 配置项
+  lang: 'zh-CN',
+  // ...
+})
 
-  // 关闭事件，例如在关闭事件中关闭弹窗
-  const onClose = () => {
-    console.log('关闭事件');
-  };
+// 关闭事件，例如在关闭事件中关闭弹窗
+const onClose = () => {
+  console.log('关闭事件')
+}
 
-  // 编辑事件
-  const onEdit = () => {
-    console.log('编辑事件');
-  };
+// 编辑事件
+const onEdit = () => {
+  console.log('编辑事件')
+}
 
-  // 验证密码事件
-  const onValidatePassword = (password) => {
-    if (password === '123456') {
-      return true;
-    }
-    return false;
-  };
+// 验证密码事件
+const onValidatePassword = (password) => {
+  if (password === '123456') {
+    return true
+  }
+  return false
+}
 </script>
 ```
 

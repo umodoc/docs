@@ -15,7 +15,7 @@ const defaultOptions = {
   // Page aside related configuration
   page: {
     aside: {
-      show: [], 
+      show: [],
       extensions: [],
     },
   },
@@ -24,7 +24,7 @@ const defaultOptions = {
 
 ## Configuration Description
 
-### page.aside.show 
+### page.aside.show
 
 **Description**：Page aside display configuration, you can use `openAside`、`closeAside` methods to dynamically display or hide the page aside.
 
@@ -38,7 +38,7 @@ aside: {
 },
 ```
 
-### page.aside.extensions 
+### page.aside.extensions
 
 **Description**：Page aside extension configuration, you can dynamically inject personalized page aside through this configuration.
 
@@ -93,22 +93,22 @@ Through named slots, insert custom content into the page aside.
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // Configuration items
-    // ...
-    page: {
-      aside: {
-        show: ['office', 'plugins'],
-        extensions: [
-          { title: '办公助手', key: 'office' },
-          { title: '扩展插件', key: 'plugins' },
-        ],
-      },
+const options = ref({
+  // Configuration items
+  // ...
+  page: {
+    aside: {
+      show: ['office', 'plugins'],
+      extensions: [
+        { title: '办公助手', key: 'office' },
+        { title: '扩展插件', key: 'plugins' },
+      ],
     },
-  });
+  },
+})
 </script>
 ```
 

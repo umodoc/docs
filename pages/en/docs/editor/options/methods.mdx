@@ -50,32 +50,34 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  async onSave(content, page, document) {
-    const res = await axios.post('/api/save', {
-      content,
-      page,
-      document,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+async onSave(content, page, document) {
+const res = await axios.post('/api/save', {
+content,
+page,
+document,
+}, {
+headers: {
+'Content-Type': 'application/json',
+}
+});
 
     return true;
-  },
+
+},
 };
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    @save="onSave" 
+  <umo-editor
+    @save="onSave"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
@@ -94,7 +96,8 @@ const onSave = async (content, page, document) => {
   return true;
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>
 
@@ -125,33 +128,35 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  async onFileUpload(file) {
-    let formData = new FormData();
-    formData.append('file', file);
-    const res = await axios.post('/api/file-upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    });
+async onFileUpload(file) {
+let formData = new FormData();
+formData.append('file', file);
+const res = await axios.post('/api/file-upload', formData, {
+headers: {
+'Content-Type': 'multipart/form-data',
+}
+});
 
     return {
       id: res.data.id,
       url: res.data.url,
     };
-  },
+
+},
 };
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    @file-upload="onFileUpload" 
+  <umo-editor
+    @file-upload="onFileUpload"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
@@ -171,7 +176,8 @@ const onFileUpload = async (file) => {
   };
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>
 
@@ -198,22 +204,23 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  onFileDelete(id, url) {
-    axios.delete(`/api/file/${id}`);
-  },
+onFileDelete(id, url) {
+axios.delete(`/api/file/${id}`);
+},
 };
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    @file-delete="onFileDelete" 
+  <umo-editor
+    @file-delete="onFileDelete"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
@@ -222,6 +229,7 @@ const onFileDelete = (id, url) => {
   axios.delete(`/api/file/${id}`);
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>

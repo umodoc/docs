@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Callout } from 'nextra/components'
@@ -19,7 +19,7 @@ import { Badge } from '/components/badge'
     maxSize: 1024 * 1024 * 5, // 5MB
     options: {},
     useCustomMethod: false,
-    async onCustomImportMethod() { 
+    async onCustomImportMethod() {
     },
   },
 }
@@ -31,6 +31,7 @@ import { Badge } from '/components/badge'
 **注意：** 在 Umo Editor Next 版本中，`importWord` 配置项已被移除，请使用 `import.office` 配置项代替，见[Umo Editor Next - 文档导入](../../next/import#importoffice)。
 
 [Umo Editor Next](../../next/import) 版本采用服务器端导出的方式，支持的格式包括：doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等，并可自行扩展。
+
 </Callout>
 
 ### importWord.maxSize
@@ -76,9 +77,9 @@ import { Badge } from '/components/badge'
   value: '<p>Hello world</p>',
   messages: [
     {
-      type: 'success', 
+      type: 'success',
       message: 'Converted 1 paragraph',
-    },  
+    },
   ],
 }
 ```

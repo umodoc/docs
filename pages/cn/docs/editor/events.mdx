@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Badge } from '/components/badge'
@@ -12,7 +12,7 @@ import { Badge } from '/components/badge'
 
 ## 示例
 
-```vue {4-27}
+```vue {4-29}
 <template>
   <umo-editor
     v-bind="options"
@@ -34,7 +34,9 @@ import { Badge } from '/components/badge'
     @changed:page-watermark="onChangedPageWatermark"
     @changed:locale="onChangedLocale"
     @changed:theme="onChangedTheme"
-    @content-error="onContentError"
+    @paste="onPaste"
+    @drop="onDrop"
+    @delete="onDelete"
     @print="onPrint"
     @focus="onFocus"
     @blur="onBlur"
@@ -42,161 +44,179 @@ import { Badge } from '/components/badge'
     @destroy="onDestroy"
   />
 </template>
- 
+
 <script setup>
-  import { ref } from 'vue';
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // 配置项
-    // ...
-  });
+const options = ref({
+  // 配置项
+  // ...
+})
 
-  const onBeforeCreate = () => {
-    console.log('onBeforeCreate', '编辑器即将创建，无可用参数')
-  }
-  const onCreated = () => {
-    console.log('onCreated', '编辑器已创建，可用参数:', { editor })
-  }
-  const onChanged = () => {
-    console.log('onChanged', '编辑器内容已更新，可用参数:', { editor })
-  }
-  const onChangedSelection = () => {
-    console.log('onChanged:selection', '所选内容已发生变化，可用参数:', { editor })
-  }
-  const onChangedTransaction = () => {
-    console.log(
-      'onChanged:transaction',
-      '编辑器状态已发生变化，可用参数:', { editor, transaction },
-    )
-  }
-  const onChangedMenu = (currentMenu) => {
-    console.log(
-      'onChanged:menu',
-      '菜单栏状态发生变化，可用参数: currentMenu，当前菜单为', currentMenu,
-    )
-  }
-  const onChangedToolbar = ({ toolbar, oldToolbar }) => {
-    console.log(
-      'onChanged:toolbar',
-      '工具栏信息发生变化，可用参数:',  { toolbar, oldToolbar }
-    )
-  }
-  const onChangedPageLayout = ({ pageLayout, oldPageLayout }) => {
-    console.log(
-      'onChanged:pageLayout',
-      '页面布局发生变化，可用参数:',  { pageLayout, oldPageLayout }
-    )
-  }
-  const onChangedPageSize = ({ pageSize, oldPageSize }) => {
-    console.log(
-      'onChanged:pageSize',
-      '页面大小信息发生变化，可用参数:',  { pageSize, oldPageSize }
-    )
-  }
-  const onChangedPageOrientation = ({ pageOrientation, oldPageOrientation }) => {
-    console.log(
-      'onChanged:pageOrientation',
-      '页面方向发生变化，可用参数:',  { pageOrientation, oldPageOrientation }
-    )
-  }
-  const onChangedPageMargin = ({ pageMargin, oldPageMargin }) => {
-    console.log(
-      'onChanged:pageMargin',
-      '页面边距信息发生变化，可用参数:',  { pageMargin, oldPageMargin },
-    )
-  }
-  const onChangedPageBackground = ({ pageBackground, oldPageBackground }) => {
-    console.log(
-      'onChanged:pageBackground',
-      '页面背景发生变化，可用参数:',  { pageBackground, oldPageBackground },
-    )
-  }
-  const onChangedZoom = ({ zoomLevel, oldZoomLevel }) => {
-    console.log(
-      'onChanged:pageZoom',
-      '页面缩放比例发生变化，可用参数:',  { zoomLevel, oldZoomLevel }
-    )
-  }
-  const onChangedPageShowToc = (showToc) => {
-    console.log(
-      'onChanged:pageShowToc',
-      '页面大纲面板显示状态发生变化，可用参数:',  showToc
-    )
-  }
-  const onChangedpreview = (enabled) => {
-    console.log(
-      'onChanged:pagePreview',
-      '页面预览模式发生变化，可用参数:',  enabled,
-    )
-  }
-  const onChangedPageWatermark = ({ pageWatermark, oldPageWatermark }) => {
-    console.log(
-      'onChanged:pageWatermark',
-      '页面水印信息发生变化，可用参数:',  { pageWatermark, oldPageWatermark }
-    )
-  }
-  const onChangedLocale = ({ locale, oldLocale }) => {
-    console.log(
-      'onChanged:locale',
-      '语言设置发生变化，可用参数:', { locale, oldLocale }
-    )
-  }
-  const onChangedTheme = (theme) => {
-    console.log(
-      'onChanged:theme',
-      '主题设置发生变化，可用参数:', theme
-    )
-  }
-  const onContentError = ({ editor, error, disableCollaboration }) => {
-    console.log(
-      'onContentError',
-      '文档内容解析错误:', { editor, error, disableCollaboration }
-    )
-  }
-  const onPrint = () => {
-    console.log('onPrint', '编辑器获得焦点，无可用参数')
-  }
-  const onFocus = () => {
-    console.log('onFocus', '编辑器获得焦点，可用参数:',  { editor, event })
-  }
-  const onBlur = () => {
-    console.log('onBlur', '编辑器失去焦点，可用参数:',  { editor, event })
-  }
-  const onSaved = () => {
-    console.log('onSaved', '文档已保存，无可用参数')
-  }
-  const onDestroy = () => {
-    console.log('onDestroy', '编辑器组件已销毁，无可用参数')
-  }
+const onBeforeCreate = () => {
+  console.log('onBeforeCreate', '编辑器即将创建，无可用参数')
+}
+const onCreated = () => {
+  console.log('onCreated', '编辑器已创建，可用参数:', { editor })
+}
+const onChanged = () => {
+  console.log('onChanged', '编辑器内容已更新，可用参数:', { editor })
+}
+const onChangedSelection = () => {
+  console.log('onChanged:selection', '所选内容已发生变化，可用参数:', {
+    editor,
+  })
+}
+const onChangedTransaction = () => {
+  console.log('onChanged:transaction', '编辑器状态已发生变化，可用参数:', {
+    editor,
+    transaction,
+  })
+}
+const onChangedMenu = (currentMenu) => {
+  console.log(
+    'onChanged:menu',
+    '菜单栏状态发生变化，可用参数: currentMenu，当前菜单为',
+    currentMenu
+  )
+}
+const onChangedToolbar = ({ toolbar, oldToolbar }) => {
+  console.log('onChanged:toolbar', '工具栏信息发生变化，可用参数:', {
+    toolbar,
+    oldToolbar,
+  })
+}
+const onChangedPageLayout = ({ pageLayout, oldPageLayout }) => {
+  console.log('onChanged:pageLayout', '页面布局发生变化，可用参数:', {
+    pageLayout,
+    oldPageLayout,
+  })
+}
+const onChangedPageSize = ({ pageSize, oldPageSize }) => {
+  console.log('onChanged:pageSize', '页面大小信息发生变化，可用参数:', {
+    pageSize,
+    oldPageSize,
+  })
+}
+const onChangedPageOrientation = ({ pageOrientation, oldPageOrientation }) => {
+  console.log('onChanged:pageOrientation', '页面方向发生变化，可用参数:', {
+    pageOrientation,
+    oldPageOrientation,
+  })
+}
+const onChangedPageMargin = ({ pageMargin, oldPageMargin }) => {
+  console.log('onChanged:pageMargin', '页面边距信息发生变化，可用参数:', {
+    pageMargin,
+    oldPageMargin,
+  })
+}
+const onChangedPageBackground = ({ pageBackground, oldPageBackground }) => {
+  console.log('onChanged:pageBackground', '页面背景发生变化，可用参数:', {
+    pageBackground,
+    oldPageBackground,
+  })
+}
+const onChangedZoom = ({ zoomLevel, oldZoomLevel }) => {
+  console.log('onChanged:pageZoom', '页面缩放比例发生变化，可用参数:', {
+    zoomLevel,
+    oldZoomLevel,
+  })
+}
+const onChangedPageShowToc = (showToc) => {
+  console.log(
+    'onChanged:pageShowToc',
+    '页面大纲面板显示状态发生变化，可用参数:',
+    showToc
+  )
+}
+const onChangedpreview = (enabled) => {
+  console.log(
+    'onChanged:pagePreview',
+    '页面预览模式发生变化，可用参数:',
+    enabled
+  )
+}
+const onChangedPageWatermark = ({ pageWatermark, oldPageWatermark }) => {
+  console.log('onChanged:pageWatermark', '页面水印信息发生变化，可用参数:', {
+    pageWatermark,
+    oldPageWatermark,
+  })
+}
+const onChangedLocale = ({ locale, oldLocale }) => {
+  console.log('onChanged:locale', '语言设置发生变化，可用参数:', {
+    locale,
+    oldLocale,
+  })
+}
+const onChangedTheme = (theme) => {
+  console.log('onChanged:theme', '主题设置发生变化，可用参数:', theme)
+}
+const onPaste = (content) => {
+  console.log('onPaste', '粘贴了新内容，可用参数:', { event, slice })
+}
+const onDrop = (content) => {
+  console.log('onDrop', '拖放了新内容，可用参数:', { event, slice, moved })
+}
+const onDelete = (content) => {
+  console.log('onDelete', '删除了内容，可用参数:', {
+    type,
+    deletedRange,
+    newRange,
+    partial,
+    node,
+    mark,
+    from,
+    to,
+    newFrom,
+    newTo,
+  })
+}
+const onPrint = () => {
+  console.log('onPrint', '编辑器获得焦点，无可用参数')
+}
+const onFocus = () => {
+  console.log('onFocus', '编辑器获得焦点，可用参数:', { editor, event })
+}
+const onBlur = () => {
+  console.log('onBlur', '编辑器失去焦点，可用参数:', { editor, event })
+}
+const onSaved = () => {
+  console.log('onSaved', '文档已保存，无可用参数')
+}
+const onDestroy = () => {
+  console.log('onDestroy', '编辑器组件已销毁，无可用参数')
+}
 </script>
 ```
 
 ## 事件说明
 
-| 事件名称 | 触发时机 / 说明 | 可用参数 |
-| --- | --- | --- |
-| beforeCreate | 编辑器即将创建 | - |
-| created | 编辑器已创建 | \{ editor \} |
-| changed | 编辑器内容已更新 | \{ editor \} |
-| changed:selection | 所选内容已发生变化 | \{ editor \} |
-| changed:transaction | 编辑器状态已发生变化 | \{ editor, transaction \} |
-| changed:menu | 菜单状态发生变化 | currentMenu |
-| changed:toolbar | 工具栏信息发生变化  | \{ toolbar, oldToolbar \} |
-| changed:pageLayout | 页面布局发生变化  <Badge theme="success">v8.0.0 新增</Badge>  | \{ pageLayout, oldPageLayout \} |
-| changed:pageSize | 页面大小信息发生变化  | \{ pageSize, oldPageSize \} |
-| changed:pageOrientation | 页面方向发生变化  | \{ pageOrientation, oldPageOrientation \} |
-| changed:pageMargin | 页面边距信息发生变化  | \{ pageMargin, oldPageMargin \} |
-| changed:pageBackground | 页面背景发生变化  | \{ pageBackground, oldPageBackground \} |
-| changed:pageZoom | 页面缩放比例发生变化  | \{ zoomLevel, oldZoomLevel \} |
-| changed:pageShowToc | 页面大纲面板显示状态发生变化  | showToc |
-| changed:pagePreview | 页面预览模式发生变化  | enabled |
-| changed:pageWatermark | 页面水印信息发生变化  | \{ pageWatermark, oldPageWatermark \} |
-| changed:locale | 语言设置发生变化 <Badge theme="success">v2.0.0 新增</Badge>  | \{ locale, oldLocale \} |
-| changed:theme | 主题设置发生变化 <Badge theme="success">v2.1.0 新增</Badge>  | theme |
-| content-error | 文档内容解析错误 <Badge theme="success">v2.3.0 新增</Badge>  | \{ editor, error, disableCollaboration \} |
-| print | 页面打印 <Badge theme="success">v1.1.0 新增</Badge> | - |
-| focus | 编辑器获得焦点 | \{ editor, event \} |
-| blur | 编辑器失去焦点 | \{ editor, event \} |
-| saved | 文档已保存 | - |
-| destroy | 编辑器组件已销毁 | - |
+| 事件名称                | 触发时机 / 说明                                                      | 可用参数                                                                          |
+| ----------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| beforeCreate            | 编辑器即将创建                                                       | -                                                                                 |
+| created                 | 编辑器已创建                                                         | \{ editor \}                                                                      |
+| changed                 | 编辑器内容已更新                                                     | \{ editor \}                                                                      |
+| changed:selection       | 所选内容已发生变化                                                   | \{ editor \}                                                                      |
+| changed:transaction     | 编辑器状态已发生变化                                                 | \{ editor, transaction \}                                                         |
+| changed:menu            | 菜单状态发生变化                                                     | currentMenu                                                                       |
+| changed:toolbar         | 工具栏信息发生变化                                                   | \{ toolbar, oldToolbar \}                                                         |
+| changed:pageLayout      | 页面布局发生变化 <Badge theme="success">v8.0.0 新增</Badge>          | \{ pageLayout, oldPageLayout \}                                                   |
+| changed:pageSize        | 页面大小信息发生变化                                                 | \{ pageSize, oldPageSize \}                                                       |
+| changed:pageOrientation | 页面方向发生变化                                                     | \{ pageOrientation, oldPageOrientation \}                                         |
+| changed:pageMargin      | 页面边距信息发生变化                                                 | \{ pageMargin, oldPageMargin \}                                                   |
+| changed:pageBackground  | 页面背景发生变化                                                     | \{ pageBackground, oldPageBackground \}                                           |
+| changed:pageZoom        | 页面缩放比例发生变化                                                 | \{ zoomLevel, oldZoomLevel \}                                                     |
+| changed:pageShowToc     | 页面大纲面板显示状态发生变化                                         | showToc                                                                           |
+| changed:pagePreview     | 页面预览模式发生变化                                                 | enabled                                                                           |
+| changed:pageWatermark   | 页面水印信息发生变化                                                 | \{ pageWatermark, oldPageWatermark \}                                             |
+| changed:locale          | 语言设置发生变化 <Badge theme="success">v2.0.0 新增</Badge>          | \{ locale, oldLocale \}                                                           |
+| changed:theme           | 主题设置发生变化 <Badge theme="success">v2.1.0 新增</Badge>          | theme                                                                             |
+| paste                   | 当内容粘贴到编辑器时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ event, slice \}                                                                |
+| drop                    | 当内容被放入编辑器时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ event, slice, moved \}                                                         |
+| delete                  | 当编辑器中删除内容时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ type, deletedRange, newRange, partial, node, mark, from, to, newFrom, newTo \} |
+| print                   | 页面打印 <Badge theme="success">v1.1.0 新增</Badge>                  | -                                                                                 |
+| focus                   | 编辑器获得焦点                                                       | \{ editor, event \}                                                               |
+| blur                    | 编辑器失去焦点                                                       | \{ editor, event \}                                                               |
+| saved                   | 文档已保存                                                           | -                                                                                 |
+| destroy                 | 编辑器组件已销毁                                                     | -                                                                                 |

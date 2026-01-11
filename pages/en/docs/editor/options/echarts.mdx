@@ -76,41 +76,42 @@ The following code demonstrates how to configure the onCustomEChartSettings meth
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  echarts: {
-    onCustomSettings(data, config) {
-      const { title, seriesType, legend } = config
-      const option = {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line',
-            smooth: true,
-          },
-        ],
-      }
-      return option
-    },
-  },
+echarts: {
+onCustomSettings(data, config) {
+const { title, seriesType, legend } = config
+const option = {
+xAxis: {
+type: 'category',
+data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+},
+yAxis: {
+type: 'value',
+},
+series: [
+{
+data: [820, 932, 901, 934, 1290, 1330, 1320],
+type: 'line',
+smooth: true,
+},
+],
+}
+return option
+},
+},
 }
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    :echarts="{ onCustomSettings }" 
+  <umo-editor
+    :echarts="{ onCustomSettings }"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 
@@ -135,7 +136,8 @@ const onCustomSettings = (data, config) => {
   return option
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>
 

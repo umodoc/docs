@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Callout } from 'nextra/components'
@@ -13,11 +13,12 @@ Umo Editor 默认配置，您可以访问 https://www.umodoc.com/demo 来在线�
 
 ## 所有配置
 
-``` js showLineNumbers
+```js showLineNumbers
 const defaultOptions = {
   editorKey: 'default',
   locale: 'zh-CN',
   theme: 'light',
+  skin: 'default', // v10 新增
   height: '100%',
   fullscreenZIndex: 10,
   dicts: {
@@ -334,7 +335,7 @@ const defaultOptions = {
   toolbar: {
     showSaveLabel: true, // v9.0.0 新增
     defaultMode: 'ribbon',
-    menus: ['base', 'insert', 'table', 'tools', 'page', 'export'],
+    menus: ['base', 'insert', 'table', 'tools', 'page', 'view', 'export'],
     // disableMenuItems: [], // toolbar.disableMenuItems 在 v8.0.0 已移除，见 disableExtensions 配置
     // importWord: { ... }, // toolbar.importWord 在 v8.0.0 已移除，见 importWord 配置
   },
@@ -369,10 +370,12 @@ const defaultOptions = {
       en_US: 'Please enter the document content...',
       zh_CN: '请输入文档内容...',
     },
+    structure: 'block*', // v10 新增
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
     enableBlockMenu: true,
+    enableNodeId: false, // v10 新增
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
@@ -426,7 +429,7 @@ const defaultOptions = {
       async onMessage() {},
   },
   echarts: {
-    mode: 1, 
+    mode: 1,
     renderImage: false,
     onCustomSettings() {
       return null
@@ -534,7 +537,7 @@ const defaultOptions = {
     maxSize: 1024 * 1024 * 5, // 5M
     options: {},
     useCustomMethod: false,
-    async onCustomImportMethod() { 
+    async onCustomImportMethod() {
     },
   },
   user: {},
@@ -556,7 +559,7 @@ const defaultOptions = {
 
 ## 区域划分
 
-<img src="https://s2.umodoc.com/images/zoning.png"  width="1330" height="848" />
+<img src="https://s2.umodoc.com/images/zoning.png" width="1330" height="848" />
 
 ## 配置说明
 
@@ -565,6 +568,7 @@ Umo Editor 的配置项主要分为以下几部分：
 - `editorKey`：String，编辑器Key，用于区分不同的编辑器实例。
 - `locale`：String，显示语言，默认为中文。<Badge theme="success">v2.0.0 新增</Badge>
 - `theme`：String，主题设置，默认为浅色主题。<Badge theme="success">v2.1.0 新增</Badge>
+- `skin`：String，外观设置。<Badge theme="success">v10.0.0 新增</Badge>
 - `height`：String，编辑器高度。
 - `fullscreenZIndex`Number，全屏时容器的 z-index，用于防止被其他元素遮挡，例如在弹出层中使用。<Badge theme="success">v6.0.0 新增</Badge>
 - `dicts`：Object，字典配置，详见[字典配置](./dicts)。

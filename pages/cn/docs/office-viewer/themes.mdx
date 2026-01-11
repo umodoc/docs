@@ -16,6 +16,7 @@ Umo Office Viewer 主要的主题变量使用 [CSS 变量](https://developer.moz
   - `auto`：跟随系统深/浅色；当系统主题变化时自动同步
 
 内部实现：
+
 - 当 `theme !== 'auto'` 时，在 `html` 节点设置属性 `theme-mode="light|dark"`
 - 当 `theme === 'auto'` 时，监听系统媒体查询 `(prefers-color-scheme: dark)` 并动态切换
 
@@ -36,8 +37,9 @@ viewerRef.value?.setTheme('auto')
   --uv-color-black: #000;
 
   /** 字体相关 **/
-  --uv-font-family: helvetica neue, helvetica, pingfang sc, hiragino sans gb,
-    microsoft yahei, simsun, sans-serif;
+  --uv-font-family:
+    helvetica neue, helvetica, pingfang sc, hiragino sans gb, microsoft yahei,
+    simsun, sans-serif;
   --uv-font-size: 14px;
   --uv-font-size-small: 12px;
   --uv-text-color: rgb(51, 54, 57);
@@ -46,12 +48,13 @@ viewerRef.value?.setTheme('auto')
   /** 布局相关 **/
   --uv-header-height: 56px;
   --uv-container-background: #f4f5f7;
-  --uv-page-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 0,
-    rgba(0, 0, 0, 0.04) 0 0 0 1px;
+  --uv-page-shadow:
+    rgba(0, 0, 0, 0.06) 0 0 10px 0, rgba(0, 0, 0, 0.04) 0 0 0 1px;
 
   /** 边框与阴影 **/
-  --uv-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.03),
-    0 8px 10px 1px rgba(0, 0, 0, 4%), 0 5px 5px -3px rgba(0, 0, 0, 8%);
+  --uv-shadow:
+    0 3px 14px 2px rgba(0, 0, 0, 0.03), 0 8px 10px 1px rgba(0, 0, 0, 4%),
+    0 5px 5px -3px rgba(0, 0, 0, 8%);
   --uv-border-color: rgba(0, 0, 0, 0.08);
   --uv-border-color-light: rgba(0, 0, 0, 0.05);
 

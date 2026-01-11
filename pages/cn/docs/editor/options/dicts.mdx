@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Tabs } from 'nextra/components'
@@ -339,8 +339,8 @@ import { Callout } from 'nextra/components'
 
 **配置项**：
 
-- `item.label`:  `String` 或 `Object`，字体的显示名称。
-- `item.value`:  合法的[CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)值。
+- `item.label`: `String` 或 `Object`，字体的显示名称。
+- `item.value`: 合法的[CSS font-family](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)值。
 
 ### dicts.colors
 
@@ -358,8 +358,8 @@ import { Callout } from 'nextra/components'
 
 **配置项**：
 
-- `item.label`:  `String` 或 `Object`，行高的显示名称。
-- `item.value`:  合法的[CSS line-height](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height)值。
+- `item.label`: `String` 或 `Object`，行高的显示名称。
+- `item.value`: 合法的[CSS line-height](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height)值。
 
 ### dicts.symbols
 
@@ -369,13 +369,13 @@ import { Callout } from 'nextra/components'
 
 **配置项**：
 
-- `item.label`:  `String` 或 `Object`，特殊字符的分组名称。
-- `item.value`:  该分组下所有的特殊字符。
+- `item.label`: `String` 或 `Object`，特殊字符的分组名称。
+- `item.value`: 该分组下所有的特殊字符。
 
 ### dicts.emojis
 
 <Callout type="warning" emoji="⚠️">
-**注意**：v6.0.0 版本调整了默认的表情列表。
+  **注意**：v6.0.0 版本调整了默认的表情列表。
 </Callout>
 
 **说明**：[Emoji](https://baike.baidu.com/item/emoji/8154456)表情列表，用于提供用户可插入的 Emoji 表情列表。
@@ -384,8 +384,8 @@ import { Callout } from 'nextra/components'
 
 **配置项**：
 
-- `item.label`:  `String` 或 `Object`，Emoji 的分组名称。
-- `item.value`:  该分组下所有的 Emoji 表情，需使用空格分隔开。
+- `item.label`: `String` 或 `Object`，Emoji 的分组名称。
+- `item.value`: 该分组下所有的 Emoji 表情，需使用空格分隔开。
 
 **数据库支持**：Emoji 本质上是 Unicode 编码，长度为 4 个字节，需要数据库支持存储，[如何让MySql数据库支持emoji表情](https://juejin.cn/post/7106906047670910989)，您也可以通过以下配置来禁用通过菜单插入 Emoji，但这并不能防止用户通过粘贴、输入法等方式插入 Emoji。
 
@@ -424,8 +424,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 **配置项**：
 
-- `item.label`:  `String` 或 `Object`，Emoji 的分组名称。
-- `item.width`:  页面宽度，单位为厘米(cm)。
-- `item.height`:  页面高度，单位为厘米(cm)。
-- `item.default`:  是否为默认页面大小。
-
+- `item.label`: `String` 或 `Object`，Emoji 的分组名称。
+- `item.width`: 页面宽度，单位为厘米(cm)。
+- `item.height`: 页面高度，单位为厘米(cm)。
+- `item.default`: 是否为默认页面大小。

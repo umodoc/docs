@@ -10,8 +10,6 @@ The AI Chat Assistant allows users to interact with an AI assistant in real-time
 
 <video src="https://s1.umodoc.com/videos/ai-chat.mp4" controls="true"></video>
 
-
-
 ## Features and Advantages
 
 - Support for private deployment, allowing you to ensure data security and controllability through private deployment;
@@ -51,7 +49,7 @@ const systemPrompt = `**角色定位**
 请按以下标准生成内容：
 ▢ 格式标准：
    - 严格使用基础Markdown语法，但不能将内容整个返回成代码块
-   - 标题层级不超过### 
+   - 标题层级不超过###
    - 列表项采用标准符号
    - 代码块标注语言类型
 
@@ -71,7 +69,7 @@ const systemPrompt = `**角色定位**
 
 **执行示例**
 [用户需求] "在第三章添加数据可视化注意事项"
-[AI响应] 
+[AI响应]
 1. 定位第三章现有内容
 2. 分析文档中已有的图表规范
 3. 生成符合整体风格的注意事项列表
@@ -140,6 +138,7 @@ const defaultOptions = {
 ## Configuration Description
 
 ### ai.chat
+
 AI Chat Assistant configuration. For more details, see [AI Document Assistant](../editor/ai).
 
 - `ai.chat.enabled`: Boolean – whether to enable the AI assistant.
@@ -155,20 +154,21 @@ AI Chat Assistant configuration. For more details, see [AI Document Assistant](.
 - `ai.chat.onChangeHistory`: AsyncFunction – callback for updating historical messages on the server (e.g., delete, add).
 - `ai.chat.models`: Array – configuration of AI models. Supports multiple models; at least one should be configured. See below for options.
 
-| Option | Type | Description |
-| --- | --- | --- |
-| `isDefault` | Boolean | Whether it is the default model |
-| `label` | String | Model name shown in the message list |
-| `value` | String | Model identifier sent to the backend |
-| `avatar` | URL | URL of the model avatar shown in the message list |
-| `provider` | URL | AI service provider endpoint for the model |
-| `withToken` | Boolean | Whether to include token in request headers |
-| `supportReason` | Boolean | Whether the model supports reasoning mode |
-| `file` | Object | Upload file configuration; supports `accept`, `multiple`, `maxSize`, `limit`, etc. |
+| Option          | Type    | Description                                                                        |
+| --------------- | ------- | ---------------------------------------------------------------------------------- |
+| `isDefault`     | Boolean | Whether it is the default model                                                    |
+| `label`         | String  | Model name shown in the message list                                               |
+| `value`         | String  | Model identifier sent to the backend                                               |
+| `avatar`        | URL     | URL of the model avatar shown in the message list                                  |
+| `provider`      | URL     | AI service provider endpoint for the model                                         |
+| `withToken`     | Boolean | Whether to include token in request headers                                        |
+| `supportReason` | Boolean | Whether the model supports reasoning mode                                          |
+| `file`          | Object  | Upload file configuration; supports `accept`, `multiple`, `maxSize`, `limit`, etc. |
 
 **Example**:
+
 ```js
-[
+;[
   // DeepSeek
   {
     label: 'DeepSeek-R1',

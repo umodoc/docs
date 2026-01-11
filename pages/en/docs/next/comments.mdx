@@ -39,8 +39,8 @@ The document comment feature allows users to add comments within a document, and
   comments: [
     {
       id: 'wls7unwl2t',
-      data: { 
-        user: { id: 'c6x2', name: 'User-c6x2', color: '#7fe67f' } 
+      data: {
+        user: { id: 'c6x2', name: 'User-c6x2', color: '#7fe67f' }
       },
       content: '<p>This is a comment message</p>',
       createdAt: '2025-04-14T06:37:12.835Z',
@@ -64,21 +64,21 @@ The document comment feature allows users to add comments within a document, and
 ```ts
 // Thread interface, contains metadata and a list of comments
 interface Thread {
-  id: string; // Unique identifier for the thread
-  data: any;
-  comments: Comment[]; // List of comments in the thread
-  createdAt: string; // Creation timestamp
-  updatedAt?: string; // Update timestamp
-  resolvedAt?: string; // Resolution timestamp
+  id: string // Unique identifier for the thread
+  data: any
+  comments: Comment[] // List of comments in the thread
+  createdAt: string // Creation timestamp
+  updatedAt?: string // Update timestamp
+  resolvedAt?: string // Resolution timestamp
 }
 
 // Comment interface, contains metadata and content
 interface Comment {
-  id: string; // Unique identifier for the comment
-  data: any;
-  content: string; // Comment content
-  createdAt: string; // Creation timestamp
-  updatedAt?: string; // Update timestamp
+  id: string // Unique identifier for the comment
+  data: any
+  content: string // Comment content
+  createdAt: string // Creation timestamp
+  updatedAt?: string // Update timestamp
 }
 ```
 
@@ -89,7 +89,7 @@ const defaultOptions = {
   // Comment-related configuration
   comments: {
     enabled: false,
-    threads: [], 
+    threads: [],
     onGetThreads: undefined,
     onSetThread: undefined,
     onCreateThread: undefined,
@@ -109,57 +109,57 @@ const defaultOptions = {
 Comment-related configuration.
 
 - `comments.enabled`  
-**Description**: Whether to enable the commenting feature  
-**Type**: Boolean  
-**Default**: `true`
+  **Description**: Whether to enable the commenting feature  
+  **Type**: Boolean  
+  **Default**: `true`
 
 - `comments.threads`  
-**Description**: Initial comment threads.  
-**Note**: When collaborative editing is enabled, this option is ignored; the thread list will be fetched from the provider.  
-**Type**: `Array`  
-**Default**: `[]`
+  **Description**: Initial comment threads.  
+  **Note**: When collaborative editing is enabled, this option is ignored; the thread list will be fetched from the provider.  
+  **Type**: `Array`  
+  **Default**: `[]`
 
 - `comments.onGetThreads`  
-**Description**: Callback function triggered when a new thread is created  
-**Type**: `Function`  
-**Parameters**: `undefined`  
-**Default**: `undefined`
+  **Description**: Callback function triggered when a new thread is created  
+  **Type**: `Function`  
+  **Parameters**: `undefined`  
+  **Default**: `undefined`
 
 - `comments.onSetThread`  
-**Description**: Callback function triggered when a new thread is created  
-**Type**: `Function`  
-**Parameters**: `thread` — the newly created thread  
-**Default**: `undefined`
+  **Description**: Callback function triggered when a new thread is created  
+  **Type**: `Function`  
+  **Parameters**: `thread` — the newly created thread  
+  **Default**: `undefined`
 
 - `comments.onUpdateThread`  
-**Description**: Callback when a thread is updated  
-**Type**: `Function`  
-**Parameters**: `thread` — the updated thread  
-**Default**: `undefined`
+  **Description**: Callback when a thread is updated  
+  **Type**: `Function`  
+  **Parameters**: `thread` — the updated thread  
+  **Default**: `undefined`
 
 - `comments.onDeleteThread`  
-**Description**: Callback when a thread is deleted  
-**Type**: `Function`  
-**Parameters**: `threadId` — the ID of the deleted thread  
-**Default**: `undefined`
+  **Description**: Callback when a thread is deleted  
+  **Type**: `Function`  
+  **Parameters**: `threadId` — the ID of the deleted thread  
+  **Default**: `undefined`
 
 - `comments.onCreateComment`  
-**Description**: Callback when a comment is created  
-**Type**: `Function`  
-**Parameters**: `comment` — the newly created comment  
-**Default**: `undefined`
+  **Description**: Callback when a comment is created  
+  **Type**: `Function`  
+  **Parameters**: `comment` — the newly created comment  
+  **Default**: `undefined`
 
 - `comments.onUpdateComment`  
-**Description**: Callback when a comment is updated  
-**Type**: `Function`  
-**Parameters**: `comment` — the updated comment  
-**Default**: `undefined`
+  **Description**: Callback when a comment is updated  
+  **Type**: `Function`  
+  **Parameters**: `comment` — the updated comment  
+  **Default**: `undefined`
 
 - `comments.onDeleteComment`  
-**Description**: Callback when a comment is deleted  
-**Type**: `Function`  
-**Parameters**: `{ threadId, commentId }` — the thread ID and comment ID of the deleted comment  
-**Default**: `undefined`
+  **Description**: Callback when a comment is deleted  
+  **Type**: `Function`  
+  **Parameters**: `{ threadId, commentId }` — the thread ID and comment ID of the deleted comment  
+  **Default**: `undefined`
 
 ## Method List
 
@@ -172,6 +172,7 @@ When collaborative editing is enabled, you can also obtain the `provider` via [`
 
 **Parameters**: None  
 **Returns**: `Object` or `undefined`, with the following structure:
+
 - `connect`: Boolean — whether connected to the provider
 - `threads`: Array — list of comment threads in the current document
 
@@ -187,3 +188,4 @@ You can customize the style of comments using the following CSS variables:
 --umo-thread-inline-background: #ffcc00;
 --umo-thread-resolved-background: #63c493;
 --umo-thread-resolved-hover-background: #63c49340;
+```

@@ -18,5 +18,6 @@ export default {
 	extensions: 'Features and Extensions',
 	locale: 'Localization Language',
 	theme: 'Theme',
+	skin: 'Appearance',
 	methods: 'Methods'
 };

@@ -1,0 +1,26 @@
+import { Badge } from '/components/badge'
+
+# Appearance Configuration
+
+Used to configure appearance-related settings. Supports both the **default** and **modern** appearances.
+When multiple Umo Editor instances are used on the same page, the configuration of the **last initialized instance** takes precedence. <Badge theme="success">Added in v10.0.0</Badge>
+
+## Default Configuration
+
+```js
+{
+  skin: 'light',
+}
+```
+
+## Configuration Options
+
+### skin
+
+**Description**: The default appearance.
+
+**Type**: `String`
+
+**Default**: `default`
+
+**Available values**: `default`, `modern`

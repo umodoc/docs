@@ -23,20 +23,21 @@ npm install --save @umoteam/viewer
 以下使用方式任选一种即可：
 
 ### 全局安装
+
 ```js filename="main.js"
-import { createApp } from 'vue';
-import { useUmoViewer } from '@umoteam/viewer';
+import { createApp } from 'vue'
+import { useUmoViewer } from '@umoteam/viewer'
 
 // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
 // Umo Editor 版本不能不小于 8.0.0
 // import '@umoteam/editor/style'
 
-const app = createApp(App);
+const app = createApp(App)
 app.use(useUmoViewer, {
   // 配置项
   // ...
-});
-app.mount('#app');
+})
+app.mount('#app')
 ```
 
 ### 直接引入
@@ -56,42 +57,43 @@ app.mount('#app');
 
 // 使用组合式 API
 <script setup>
-  import { ref } from 'vue'
-  import { UmoViewer } from '@umoteam/viewer';
+import { ref } from 'vue'
+import { UmoViewer } from '@umoteam/viewer'
 
-  // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
-  // Umo Editor 版本不能不小于 8.0.0
-  // import '@umoteam/editor/style'
+// 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+// Umo Editor 版本不能不小于 8.0.0
+// import '@umoteam/editor/style'
 
-  const options = ref({
-    // 配置项
-    // ...
-  });
+const options = ref({
+  // 配置项
+  // ...
+})
 </script>
 
 // 或使用选项式 API
 <script>
-  import { UmoViewer } from '@umoteam/viewer';
+import { UmoViewer } from '@umoteam/viewer'
 
-  // 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
-  // Umo Editor 版本不能不小于 8.0.0
-  // import '@umoteam/editor/style'
+// 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
+// Umo Editor 版本不能不小于 8.0.0
+// import '@umoteam/editor/style'
 
-  export default {
-    components: {
-      UmoViewer
-    },
-    data() {
-      return {
-        options: {
-          // 配置项
-          // ...
-        }
-      }
+export default {
+  components: {
+    UmoViewer,
+  },
+  data() {
+    return {
+      options: {
+        // 配置项
+        // ...
+      },
     }
-  }
+  },
+}
 </script>
 ```
+
 ## 配置
 
 见[配置项](./options)。

@@ -10,9 +10,10 @@ Collaborative editing requires server-side support from [Umo Editor Server](../s
 
 ## Demo Video
 
-<video src="https://s1.umodoc.com/videos/collaboration.mp4" controls="true"></video>
-
-
+<video
+  src="https://s1.umodoc.com/videos/collaboration.mp4"
+  controls="true"
+></video>
 
 ## Features and Advantages
 
@@ -45,14 +46,14 @@ When online collaboration is enabled, the following configurations are not suppo
 ```js
 const defaultOptions = {
   document: {
-    content:'',
+    content: '',
     autoSave: {
       // ...
     },
   },
-  onSave(){
+  onSave() {
     // ...
-  }
+  },
 }
 ```
 
@@ -89,6 +90,7 @@ For examples of method usage, see: [Method List](../editor/methods).
 **Parameters**: None
 
 **Return Value**: Object or `undefined`. The returned object contains the following information:
+
 - `connect`: Boolean — whether the connection to the provider was successful.
 - `user`: Array — the list of users currently collaborating on the document.
 - `provider`: Object — the service provider information. With this information, you can listen to relevant events to implement custom features. See: https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding.

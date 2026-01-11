@@ -15,32 +15,32 @@ This chapter introduces all events available in Umo Viewer.
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  import { UmoViewer } from '@umoteam/viewer';
+import { ref } from 'vue'
+import { UmoViewer } from '@umoteam/viewer'
 
-  const options = ref({
-    // Configuration options
-    lang: 'zh-CN',
-    // ...
-  });
+const options = ref({
+  // Configuration options
+  lang: 'zh-CN',
+  // ...
+})
 
-  // Close event, e.g., close a dialog when triggered
-  const onClose = () => {
-    console.log('Close event');
-  };
+// Close event, e.g., close a dialog when triggered
+const onClose = () => {
+  console.log('Close event')
+}
 
-  // Edit event
-  const onEdit = () => {
-    console.log('Edit event');
-  };
+// Edit event
+const onEdit = () => {
+  console.log('Edit event')
+}
 
-  // Password validation event
-  const onValidatePassword = (password) => {
-    if (password === '123456') {
-      return true;
-    }
-    return false;
-  };
+// Password validation event
+const onValidatePassword = (password) => {
+  if (password === '123456') {
+    return true
+  }
+  return false
+}
 </script>
 ```
 

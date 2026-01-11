@@ -14,7 +14,8 @@ npm install --save @umoteam/editor
 ```
 
 <Callout type="warning" emoji="⚠️">
-**Note**: Starting from version v3.0, Umo Editor no longer supports the UMD version.
+  **Note**: Starting from version v3.0, Umo Editor no longer supports the UMD
+  version.
 </Callout>
 
 ## Usage
@@ -22,16 +23,17 @@ npm install --save @umoteam/editor
 Choose any of the following methods:
 
 ### Global Installation
-```js filename="main.js"
-import { createApp } from 'vue';
-import { useUmoEditor } from '@umoteam/editor';
 
-const app = createApp(App);
+```js filename="main.js"
+import { createApp } from 'vue'
+import { useUmoEditor } from '@umoteam/editor'
+
+const app = createApp(App)
 app.use(useUmoEditor, {
   // Configuration options
   // ...
-});
-app.mount('#app');
+})
+app.mount('#app')
 ```
 
 ### Direct Inclusion
@@ -51,36 +53,37 @@ Choose either of the following examples using Composition API or Options API.
 
 // Using Composition API
 <script setup>
-  import { ref } from 'vue'
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // Configuration options
-    // ...
-  });
+const options = ref({
+  // Configuration options
+  // ...
+})
 </script>
 
 // Or using Options API
 <script>
-  import { UmoEditor } from '@umoteam/editor';
+import { UmoEditor } from '@umoteam/editor'
 
-  export default {
-    components: {
-      UmoEditor
-    },
-    data() {
-      return {
-        options: {
-          // Configuration options
-          // ...
-        }
-      }
+export default {
+  components: {
+    UmoEditor,
+  },
+  data() {
+    return {
+      options: {
+        // Configuration options
+        // ...
+      },
     }
-  }
+  },
+}
 </script>
 ```
 
 ### Usage in Nuxt3
+
 <Tabs items={["Method 1: Using umo-editor-nuxt module", "Method 2: Direct Import"]}>
 <Tabs.Tab>
 
@@ -118,11 +121,12 @@ export default defineNuxtConfig({
 
 <script setup>
 const options = ref({
-    // Configuration options:
-    // https://dev.umodoc.com/en/docs/editor/options/default
+  // Configuration options:
+  // https://dev.umodoc.com/en/docs/editor/options/default
 })
 </script>
 ```
+
 </Tabs.Tab>
 <Tabs.Tab>
 Umo Editor does not currently support SSR. In Nuxt3 SSR mode, you can use the `<client-only>` component or other methods to ensure Umo Editor is rendered and used on the client side.
@@ -135,14 +139,15 @@ Umo Editor does not currently support SSR. In Nuxt3 SSR mode, you can use the `<
 </template>
 
 <script setup>
-  import { UmoEditor } from '@umoteam/editor';
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // Configuration options
-    // ...
-  });
+const options = ref({
+  // Configuration options
+  // ...
+})
 </script>
 ```
+
 </Tabs.Tab>
 </Tabs>
 

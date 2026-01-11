@@ -61,10 +61,10 @@ The exported file is in `docx` format, which can be opened and edited in Microso
 - `download`: `Boolean`, whether to download the file. Default is `true`.
 - `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
 - `docxOption`: Options for document generation (optional), including:
-    - `id`: `String` Unique identifier for the current image.
-    - `src`: `String` Image loading path.
-    - `nodeType`: `String` Type of image to retrieve, `image` for images, `echarts` for charts.
-    - `node`: `Tiptap document JSON format` Tiptap node.
+  - `id`: `String` Unique identifier for the current image.
+  - `src`: `String` Image loading path.
+  - `nodeType`: `String` Type of image to retrieve, `image` for images, `echarts` for charts.
+  - `node`: `Tiptap document JSON format` Tiptap node.
   - `docxOption.page.backColor`: `String`, Document background color, e.g. `#FFFFFF`.
   - `docxOption.page.orientation`: `String`, Page orientation, `landscape` for horizontal, `portrait` for vertical.
   - `docxOption.page.size.height`: `Number`, Page height in centimeters (`cm`).
@@ -96,7 +96,12 @@ In some scenarios, you can use PDF for document preview or display elsewhere. Yo
 
 **Export Example:**
 
-<iframe src="https://s2.umodoc.com/demos/export-pdf-en.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+<iframe
+  src="https://s2.umodoc.com/demos/export-pdf-en.pdf"
+  width="100%"
+  height="500"
+  style={{ border: 'solid 1px #ccc', margin: '2rem 0' }}
+></iframe>
 
 ---
 
@@ -125,7 +130,12 @@ You can also inject custom CSS and JS when exporting HTML.
 
 **Export Example:**
 
-<iframe src="https://s2.umodoc.com/demos/export-html-en.html" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+<iframe
+  src="https://s2.umodoc.com/demos/export-html-en.html"
+  width="100%"
+  height="500"
+  style={{ border: 'solid 1px #ccc', margin: '2rem 0' }}
+></iframe>
 
 ---
 
@@ -152,7 +162,12 @@ Using the server for image export avoids client-side performance issues and cros
 
 **Export Example:**
 
-<img src="https://s2.umodoc.com/demos/export-image-en.png" alt="Export Example" width="400" style={{ margin: '1.5rem auto 0' }} />
+<img
+  src="https://s2.umodoc.com/demos/export-image-en.png"
+  alt="Export Example"
+  width="400"
+  style={{ margin: '1.5rem auto 0' }}
+/>
 
 ---
 

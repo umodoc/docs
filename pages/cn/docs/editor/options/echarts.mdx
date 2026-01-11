@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Tabs } from 'nextra/components'
@@ -64,11 +64,11 @@ import { Badge } from '/components/badge'
 - `data`：`Array`，图表数据。
 - `config`：`Object`，用户当前 ECharts 图表配置。
   1. `seriesType`：`String`，图表显示类型 `bar|line|pie` 分别表示柱状图、折线图、饼图
-  2. `legend`：`Boolean`，是否显示图例  `true`:显示图例，`false`:不显示图例
-  3. `legendleft`：`String`，图例横向显示位置  `left|center|right` 分别表示居左、居中、居右
+  2. `legend`：`Boolean`，是否显示图例 `true`:显示图例，`false`:不显示图例
+  3. `legendleft`：`String`，图例横向显示位置 `left|center|right` 分别表示居左、居中、居右
   4. `legendlocation`：`String`，图例纵向显示位置 `top|bottom` 分别表示居上、居下
   5. `legendorient`：`String`，图例显示方向布局 `horizontal|vertical` 分别表示水平布局、垂直布局
-  6. `smooth：Boolean`，折线是否平滑显示 `true`:表示折线平滑显示  `false`:表示默认显示
+  6. `smooth：Boolean`，折线是否平滑显示 `true`:表示折线平滑显示 `false`:表示默认显示
   7. `titleText`：`String`，图表标题显示内容
   8. `titleleft`：`String`，图表标题所在位置 `left|center|right` 分别表示居左、居中、居右
 
@@ -82,41 +82,42 @@ import { Badge } from '/components/badge'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  echarts: {
-    onCustomSettings(data, config) {
-      const { title, seriesType, legend } = config
-      const option = {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line',
-            smooth: true,
-          },
-        ],
-      }
-      return option
-    },
-  },
+echarts: {
+onCustomSettings(data, config) {
+const { title, seriesType, legend } = config
+const option = {
+xAxis: {
+type: 'category',
+data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+},
+yAxis: {
+type: 'value',
+},
+series: [
+{
+data: [820, 932, 901, 934, 1290, 1330, 1320],
+type: 'line',
+smooth: true,
+},
+],
+}
+return option
+},
+},
 }
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    :echarts="{ onCustomSettings }" 
+  <umo-editor
+    :echarts="{ onCustomSettings }"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 
@@ -141,7 +142,8 @@ const onCustomSettings = (data, config) => {
   return option
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>
 

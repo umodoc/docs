@@ -6,7 +6,7 @@ This section introduces the events of Umo Editor. Events allow you to monitor th
 
 ## Example
 
-```vue {4-27}
+```vue {4-29}
 <template>
   <umo-editor
     v-bind="options"
@@ -28,7 +28,9 @@ This section introduces the events of Umo Editor. Events allow you to monitor th
     @changed:page-watermark="onChangedPageWatermark"
     @changed:locale="onChangedLocale"
     @changed:theme="onChangedTheme"
-    @content-error="onContentError"
+    @paste="onPaste"
+    @drop="onDrop"
+    @delete="onDelete"
     @print="onPrint"
     @focus="onFocus"
     @blur="onBlur"
@@ -36,66 +38,83 @@ This section introduces the events of Umo Editor. Events allow you to monitor th
     @destroy="onDestroy"
   />
 </template>
- 
+
 <script setup>
-  import { ref } from 'vue';
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // Configuration options
-    // ...
-  });
+const options = ref({
+  // Configuration options
+  // ...
+})
 
-  // Event handler functions go here ...
-  // Before creation lifecycle hook
+// Event handler functions go here ...
+// Before creation lifecycle hook
 const onBeforeCreate = () => {
-  console.log('onBeforeCreate', 'Editor is about to be created, no available parameters');
-};
+  console.log(
+    'onBeforeCreate',
+    'Editor is about to be created, no available parameters'
+  )
+}
 
 // Creation lifecycle hook
 const onCreated = () => {
-  console.log('onCreated', 'Editor has been created, available parameters:', { editor });
-};
+  console.log('onCreated', 'Editor has been created, available parameters:', {
+    editor,
+  })
+}
 
 // Content change hook
 const onChanged = () => {
-  console.log('onChanged', 'Editor content has been updated, available parameters:', { editor });
-};
+  console.log(
+    'onChanged',
+    'Editor content has been updated, available parameters:',
+    { editor }
+  )
+}
 
 // Selection change hook
 const onChangedSelection = () => {
-  console.log('onChanged:selection', 'Selected content has changed, available parameters:', { editor });
-};
+  console.log(
+    'onChanged:selection',
+    'Selected content has changed, available parameters:',
+    { editor }
+  )
+}
 
 // Transaction state change hook
 const onChangedTransaction = () => {
   console.log(
     'onChanged:transaction',
-    'Editor state has changed, available parameters:', { editor, transaction }
-  );
-};
+    'Editor state has changed, available parameters:',
+    { editor, transaction }
+  )
+}
 
 // Menu status change hook
 const onChangedMenu = (currentMenu) => {
   console.log(
     'onChanged:menu',
-    'Menu bar status has changed, available parameter: currentMenu, current menu is', currentMenu
-  );
-};
+    'Menu bar status has changed, available parameter: currentMenu, current menu is',
+    currentMenu
+  )
+}
 
 // Toolbar info change hook
 const onChangedToolbar = ({ toolbar, oldToolbar }) => {
   console.log(
     'onChanged:toolbar',
-    'Toolbar information has changed, available parameters:', { toolbar, oldToolbar }
-  );
-};
+    'Toolbar information has changed, available parameters:',
+    { toolbar, oldToolbar }
+  )
+}
 
 // Page layout change hook
 const onChangedPageLayout = ({ pageLayout, oldPageLayout }) => {
   console.log(
     'onChanged:pageLayout',
-    'Page layout has changed, available parameters:',  { pageLayout, oldPageLayout }
+    'Page layout has changed, available parameters:',
+    { pageLayout, oldPageLayout }
   )
 }
 
@@ -103,139 +122,193 @@ const onChangedPageLayout = ({ pageLayout, oldPageLayout }) => {
 const onChangedPageSize = ({ pageSize, oldPageSize }) => {
   console.log(
     'onChanged:pageSize',
-    'Page size information has changed, available parameters:', { pageSize, oldPageSize }
-  );
-};
+    'Page size information has changed, available parameters:',
+    { pageSize, oldPageSize }
+  )
+}
 
 // Page orientation change hook
 const onChangedPageOrientation = ({ pageOrientation, oldPageOrientation }) => {
   console.log(
     'onChanged:pageOrientation',
-    'Page orientation has changed, available parameters:', { pageOrientation, oldPageOrientation }
-  );
-};
+    'Page orientation has changed, available parameters:',
+    { pageOrientation, oldPageOrientation }
+  )
+}
 
 // Page margin change hook
 const onChangedPageMargin = ({ pageMargin, oldPageMargin }) => {
   console.log(
     'onChanged:pageMargin',
-    'Page margin information has changed, available parameters:', { pageMargin, oldPageMargin }
-  );
-};
+    'Page margin information has changed, available parameters:',
+    { pageMargin, oldPageMargin }
+  )
+}
 
 // Page background change hook
 const onChangedPageBackground = ({ pageBackground, oldPageBackground }) => {
   console.log(
     'onChanged:pageBackground',
-    'Page background has changed, available parameters:', { pageBackground, oldPageBackground }
-  );
-};
+    'Page background has changed, available parameters:',
+    { pageBackground, oldPageBackground }
+  )
+}
 
 // Zoom level change hook
 const onChangedZoom = ({ zoomLevel, oldZoomLevel }) => {
   console.log(
     'onChanged:pageZoom',
-    'Page zoom level has changed, available parameters:', { zoomLevel, oldZoomLevel }
-  );
-};
+    'Page zoom level has changed, available parameters:',
+    { zoomLevel, oldZoomLevel }
+  )
+}
 
 // Show table of contents change hook
 const onChangedPageShowToc = (showToc) => {
   console.log(
     'onChanged:pageShowToc',
-    'Page TOC panel display status has changed, available parameters:', showToc
-  );
-};
+    'Page TOC panel display status has changed, available parameters:',
+    showToc
+  )
+}
 
 // Preview mode change hook
 const onChangedPreview = (enabled) => {
   console.log(
     'onChanged:pagePreview',
-    'Page preview mode has changed, available parameters:', enabled
-  );
-};
+    'Page preview mode has changed, available parameters:',
+    enabled
+  )
+}
 
 // Page watermark change hook
 const onChangedPageWatermark = ({ pageWatermark, oldPageWatermark }) => {
   console.log(
     'onChanged:pageWatermark',
-    'Page watermark information has changed, available parameters:', { pageWatermark, oldPageWatermark }
-  );
-};
+    'Page watermark information has changed, available parameters:',
+    { pageWatermark, oldPageWatermark }
+  )
+}
 
 // Locale setting change hook
 const onChangedLocale = ({ locale, oldLocale }) => {
   console.log(
     'onChanged:locale',
-    'Language setting has changed, available parameters:', { locale, oldLocale }
-  );
-};
+    'Language setting has changed, available parameters:',
+    { locale, oldLocale }
+  )
+}
 
 // Theme setting change hook
 const onChangedTheme = (theme) => {
-  console.log('onChanged:theme', 'Theme setting has changed, available parameters:', theme);
-};
-
-// Content parsing error hook
-const onContentError = ({ editor, error, disableCollaboration }) => {
   console.log(
-    'onContentError',
-    'Document content parsing error, available parameters:', { editor, error, disableCollaboration }
+    'onChanged:theme',
+    'Theme setting has changed, available parameters:',
+    theme
+  )
+}
+
+// Content paste hook
+const onPaste = (content) => {
+  console.log(
+    'onPaste',
+    'The content is pasted into the editor., available parameters:',
+    { event, slice }
+  )
+}
+
+// Content drop hook
+const onDrop = (content) => {
+  console.log(
+    'onDrop',
+    'The content is dropped into the editor, available parameters:',
+    { event, slice, moved }
+  )
+}
+
+// Content delete hook
+const onDelete = (content) => {
+  console.log(
+    'onDelete',
+    'content is deleted from the editor. available parameters:',
+    {
+      type,
+      deletedRange,
+      newRange,
+      partial,
+      node,
+      mark,
+      from,
+      to,
+      newFrom,
+      newTo,
+    }
   )
 }
 
 // Print event hook
 const onPrint = () => {
-  console.log('onPrint', 'Editor gains focus, no available parameters');
-};
+  console.log('onPrint', 'Editor gains focus, no available parameters')
+}
 
 // Focus event hook
 const onFocus = () => {
-  console.log('onFocus', 'Editor gains focus, available parameters:', { editor, event });
-};
+  console.log('onFocus', 'Editor gains focus, available parameters:', {
+    editor,
+    event,
+  })
+}
 
 // Blur event hook
 const onBlur = () => {
-  console.log('onBlur', 'Editor loses focus, available parameters:', { editor, event });
-};
+  console.log('onBlur', 'Editor loses focus, available parameters:', {
+    editor,
+    event,
+  })
+}
 
 // Save event hook
 const onSaved = () => {
-  console.log('onSaved', 'Document has been saved, no available parameters');
-};
+  console.log('onSaved', 'Document has been saved, no available parameters')
+}
 
 // Destruction lifecycle hook
 const onDestroy = () => {
-  console.log('onDestroy', 'Editor component has been destroyed, no available parameters');
-};
+  console.log(
+    'onDestroy',
+    'Editor component has been destroyed, no available parameters'
+  )
+}
 </script>
 ```
 
 ## Event Descriptions
 
-| Event Name          | Trigger Timing / Description                                   | Available Parameters                          |
-|---------------------|---------------------------------------------------------------|----------------------------------------------|
-| beforeCreate        | The editor is about to be created                             | -                                            |
-| created             | The editor has been created                                   | `{ editor }`                                 |
-| changed             | The editor content has been updated                           | `{ editor }`                                 |
-| changed:selection   | The selected content has changed                              | `{ editor }`                                 |
-| changed:transaction | The editor state has changed                                  | `{ editor, transaction }`                    |
-| changed:menu        | The menu state has changed                                    | `currentMenu`                                |
-| changed:toolbar     | Toolbar information has changed                               | `{ toolbar, oldToolbar }`                    |
-| changed:pageLayout | Page layout has changed  <Badge theme="success">v8.0.0</Badge>  | `{ pageLayout, oldPageLayout }` |
-| changed:pageSize    | Page size information has changed                             | `{ pageSize, oldPageSize }`                  |
-| changed:pageOrientation | Page orientation has changed                              | `{ pageOrientation, oldPageOrientation }`    |
-| changed:pageMargin  | Page margin information has changed                           | `{ pageMargin, oldPageMargin }`              |
-| changed:pageBackground | Page background has changed                                | `{ pageBackground, oldPageBackground }`      |
-| changed:pageZoom    | Page zoom level has changed                                   | `{ zoomLevel, oldZoomLevel }`                |
-| changed:pageShowToc | The visibility of the page outline panel has changed          | `showToc`                                    |
-| changed:pagePreview | Page preview mode has changed                                 | `enabled`                                    |
-| changed:pageWatermark | Page watermark information has changed                      | `{ pageWatermark, oldPageWatermark }`        |
-| changed:locale      | Language settings have changed <Badge theme="success">v2.0.0</Badge> | `{ locale, oldLocale }`                      |
-| changed:theme       | Theme settings have changed <Badge theme="success">v2.1.0</Badge> | `theme`                                      |
-| content-error       | Document content parsing error <Badge theme="success">v2.3.0</Badge> | `{ editor, error, disableCollaboration }`    |
-| print               | Page printing <Badge theme="success">v1.1.0</Badge>          | -                                            |
-| focus               | The editor has gained focus                                  | `{ editor, event }`                          |
-| blur                | The editor has lost focus                                    | `{ editor, event }`                          |
-| saved               | The document has been saved                                  | -                                            |
-| destroy             | The editor component has been destroyed                      | -                                            |
+| Event Name                | Trigger Timing / Description                                                    | Available Parameters                                                               |
+| ------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `beforeCreate`            | Before the editor view is created.                                              | –                                                                                  |
+| `created`                 | When the editor is fully initialized and ready.                                 | `{ editor }`                                                                       |
+| `changed`                 | When the editor content changes.                                                | `{ editor }`                                                                       |
+| `changed:selection`       | When the selection changes within the editor.                                   | `{ editor }`                                                                       |
+| `changed:transaction`     | When the editor state changes due to any operation.                             | `{ editor, transaction }`                                                          |
+| `changed:menu`            | When the menu state changes.                                                    | `currentMenu`                                                                      |
+| `changed:toolbar`         | When toolbar information changes.                                               | `{ toolbar, oldToolbar }`                                                          |
+| `changed:pageLayout`      | When page layout changes. <Badge theme="success">v8.0.0</Badge>                 | `{ pageLayout, oldPageLayout }`                                                    |
+| `changed:pageSize`        | When page size changes.                                                         | `{ pageSize, oldPageSize }`                                                        |
+| `changed:pageOrientation` | When page orientation changes.                                                  | `{ pageOrientation, oldPageOrientation }`                                          |
+| `changed:pageMargin`      | When page margin settings change.                                               | `{ pageMargin, oldPageMargin }`                                                    |
+| `changed:pageBackground`  | When page background settings change.                                           | `{ pageBackground, oldPageBackground }`                                            |
+| `changed:pageZoom`        | When the page zoom level changes.                                               | `{ zoomLevel, oldZoomLevel }`                                                      |
+| `changed:pageShowToc`     | When the visibility of the page outline panel changes.                          | `showToc`                                                                          |
+| `changed:pagePreview`     | When page preview mode changes.                                                 | `enabled`                                                                          |
+| `changed:pageWatermark`   | When page watermark settings change.                                            | `{ pageWatermark, oldPageWatermark }`                                              |
+| `changed:locale`          | When language settings change. <Badge theme="success">v2.0.0</Badge>            | `{ locale, oldLocale }`                                                            |
+| `changed:theme`           | When theme settings change. <Badge theme="success">v2.1.0</Badge>               | `theme`                                                                            |
+| `paste`                   | When content is pasted into the editor. <Badge theme="success">v10.0.0</Badge>  | `{ event, slice }`                                                                 |
+| `drop`                    | When content is dropped into the editor. <Badge theme="success">v10.0.0</Badge> | `{ event, slice, moved }`                                                          |
+| `delete`                  | When content is deleted from the editor. <Badge theme="success">v10.0.0</Badge> | `{ type,  deletedRange, newRange, partial, node, mark, from, to, newFrom, newTo }` |
+| `print`                   | When the page is printed. <Badge theme="success">v1.1.0</Badge>                 | –                                                                                  |
+| `focus`                   | When the editor gains focus.                                                    | `{ editor, event }`                                                                |
+| `blur`                    | When the editor loses focus.                                                    | `{ editor, event }`                                                                |
+| `saved`                   | When the document has been saved.                                               | –                                                                                  |
+| `destroy`                 | When the editor instance is being destroyed.                                    | –                                                                                  |

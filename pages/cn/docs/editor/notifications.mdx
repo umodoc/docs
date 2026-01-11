@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 # 消息提醒
@@ -9,52 +9,50 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档
 Umo Editor 采用[TDesign Vue Next](https://tdesign.tencent.com/vue-next/overview)作为基础组件库，为了方便开发者使用，对外提供了封装的 Alert，Confirm，Message 等常用消息提醒组件的方法。您可以访问[https://www.umodoc.com/demo?pane=events](https://www.umodoc.com/demo?pane=events)，点击对应的按钮查看示例。
 
 ## 示例
+
 ```vue
 <template>
-  <umo-editor
-    ref="editorRef"
-    v-bind="options"
-  />
+  <umo-editor ref="editorRef" v-bind="options" />
   <button @click="useAlert">useAlert</button>
   <button @click="useConfirm">useConfirm</button>
   <button @click="useMessage">useMessage</button>
 </template>
- 
+
 <script setup>
-  import { ref } from 'vue';
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const editorRef = ref(null);
-  const options = ref({
-    // 配置项
-    // ...
+const editorRef = ref(null)
+const options = ref({
+  // 配置项
+  // ...
+})
+
+// 使用 Alert
+const useAlert = () => {
+  editorRef.value.useAlert({
+    theme: 'success',
+    header: 'Info',
+    body: 'Hello World',
   })
+}
 
-  // 使用 Alert
-  const useAlert = () => {
-    editorRef.value.useAlert({
-      theme: 'success',
-      header: 'Info',
-      body: 'Hello World',
-    })
-  }
+// 使用 Confirm
+const useConfirm = () => {
+  const confirm = editorRef.value.useConfirm({
+    theme: 'success',
+    header: 'Info',
+    body: 'Hello World',
+    onConfirm() {
+      confirm.destroy()
+    },
+  })
+}
 
-  // 使用 Confirm
-  const useConfirm = () => {
-    const confirm = editorRef.value.useConfirm({
-      theme: 'success',
-      header: 'Info',
-      body: 'Hello World',
-      onConfirm() {
-        confirm.destroy()
-      },
-    })
-  }
-
-  // 使用 Message
-  const useMessage = () => {
-    editorRef.value.useMessage('info', {content: 'Hello World'})
-  }
+// 使用 Message
+const useMessage = () => {
+  editorRef.value.useMessage('info', { content: 'Hello World' })
+}
 </script>
 ```
 
@@ -63,7 +61,6 @@ Umo Editor 采用[TDesign Vue Next](https://tdesign.tencent.com/vue-next/overvie
 ### useAlert
 
 Alert 对话框组件，详细说明见[方法列表](./methods#usealert)。
-
 
 ### useConfirm
 

@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Callout } from 'nextra/components'
@@ -80,7 +80,7 @@ Umo Editor：`highlight`, `ordered-list`, `bullet-list`, `task-list`, `line-heig
 
 [Umo Editor Next](../../next)：`icon`, `importWord`, `importExcel`, `importPPT`, `importWPS`, `importMarkdown`, `importText`, `exportWord`, `exportHtml`, ...
 
-### toolbar.importWord 
+### toolbar.importWord
 
 **说明**：导入 Word 文档的相关配置，在 v8.0.0 及以后版本中已移除，请使用 [`importWord` 配置项](./import-word) 进行配置。<Badge theme="danger">v8.0.0 已移除</Badge>
 
@@ -90,13 +90,14 @@ Umo Editor：`highlight`, `ordered-list`, `bullet-list`, `task-list`, `line-heig
 
 ```js
 {
-  enabled: true, 
+  enabled: true,
   maxSize: 1024 * 1024 * 5, // 5MB
   options: {},
   useCustomMethod: false,
   onCustomImportMethod: undefined
 }
 ```
+
 **配置项**：
 
 - `enabled`：是否启用导入 Word 文件功能，默认为 `true`。
@@ -112,7 +113,7 @@ Umo Editor：`highlight`, `ordered-list`, `bullet-list`, `task-list`, `line-heig
   value: '<p>Hello world</p>',
   messages: [
     {
-      type: 'success', 
+      type: 'success',
       message: 'Converted 1 paragraph',
     },
   ],

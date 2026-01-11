@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 # 内置扩展列表
@@ -10,68 +10,67 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档
 
 ## Tiptap 官方扩展
 
-| 扩展名称 | 扩展说明 |
-| --- | --- |
-| @tiptap/starter-kit | Tiptap的基本扩展集，包含段落、标题、强调等基础编辑功能 |
-| @tiptap/extension-placeholder | 在编辑器内没有内容时显示提示信息，引导用户输入 |
-| @tiptap/extension-focus | 管理编辑器焦点状态 |
-| @tiptap/extension-font-family | 允许用户自定义文本的字体系列 |
-| @tiptap/extension-bold | 为文本添加加粗样式 |
-| @tiptap/extension-underline | 给文本添加下划线效果 |
-| @tiptap/extension-subscript | 支持下标文本格式 |
-| @tiptap/extension-superscript | 支持上标文本格式 |
-| @tiptap/extension-color | 为文本添加颜色 |
-| @tiptap/extension-text-style | 为文本添加 HTML 标记 |
-| @tiptap/extension-highlight | 为文本添加背景颜色，突出显示重要信息 |
-| @tiptap/extension-task-item | 创建可勾选的任务列表项 |
-| @tiptap/extension-task-list | 管理任务列表，支持任务项的完成状态 |
-| @tiptap/extension-link | 插入和编辑超链接，支持 URL 和锚点链接 |
-| @tiptap/extension-table | 实现表格插入与编辑，包括行列操作 |
-| @tiptap/extension-table-row | 专门用于管理表格的行操作 |
-| @tiptap/extension-typography | 提供一系列高级排版功能，如引号、省略号等 |
-| @tiptap/extension-character-count | 实时显示编辑器中字符、单词或字数统计 |
-| @tiptap/extension-dropcursor | 提升用户体验的拖放光标效果，指示插入位置 |
+| 扩展名称                          | 扩展说明                                               |
+| --------------------------------- | ------------------------------------------------------ |
+| @tiptap/starter-kit               | Tiptap的基本扩展集，包含段落、标题、强调等基础编辑功能 |
+| @tiptap/extension-placeholder     | 在编辑器内没有内容时显示提示信息，引导用户输入         |
+| @tiptap/extension-focus           | 管理编辑器焦点状态                                     |
+| @tiptap/extension-font-family     | 允许用户自定义文本的字体系列                           |
+| @tiptap/extension-bold            | 为文本添加加粗样式                                     |
+| @tiptap/extension-underline       | 给文本添加下划线效果                                   |
+| @tiptap/extension-subscript       | 支持下标文本格式                                       |
+| @tiptap/extension-superscript     | 支持上标文本格式                                       |
+| @tiptap/extension-color           | 为文本添加颜色                                         |
+| @tiptap/extension-text-style      | 为文本添加 HTML 标记                                   |
+| @tiptap/extension-highlight       | 为文本添加背景颜色，突出显示重要信息                   |
+| @tiptap/extension-task-item       | 创建可勾选的任务列表项                                 |
+| @tiptap/extension-task-list       | 管理任务列表，支持任务项的完成状态                     |
+| @tiptap/extension-link            | 插入和编辑超链接，支持 URL 和锚点链接                  |
+| @tiptap/extension-table           | 实现表格插入与编辑，包括行列操作                       |
+| @tiptap/extension-table-row       | 专门用于管理表格的行操作                               |
+| @tiptap/extension-typography      | 提供一系列高级排版功能，如引号、省略号等               |
+| @tiptap/extension-character-count | 实时显示编辑器中字符、单词或字数统计                   |
+| @tiptap/extension-dropcursor      | 提升用户体验的拖放光标效果，指示插入位置               |
 
 ## Tiptap 官方 Pro 扩展
 
-| 扩展名称 | 扩展说明 |
-| --- | --- |
-| @tiptap-pro/extension-table-of-contents | 为编辑器创建目录 |
-| @tiptap-pro/extension-invisible-characters | 管理不可见字符 |
-| @tiptap-pro/extension-mathematics | 插入和编辑 LaTex 数学公式 |
+| 扩展名称                                   | 扩展说明                  |
+| ------------------------------------------ | ------------------------- |
+| @tiptap-pro/extension-table-of-contents    | 为编辑器创建目录          |
+| @tiptap-pro/extension-invisible-characters | 管理不可见字符            |
+| @tiptap-pro/extension-mathematics          | 插入和编辑 LaTex 数学公式 |
 
 ## Umo Editor 扩展的扩展
 
 所有扩展见：https://github.com/umodoc/editor/tree/main/src/components/editor/extensions
 
-| 扩展名称 | 扩展说明 |
-| --- | --- |
-| font-size | 允许用户自定义文本的字体大小 |
-| bullet-list | 提供无序列表功能，用于创建项目符号列表 |
-| ordered-list | 支持有序列表，用数字或字母顺序排列项目 |
-| indent | 实现文本或列表项的缩进，以增加层次感 |
-| text-align | 控制文本的对齐方式，包括左对齐、居中、右对齐和两端对齐 |
-| node-align | 对编辑器内的节点进行对齐，例如图片或区块 |
-| line-height | 设置文本行间距，增强阅读体验 |
-| image | 用于插入、调整和展示图像文件 |
-| video | 用于插入、调整和展示视频文件，支持播放视频内容 |
-| audio | 用于插入、调整和展示音频文件，支持播放控制 |
-| file | 用于插入和展示其他类型的文件 |
-| code-block | 代码块编辑扩展，支持代码编辑和高亮显示 |
-| text-box | 用于插入和编辑文本框 |
-| horizontal-rule | 插入水平线以分隔内容 |
-| iframe | 支持嵌入外部网页或应用的 Iframe |
-| table-cell | 用于编辑和格式化表格单元格的扩展 |
-| table-header | 管理表格的表头行和列 |
-| page-break | 在文档中插入分页符 |
-| toc | 根据自动生成文档的大纲目录 |
-| invisible-node | 用于显示换行符和回车符等不可见字符 |
-| selection | 提供文本和节点选择后的操作行为 |
-| file-handler | 处理文件拖放和粘贴逻辑 |
+| 扩展名称        | 扩展说明                                               |
+| --------------- | ------------------------------------------------------ |
+| font-size       | 允许用户自定义文本的字体大小                           |
+| bullet-list     | 提供无序列表功能，用于创建项目符号列表                 |
+| ordered-list    | 支持有序列表，用数字或字母顺序排列项目                 |
+| indent          | 实现文本或列表项的缩进，以增加层次感                   |
+| text-align      | 控制文本的对齐方式，包括左对齐、居中、右对齐和两端对齐 |
+| node-align      | 对编辑器内的节点进行对齐，例如图片或区块               |
+| line-height     | 设置文本行间距，增强阅读体验                           |
+| image           | 用于插入、调整和展示图像文件                           |
+| video           | 用于插入、调整和展示视频文件，支持播放视频内容         |
+| audio           | 用于插入、调整和展示音频文件，支持播放控制             |
+| file            | 用于插入和展示其他类型的文件                           |
+| code-block      | 代码块编辑扩展，支持代码编辑和高亮显示                 |
+| text-box        | 用于插入和编辑文本框                                   |
+| horizontal-rule | 插入水平线以分隔内容                                   |
+| iframe          | 支持嵌入外部网页或应用的 Iframe                        |
+| table-cell      | 用于编辑和格式化表格单元格的扩展                       |
+| table-header    | 管理表格的表头行和列                                   |
+| page-break      | 在文档中插入分页符                                     |
+| toc             | 根据自动生成文档的大纲目录                             |
+| invisible-node  | 用于显示换行符和回车符等不可见字符                     |
+| selection       | 提供文本和节点选择后的操作行为                         |
+| file-handler    | 处理文件拖放和粘贴逻辑                                 |
 
 ## 第三方扩展
 
-| 扩展名称 | 扩展说明 |
-| --- | --- |
+| 扩展名称                                    | 扩展说明                         |
+| ------------------------------------------- | -------------------------------- |
 | @sereneinserenade/tiptap-search-and-replace | 在编辑器内容中搜索并替换指定文本 |
-

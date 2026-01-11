@@ -40,13 +40,13 @@ Use slots to insert custom content after specific menus in the toolbar.
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // Configuration options
-    // ...
-  });
+const options = ref({
+  // Configuration options
+  // ...
+})
 </script>
 ```
 
@@ -65,10 +65,12 @@ Use slots to insert custom content after specific menus in the toolbar.
 
 ## Bubble Menu Slot
 
-Use slots to insert custom content after the bubble menu. 
+Use slots to insert custom content after the bubble menu.
 
 <Callout type="error" emoji="❗">
-Before v9.0, only text nodes could have custom content added. Starting from v9.0, custom content can be added to all nodes, and slot parameters such as `nodeType` and `nodeAttrs` are supported for more flexible menu customization.
+  Before v9.0, only text nodes could have custom content added. Starting from
+  v9.0, custom content can be added to all nodes, and slot parameters such as
+  `nodeType` and `nodeAttrs` are supported for more flexible menu customization.
 </Callout>
 
 ### Slot Parameters
@@ -80,18 +82,18 @@ Before v9.0, only text nodes could have custom content added. Starting from v9.0
 <template>
   <umo-editor v-bind="options">
     <template #bubble_menu="props">
-      <span>slot: {{props}}</span>
+      <span>slot: {{ props }}</span>
     </template>
   </umo-editor>
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // Configuration options
-    // ...
-  });
+const options = ref({
+  // Configuration options
+  // ...
+})
 </script>
 ```

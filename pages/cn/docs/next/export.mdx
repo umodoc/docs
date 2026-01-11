@@ -1,7 +1,7 @@
 ---
 target: Umo Editor Next
 keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 # 文档导出
@@ -72,11 +72,10 @@ Umo Editor Server 中，提供了 `/static` 路由，用于返回 Umo Editor Nex
     - `src`：`String` 图片加载读取路径。
     - `nodeType`：`String` 需要获取的图片类型，`image` 图片、`echarts` 图表。
     - `node`：Tiptap 文档 JSON 格式` Tiptap 节点。
-  - `docxOption.page.backColor`：`String`，导出文档背景色，如  `#FFFFFF`。
+  - `docxOption.page.backColor`：`String`，导出文档背景色，如 `#FFFFFF`。
   - `docxOption.page.orientation`：`String`，导出纸张方向，`landscape` 横向、`portrait` 纵向。
   - `docxOption.page.size.height`：`Number`，纸张尺寸中的纸张高度，单位`cm`。
   - `docxOption.page.size.width`：`Number`，纸张尺寸中的纸张宽度，单位`cm`。
-  
 
 **返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
 
@@ -104,7 +103,12 @@ PDF 导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 
 
 **导出效果**：
 
-<iframe src="https://s2.umodoc.com/demos/export-pdf-cn.pdf" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+<iframe
+  src="https://s2.umodoc.com/demos/export-pdf-cn.pdf"
+  width="100%"
+  height="500"
+  style={{ border: 'solid 1px #ccc', margin: '2rem 0' }}
+></iframe>
 
 ---
 
@@ -133,7 +137,12 @@ PDF 导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 
 
 **导出效果**：
 
-<iframe src="https://s2.umodoc.com/demos/export-html-cn.html" width="100%" height="500" style={{border: 'solid 1px #ccc', margin: '2rem 0'}}></iframe>
+<iframe
+  src="https://s2.umodoc.com/demos/export-html-cn.html"
+  width="100%"
+  height="500"
+  style={{ border: 'solid 1px #ccc', margin: '2rem 0' }}
+></iframe>
 
 ---
 
@@ -160,7 +169,12 @@ PDF 导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 
 
 **导出效果**：
 
-<img src="https://s2.umodoc.com/demos/export-image-cn.png" alt="导出效果" width="400" style={{ margin: '1.5rem auto 0' }} />
+<img
+  src="https://s2.umodoc.com/demos/export-image-cn.png"
+  alt="导出效果"
+  width="400"
+  style={{ margin: '1.5rem auto 0' }}
+/>
 
 ---
 

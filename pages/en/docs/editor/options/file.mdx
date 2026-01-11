@@ -46,15 +46,16 @@ Additionally, if you want to upload files of the same type, you can use `*` to s
 
 **Default Value**: `1024 * 1024 * 100` (100M)
 
-### file.preview 
+### file.preview
 
 **Description**: Configuration for file preview, including file types and preview links. Note that modifying this value will directly overwrite the default value. If you need to adjust the file preview configuration, modify it based on the default value. <Badge theme="success">Added in v5.0.0</Badge>
 
 **Type**: `Array`
 
-**Default Value**: 
+**Default Value**:
+
 ```js
-[
+;[
   { extensions: ['pdf'], url: '{url}' },
   {
     extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],

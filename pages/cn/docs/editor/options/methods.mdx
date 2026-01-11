@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Tabs } from 'nextra/components'
@@ -43,7 +43,6 @@ import { Tabs } from 'nextra/components'
 
 **返回值**：保存成功则返回 `true`，否则返回 `false`，否则返回 `false` 或者抛出错误。
 
-
 **示例**：
 
 以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onSave 方法，将文档保存到服务器：
@@ -55,33 +54,35 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  async onSave(content, page, document) => {
-    const res = await axios.post('/api/save', {
-      content,
-      page,
-      document,
-    },{
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+async onSave(content, page, document) => {
+const res = await axios.post('/api/save', {
+content,
+page,
+document,
+},{
+headers: {
+'Content-Type': 'application/json',
+}
+});
 
     // 保存成功则返回 true，否则返回 false，否则返回 false 或者抛出错误
-    return true; 
-  },
+    return true;
+
+},
 };
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    @save="onSave" 
+  <umo-editor
+    @save="onSave"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
@@ -98,10 +99,11 @@ const onSave = async (content, page, document) => {
   });
 
   // 保存成功则返回 true，否则返回 false 或者抛出错误
-  return true; 
+  return true;
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>
 
@@ -131,35 +133,37 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  async onFileUpload(file) => {
-    let formData = new FormData();
-    // 添加文件到 formData 对象中
-    formData.append('file', file);
-    const res = await axios.post('/api/file-upload', formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    });
+async onFileUpload(file) => {
+let formData = new FormData();
+// 添加文件到 formData 对象中
+formData.append('file', file);
+const res = await axios.post('/api/file-upload', formData,{
+headers: {
+'Content-Type': 'multipart/form-data',
+}
+});
 
     // 保存成功则返回 {id, url}，否则返回 false 或者抛出错误
     return {
       id: res.data.id,
       url: res.data.url,
-    }; 
-  },
+    };
+
+},
 };
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    @file-upload="onFileUpload" 
+  <umo-editor
+    @file-upload="onFileUpload"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
@@ -178,10 +182,11 @@ const onFileUpload = async (file) => {
   return {
     id: res.data.id,
     url: res.data.url,
-  }; 
+  };
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>
 
@@ -196,7 +201,6 @@ const onFileUpload = async (file) => {
 - `id`：文件 id。
 - `url`：文件 url。
 
-
 **示例**：
 
 以下代码以[Axios](https://axios-http.com/)为例，演示如何配置 onFileDelete 方法，将文件从服务器上删除：
@@ -208,22 +212,23 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  onFileDelete(id, url) => {
-    axios.delete(`/api/file/${id}`);
-  },
+onFileDelete(id, url) => {
+axios.delete(`/api/file/${id}`);
+},
 };
 
 app.use(useUmoEditor, options)
-```
+
+````
 </Tabs.Tab>
 <Tabs.Tab>
 ```vue
 <template>
-  <umo-editor 
-    @file-delete="onFileDelete" 
+  <umo-editor
+    @file-delete="onFileDelete"
   />
 </template>
- 
+
 <script setup>
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
@@ -232,6 +237,7 @@ const onFileDelete = (id, url) => {
   axios.delete(`/api/file/${id}`);
 }
 </script>
-```
+````
+
 </Tabs.Tab>
 </Tabs>

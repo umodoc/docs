@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Tabs } from 'nextra/components'
@@ -23,10 +23,12 @@ import { Badge } from '/components/badge'
       en_US: 'Please enter the document content...',
       zh_CN: '请输入文档内容...',
     },
+    structure: 'block*', // v10 新增
     enableSpellcheck: true,
     enableMarkdown: true,
     enableBubbleMenu: true,
     enableBlockMenu: true,
+    enableNodeId: false, // v10 新增
     readOnly: false,
     autofocus: true,
     characterLimit: 0,
@@ -80,6 +82,13 @@ import { Badge } from '/components/badge'
 - `zh_CN`：简体中文
 - `en_US`：英文
 
+### document.structure
+
+**说明**：配置文档结构，利用此选项，您可以强制文档的结构，例如要强制首项必须为文档标题，此项可以配置为：`heading block*`。这里是 Tiptap 的示例：https://tiptap.dev/docs/examples/advanced/forced-content-structure <Badge theme="success">v10.0.0 新增</Badge>
+
+**类型**：`String`
+
+**默认值**：`block*`
 
 ### document.enableSpellcheck
 
@@ -91,7 +100,7 @@ import { Badge } from '/components/badge'
 
 ### document.enableMarkdown
 
-**说明**：是否启用 Markdown 语法，启用时用户可手动关闭，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否启用  Markdown 语法。
+**说明**：是否启用 Markdown 语法，启用时用户可手动关闭，您可以通过[setDocument 方法](../methods#setdocument)来动态设置是否启用 Markdown 语法。
 
 **类型**：`Boolean`
 
@@ -113,6 +122,14 @@ import { Badge } from '/components/badge'
 
 **默认值**：`true`
 
+### document.enableNodeId
+
+**说明**：是否为文档节点生成唯一标识，为了获得更好的性能，此项默认关闭。 <Badge theme="success">v10.0.0 新增</Badge>
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
 ### document.readOnly
 
 **说明**：文档是否只读，为 `true` 时用户无法编辑当前文档，您可以通过[setReadOnly 方法](../methods#setreadonly)来设置文档是否只读。
@@ -124,7 +141,6 @@ import { Badge } from '/components/badge'
 ### document.autofocus
 
 **说明**：文档是否自动获得光标焦点，您可以通过[focus 方法](../methods#focus)来设置文档是否获得光标焦点。
-
 
 **类型**：`Boolean`
 
@@ -148,30 +164,30 @@ import { Badge } from '/components/badge'
 
 **配置项**:
 
-| 名称 | 描述 | 默认是否启用 |
-| :--- | :---: | :---: |
-| emDash | 将双破折号 -- 转换为长破折号 —。 | ✅ 启用 |
-| ellipsis | 将三个点 ... 转换为省略号 …。 | ✅ 启用 |
-| openDoubleQuote | “智能”左双引号。 | ✅ 启用 |
-| closeDoubleQuote | “智能”右双引号。 | ✅ 启用 |
-| openSingleQuote | ‘智能’左单引号。 | ✅ 启用 |
-| closeSingleQuote | ‘智能’右单引号。 | ✅ 启用 |
-| leftArrow | 将 &lt;- 转换为左箭头 ←。 | ✅ 启用 |
-| rightArrow | 将 ‐&gt; 转换为右箭头 →。 | ✅ 启用 |
-| copyright | 将 (c) 转换为版权符号 ©。 | ✅ 启用 |
-| registeredTrademark | 将 (r) 转换为注册商标符号 ®。 | ✅ 启用 |
-| trademark | 将 (tm) 转换为商标符号 ™。 | ✅ 启用 |
-| servicemark | 将 (sm) 转换为服务商标符号 ℠。 | ✅ 启用 |
-| oneHalf | 将 1/2 转换为一半 ½。 | ✅ 启用 |
-| oneQuarter | 将 1/4 转换为四分之一 ¼。 | ✅ 启用 |
-| threeQuarters | 将 3/4 转换为四分之三 ¾。 | ✅ 启用 |
-| plusMinus | 将 +/- 转换为正负号 ±。 | ✅ 启用 |
-| notEqual | 将 != 转换为不等号 ≠。 | ✅ 启用 |
-| laquo | 将 &lt;&lt; 转换为左双尖角引号 «。 | ✅ 启用 |
-| raquo | 将 &gt;&gt; 转换为右双尖角引号 »。 | ✅ 启用 |
-| multiplication | 将 2 * 3 或 2x3 转换为乘号 2×3。 | ✅ 启用 |
-| superscriptTwo | 将 ^2 转换为上标二 ²。 | ✅ 启用 |
-| superscriptThree | 将 ^3 转换为上标三 ³。 | ✅ 启用 |
+| 名称                |                描述                | 默认是否启用 |
+| :------------------ | :--------------------------------: | :----------: |
+| emDash              |  将双破折号 -- 转换为长破折号 —。  |   ✅ 启用    |
+| ellipsis            |   将三个点 ... 转换为省略号 …。    |   ✅ 启用    |
+| openDoubleQuote     |          “智能”左双引号。          |   ✅ 启用    |
+| closeDoubleQuote    |          “智能”右双引号。          |   ✅ 启用    |
+| openSingleQuote     |          ‘智能’左单引号。          |   ✅ 启用    |
+| closeSingleQuote    |          ‘智能’右单引号。          |   ✅ 启用    |
+| leftArrow           |     将 &lt;- 转换为左箭头 ←。      |   ✅ 启用    |
+| rightArrow          |     将 ‐&gt; 转换为右箭头 →。      |   ✅ 启用    |
+| copyright           |     将 (c) 转换为版权符号 ©。      |   ✅ 启用    |
+| registeredTrademark |   将 (r) 转换为注册商标符号 ®。    |   ✅ 启用    |
+| trademark           |     将 (tm) 转换为商标符号 ™。     |   ✅ 启用    |
+| servicemark         |   将 (sm) 转换为服务商标符号 ℠。   |   ✅ 启用    |
+| oneHalf             |       将 1/2 转换为一半 ½。        |   ✅ 启用    |
+| oneQuarter          |     将 1/4 转换为四分之一 ¼。      |   ✅ 启用    |
+| threeQuarters       |     将 3/4 转换为四分之三 ¾。      |   ✅ 启用    |
+| plusMinus           |      将 +/- 转换为正负号 ±。       |   ✅ 启用    |
+| notEqual            |       将 != 转换为不等号 ≠。       |   ✅ 启用    |
+| laquo               | 将 &lt;&lt; 转换为左双尖角引号 «。 |   ✅ 启用    |
+| raquo               | 将 &gt;&gt; 转换为右双尖角引号 »。 |   ✅ 启用    |
+| multiplication      | 将 2 \* 3 或 2x3 转换为乘号 2×3。  |   ✅ 启用    |
+| superscriptTwo      |       将 ^2 转换为上标二 ²。       |   ✅ 启用    |
+| superscriptThree    |       将 ^3 转换为上标三 ³。       |   ✅ 启用    |
 
 如果要禁用某项，将该项设置为 `false` 即可，如：
 
@@ -213,14 +229,16 @@ import { UmoEditor } from '@umoteam/editor'
 **类型**：`Object`
 
 **配置项**:
+
 - `enabled`: Boolean，是否启用自动保存，默认值为 `true`。
 - `interval`: Number，自动保存的间隔时间，单位为毫秒，默认值为 `300000`（5 分钟）。
 
 ### document.editorProps
 
-**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps 。  <Badge theme="success">v2.3.0 新增</Badge>
+**说明**：对于一些进阶场景，您可以通过 `document。editorProps` 向[ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps)传递一些配置，您可以使用它来覆盖各种编辑器事件或更改编辑器 DOM 元素属性。更多信息见：https://prosemirror.net/docs/ref/#view.EditorProps 。 <Badge theme="success">v2.3.0 新增</Badge>
 
 **示例**：
+
 ```js
 {
   editorProps: {

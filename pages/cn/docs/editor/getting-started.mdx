@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Callout, Tabs } from 'nextra/components'
@@ -20,7 +20,7 @@ npm install --save @umoteam/editor
 ```
 
 <Callout type="warning" emoji="⚠️">
-**注意**：自 v3.0 版本开始，Umo Editor 取消了对 UMD 版本的支持。
+  **注意**：自 v3.0 版本开始，Umo Editor 取消了对 UMD 版本的支持。
 </Callout>
 
 ## 使用
@@ -28,16 +28,17 @@ npm install --save @umoteam/editor
 以下使用方式任选一种即可：
 
 ### 全局安装
-```js filename="main.js"
-import { createApp } from 'vue';
-import { useUmoEditor } from '@umoteam/editor';
 
-const app = createApp(App);
+```js filename="main.js"
+import { createApp } from 'vue'
+import { useUmoEditor } from '@umoteam/editor'
+
+const app = createApp(App)
 app.use(useUmoEditor, {
   // 配置项
   // ...
-});
-app.mount('#app');
+})
+app.mount('#app')
 ```
 
 ### 直接引入
@@ -57,32 +58,32 @@ app.mount('#app');
 
 // 使用组合式 API
 <script setup>
-  import { ref } from 'vue'
-  import { UmoEditor } from '@umoteam/editor';
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // 配置项
-    // ...
-  });
+const options = ref({
+  // 配置项
+  // ...
+})
 </script>
 
 // 或使用选项式 API
 <script>
-  import { UmoEditor } from '@umoteam/editor';
+import { UmoEditor } from '@umoteam/editor'
 
-  export default {
-    components: {
-      UmoEditor
-    },
-    data() {
-      return {
-        options: {
-          // 配置项
-          // ...
-        }
-      }
+export default {
+  components: {
+    UmoEditor,
+  },
+  data() {
+    return {
+      options: {
+        // 配置项
+        // ...
+      },
     }
-  }
+  },
+}
 </script>
 ```
 
@@ -125,11 +126,12 @@ export default defineNuxtConfig({
 
 <script setup>
 const options = ref({
-    // 配置项，见:
-    // https://dev.umodoc.com/cn/docs/editor/options/default
+  // 配置项，见:
+  // https://dev.umodoc.com/cn/docs/editor/options/default
 })
 </script>
 ```
+
 </Tabs.Tab>
 <Tabs.Tab>
 
@@ -143,14 +145,15 @@ Umo Editor 暂不支持 SSR，在 Nuxt3 中 SSR 模式下，可以使用 `<clien
 </template>
 
 <script setup>
-  import { UmoEditor } from '@umoteam/editor';
+import { UmoEditor } from '@umoteam/editor'
 
-  const options = ref({
-    // 配置项
-    // ...
-  });
+const options = ref({
+  // 配置项
+  // ...
+})
 </script>
 ```
+
 </Tabs.Tab>
 </Tabs>
 

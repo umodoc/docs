@@ -1,7 +1,7 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 import { Callout } from 'nextra/components'
@@ -11,11 +11,93 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/changelog
 
-## 🚀  v9.0.1 <Badge>2025-12-05</Badge>
+## 🎉 v10.0.0 <Badge>2026-01-11</Badge>
+
+<Callout type="info" emoji="❗">
+  本次更新是一次**里程碑式的大版本升级**。在不破坏原有配置与使用习惯的前提下，Umo
+  Editor 底层代码已无痛迁移至 Tiptap v3，并对整体代码进行了系统性重构。
+  本次升级不仅显著**降低了打包体积**、**提升了大文档的加载和编辑性能**，也为后续功能扩展和长期维护奠定了更加稳固的基础。**强烈建议所有用户升级。**
+</Callout>
+
+---
+
+### 🚀 重磅升级
+
+1. Tiptap 内核从 **v2 升级至 v3 最新版**，全面支持并拥抱 **Tiptap 3**；
+2. 生产环境下的打包体积显著降低，整体体积约减少 **3～4 倍**；
+3. 大文档加载和编辑性能大幅提升，在相同基准测试下，支持的文档规模约提升 **3 倍以上（纯文本）**；
+4. 引入大量全新功能特性，详见下方 **「新增」** 内容；
+5. 从根本上修复了一些长期存在的细小问题。
+
+---
+
+### 🔧 重构
+
+1. **全面移除 TypeScript 支持**，核心代码统一使用 JavaScript 重构；
+2. 重构了全部 Tiptap 扩展及其相关实现逻辑；
+3. 重构工具栏、菜单系统及多处核心交互逻辑，为后续功能扩展提供更清晰的结构。
+
+---
+
+### ✨ 新增
+
+1. 工具栏新增「视图」菜单，支持：大纲显示、全屏模式、演示模式、视图设置、缩放比例、外观设置、主题设置、语言设置等，详见
+   👉 [Umo Editor 在线示例](https://www.umodoc.com/demo)；
+2. 新增全新的 **「公式」工具**；
+3. 新增 **「详情」节点**；
+4. 新增 **「字间距」** 调整功能；
+5. 新增 **「文字换行方式」** 设置；
+6. 新增 **「脚注」** 功能；
+7. 增强 **「Mermaid」** 编辑能力；
+8. **「文本框」** 新增文本对齐功能；
+9. 工具栏支持鼠标滚轮进行左右滚动；
+10. 增强对 **Office 文档粘贴** 的兼容性；
+11. 新增文档结构配置项，详见 👉 [document.structure 配置](options/document#documentstructure)；
+12. 新增节点 ID 配置，支持所有节点类型，开启后可通过 ID 查找文档节点，详见 👉 [document.enableNodeId 配置](options/document#documentenablenodeid)；
+13. 新增皮肤机制，并提供切换皮肤的事件与方法，详见 👉 [setSkin 方法](./methods#setskin)；
+14. 新增 `paste`、`drop`、`delete` 事件，详见 👉 [事件列表](./events)；
+15. `setPage` 方法新增对页边距的支持，详见 👉 [setPage 方法](./methods#setpage)；
+16. 开发构建流程中引入打包分析工具，便于持续优化体积与性能。
+
+---
+
+### 🐛 修复
+
+1. 修复有序列表起始编号设置无效的问题；
+2. Indent 扩展改为使用 `style` 而非 `class` 实现缩进 @tellbom
+   [(#426)](https://github.com/umodoc/editor/issues/426)；
+3. 修复文本框相关的若干问题；
+4. 修复节点拖拽过程中的异常行为；
+5. 修复「公式」在部分场景下插入后无法显示的问题；
+6. 优化「选项」元素节点的显示样式；
+7. 修复「选项」元素在打印时会独占一行、不符合预期的问题 @cheecheebaishu
+   [(#407)](https://github.com/umodoc/editor/issues/407)。
+
+---
+
+### ⚡ 优化
+
+1. 调整工具栏中菜单的整体显示顺序；
+2. 优化链接、图片等节点的气泡菜单选项；
+3. 可编辑文本的自定义节点默认不再显示多余换行；
+4. 优化文档大纲的展示效果；
+5. 优化文档在预览模式下的整体显示；
+6. 优化对编辑器内容变化的监听逻辑，减少页面高度的重复计算；
+7. Mermaid、Plyr 等第三方资源改为通过 CDN 加载，进一步降低打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)。
+
+---
+
+### 🧹 移除
+
+1. 移除 `contentError` 事件；
+2. 出于第三方资源体积控制的考虑，移除 **电子签章** 与 **图片去除背景** 功能 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
+3. 移除文档预览功能，以进一步优化整体打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)。
+
+## 🚀 v9.0.1 <Badge>2025-12-05</Badge>
 
 1. 错误修复。
 
-## 🎉  v9.0.0 <Badge>2025-12-05</Badge>
+## 🎉 v9.0.0 <Badge>2025-12-05</Badge>
 
 1. 修复流程图编辑时显示空白的问题 [#403](https://github.com/umodoc/editor/issues/403)
 2. 气泡菜单插槽支持全部节点；增加气泡菜单插槽参数，见 [气泡菜单插槽](./slots#气泡菜单插槽)；
@@ -23,7 +105,7 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 4. 为防止菜单定位不准 ，当页面缩放比例不为1时，临时禁用块菜单；
 5. 修复当页面缩放比例不为 1 时，气泡菜单定位不准的问题 [#395](https://github.com/umodoc/editor/issues/395)；
 6. 修复上传音频地址错误的问题 [#370](https://github.com/umodoc/editor/issues/370)，由 @china-wangxu 在 [(#397)](https://github.com/umodoc/editor/pull/397) 提交；
-7. 修复水印无法选择类型的问题  [#378](https://github.com/umodoc/editor/issues/378)，由 @china-wangxu 在 [(#397)](https://github.com/umodoc/editor/pull/397) 提交；
+7. 修复水印无法选择类型的问题 [#378](https://github.com/umodoc/editor/issues/378)，由 @china-wangxu 在 [(#397)](https://github.com/umodoc/editor/pull/397) 提交；
 8. 修复多个 echarts 图表仅显示第一个图表的问题 [#371](https://github.com/umodoc/editor/issues/371)，由 @china-wangxu 在 [(#397)](https://github.com/umodoc/editor/pull/397) 提交；
 9. 增加是否显示保存按钮选项，见 [`toolbar.showSaveLabel`](./options/toolbar#toolbarshowsavelabel)；
 10. 优化 `document.onSave` 的方法调用，由 @china-wangxu 在 [(#396)](https://github.com/umodoc/editor/pull/396) 提交；
@@ -43,7 +125,7 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 24. 添加 ProseMirror 的默认样式，使文档在非编辑器场景下显示和编辑器中显示效果一致；
 25. 其他细节调整及优化。
 
-## 🚀  v8.1.0 <Badge>2025-09-06</Badge>
+## 🚀 v8.1.0 <Badge>2025-09-06</Badge>
 
 1. 将页面设置、页面水印等操作加入历史记录，支持撤销和重做，由 @china-wangxu 在 [(#336)](https://github.com/umodoc/editor/issues/258) 提交；
 2. 修复 echarts 图表打开编辑图表无法显示的问题，由 @china-wangxu 在 [(#336)](https://github.com/umodoc/editor/issues/258) 提交；
@@ -53,7 +135,7 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 6. 回退和优化文件节点被删除或替换时调用文件删除方法的逻辑代码，修复在某些情况下出现可能会误删文件的情况；
 7. 一些细节调整。
 
-## 🎉  v8.0.0 <Badge>2025-08-31</Badge>
+## 🎉 v8.0.0 <Badge>2025-08-31</Badge>
 
 <Callout type="info" emoji="❗">
 自 v8.0 版本开始，我们开源了 [Umo Viewer](https://github.com/umodoc/viewer)，用以解决 Umo Editor 文档的预览问题。
@@ -61,6 +143,7 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://github.com/mozilla/pdf.js) 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
 
 更多信息见: [Umo Viewer 文档](../viewer)。
+
 </Callout>
 
 1. 添加文档预览功能，通过 [Umo Viewer](https://github.com/umodoc/viewer) 实现；
@@ -71,7 +154,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 6. 添加 [`getVanillaHTML`](./methods#getvanillahtml) 方法，用于获取完整的文档原生 HTML 内容；
 7. 打印时不显示换行符和回车符；
 8. 删除 `toolbar.disableMenuItems` 和 `toolbar.importWord` 选项，并增加新的 [`disableExtensions`](./options/extensions#disableextensions) 和 [`importWord`](./options/extensions#importword) 配置项；
-；
+   ；
 9. 修复只读模式时，浮动图片位置异常 @alsdn123123 [#309](https://github.com/umodoc/editor/issues/309)；
 10. 修复在删除或者替换文档内容时，未触发 onFileDelete 方法的问题 @ChenErik [#300](https://github.com/umodoc/editor/issues/300)；
 11. 修复页面放大缩小后显示异常的问题；
@@ -82,7 +165,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 16. 修复 TypeScript 提示异常的问题，增强对 TypesScript 的支持，由 @SevenDreamYang 在 [(#303)](https://github.com/umodoc/editor/pull/303) 提交；
 17. 其他细节调整及优化。
 
-## 🎉  v7.0.0 <Badge>2025-06-21</Badge>
+## 🎉 v7.0.0 <Badge>2025-06-21</Badge>
 
 1. [Umo Editor Next 7.0.0](../next/changelog.mdx) 正式版同步发布 🎉🎉🎉，详见：[Umo Editor Next 基础介绍](../next)；
 2. 增加模态展示时选中效果判断，当 AI 助手焦点在模态输入框时，选中效果仍然存在；
@@ -104,7 +187,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 18. 优化 Word 文档的导入效果；
 19. 针对于 Nuxt3 用户，发布了 [Umo Editor Nuxt](https://www.npmjs.com/package/@umoteam/umo-editor-nuxt)。
 
-## 🚀  v6.1.1 <Badge>2025-04-23</Badge>
+## 🚀 v6.1.1 <Badge>2025-04-23</Badge>
 
 1. 添加 `showToc` 和 `showLineNumber` 配置项等，见 [页面配置](./options/page)；
 2. 回滚对节点对齐的修改，修复了节点对齐失效的问题 [#254](https://github.com/umodoc/editor/issues/254) [#259](https://github.com/umodoc/editor/issues/259)；
@@ -112,7 +195,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 4. 粘贴插入图片时，会自动滚动到起始位置问题修复，由 @china-wangxu 在 [(#258)](https://github.com/umodoc/editor/issues/258) 提交；
 5. 修复有序列表大写字母排序不生效的问题 [#257](https://github.com/umodoc/editor/issues/257)。
 
-## 🚀  v6.1.0 <Badge>2025-04-22</Badge>
+## 🚀 v6.1.0 <Badge>2025-04-22</Badge>
 
 1. 锁定版本依赖，防止因为 `prosemirror-model` 版本不一致引起的错误 @BOKE2014 [(#257)](https://github.com/umodoc/editor/issues/257)；
 2. 添加链接节点的气泡菜单；
@@ -122,12 +205,13 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 6. 修复气泡菜单可能会显示不全的问题；
 7. 增加对 Markdown 图片输入和粘贴的支持。
 
-## 🎉  v6.0.0 <Badge>2025-04-19</Badge>
+## 🎉 v6.0.0 <Badge>2025-04-19</Badge>
 
 <Callout type="warning" emoji="❗">
 本次更新经历大约 200 次提交，包含一些破坏性的更新，比如重构状态管理，以更好的支持多实例，并重写了一些方法和组件，新增了若干节点扩展和方法，同时一些配置项也发生了变化，所以本次更新以大版本的形式发布。
 
 同时自 v6.0.0 起，Umo Editor 推出了 Umo Editor Next，提供更先进的编辑体验，更多更新内容请访问：https://dev.umodoc.com/cn/docs/next 。
+
 </Callout>
 
 1. 文件上传状态不加入历史状态管理中，防止被用户撤销或退回；
@@ -143,7 +227,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 11. 修复当图片节点 id 为 `null` 时，图片预览顺序不正确的问题；
 12. 修复了文档中的一些问题，并重新翻译英文文档；
 13. 修复已完成的待办事项打印时未正确勾选的问题 @48747776 [(#214)](https://github.com/umodoc/editor/issues/214)；
-14. 修复 css * 通配符影响页面其他样式的问题 @kawais [(#215)](https://github.com/umodoc/editor/issues/215)；
+14. 修复 css \* 通配符影响页面其他样式的问题 @kawais [(#215)](https://github.com/umodoc/editor/issues/215)；
 15. 移除了源代码编辑器；
 16. 调整 `getSelectionNode` 方法和 `deleteSelectionNode` 方法，见[方法列表](./methods#getselectionnode)，使其能够在嵌套节点中正确的获取节点，@yaoyuanrong [(#218)](https://github.com/umodoc/editor/issues/218)；
 17. 修复插入文件时，节点类型未正确按类型正确显示的问题，@BOKE2014 [(#211)](https://github.com/umodoc/editor/issues/211)；
@@ -175,7 +259,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 43. 书签支持配置默认是否显示，见[页面设置](./options/page#pageshowbookmark)，由 @china-wangxu 在 [(#178)](https://github.com/umodoc/editor/pull/178) 提交；
 44. 浏览文件修复流程图使用本地部署时不显示的问题；
 45. 大纲增加拖拽手柄，大纲区域可以拖动调整大小，由 @china-wangxu 在 [(#177)](https://github.com/umodoc/editor/pull/177) 提交；
-46. 删除全局状态管理，改为通过跨组件通信的方式实现，修复多实例时，组件状态相互污染的问题，@Carrie-sxy[#118](https://github.com/umodoc/editor/issues/118)； 
+46. 删除全局状态管理，改为通过跨组件通信的方式实现，修复多实例时，组件状态相互污染的问题，@Carrie-sxy[#118](https://github.com/umodoc/editor/issues/118)；
 47. 大纲面板改为通过树形结构显示；
 48. 修改默认 emojis 配置，见[字典配置](./options/dicts#dictsemojis)；
 49. 修复分页符等节点无法通过块菜单删除的问题；
@@ -192,8 +276,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 60. 优化图片节点选中；，@china-wangxu [(#157)](https://github.com/umodoc/editor/issues/157)。
 61. 修复和优化了诸多细节问题。
 
-
-## 🎉   v5.0.0 <Badge>2025-02-08</Badge>
+## 🎉 v5.0.0 <Badge>2025-02-08</Badge>
 
 <Callout type="warning" emoji="❗">
 感谢大家长久以来对 Umo Editor 的支持，因为面临的诸多挑战，在经过长久慎重且艰难的思想斗争之后，我们决定 v4.6 是最后一个支持分页的版本，自 v5.0 版本开始，Umo Editor 将暂时放弃对分页的支持，不排除不远的将来分页功能可能会再次回归。
@@ -201,6 +284,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 好消息是，Tiptap 官方团队已经注意到了社区对分页功能需求的迫切性，并且已经着手开发，但是还没有明确的发布时间，见：https://x.com/tiptap_editor/status/1812154617733538288 。
 
 如果您仍然需要分页功能，可以继续使用 v4.x 版本，但是此版本将不再维护，当然，您也可以拉取代码自行修改，支持分页的代码分支为：[page-break-v4](https://github.com/umodoc/editor/tree/page-break-v4)。
+
 </Callout>
 
 1. ⚠️ 彻底删除了对分页的支持。
@@ -212,19 +296,19 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 7. 优化了文本框、图片、链接等多个内部扩展；
 8. 添加 [`getPage`](./methods#getpage) 方法以便获取页面设置等信息 @SerRashin [(#120)](https://github.com/umodoc/editor/issues/120)。
 9. 修复组件多次销毁后，使用 Ctrl+S 保存多次调用保存方法的问题 @fjll-425361
- [(#96)](https://github.com/umodoc/editor/issues/96)；
+   [(#96)](https://github.com/umodoc/editor/issues/96)；
 10. 删除了无用的功能模块，减小打包体积；
 11. 其他细节调整和优化。
 
-## 🚀  v4.6.2 <Badge>2025-02-07</Badge>
+## 🚀 v4.6.2 <Badge>2025-02-07</Badge>
 
 1. 错误修复；
 
-## 🚀  v4.6.1 <Badge>2025-01-15</Badge>
+## 🚀 v4.6.1 <Badge>2025-01-15</Badge>
 
 1. 错误修复；
 
-## 🚀  v4.6.0 <Badge>2025-01-15</Badge>
+## 🚀 v4.6.0 <Badge>2025-01-15</Badge>
 
 1. 简化 placeholder 扩展，通过 css 实现；
 2. 修复选中文字时鼠标移动到 block-handler 上导致选中项乱闪的问题，由 @ChenErik 在 [(#72)](https://github.com/umodoc/editor/pull/72) 修复；
@@ -266,7 +350,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 38. 修复预览模式退出后无法重新进入的错误；
 39. 其他细节调整和优化及错误修复。
 
-## 🚀  v4.5.0 <Badge>2024-09-04</Badge>
+## 🚀 v4.5.0 <Badge>2024-09-04</Badge>
 
 1. 增强对 Typescript 的支持；
 2. 修复图片浮动时不显示的问题 @ChenErik [(#54)](https://github.com/umodoc/editor/issues/54)；
@@ -278,24 +362,24 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 8. 优化打印逻辑，仅当文档内容不为空时可以打印；
 9. 修复只读模式下图片依旧可以拖拽缩放的问题，由 @ChenErik 在 [(#62)](https://github.com/umodoc/editor/pull/62) 修复；
 10. 修复全屏模式下，预览模式无法打开的问题 @BOKE2014 [(#61)](https://github.com/umodoc/editor/issues/61)，由 @ChenErik 在 [(#62)](https://github.com/umodoc/editor/pull/62) 修复；
-12. 修复svgIcon的问题冲突等问题，由 @ChenErik 在 [(#67)](https://github.com/umodoc/editor/pull/67) 修复；
-13. 修复从其他 Umo Editor 文档复制内容后，内容显示不正确的问题;
-14. tiptap 相关依赖升级到 2.2.6，以解决一些已知问题。
-15. 其他细节调整和优化及错误修复。
+11. 修复svgIcon的问题冲突等问题，由 @ChenErik 在 [(#67)](https://github.com/umodoc/editor/pull/67) 修复；
+12. 修复从其他 Umo Editor 文档复制内容后，内容显示不正确的问题;
+13. tiptap 相关依赖升级到 2.2.6，以解决一些已知问题。
+14. 其他细节调整和优化及错误修复。
 
-## 🚀  v4.1.2 <Badge>2024-08-21</Badge>
+## 🚀 v4.1.2 <Badge>2024-08-21</Badge>
 
 1. 类名添加前缀，防止样式被污染导致组件显示不正常；
 2. 添加图片和视频的懒加载功能 @shenghui-shan [(#31)](https://github.com/umodoc/editor/issues/31)；
 3. 添加自定义节点分页计算配置，优化分页内部计算逻辑；
 4. 其他细节调整和优化。
 
-## 🚀  v4.1.1 <Badge>2024-08-20</Badge>
+## 🚀 v4.1.1 <Badge>2024-08-20</Badge>
 
 1. 修复工具栏显示/隐藏页眉按钮逻辑错误；
 2. 修复插入已保存的文档内容后，页眉页脚不显示的问题。
 
-## 🚀  v4.1.0 <Badge>2024-08-19</Badge>
+## 🚀 v4.1.0 <Badge>2024-08-19</Badge>
 
 1. 添加了页眉页脚插槽，可以通过插槽自定义页眉页脚，详见[插槽列表](./slots)；
 2. 添加了分页符功能，通过插入分页符即可直接进入下一页，无需重复敲回车；
@@ -306,7 +390,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 7. 页面设置改为设置完成后统一提交，减少性能损耗；
 8. 其他细节调整。
 
-## 🎉  v4.0.0 <Badge>2024-08-15</Badge>
+## 🎉 v4.0.0 <Badge>2024-08-15</Badge>
 
 > 本次更新前后历经了 200 多次的 Commits 和 Merges，修改内容较多，主要工作围绕分页功能及其适配展开，同时带来了新的打印功能，感谢长的又帅，又会写代码的 [Cassie](https://github.com/Cassielxd) 大佬多个日夜的辛勤付出。
 
@@ -319,13 +403,16 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 5. 修复点击页面大纲时，页面伴随滚动的问题；
 6. 其他细节调整和优化。
 
-## 🚀  v3.1.2 <Badge>2024-08-12</Badge>
+## 🚀 v3.1.2 <Badge>2024-08-12</Badge>
+
 修复 `mammoth.js` 导入错误的问题。
 
-## 🚀  v3.1.1 <Badge>2024-08-10</Badge>
+## 🚀 v3.1.1 <Badge>2024-08-10</Badge>
+
 修复 word 文件导入默认调用自定义方法的问题。
 
-## 🚀  v3.1.0 <Badge>2024-08-10</Badge>
+## 🚀 v3.1.0 <Badge>2024-08-10</Badge>
+
 1. 添加了导入 Word 功能，支持从本地直接导入 Word 文档啦，见[工具栏配置](./options/toolbar)；
 2. 添加了简易的格式刷功能；
 3. 添加了调整节点上下间距的功能；
@@ -336,6 +423,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 8. 修复图片上传进度条一直显示的问题。
 
 ## 🎉 v3.0.0<Badge>2024-08-05</Badge>
+
 1. **[重磅更新]** 添加 AI 文档助手，详见[AI 文档助手](./ai)；
 2. **[重磅更新]** 添加工具栏和气泡菜单插槽，可以通过插槽实现更多自定义功能，详见[插槽列表](./slots)；
 3. **[重磅更新]** 开放了部分 UI 组件，详见[组件列表](./components)；
@@ -356,10 +444,12 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 18. 其他细节调整。
 
 ## 🚀 v2.3.1<Badge>2024-07-22</Badge>
+
 1. `setContent` 方法默认触发更新方法，@qtch [(#24)](https://github.com/umodoc/editor/issues/25)，见[setContent 方法](./methods#setcontent)；
 2. 修复数学公式样式错误 @GhostyCHEN [(#25)](https://github.com/umodoc/editor/issues/25)。
 
 ## 🚀 v2.3.0<Badge>2024-07-22</Badge>
+
 1. 标题栏增加 6 级标题 @shenghui-shan [(#23)](https://github.com/umodoc/editor/issues/23)；
 2. 处理页面高度更新时，.page-content 不存在的问题 @shenghui-shan [(#22)](https://github.com/umodoc/editor/issues/22)；
 3. 文档和打印添加默认行高；
@@ -371,64 +461,73 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 9. 其他细节调整。
 
 ## 🚀 v2.2.0<Badge>2024-07-16</Badge>
+
 1. 增加 `focus` 方法的参数，见[focus 方法](./methods#focus)；
 2. `setContent` 方法提供更多配置项，用以控制设置内容后的行为，见[setContent 方法](./methods#setcontent) @shenghui-shan [(#15)](https://github.com/umodoc/editor/issues/15)；
-3. 修复重新加载组件后，气泡菜单不显示的 Bug  @shenghui-shan [(#12)](https://github.com/umodoc/editor/issues/12)；
+3. 修复重新加载组件后，气泡菜单不显示的 Bug @shenghui-shan [(#12)](https://github.com/umodoc/editor/issues/12)；
 4. 修复改变文字颜色和背景颜色时，选择更多颜色时，选中的文本背景丢失的 Bug @qtch [(#17)](https://github.com/umodoc/editor/issues/13)；
 5. 修复 readonly 为 true 的时候 ，目录大纲跳转定位失效的 Bug @shenghui-shan [(#17)](https://github.com/umodoc/editor/issues/17)；
 6. 更新部分依赖；
 7. Bug 修复和代码优化。
 
-
 ## 🚀 v2.1.0<Badge>2024-07-06</Badge>
+
 添加暗色模式支持，见 https://www.umodoc.com/demo?theme=dark。
 
 ## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
+
 1. 添加多语言支持，目前已支持简体中文和 English，见[`locales`](./options/locales)；
 2. 代码仓库中的目录、文件、代码结构调整和重构；
 3. 提供中英文开发文档和在线示例；
 4. 部分 API 发生变化，主要变更如下：
-    - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见[页面配置](./options/page#pagedefaultorientation)；
-    - 新增 `locale` 和 `translations` 配置，见[自定义本地化语言配置](./options/locales)；
-    - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见[方法列表](./methods#getlocale)；
-    - 新增 `changed:locale` 事件，见[事件列表](./events)。
-    - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见[默认配置](./options/default)；
+   - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见[页面配置](./options/page#pagedefaultorientation)；
+   - 新增 `locale` 和 `translations` 配置，见[自定义本地化语言配置](./options/locales)；
+   - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见[方法列表](./methods#getlocale)；
+   - 新增 `changed:locale` 事件，见[事件列表](./events)。
+   - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见[默认配置](./options/default)；
 5. 更新依赖项；
 6. 修复若干错误和问题；
 7. 优化部分细节。
 
 ## 🚀 v1.4.1 \~ 2 <Badge>2024-06-13</Badge>
+
 添加 `npm` 安装说明等 @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5)。
 
 ## 🚀 v1.4.0<Badge>2024-06-03</Badge>
+
 1. 添加自定义扩展支持，见[`extensions`](./options/extensions)；
 2. 添加自动保存参数，见[`document.autoSave`](./options/document#autosave)；
 3. 修复页面大纲内容过多时显示错乱的 Bug @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2)。
 
 ## 🚀 v1.3.1<Badge>2024-06-02</Badge>
+
 优化块级菜单相关的样式和显示。
 
 ## 🚀 v1.3.0<Badge>2024-06-01</Badge>
+
 1. 添加块级菜单支持；
 2. 修复“增加缩进”和“减少缩进”不起作用的 Bug；
 3. 添加“引用”样式；
 4. 细节调整及优化。
 
-
 ## 🚀 v1.2.2<Badge>2024-05-24</Badge>
+
 1. 打印设置使用本地缓存；
 2. 还原[`cdnUrl`](../options/cdn)的默认值；
 3. 简化菜单按钮配置，提高响应速度；
 4. 更新依赖项；
 
 ## 🚀 v1.2.1<Badge>2024-05-24</Badge>
+
 和 `@umoteam/editor-external` 版本号保持同步。
 
 ## 🚀 v1.2.0<Badge>2024-05-24</Badge>
+
 1. 添加打印设置；
 2. 减小打包体积。
 
 ## 🚀 v1.2.0-beta.0 \~ 1<Badge>2024-05-23</Badge>
+
 1. 更新依赖项；
 2. 添加删除表格、表格行、表格列的确认删除框；
 3. 优化页面大纲，按大纲层级缩进显示；
@@ -438,19 +537,22 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 7. 优化细节。
 
 ## 🚀 v1.1.2<Badge>2024-05-22</Badge>
+
 修复打印页面样式无法加载的 Bug 等。
 
 ## 🚀 v1.1.1<Badge>2024-05-22</Badge>
+
 优化部分细节。
 
 ## 🚀 v1.1.0<Badge>2024-05-22</Badge>
+
 1. 新增文档预览功能；
 2. 新增文档打印功能；
 3. 将 Umo Editor 所依赖的部分第三方模块单独发布成[@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external)包；
 4. 优化部分细节。
 
-
 ## 🚀 v1.0.1 <Badge>2024-05-13</Badge>
+
 Umo Editor 第一个正式版本发布。
 
 ## 🚀 v1.0.0-beta.2 \~ 7 <Badge>2024-05-12</Badge>

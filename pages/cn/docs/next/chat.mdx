@@ -1,7 +1,7 @@
 ---
 target: Umo Editor Next
 keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
-description: Umo Editor 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
 # AI 聊天助手
@@ -28,7 +28,7 @@ AI 聊天助手允许用户与 AI 助手进行实时交互，在文档编辑过�
 
 ## 默认配置
 
-``` js
+```js
 const systemPrompt = `**角色定位**
 你是一个专业文档 AI 助手，具备以下核心能力：
 1. 精准解析用户碎片化需求
@@ -55,7 +55,7 @@ const systemPrompt = `**角色定位**
 请按以下标准生成内容：
 ▢ 格式标准：
    - 严格使用基础Markdown语法，但不能将内容整个返回成代码块
-   - 标题层级不超过### 
+   - 标题层级不超过###
    - 列表项采用标准符号
    - 代码块标注语言类型
 
@@ -75,7 +75,7 @@ const systemPrompt = `**角色定位**
 
 **执行示例**
 [用户需求] "在第三章添加数据可视化注意事项"
-[AI响应] 
+[AI响应]
 1. 定位第三章现有内容
 2. 分析文档中已有的图表规范
 3. 生成符合整体风格的注意事项列表
@@ -144,6 +144,7 @@ const defaultOptions = {
 ## 配置说明
 
 ### ai.chat
+
 AI 聊天助手相关配置，更多信息见[AI 文档助手](../editor/ai)。
 
 - `ai.chat.enabled`，Boolean，是否启用 AI 助手。
@@ -159,20 +160,21 @@ AI 聊天助手相关配置，更多信息见[AI 文档助手](../editor/ai)。
 - `ai.chat.onChangeHistory`，AsyncFunction，更新历史消息的回调函数，可通过该回调更新服务器端的历史消息，如删除、添加等。
 - `ai.chat.models`， Array，AI 助手的模型配置，支持多种模型，请至少配置一项，具体配置项见下表。
 
-| 配置项 | 类型 | 描述 |
-| --- | --- | --- |
-| `isDefault`| Boolean | 是否是默认模型 |
-| `label`| String | 模型名称，在消息列表中显示 |
-| `value` | String | 模型值，传递给的后端的实际值 |
-| `avatar` | URL | 模型头像的 URL，在消息列表中显示|
-| `provider` | URL | AI 服务提供商，即 AI 模型所需要请求的接口地址 |
-| `withToken` | Boolean | 请求时是否在 header 中携带 token |
-| `supportReason` | Boolean | 该模型是否支持推理模式 |
-| `file` | Object | 上传文件配置，支持 `accept`、`multiple`、`maxSize`、`limit` 等属性 |
+| 配置项          | 类型    | 描述                                                               |
+| --------------- | ------- | ------------------------------------------------------------------ |
+| `isDefault`     | Boolean | 是否是默认模型                                                     |
+| `label`         | String  | 模型名称，在消息列表中显示                                         |
+| `value`         | String  | 模型值，传递给的后端的实际值                                       |
+| `avatar`        | URL     | 模型头像的 URL，在消息列表中显示                                   |
+| `provider`      | URL     | AI 服务提供商，即 AI 模型所需要请求的接口地址                      |
+| `withToken`     | Boolean | 请求时是否在 header 中携带 token                                   |
+| `supportReason` | Boolean | 该模型是否支持推理模式                                             |
+| `file`          | Object  | 上传文件配置，支持 `accept`、`multiple`、`maxSize`、`limit` 等属性 |
 
 **示例**：
+
 ```js
-[
+;[
   // DeepSeek
   {
     label: 'DeepSeek-R1',
@@ -218,4 +220,3 @@ AI 聊天助手相关配置，更多信息见[AI 文档助手](../editor/ai)。
 **参数**：无
 
 **返回值**：无
-
