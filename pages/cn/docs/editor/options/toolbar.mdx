@@ -1,6 +1,6 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+keywords: Umo Editor,Tiptap,Tiptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
 description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
@@ -19,7 +19,7 @@ import { Badge } from '/components/badge'
     showSaveLabel: true, // v9.0.0 新增
     defaultMode: 'ribbon',
     // enableSourceEditor: true, // v6.0.0 已移除
-    menus: ['base', 'insert', 'table', 'tools', 'page', 'import', 'export'],
+    menus: ['base', 'insert', 'table', 'tools', 'page', 'view', 'export'],
     // disableMenuItems: [], // toolbar.disableMenuItems 在v8.0.0 已移除，见 disableExtensions 配置
     // importWord: { ... }, // toolbar.importWord 在v8.0.0 已移除，见 importWord 配置
   },
@@ -62,9 +62,9 @@ import { Badge } from '/components/badge'
 
 **类型**：`Array`
 
-**默认值**：`['base', 'insert', 'table', 'tools', 'page', 'export']`
+**默认值**：`['base', 'insert', 'table', 'tools', 'page', 'view', 'export']`
 
-**可选值**：`base`、`insert`、`table`、`tools`、`page`、`export`
+**可选值**：`base`、`insert`、`table`、`tools`、`page`、`view`、`export`
 
 ### toolbar.disableMenuItems
 

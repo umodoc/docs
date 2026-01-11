@@ -6,11 +6,11 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 # 水印与密码
 
-本文介绍如何为文档添加水印以及在加载受保护文档时进行密码校验。
+本文档介绍了如何为文档添加水印，以及在加载受保护文档时进行密码校验。
 
 ## 水印保护
 
-通过 `props.watermark` 可配置文档水印。水印会覆盖在页面画布上，参数如下：
+通过 `props.watermark` 可配置文档水印。水印将覆盖在页面画布上，其参数如下：
 
 - `text`：`String`，水印内容，建议不超过 30 个字符。
 - `columns`：`Number`，水印列数，默认值为 `4`。
@@ -35,16 +35,16 @@ const options = ref({
 
 ## 密码保护
 
-当预览受保护的文档时，插件引导用户输入密码并进行验证：
+当预览受保护文档时，插件会引导用户输入密码并进行验证：
 
-- `needPassword`（Boolean）：强制展示密码输入界面（或在检测到受保护的 PDF 文档时自动进入）。
+- `needPassword`（Boolean）：用于强制展示密码输入界面（或在检测到受保护的 PDF 文档时自动进入）。
 - `onValidatePassword(password: string) => boolean | Promise<boolean>`：用于校验用户输入的密码；返回 `true` 视为通过。
 
 工作流程（简化说明）：
 
-- 文档加载阶段若检测到需要密码，插件会设置 `state.needPassword = true`，并等待用户输入
+- 在文档加载阶段，若检测到需要密码，插件会设置 `state.needPassword = true`，并等待用户输入。
 - 使用配置的 `onValidatePassword` 方法进行密码校验
-- 当校验通过时，库会使用该密码继续加载文档；加载完成后触发 `loaded` 事件
+- 当密码校验通过后，库会使用该密码继续加载文档；加载完成后，将触发 `loaded` 事件。
 
 示例：
 

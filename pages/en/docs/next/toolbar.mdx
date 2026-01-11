@@ -1,6 +1,12 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Toolbar Extensions
 
-Through toolbar extensions, you can add custom menu groups to the toolbar to achieve personalized toolbar configuration. At the same time, you can also link with the [page aside](../aside) and add custom content in the page aside, or manually control the opening and closing of the toolbar.
+Through toolbar extensions, you can add custom menu groups to the toolbar for personalized configuration. You can also integrate with the [page aside](../aside) to add custom content or manually control the toolbar's visibility.
 
 ## Default Configuration
 
@@ -8,6 +14,16 @@ Through toolbar extensions, you can add custom menu groups to the toolbar to ach
 const defaultOptions = {
   // Toolbar extension configuration
   toolbar: {
+    menus: [
+      'base',
+      'insert',
+      'table',
+      'tools',
+      'page',
+      'view',
+      'import',
+      'export',
+    ],
     extensions: [],
   },
 }
@@ -37,13 +53,13 @@ Each item in the array represents a group.
 **Configuration Items**
 
 - `title`：Group display name.
-- `key`：Group unique identifier, is the important basis for slot injection, must be unique and cannot be duplicated with default group identifier. Values such as `base` 、`insert` 、`table` 、`tools` 、`page` 、`export` cannot be set.
+- `key`：Group unique identifier, is the important basis for slot injection, must be unique and cannot be duplicated with default group identifier. Values such as `base`, `insert`, `table`, `tools`, `page`, and `export` cannot be set.
 
-**Slot Configuration Items**
+## Slot Configuration
 
 The slot setting is the same as the standard toolbar slot format, the identifier is `#toolbar_{key}` and is processed based on the `key` value in the extension configuration item.
 
-Other toolbar slot configurations see [Slot List](../slots)。
+Other toolbar slot configurations see [Slot List](../slots).。
 
 **Example**
 

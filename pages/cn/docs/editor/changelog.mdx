@@ -1,6 +1,6 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+keywords: Umo Editor,Tiptap,Tiptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
 description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
@@ -35,7 +35,8 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 
 1. **全面移除 TypeScript 支持**，核心代码统一使用 JavaScript 重构；
 2. 重构了全部 Tiptap 扩展及其相关实现逻辑；
-3. 重构工具栏、菜单系统及多处核心交互逻辑，为后续功能扩展提供更清晰的结构。
+3. 重构工具栏、菜单系统及多处核心交互逻辑，为后续功能扩展提供更清晰的结构；
+4. 升级所有依赖到最新版本。
 
 ---
 
@@ -64,14 +65,12 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 ### 🐛 修复
 
 1. 修复有序列表起始编号设置无效的问题；
-2. Indent 扩展改为使用 `style` 而非 `class` 实现缩进 @tellbom
-   [(#426)](https://github.com/umodoc/editor/issues/426)；
+2. Indent 扩展改为使用 `style` 而非 `class` 实现缩进 @tellbom [(#426)](https://github.com/umodoc/editor/issues/426)；
 3. 修复文本框相关的若干问题；
 4. 修复节点拖拽过程中的异常行为；
 5. 修复「公式」在部分场景下插入后无法显示的问题；
 6. 优化「选项」元素节点的显示样式；
-7. 修复「选项」元素在打印时会独占一行、不符合预期的问题 @cheecheebaishu
-   [(#407)](https://github.com/umodoc/editor/issues/407)。
+7. 修复「选项」元素在打印时会独占一行、不符合预期的问题 @cheecheebaishu [(#407)](https://github.com/umodoc/editor/issues/407)。
 
 ---
 
@@ -81,9 +80,11 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 2. 优化链接、图片等节点的气泡菜单选项；
 3. 可编辑文本的自定义节点默认不再显示多余换行；
 4. 优化文档大纲的展示效果；
-5. 优化文档在预览模式下的整体显示；
+5. 优化文档在预览模式下的整体显示效果；
 6. 优化对编辑器内容变化的监听逻辑，减少页面高度的重复计算；
-7. Mermaid、Plyr 等第三方资源改为通过 CDN 加载，进一步降低打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)。
+7. Mermaid、Plyr 等第三方资源改为通过 CDN 加载，进一步降低打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
+8. 优化块菜单手柄样式；
+9. 大量的细节调整与优化。
 
 ---
 
@@ -91,7 +92,8 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 
 1. 移除 `contentError` 事件；
 2. 出于第三方资源体积控制的考虑，移除 **电子签章** 与 **图片去除背景** 功能 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
-3. 移除文档预览功能，以进一步优化整体打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)。
+3. 移除文档预览功能，以进一步优化整体打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
+4. 移除了部分 `disableExtensions` 的配置项，见:[disableExtensions 配置](./options/extensions)。
 
 ## 🚀 v9.0.1 <Badge>2025-12-05</Badge>
 
@@ -153,7 +155,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 5. 重新封装 [Dialog 组件](./components/dialog)，使其支持 TDialog 的属性、事件、插槽、方法等；
 6. 添加 [`getVanillaHTML`](./methods#getvanillahtml) 方法，用于获取完整的文档原生 HTML 内容；
 7. 打印时不显示换行符和回车符；
-8. 删除 `toolbar.disableMenuItems` 和 `toolbar.importWord` 选项，并增加新的 [`disableExtensions`](./options/extensions#disableextensions) 和 [`importWord`](./options/extensions#importword) 配置项；
+8. 删除 `toolbar.disableMenuItems` 和 `toolbar.importWord` 选项，并增加新的 [`disableExtensions`](./options/extensions#disableextensions) 和 [`importWord` 配置项](./import-word#importword)；
    ；
 9. 修复只读模式时，浮动图片位置异常 @alsdn123123 [#309](https://github.com/umodoc/editor/issues/309)；
 10. 修复在删除或者替换文档内容时，未触发 onFileDelete 方法的问题 @ChenErik [#300](https://github.com/umodoc/editor/issues/300)；
@@ -167,7 +169,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 
 ## 🎉 v7.0.0 <Badge>2025-06-21</Badge>
 
-1. [Umo Editor Next 7.0.0](../next/changelog.mdx) 正式版同步发布 🎉🎉🎉，详见：[Umo Editor Next 基础介绍](../next)；
+1. [Umo Editor Next 7.0.0](../next/changelog) 正式版同步发布 🎉🎉🎉，详见：[Umo Editor Next 基础介绍](../next)；
 2. 增加模态展示时选中效果判断，当 AI 助手焦点在模态输入框时，选中效果仍然存在；
 3. AI 助手替换后自动给替换文本增加选中效果；
 4. 修复模态框通过组件引用时，样式丢失的问题；
@@ -513,7 +515,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 ## 🚀 v1.2.2<Badge>2024-05-24</Badge>
 
 1. 打印设置使用本地缓存；
-2. 还原[`cdnUrl`](../options/cdn)的默认值；
+2. 还原[`cdnUrl`](./options/cdn)的默认值；
 3. 简化菜单按钮配置，提高响应速度；
 4. 更新依赖项；
 

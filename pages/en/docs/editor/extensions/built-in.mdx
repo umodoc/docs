@@ -1,70 +1,88 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Built-in Extension List
 
 This section lists all the built-in Extensions of Umo Editor, including Tiptap official Extensions, Umo Editor extended Extensions, and third-party Extensions used.
 
 ## Tiptap Official Extensions
 
-| Extension Name                    | Description                                                                                             |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| @tiptap/starter-kit               | Basic extension set of Tiptap, including paragraph, heading, emphasis, and other basic editing features |
-| @tiptap/extension-placeholder     | Displays placeholder text in the editor when there is no content, guiding users to input                |
-| @tiptap/extension-focus           | Manages the focus state of the editor                                                                   |
-| @tiptap/extension-font-family     | Allows users to customize the font family of text                                                       |
-| @tiptap/extension-bold            | Adds bold styling to text                                                                               |
-| @tiptap/extension-underline       | Adds underline styling to text                                                                          |
-| @tiptap/extension-subscript       | Supports subscript text formatting                                                                      |
-| @tiptap/extension-superscript     | Supports superscript text formatting                                                                    |
-| @tiptap/extension-color           | Adds color to text                                                                                      |
-| @tiptap/extension-text-style      | Adds HTML tags to text                                                                                  |
-| @tiptap/extension-highlight       | Adds background color to text to highlight important information                                        |
-| @tiptap/extension-task-item       | Creates checkable task list items                                                                       |
-| @tiptap/extension-task-list       | Manages task lists and supports task completion status                                                  |
-| @tiptap/extension-link            | Inserts and edits hyperlinks, supporting URLs and anchor links                                          |
-| @tiptap/extension-table           | Implements table insertion and editing, including row and column operations                             |
-| @tiptap/extension-table-row       | Specifically manages row operations in tables                                                           |
-| @tiptap/extension-typography      | Provides advanced typography features such as quotes and ellipses                                       |
-| @tiptap/extension-character-count | Displays real-time character, word, or text count in the editor                                         |
-| @tiptap/extension-dropcursor      | Enhances user experience with drag-and-drop cursor effects, indicating insertion positions              |
-
-## Tiptap Official Pro Extensions
-
-| Extension Name                             | Description                                   |
-| ------------------------------------------ | --------------------------------------------- |
-| @tiptap-pro/extension-table-of-contents    | Creates a table of contents for the editor    |
-| @tiptap-pro/extension-invisible-characters | Manages invisible characters                  |
-| @tiptap-pro/extension-mathematics          | Inserts and edits LaTeX mathematical formulas |
+| Package Name                           | Description                                                     |
+| -------------------------------------- | --------------------------------------------------------------- |
+| @tiptap/extension-bold                 | Tiptap bold extension                                           |
+| @tiptap/extension-code-block           | Tiptap code block extension                                     |
+| @tiptap/extension-code-block-lowlight  | Tiptap lowlight syntax-highlighted code block extension         |
+| @tiptap/extension-collaboration        | Tiptap collaboration extension                                  |
+| @tiptap/extension-details              | Tiptap details node extension                                   |
+| @tiptap/extension-document             | Tiptap document node extension                                  |
+| @tiptap/extension-drag-handle          | Tiptap drag handle extension                                    |
+| @tiptap/extension-drag-handle-vue-3    | Tiptap Vue3 drag handle extension                               |
+| @tiptap/extension-horizontal-rule      | Tiptap horizontal rule extension                                |
+| @tiptap/extension-image                | Tiptap image extension                                          |
+| @tiptap/extension-invisible-characters | Tiptap invisible characters extension                           |
+| @tiptap/extension-link                 | Tiptap link extension                                           |
+| @tiptap/extension-list                 | Tiptap list extension                                           |
+| @tiptap/extension-mathematics          | Tiptap mathematics/formula extension                            |
+| @tiptap/extension-mention              | Tiptap mention extension                                        |
+| @tiptap/extension-node-range           | Tiptap node range extension                                     |
+| @tiptap/extension-subscript            | Tiptap subscript extension                                      |
+| @tiptap/extension-superscript          | Tiptap superscript extension                                    |
+| @tiptap/extension-table                | Tiptap table extension                                          |
+| @tiptap/extension-table-of-contents    | Tiptap table of contents extension                              |
+| @tiptap/extension-text-align           | Tiptap text alignment extension                                 |
+| @tiptap/extension-text-style           | Tiptap text style extension                                     |
+| @tiptap/extension-typography           | Tiptap typography extension                                     |
+| @tiptap/extension-unique-id            | Tiptap unique node ID extension                                 |
+| @tiptap/extensions                     | Tiptap extensions collection                                    |
+| @tiptap/starter-kit                    | Tiptap starter kit, includes paragraph, heading, emphasis, etc. |
+| @tiptap/suggestion                     | Tiptap suggestion extension                                     |
+| @tiptap/y-tiptap                       | Tiptap Yjs collaboration extension                              |
 
 ## Umo Editor Extended Extensions
 
-All Extension can be found at: https://github.com/umodoc/editor/tree/main/src/components/editor/extensions
+All Extensions can be found at: https://github.com/umodoc/editor/tree/main/src/components/editor/extensions
 
-| Extension Name  | Description                                                                       |
-| --------------- | --------------------------------------------------------------------------------- |
-| font-size       | Allows users to customize the font size of text                                   |
-| bullet-list     | Provides unordered list functionality for creating bullet point lists             |
-| ordered-list    | Supports ordered lists, arranging items in numerical or alphabetical order        |
-| indent          | Implements text or list item indentation to add hierarchy                         |
-| text-align      | Controls text alignment, including left, center, right, and justified alignment   |
-| node-align      | Aligns nodes within the editor, such as images or blocks                          |
-| line-height     | Sets line spacing for text to enhance readability                                 |
-| image           | Inserts, adjusts, and displays image files                                        |
-| video           | Inserts, adjusts, and displays video files, supporting video playback             |
-| audio           | Inserts, adjusts, and displays audio files, supporting playback controls          |
-| file            | Inserts and displays other types of files                                         |
-| code-block      | A code block editing Extension that supports code editing and syntax highlighting |
-| text-box        | Inserts and edits text boxes                                                      |
-| horizontal-rule | Inserts horizontal lines to separate content                                      |
-| iframe          | Supports embedding external web pages or applications via Iframe                  |
-| table-cell      | Edits and formats table cells                                                     |
-| table-header    | Manages table header rows and columns                                             |
-| page-break      | Inserts page breaks in the document                                               |
-| toc             | Automatically generates a document outline table of contents                      |
-| invisible-node  | Displays invisible characters such as line breaks and carriage returns            |
-| selection       | Provides actions for text and node selection                                      |
-| file-handler    | Handles file drag-and-drop and paste logic                                        |
-
-## Third-party Extensions
-
-| Extension Name                              | Description                                                    |
-| ------------------------------------------- | -------------------------------------------------------------- |
-| @sereneinserenade/tiptap-search-and-replace | Searches and replaces specified text within the editor content |
+| Component / Extension Name | Description                            |
+| -------------------------- | -------------------------------------- |
+| Audio                      | Audio node extension                   |
+| Bookmark                   | Bookmark node extension                |
+| BreakMarks                 | Page break marks extension             |
+| Callout                    | Callout / highlight information node   |
+| CodeBlock                  | Code block node extension              |
+| Columns                    | Multi-column layout node extension     |
+| Datetime                   | Datetime node extension                |
+| Echarts                    | Echarts chart node extension           |
+| File                       | File node extension                    |
+| FileHandler                | File handling extension                |
+| FormatPainter              | Format painter node extension          |
+| HorizontalRule             | Horizontal rule node extension         |
+| Iframe                     | Iframe embed node extension            |
+| BlockImage                 | Block image node extension             |
+| InlineImage                | Inline image node extension            |
+| Indent                     | Indent node extension                  |
+| LetterSpacing              | Letter spacing adjustment extension    |
+| LineHeight                 | Line height adjustment extension       |
+| Margin                     | Page margin adjustment extension       |
+| Mention                    | Mention node extension                 |
+| getUsersSuggestion         | User mention suggestion functionality  |
+| NodeAlign                  | Node alignment extension               |
+| NodeSelect                 | Node selection functionality extension |
+| OfficePaste                | Office document paste extension        |
+| OptionBox                  | Option box node extension              |
+| PageBreak                  | Page break node extension              |
+| SearchReplace              | Search & replace extension             |
+| Selection                  | Selection extension                    |
+| Table                      | Table node extension                   |
+| TableCell                  | Table cell extension                   |
+| TableHeader                | Table header cell extension            |
+| TableRow                   | Table row extension                    |
+| Tag                        | Tag node extension                     |
+| TextAlign                  | Text alignment extension               |
+| TextBox                    | Text box node extension                |
+| Toc                        | Table of contents node extension       |
+| TypeWriter                 | Typewriter effect extension            |
+| Video                      | Video node extension                   |
+| WordWrap                   | Word wrap / auto wrap extension        |

@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Badge } from '/components/badge'
 
 # File Upload Configuration
@@ -32,7 +38,7 @@ Used to configure file upload settings, including allowed file types, file size 
 
 **Default Value**: `[]`.
 
-**Optional Values**:
+**Configuration**:
 
 Valid [MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types).
 
@@ -64,7 +70,7 @@ Additionally, if you want to upload files of the same type, you can use `*` to s
 ]
 ```
 
-**Optional Values**:
+**Configuration**:
 
 - `preview[].extensions`: Array of supported file extensions, refer to the default value.
 - `preview[].url`: Preview link, which can be a string or an array of strings. Supports `{url}` and `{{url}}` placeholders, used to replace the uploaded file's URL and encode the URL with `encodeURIComponent`, respectively.

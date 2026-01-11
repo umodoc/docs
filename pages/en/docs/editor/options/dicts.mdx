@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
 
@@ -331,7 +337,7 @@ Used to configure commonly used dictionary-type data, including fonts, colors, l
 
 **Type**: `Array`
 
-**Options**:
+**Configuration**:
 
 - `item.label`: `String` or `Object`, the display name of the font.
 - `item.value`: A valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) value.
@@ -342,7 +348,7 @@ Used to configure commonly used dictionary-type data, including fonts, colors, l
 
 **Type**: `Array`
 
-**Options**: Valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) values.
+**Configuration**: Valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) values.
 
 ### dicts.lineHeights
 
@@ -350,7 +356,7 @@ Used to configure commonly used dictionary-type data, including fonts, colors, l
 
 **Type**: `Array`
 
-**Options**:
+**Configuration**:
 
 - `item.label`: `String` or `Object`, the display name of the line height.
 - `item.value`: A valid [CSS line-height](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height) value.
@@ -361,7 +367,7 @@ Used to configure commonly used dictionary-type data, including fonts, colors, l
 
 **Type**: `Array`
 
-**Options**:
+**Configuration**:
 
 - `item.label`: `String` or `Object`, the group name of the special characters.
 - `item.value`: All special characters under this group.
@@ -376,12 +382,12 @@ Used to configure commonly used dictionary-type data, including fonts, colors, l
 
 **Type**: `Array`
 
-**Options**:
+**Configuration**:
 
 - `item.label`: `String` or `Object`, the group name of the emojis.
 - `item.value`: All emojis under this group, separated by spaces.
 
-**Database Support**: Emojis are essentially Unicode characters with a length of 4 bytes, requiring database support for storage. [How to enable MySQL database support for emojis](https://juejin.cn/post/7106906047670910989). You can also disable emoji insertion through the menu with the following configuration, but this does not prevent users from inserting emojis via copy-paste or input methods.
+**Database Support**: Emojis are essentially Unicode characters with a length of 4 bytes, requiring database support for storage. [How to get emojis in MySQL with utf8mb4]https://juejin.cn/post/7106906047670910989). You can also disable emoji insertion through the menu with the following configuration, but this does not prevent users from inserting emojis via copy-paste or input methods.
 
 <Tabs items={['Global Configuration', 'SFC Configuration']}>
 <Tabs.Tab>
@@ -416,7 +422,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 **Type**: `Array`
 
-**Options**:
+**Configuration**:
 
 - `item.label`: `String` or `Object`, the name of the page size.
 - `item.width`: Page width in centimeters (cm).

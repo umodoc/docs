@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Badge } from '/components/badge'
 
 # Event List
@@ -17,7 +23,7 @@ This section introduces the events of Umo Editor. Events allow you to monitor th
     @changed:transaction="onChangedTransaction"
     @changed:menu="onChangedMenu"
     @changed:toolbar="onChangedToolbar"
-    @changed:page-size="onChangedPageLayout"
+    @changed:page-layout="onChangedPageLayout"
     @changed:page-size="onChangedPageSize"
     @changed:page-orientation="onChangedPageOrientation"
     @changed:page-margin="onChangedPageMargin"
@@ -248,7 +254,7 @@ const onDelete = (content) => {
 
 // Print event hook
 const onPrint = () => {
-  console.log('onPrint', 'Editor gains focus, no available parameters')
+  console.log('onPrint', 'Printing page, no available parameters')
 }
 
 // Focus event hook

@@ -1,3 +1,9 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Method List
 
 In addition to the methods provided in the Umo Editor [Method List](../editor/methods), Umo Editor Next provides the following methods:
@@ -12,9 +18,9 @@ Usage is the same as Umo Editor [Method List](../editor/methods).
 
 **Parameters**:
 
-- `scale`, Number, thumbnail scale ratio, default value is `0.5`.
+- `scale`: `Number`, thumbnail scale ratio, default value is `0.5`.
 
-**Return**: Thumbnail of the document in `Blob` format or directly throws an error.
+**Return Value**: Thumbnail of the document in `Blob` format or directly throws an error.
 
 ### insertMarkdown
 
@@ -25,7 +31,7 @@ Usage is the same as Umo Editor [Method List](../editor/methods).
 - `markdown`: String, Markdown text.
 - `options`: MarkdownIt configuration options, see: https://markdown-it.github.io/markdown-it/#MarkdownIt.new
 
-**Return**: None
+**Return Value**: None
 
 ### getJSONByMarkdown
 
@@ -36,7 +42,7 @@ Usage is the same as Umo Editor [Method List](../editor/methods).
 - `markdown`: String, Markdown text.
 - `exRules`: Object, Markdown extension rules.
 
-**Return**: JSON format data that Umo Editor can recognize or `null`.
+**Return Value**: JSON format data that Umo Editor can recognize or `null`.
 
 ### startTypewriter
 
@@ -48,9 +54,7 @@ Usage is the same as Umo Editor [Method List](../editor/methods).
 - `options`:
   - `speed`: `Number`, interval time for typewriter text input.
   - `step`: `Number`, typewriter step length, the number of characters displayed each time. To ensure the effect, it is recommended not to be too long.
-  - `onComplete`: `function`, callback function after typewriter completion.
-
-**Return**: None.
+    **Return Value**: None.
 
 ### stopTypewriter
 
@@ -58,7 +62,7 @@ Usage is the same as Umo Editor [Method List](../editor/methods).
 
 **Parameters**: None.
 
-**Return**: None.
+**Return Value**: None.
 
 ### getTypewriterState
 
@@ -66,7 +70,7 @@ Usage is the same as Umo Editor [Method List](../editor/methods).
 
 **Parameters**: None.
 
-**Return**:
+**Return Value**:
 
 - `isRunning`: `Boolean` Current running state of the typewriter, `true` indicates it is running, `false` indicates the typewriter has stopped.
 - `currentParagraph`: `Number` The current paragraph position where the typewriter is running.

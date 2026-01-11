@@ -1,3 +1,9 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Document Comments
 
 The document comment feature allows users to add comments within a document, and supports commenting during collaborative editing sessions.
@@ -120,43 +126,43 @@ Comment-related configuration.
   **Default**: `[]`
 
 - `comments.onGetThreads`  
-  **Description**: Callback function triggered when a new thread is created  
+  **Description**: Callback function for creating comment threads.  
   **Type**: `Function`  
-  **Parameters**: `undefined`  
+  **Parameters**: None  
   **Default**: `undefined`
 
 - `comments.onSetThread`  
-  **Description**: Callback function triggered when a new thread is created  
+  **Description**: Callback function for setting comment threads.  
   **Type**: `Function`  
   **Parameters**: `thread` — the newly created thread  
   **Default**: `undefined`
 
 - `comments.onUpdateThread`  
-  **Description**: Callback when a thread is updated  
+  **Description**: Callback function for updating comment threads.  
   **Type**: `Function`  
   **Parameters**: `thread` — the updated thread  
   **Default**: `undefined`
 
 - `comments.onDeleteThread`  
-  **Description**: Callback when a thread is deleted  
+  **Description**: Callback function for deleting comment threads.  
   **Type**: `Function`  
   **Parameters**: `threadId` — the ID of the deleted thread  
   **Default**: `undefined`
 
 - `comments.onCreateComment`  
-  **Description**: Callback when a comment is created  
+  **Description**: Callback function for creating comments.  
   **Type**: `Function`  
   **Parameters**: `comment` — the newly created comment  
   **Default**: `undefined`
 
 - `comments.onUpdateComment`  
-  **Description**: Callback when a comment is updated  
+  **Description**: Callback function for updating comments.  
   **Type**: `Function`  
   **Parameters**: `comment` — the updated comment  
   **Default**: `undefined`
 
 - `comments.onDeleteComment`  
-  **Description**: Callback when a comment is deleted  
+  **Description**: Callback function for deleting comments.  
   **Type**: `Function`  
   **Parameters**: `{ threadId, commentId }` — the thread ID and comment ID of the deleted comment  
   **Default**: `undefined`
@@ -176,7 +182,7 @@ When collaborative editing is enabled, you can also obtain the `provider` via [`
 - `connect`: Boolean — whether connected to the provider
 - `threads`: Array — list of comment threads in the current document
 
-## Theming and Custom Styles
+## Theme Customization
 
 ### CSS Variables
 

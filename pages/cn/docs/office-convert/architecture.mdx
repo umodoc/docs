@@ -6,23 +6,23 @@ description: 将 Office、WPS 等 40 余种办公文档转换为可在线查看�
 
 # 系统架构说明
 
-Umo Office Convert 是一个基于 Node.js 与 Express 构建的文档转换服务，将各类办公文档转换为 [Umo Office Viewer](../office-viewer) 支持查看的格式。系统同时集成 MySQL 用于持久化转换任务信息，并支持跨域访问与 Swagger 接口文档。
+Umo Office Convert 是一个基于 Node.js 和 Express 构建的文档转换服务，它将各类办公文档转换为 [Umo Office Viewer](../office-viewer) 支持的格式。系统集成了 MySQL 以持久化转换任务信息，并支持跨域访问及提供 Swagger 接口文档。
 
 ## 架构组件
 
 - 应用服务：`Express` 提供 HTTP 接口
 - 路由层：`src/routes` 包含基础路由、转换路由、OpenAPI 文档路由
-- 转换引擎：完成 Office 文档到 Umo Office Viewer 所支持文档的转换
+- 转换引擎：完成 Office 文档到 Umo Office Viewer 支持格式的转换
 - 数据库：`MySQL` 存储转换任务（表：`convert_tasks`），可替换成其他数据库，见：[数据库说明](./database)
-- 存储：本地文件系统或网络对象存储
+- 存储：支持本地文件系统或网络对象存储
 - 配置：通过环境变量（`.env`）配置，见：[环境变量](./env)
 - 认证与安全：CORS 白名单、文件大小限制、MIME 类型校验，见：[安全策略与合规说明](./security)
-- 文档：Swagger（在非生产环境挂载 `/openapi`），见：[API 接口文档](./api)
-- 日志：通过环境变量`LOG_DIR` 指定日志目录（PM2 可选）
+- 文档：提供 Swagger 接口文档（在非生产环境挂载 `/openapi`），详见：[API 接口文档](./api)
+- 日志：日志目录通过环境变量 `LOG_DIR` 指定（PM2 可选）
 
 ## 主要数据流
 
-1. 上传或提供文档路径 / URL 存入 `UPLOAD_DIR` 目录（如已配置）
+1. 上传或提供的文档（通过路径/URL）将存入 `UPLOAD_DIR` 目录（如已配置）
 2. 服务为该任务生成 ID，并写入 `convert_tasks` 表（状态变更：uploaded → converted/failed）
 3. 使用文档转换引擎进行文档转换
 4. 结果文件写入 `CONVERTED_DIR` 目录
@@ -53,7 +53,7 @@ Umo Office Convert 是一个基于 Node.js 与 Express 构建的文档转换服�
 
 ## 可观测性
 
-- 标准化日志目录（`LOG_DIR`）与 PM2 日志收集
+- 标准化日志目录（`LOG_DIR`）及 PM2 日志收集
 - 针对关键异常进行记录
 
 ## 安全要点

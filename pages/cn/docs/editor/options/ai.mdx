@@ -1,6 +1,6 @@
 ---
 target: Umo Editor
-keywords: Umo Editor,Tiptap,iptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+keywords: Umo Editor,Tiptap,Tiptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
 description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
@@ -84,7 +84,7 @@ import { Badge } from '/components/badge'
 
 ### ai.assistant.maxlength
 
-**说明**：AI 文档助手最大运行输入的命令长度。
+**说明**：AI 文档助手允许输入的最大命令长度。
 
 **类型**：`Number`
 
@@ -151,7 +151,7 @@ import { Badge } from '/components/badge'
   2. `payload.input`：`String`，用户选择的文本内容。
   3. `payload.command`：`String`，用户输入的指令。
   4. `payload.output`：`String`，AI 文档助手希望得到的内容格式，可能的值：`rich-text`、`text`。
-- `content`：当前文档内容。可以将文档内容传递给 AI 模型，但是注意，过长的文档可能会导致 AI 模型无法处理。如果使用的是商业 AI 模型，过长的 Token 输入，也会导致计费也会剧增。
+- `content`：当前文档内容。可以将文档内容传递给 AI 模型，但是注意，过长的文档可能会导致 AI 模型无法处理。如果使用的是商业 AI 模型，过长的 Token 输入，也会导致计费剧增。
   1. `content.text`：`String`，当前文档的文本内容。
   2. `content.html`：`String`，当前文档的 HTML 内容。
   3. `content.json`：`Object`，当前文档的 JSON 内容。

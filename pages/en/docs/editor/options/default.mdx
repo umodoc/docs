@@ -538,6 +538,7 @@ const defaultOptions = {
   user: {},
   users: [],
   extensions: [],
+  disableExtensions: [],
   translations: {
     en_US: {},
     zh_CN: {},
@@ -561,9 +562,9 @@ Starting from version v2.0.0, the `label` in `dicts` and items like `document.pl
 The configuration options of Umo Editor are mainly divided into the following parts:
 
 - `editorKey`: String, the editor key, used to distinguish different editor instances.
-- `locale`: String, display language, default is Chinese. <Badge theme="success">Added in v2.0.0</Badge>
+- `locale`: String, display language, default is `zh-CN`. <Badge theme="success">Added in v2.0.0</Badge>
 - `theme`: String, theme setting, default is light theme. <Badge theme="success">Added in v2.1.0</Badge>
-- `skin`：String, appearance-related setting. <Badge theme="success">Added in v10.0.0</Badge>
+- `skin`：String, Appearance setting. <Badge theme="success">Added in v10.0.0</Badge>
 - `height`: String, editor height.
 - `fullscreenZIndex`: Number, the z-index of the container in fullscreen mode, used to prevent being covered by other elements, such as when used in a popup layer. <Badge theme="success">Added in v6.0.0</Badge>
 - `dicts`: Object, dictionary configuration, see [Dictionary Configuration](./dicts).
@@ -581,8 +582,8 @@ The configuration options of Umo Editor are mainly divided into the following pa
 - `users`: Array, related user configuration, see [Related User Configuration](./users). <Badge theme="success">Added in v6.0.0</Badge>
 - `file`: Object, file upload configuration, see [File Upload Configuration](./file).
 - `importWord`: Object, Word document import configuration, see [Word Import Configuration](./import-word). <Badge theme="success">Added in v8.0.0</Badge>
-- `extensions`: Array, see [Features and Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
-- `disableExtensions`: Array, see [Features and Extensions](./extensions). <Badge theme="success">Added in v8.0.0</Badge>
+- `extensions`: Array, see [Custom Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
+- `disableExtensions`: Array, see [Custom Extensions](./extensions). <Badge theme="success">Added in v8.0.0</Badge>
 - `translations`: Object, see [Localization Language](./locales). <Badge theme="success">Added in v2.0.0</Badge>
 - `onSave(content, page, document)`: Async Function, document save method, should return a Promise, see [Method Configuration](./methods#onsave).
 - `onFileUpload(file)`: Async Function, file upload method, should return a Promise, see [Method Configuration](./methods#onfileupload).

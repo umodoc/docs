@@ -1,6 +1,6 @@
 export default {
-	index: 'Introduction',
-	api: 'API Documentation',
-	auth: 'Authentication',
-	docker: 'Deployment with Docker',
-};
+  index: 'Introduction',
+  api: 'API Documentation',
+  auth: 'Authentication',
+  docker: 'Deployment with Docker',
+}

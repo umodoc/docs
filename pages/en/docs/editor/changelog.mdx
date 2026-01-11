@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
@@ -34,6 +40,7 @@ Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next
 1. **Completely removed TypeScript support**, refactoring all core code to JavaScript;
 2. Refactored all Tiptap extensions and their related implementations;
 3. Reworked the toolbar, menu system, and multiple core interaction logics to provide a cleaner and more extensible architecture.
+4. Upgraded all dependencies to their latest versions.
 
 ---
 
@@ -78,7 +85,9 @@ Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next
 4. Improved the visual presentation of the document outline;
 5. Improved overall document rendering in preview mode;
 6. Optimized editor content change listeners to reduce unnecessary page height recalculations;
-7. Switched Mermaid, Plyr, and other third-party resources to CDN loading, further reducing bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415).
+7. Switched Mermaid, Plyr, and other third-party resources to CDN loading, further reducing bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);  
+8. Optimized the block menu handle styles;
+9. Numerous minor tweaks and optimizations.
 
 ---
 
@@ -87,6 +96,7 @@ Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next
 1. Removed the `contentError` event;
 2. Removed **Electronic Signature** and **Image Background Removal** features due to third-party resource size considerations [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
 3. Removed the document preview feature to further optimize overall bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415).
+4. Removed some configuration items from `disableExtensions`. See: [disableExtensions configuration](./options/extensions).
 
 ## 🚀 v9.0.1 <Badge>2025-12-05</Badge>
 
@@ -148,7 +158,7 @@ For more information, see: [Umo Viewer Documentation](../viewer).
 5. Refactored [Dialog component](./components/dialog) to support TDialog properties, events, slots, and methods;
 6. Added [`getVanillaHTML`](./methods#getvanillahtml) method to retrieve complete native HTML content;
 7. Removed line breaks and carriage returns from print output;
-8. Removed `toolbar.disableMenuItems` and `toolbar.importWord` options, replaced with new [`disableExtensions`](./options/extensions#disableextensions) and [`importWord`](./options/extensions#importword) configurations;
+8. Removed `toolbar.disableMenuItems` and `toolbar.importWord` options, replaced with new [`disableExtensions`](./options/extensions#disableextensions) and [`importWord`](./options/import-word#importword) configurations;
 9. Fixed floating image position issues in read-only mode @alsdn123123 [#309](https://github.com/umodoc/editor/issues/309);
 10. Fixed onFileDelete method not triggering when deleting or replacing document content @ChenErik [#300](https://github.com/umodoc/editor/issues/300);
 11. Fixed display issues after page zoom;
@@ -211,7 +221,7 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 1. File upload status is not added to the history state management, preventing it from being undone or returned;
 2. Fixed the issue where the size of heading 1 was displayed abnormally @YFLmwh [(#248)](https://github.com/umodoc/editor/issues/248)；
 3. Fixed the issue where the watermark text could not input spaces;
-4. `onCustomImportWordMethod` changed to `toolbar.importWord.onCustomImportMethod`，see[Method List](./options/toolbar)；
+4. `onCustomImportWordMethod` changed to `toolbar.importWord.onCustomImportMethod`，see[Methods List](./methods#oncustomimportmethod)；
 5. Fixed the issue where when printing documents, an extra empty page would be added when the page was not full;
 6. Added throttling and debouncing methods for some frequent operations, improving response efficiency;
 7. Fixed the issue where the page margin markers were displayed abnormally in dark mode, submitted by @Mikasa33 in [(#241)](https://github.com/umodoc/editor/pull/241);
@@ -332,7 +342,7 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 20. Increased loading priority for page extensions.
 21. Fixed issues with default backgrounds not applying to pages.
 22. Optimized word count calculations.
-23. Improved the display of link buttons.
+23. Optimized the display of link buttons.
 24. Fixed missing prompts when resetting the editor.
 25. Corrected document link errors.
 26. Enhanced the source code editor and fixed incorrect language displays.
@@ -343,7 +353,7 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 31. Fixed non-functional ordered and unordered list features.
 32. Added countdown functionality to presentation mode by @BOKE2014 in [(#61)](https://github.com/umodoc/editor/issues/61).
 33. Added preview functionality for file nodes, allowing interconversion between image, video, audio, and file nodes by @BOKE2014 in [(#92)](https://github.com/umodoc/editor/issues/92).
-34. Introduced the [`useEditor`](/methods#useeditor) method to simplify usage compared to [`getEditor`](./methods#geteditor), especially for manual pagination.
+34. Introduced the [`useEditor`](./methods#useeditor) method to simplify usage compared to [`getEditor`](./methods#geteditor), especially for manual pagination.
 35. Optimized block menu displays.
 36. Fixed the `placeholder` extension’s incompatibility with Markdown syntax.
 37. Added Russian language support, contributed by @SerRashin in [(#117)](https://github.com/umodoc/editor/pull/117).
@@ -425,7 +435,7 @@ Fix the issue of custom methods being called by default when importing Word docu
 
 ## 🎉 Version 3.0.0 <Badge>August 5, 2024</Badge>
 
-1. **[Major Update]** Added AI document assistant, see [AI document assistant](./assistant);
+1. **[Major Update]** Added AI document assistant, see [AI document assistant](./ai);
 2. **[Major Update]** Added toolbar and bubble menu slots to enable more customization through slots, see [Slot List](./slots);
 3. **[Major Update]** Opened some UI components, see [Component List](./components);
 4. **[Important Note]** As of v3.0, installation via direct browser inclusion is no longer supported;
@@ -514,7 +524,7 @@ Optimized styles and display related to the block menu.
 ## 🚀 Version 1.2.2 <Badge>May 24, 2024</Badge>
 
 1. Printing settings now use local caching;
-2. Restored the default value of [`cdnUrl`](../options/cdn);
+2. Restored the default value of [`cdnUrl`](./options/cdn);
 3. Simplified menu button configuration to improve response speed;
 4. Updated dependencies.
 
@@ -534,7 +544,7 @@ Synchronized version numbers with `@umoteam/editor-external`.
 3. Optimized the page outline to display with outline levels indented;
 4. Fixed the bug where the insert link dialog did not display the title;
 5. Fixed the bug where the divider bubble menu was displayed incorrectly;
-6. Modified the default value of [`cdnUrl`](../options/cdn);
+6. Modified the default value of [`cdnUrl`](./options/cdn);
 7. Optimized details.
 
 ## 🚀 Version 1.1.2 <Badge>May 22, 2024</Badge>

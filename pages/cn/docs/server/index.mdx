@@ -82,7 +82,7 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 ## 开发说明
 
 - 对于多人协作编辑、文档批注(评论)等场景，Umo Editor Server 提供了详尽的配置和钩子方法，默认采用 SQLite 存储数据（不同文档请使用不同的文档 id），您可以通过 `database`、`redis`、`sqlite`、`webhook` 等扩展和现有业务系统对接或通信，详细说明见代码注释；
-- 您可以将 Umo Editor Server 单独作为一个服务进行部署，通过网关、数据库、HTTP 请求等实现和其他业务系统的对接或通信。Umo Editor Server 目前不包含鉴权的实现（但提供了实现思路和示例代码，见[鉴权说明](./server/auth)），如果有需要，请自行实现；
+- 您可以将 Umo Editor Server 单独作为一个服务进行部署，通过网关、数据库、HTTP 请求等实现和其他业务系统的对接或通信。Umo Editor Server 目前不包含鉴权的实现（但提供了实现思路和示例代码，见[鉴权说明](./auth)），如果有需要，请自行实现；
 - 如果需要二次开发，源代码中提供了大量详尽的注释应该会对您非常有帮助。
 
 ## 部署说明
@@ -94,7 +94,7 @@ WHITE_LIST = 127.0.0.1, 0.0.0.0, localhost, example.com
 
 - [Umo Editor](https://dev.umodoc.com/cn/docs/editor): 基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。
 - [Umo Viewer](https://dev.umodoc.com/cn/docs/viewer): PDF 文档查看器，基于 Vue3 和 PDF.js 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
-- [Umo Editor Next](https://dev.umodoc.com/cn/docs/next): Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增加或者增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+- [Umo Editor Next](https://dev.umodoc.com/cn/docs/next): Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
 - [Umo Editor Server](https://dev.umodoc.com/cn/docs/server): 为增强 Umo Editor 功能，如多用户在线协作编辑、文档批注(评论)、文档导入导出等功能而开发的配套服务器端软件。
 - [Umo Office Viewer](https://dev.umodoc.com/cn/docs/office-viewer): Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 页面中查看包括 WPS 文档在内的 40 余种主流的办公文档。
 - [Umo Office Convert](https://dev.umodoc.com/cn/docs/office-convert): 将 Office、WPS 等 40 余种办公文档转换为可在线查看的文档格式，可与 Umo Office Viewer 结合使用实现办公文档的在线预览。

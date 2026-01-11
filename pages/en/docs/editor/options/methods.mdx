@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Tabs } from 'nextra/components'
 
 # Method Configuration
@@ -21,14 +27,9 @@ This section is used to configure methods for Umo Editor, including document sav
 }
 ```
 
-## Configuration Details
+## Configuration Description
 
 ### onSave
-
-**Description**:  
-Configures the document saving method. When the user saves a document, this method will be called to save it to the server.
-
-**Type**: `AsyncFunction`, `Promise`
 
 **Parameters**:
 
@@ -36,8 +37,8 @@ Configures the document saving method. When the user saves a document, this meth
 - `page`: Page information.
 - `document`: Document metadata.
 
-**Return Value**:  
-Return `true` if the save is successful, otherwise return `false` or throw an error.
+\*\*Return Value`:
+Return `true`if the save is successful, otherwise return`false` or throw an error.
 
 **Example**:
 
@@ -103,16 +104,12 @@ const onSave = async (content, page, document) => {
 
 ### onFileUpload
 
-**Description**:  
-Configures the file upload method. This method is triggered when the user inserts a file, uploading it to the server.
-
+**Description**: Configures the file upload method. This method is triggered when the user inserts a file, uploading it to the server.
 **Type**: `AsyncFunction`, `Promise`
-
 **Parameter**:
 
 - `file`: The `File` object to be uploaded.
-
-**Return Value**:
+  **Return Value**:
 
 - `id`: The file ID returned upon successful upload.
 - `url`: The file URL returned upon successful upload.
@@ -183,11 +180,7 @@ const onFileUpload = async (file) => {
 
 ### onFileDelete
 
-**Description**:  
-Configures the file deletion method. This method is triggered when a user deletes a file, removing it from the server.
-
-**Type**: `Function`
-
+**Description**: Configures the file deletion method. This method is triggered when a user deletes a file, removing it from the server.**Type**: `Function`
 **Parameters**:
 
 - `id`: File ID.

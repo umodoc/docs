@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Tabs } from 'nextra/components'
 import { Badge } from '/components/badge'
 
@@ -41,7 +47,7 @@ Used to configure the display and behavior of the Umo Editor document area and d
 }
 ```
 
-## Configuration Options
+## Configuration Description
 
 ### document.id
 
@@ -157,7 +163,7 @@ For a Tiptap example, see: [https://tiptap.dev/docs/examples/advanced/forced-con
 
 **Default Value**: `{}`
 
-**Options**:
+**Configuration**:
 
 | Name                |                       Description                       | Enabled by Default |
 | :------------------ | :-----------------------------------------------------: | :----------------: |
@@ -219,11 +225,11 @@ import { UmoEditor } from '@umoteam/editor'
 
 ### document.autoSave
 
-**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [`setDocument`](/methods#setdocument). <Badge theme="success">Added in v1.4.0</Badge>
+**Description**: Document auto-save configuration. You can dynamically set or modify this configuration using the [`setDocument`](../methods#setdocument). <Badge theme="success">Added in v1.4.0</Badge>
 
 **Type**: `Object`
 
-**Options**:
+**Configuration**:
 
 - `enabled`: Boolean, whether to enable auto-save. Default value is `true`.
 - `interval`: Number, auto-save interval in milliseconds. Default value is `300000` (5 minutes).
@@ -253,7 +259,7 @@ import { UmoEditor } from '@umoteam/editor'
 
 ### document.parseOptions
 
-**Description**: Defines [ProseMirror](https://prosemirror.net/docs/ref/#view.EditorProps) parsing behavior. When you need to parse a DOM node or a raw text string into ProseMirror's document model, you can use `document.parseOptions` to customize the parsing process. More information: https://prosemirror.net/docs/ref/#model.ParseOptions . <Badge theme="success">Added in v2.3.0</Badge>
+**Description**: Defines [ProseMirror](https://prosemirror.net/docs/ref/#model.ParseOptions) parsing behavior. When you need to parse a DOM node or a raw text string into ProseMirror's document model, you can use `document.parseOptions` to customize the parsing process. More information: https://prosemirror.net/docs/ref/#model.ParseOptions . <Badge theme="success">Added in v2.3.0</Badge>
 
 **Type**: `Object`
 

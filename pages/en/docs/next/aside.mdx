@@ -1,6 +1,12 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Page Aside
 
-Page aside (page aside) essentially is a configurable slot, it allows you to add custom content to it to achieve personalized content display, and can also be linked with the toolbar, see [Toolbar Extensions](./toolbar) for details.
+The page aside (or sidebar) is a configurable slot that allows you to add custom content for personalized display. It can also be linked with the toolbar; see [Toolbar extensions](./toolbar) for details.
 
 [AI Chat Assistant](./chat) is implemented through the page aside, see [AI Chat Assistant](./chat#effect-screenshot) for details.
 
@@ -26,11 +32,11 @@ const defaultOptions = {
 
 ### page.aside.show
 
-**Description**：Page aside display configuration, you can use `openAside`、`closeAside` methods to dynamically display or hide the page aside.
+**Description**：Page aside display configuration. You can use `openAside` and `closeAside` methods to dynamically display or hide the page aside.
 
 **Type**：`Array`
 
-**Configuration Item Example**
+**Configuration Example**
 
 ```js
 aside: {
@@ -40,16 +46,16 @@ aside: {
 
 ### page.aside.extensions
 
-**Description**：Page aside extension configuration, you can dynamically inject personalized page aside through this configuration.
+**Description**：Page aside extension configuration that allows for dynamic injection of personalized page asides.
 
 **Type**：`Array`
 
 **Configuration Items**
 
-- `title`：`String`，custom extension page aside display name.
-- `key`：`String`，custom extension page aside unique identifier, is the important basis for slot injection, must be unique and cannot be duplicated with default group identifier. Values such as chatPage cannot be set.
+- `title`：`String`，display name for the custom extension page aside.
+- `key`：`String`，is the unique identifier for the custom extension page aside, serving as the basis for slot injection. It must be unique and not duplicate default group identifiers (e.g., `chatPage` cannot be set).
 
-**Configuration Item Example**
+**Configuration Example**
 
 ```js
 aside: {
@@ -61,7 +67,7 @@ aside: {
 },
 ```
 
-**Slot Configuration Items**
+## Slot Configuration
 
 The slot setting is the same as the standard toolbar slot format, the identifier is `#page_aside_{key}` and is processed based on the `key` value in the extension configuration item.
 
@@ -116,16 +122,16 @@ const options = ref({
 
 ### openAside
 
-**Description**：Open the page aside panel based on the page aside identifier.
+**Description**：Opens the page aside panel using the provided identifier.
 
-**Parameters**：`extensions[].key`，String，page aside unique identifier.
+**Parameters**：`extensions[].key`，String，the unique identifier for the page aside.
 
 **Return Value**：None
 
 ### closeAside
 
-**Description**：Close the page aside panel based on the page aside identifier.
+**Description**：Closes the page aside panel using the provided identifier.
 
-**Parameters**：`extensions[].key`，String，page aside unique identifier.
+**Parameters**：`extensions[].key`，String，the unique identifier for the page aside.
 
 **Return Value**：None

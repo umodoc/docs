@@ -39,7 +39,7 @@ pm2 logs
 
 见 [Docker 部署](./docker) 。
 
-- 注意：将 MySQL 服务暴露给容器，并确保服务可达（如使用主机网络或容器网络）。
+- 注意：请将 MySQL 服务暴露给容器，并确保服务可达（例如使用主机网络或容器网络）。
 
 ## 数据库准备
 
@@ -61,6 +61,6 @@ pm2 logs
 ## 生产建议
 
 - 使用对象存储（S3/OSS）替代本地磁盘
-- 通过反向代理（Nginx）启用 HTTPS 与限流
+- 通过反向代理（如 Nginx）启用 HTTPS 和限流
 - 配置 `WHITE_LIST` 严格控制跨域来源
-- 调整 `MAX_FILE_SIZE` 与 `FILE_HASH_ALGORITHM` 以适配业务
+- 调整 `MAX_FILE_SIZE` 和 `FILE_HASH_ALGORITHM` 以适应业务需求

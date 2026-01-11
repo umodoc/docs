@@ -6,7 +6,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 # 配置选项
 
-用于配置 Umo Office Viewer 插件的显示和行为。Umo Office Viewer 需要和 [Umo Office Convert](../office-convert) 一起搭配完成文档预览。
+用于配置 Umo Office Viewer 插件的显示和行为。Umo Office Viewer 需与 [Umo Office Convert](../office-convert) 搭配使用以完成文档预览。
 
 ## 默认配置
 
@@ -57,7 +57,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### theme
 
-**说明**：主题模式，`auto` 将根据系统深浅色自动切换。
+**说明**：主题模式。当设置为 `auto` 时，将根据系统深浅色自动切换。
 
 **类型**：`String`
 
@@ -67,7 +67,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### title
 
-**说明**：文档标题，必须包含文件后缀名（如 `.docx`、`.xlsx`、`.pptx` 等）。在标题栏显示，同时用于下载、导出的文件名。
+**说明**：文档标题，必须包含文件后缀名（例如 `.docx`、`.xlsx`、`.pptx` 等）。该标题将在标题栏显示，并同时用作下载和导出的文件名。
 
 **类型**：`String`
 
@@ -95,7 +95,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### showMenu
 
-**说明**：是否显示标题栏菜单（信息、下载、导出、打印、分享等），您可以使用此配置项功能菜单。
+**说明**：是否显示标题栏菜单（如信息、下载、导出、打印、分享等）。您可以使用此配置项来控制功能菜单的显示。
 
 **类型**：`Boolean`
 
@@ -105,7 +105,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### showAside
 
-**说明**：默认是否显示侧边栏（信息、缩略图），可用 `openAside('info'|'thumbs')` 方法动态打开，用户也可手动打开。
+**说明**：默认是否显示侧边栏（如信息、缩略图）。可通过 `openAside('info'|'thumbs')` 方法动态打开，用户也可手动打开。
 
 **类型**：`Boolean`
 
@@ -125,7 +125,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### exportable
 
-**说明**：是否允许用户将预览文档导出为 PDF 文档。
+**说明**：是否允许用户将当前预览文档导出为 PDF 格式。
 
 **类型**：`Boolean`
 
@@ -145,7 +145,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### closeable
 
-**说明**：是否显示关闭按钮，点击将触发 `onClose` 回调与 `closed` 事件，如果在弹框中预览文档，可利用这一选项进行关闭弹框等。
+**说明**：是否显示关闭按钮。点击后将触发 `onClose` 回调和 `closed` 事件，如果在弹框中预览文档，可利用此选项进行关闭弹框等操作。
 
 **类型**：`Boolean`
 
@@ -155,7 +155,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### fileId
 
-**说明**：文件 ID，即任务 ID，配置该项可直接从[Umo Office Convert](../office-convert)服务中获取已转换完成的文件，而不经过转换服务，极大提高加载速度，减少服务器资源消耗。
+**说明**：文件 ID，即任务 ID。配置此项后，可直接从 [Umo Office Convert](../office-convert) 服务中获取已转换完成的文件，无需经过转换服务，从而极大提高加载速度并减少服务器资源消耗。
 
 **类型**：`String`
 
@@ -185,7 +185,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### shareUrl
 
-**说明**：分享链接，配置后菜单中显示"分享"入口，用户可将配置的链接分享给其他用户或者嵌入到其他页面。
+**说明**：分享链接。配置后，菜单中将显示“分享”入口，用户可将此链接分享给其他用户或嵌入到其他页面。
 
 **类型**：`String`
 
@@ -213,7 +213,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### watermark
 
-**说明**：水印设置，您也可以通过 `setWatermark` 方法来动态设置或修改页面水印。更多说明见：[水印与密码](./security)。
+**说明**：水印设置。您也可以通过 `setWatermark` 方法动态设置或修改页面水印。更多详情请参阅：[水印与密码](./security)。
 
 **类型**：`Object`
 
@@ -228,7 +228,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### needPassword
 
-**说明**：是否需要密码才能预览。更多说明见：[水印与密码](./security)。
+**说明**：是否需要密码才能预览。更多详情请参阅：[水印与密码](./security)。
 
 **类型**：`Boolean`
 
@@ -238,7 +238,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### onClose
 
-**说明**：关闭按钮点击时调用的回调函数，在配置了 `closeable` 为 `true` 时，必须配置此选项。
+**说明**：关闭按钮点击时调用的回调函数。当 `closeable` 配置为 `true` 时，此选项为必配项。
 
 **类型**：`Function`
 
@@ -246,7 +246,7 @@ description: Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 
 
 ### onValidatePassword
 
-**说明**：密码校验逻辑回调函数，在配置了 `needPassword` 为 `true` 时，必须配置此选项。更多说明见：[水印与密码](./security)。
+**说明**：密码校验逻辑回调函数。当 `needPassword` 配置为 `true` 时，此选项为必配项。更多详情请参阅：[水印与密码](./security)。
 
 **类型**：`Function`
 

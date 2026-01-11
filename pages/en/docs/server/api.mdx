@@ -1,3 +1,9 @@
+---
+target: Umo Editor Server
+keywords: Umo Editor Next,Umo Editor Server,Umo Editor Backend,Umo Editor Server-side
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # API Documentation
 
 The Umo Editor Server enhances the capabilities of Umo Editor Next through HTTP or WebSocket interfaces. In the development environment, after starting the project, you can access the Swagger documentation at http://127.0.0.1:1235/docs.
@@ -22,19 +28,19 @@ A brief description of the currently provided interfaces is as follows. For more
 
 - `GET | POST /ai/{provider}/{endpoint}`: Dynamically proxies GET and POST requests to different AI service providers (e.g., DeepSeek, OpenAI, Moonshot AI) based on the `provider` and `endpoint` parameters. This can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response. For specific implementation and usage, please refer to the code comments.
 
-## Collaborative and Comments
+## Collaboration and Comments
 
 - `GET /provider`: WebSocket interface, which should be connected via the ws(s):// protocol. Most of the content of this interface is stored and transmitted in binary form. For its configuration and related instructions, please refer to the source code.
 
 ## Template Endpoints
 
-- `GET /template`: List all available templates.
-- `GET /template/:id`: Retrieve detailed information for the template with the specified ID.
-- `POST /template`: Create a new template based on the request body and return the created template details.
-- `PUT /template/:id`: Update the template with the specified ID using the request body and return the updated template details.
-- `DELETE /template/:id`: Delete the template with the specified ID and return the deletion result.
+- `GET /template`: Returns a list of all available templates.
+- `GET /template/:id`: Returns detailed information for the template with the specified ID.
+- `POST /template`: Creates a new template based on the request body and returns the created template details.
+- `PUT /template/:id`: Updates the template with the specified ID using the request body and returns the updated template details.
+- `DELETE /template/:id`: Deletes the template with the specified ID and returns the deletion result.
 
-## Other
+## Icon List
 
 - `GET /icons`: Returns a list of all available icon information.
 

@@ -1,3 +1,9 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Document Export
 
 This feature allows you to export content from Umo Editor as Word, PDF, HTML, image files, and more, while preserving the original formatting. We are actively improving this feature, especially the Word export functionality.
@@ -64,7 +70,7 @@ The exported file is in `docx` format, which can be opened and edited in Microso
   - `id`: `String` Unique identifier for the current image.
   - `src`: `String` Image loading path.
   - `nodeType`: `String` Type of image to retrieve, `image` for images, `echarts` for charts.
-  - `node`: `Tiptap document JSON format` Tiptap node.
+  - `node`: `Tiptap node (JSON format)`.
   - `docxOption.page.backColor`: `String`, Document background color, e.g. `#FFFFFF`.
   - `docxOption.page.orientation`: `String`, Page orientation, `landscape` for horizontal, `portrait` for vertical.
   - `docxOption.page.size.height`: `Number`, Page height in centimeters (`cm`).
@@ -151,7 +157,7 @@ Using the server for image export avoids client-side performance issues and cros
 
 **Parameters:** `{ htmlOptions, exportType, imageOptions, filename, download }`
 
-- `htmlOptions`: `Object`, parameters for generating HTML (optional), see [`exportHTML`](./export-html#exporthtml).
+- `htmlOptions`: `Object`, parameters for generating HTML (optional), see [`exportHTML`](#exporthtml).
 - `exportType`: `String`, image format to export (`jpeg`, `png`, `webp`).
 - `imageOptions`: `Object`, image export options (optional), including:
   - `imageOptions.quality`: `Number`, image quality (0-100, 0 = lowest, 100 = highest, not applicable to `png`).

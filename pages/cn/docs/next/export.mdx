@@ -63,7 +63,7 @@ Umo Editor Server 中，提供了 `/static` 路由，用于返回 Umo Editor Nex
 
 **参数**：`{ content, download, filename, docxOption }`
 
-- `content`：`合法的[Tiptap 文档 JSON 格式]`，默认为当前编辑器的所有内容，您也可以通过修改此项导出部分内容。
+- `content`：合法的[Tiptap 文档 JSON 格式]，默认为当前编辑器的所有内容，您也可以通过修改此项导出部分内容。
 - `download`：`Boolean`，是否下载，默认值为 `true`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 - `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
@@ -71,7 +71,7 @@ Umo Editor Server 中，提供了 `/static` 路由，用于返回 Umo Editor Nex
     - `id`：`String` 标记当前图片的唯一标识。
     - `src`：`String` 图片加载读取路径。
     - `nodeType`：`String` 需要获取的图片类型，`image` 图片、`echarts` 图表。
-    - `node`：Tiptap 文档 JSON 格式` Tiptap 节点。
+    - `node`：`Tiptap 节点 (JSON 格式)`。
   - `docxOption.page.backColor`：`String`，导出文档背景色，如 `#FFFFFF`。
   - `docxOption.page.orientation`：`String`，导出纸张方向，`landscape` 横向、`portrait` 纵向。
   - `docxOption.page.size.height`：`Number`，纸张尺寸中的纸张高度，单位`cm`。
@@ -158,7 +158,7 @@ PDF 导出功能依赖于 Umo Editor Server，您需要确保 Umo Editor Server 
 
 **参数**：`{ htmlOptions, exportType, imageOptions, filename, download }`
 
-- `htmlOptions`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](./export-html#exporthtml)。
+- `htmlOptions`：`Object`，生成 HTML 的参数，可选，见 [`exportHTML`](#exporthtml)。
 - `exportType`：`String`，要导出的图片格式，可选值为 `jpeg`、`png`、`webp`。
 - `imageOptions`：`Object`，导出图片的配置项，可选，包含以下配置项：
   - `imageOptions.quality`：`Number`，图片质量，取值范围为 0 到 100，`0` 表示最低质量，`100` 表示最高质量，对 `png` 格式无效。

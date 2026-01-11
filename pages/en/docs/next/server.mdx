@@ -1,3 +1,9 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 # Server Configuration
 
 Umo Editor Next uses the [Umo Editor Server](../server) as the default backend service. You can deploy your own server to provide the required services, or simply use the official Umo Editor Server.
@@ -19,11 +25,11 @@ const defaultOptions = {
 }
 ```
 
-## Configuration Details
+## Configuration Description
 
 ### server.host
 
-**Description:** The server host address. For local development, if you use the official Umo Editor Server, you can set this to: http://127.0.0.0:1235 .
+**Description:** The server host address. For local development, if you use the official Umo Editor Server, you can set this to: `http://127.0.0.1:1235` .
 
 **Type:** `String`
 
@@ -31,9 +37,7 @@ const defaultOptions = {
 
 ### server.ssl
 
-**Description:** Whether to use HTTPS protocol.
-
-**Type:** `String`
+**Type:** `Boolean`
 
 **Default:** `false`
 

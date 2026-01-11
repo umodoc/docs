@@ -1,3 +1,9 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Rich Text Editor,Document Editor,Document Editing,Collaboration,Open Source Editor
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
 import { Badge } from '/components/badge'
 
 # Page Configuration
@@ -61,7 +67,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Default Value**: `portrait`, prior to version 2.0.0 it was `horizontal`.
 
-**Options**: `portrait` and `landscape`, prior to version 2.0.0 it was `horizontal` and `vertical`.
+**Configuration**: `portrait` and `landscape`, prior to version 2.0.0 it was `horizontal` and `vertical`.
 
 ### page.defaultBackground
 
@@ -71,7 +77,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Default Value**: `#fff`
 
-**Options**: Any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+**Configuration**: Any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
 
 ### page.showBreakMarks
 
@@ -81,7 +87,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Default Value**: `true`
 
-**Options**: `true`, `false`.
+**Configuration**: `true`, `false`.
 
 ### page.showBookmark
 
@@ -91,7 +97,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Default Value**: `false`
 
-**Options**: `true`, `false`.
+**Configuration**: `true`, `false`.
 
 ### page.showLineNumber
 
@@ -101,7 +107,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Default Value**: `false`
 
-**Options**: `true`, `false`.
+**Configuration**: `true`, `false`.
 
 ### page.showToc
 
@@ -111,7 +117,7 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Default Value**: `false`
 
-**Options**: `true`, `false`.
+**Configuration**: `true`, `false`.
 
 ### page.watermark
 
@@ -119,11 +125,11 @@ Used to configure the display and behavior of the Umo Editor page area.
 
 **Type**: `Object`
 
-**Options**:
+**Configuration**:
 
 - `type`: `String`, watermark type, options are: `compact`, `spacious`.
 - `alpha`: `Number`, watermark transparency, options are: 0-1.
-- `fontColor`: `String`, font color, options are: any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+- `fontColor`: `String`, font color, Any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
 - `fontSize`: `Number`, font size, measured in px.
 - `fontFamily`: `String`, font, any valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) value.
 - `fontWeight`: `String`, font weight, options are: `normal`, `bold`, `bolder`.
