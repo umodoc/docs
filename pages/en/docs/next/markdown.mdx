@@ -53,7 +53,7 @@ For other content types, this option can be omitted, as the editor will automati
 
 **Type**: `Object`
 
-* `document.markedOptions.instance`: A Marked instance. You may pass in an externally created instance to enable more flexible and advanced customization.
+* `document.markedOptions.instance`: The Marked instance. You can pass in an externally created Marked instance to take over the internal one, enabling more flexible and advanced customization.
 * `document.markedOptions.xxx`: Any Marked configuration option. For a full list, see the official documentation:
   [https://marked.js.org/using_advanced#options](https://marked.js.org/using_advanced#options)
 
@@ -111,20 +111,28 @@ For other content types, this option can be omitted, as the editor will automati
 **Example**:
 
 ```js
-const markdownManager = editor.getMarkdownManager()
+const manager = editor.getMarkdownManager()
 
 // Convert Markdown to JSON
-const json = markdownManager.parse('# Hello, Umo Editor Next')
+const json = manager.parse('# Hello, Umo Editor Next')
 console.log(json)
 
 // Convert JSON back to Markdown
-const markdown = markdownManager.serialize(json)
+const markdown = manager.serialize(json)
 console.log(markdown)
 
 // Access the Marked instance
-const marked = markdownManager.instance
+const marked = manager.instance
 console.log(marked)
 
+// Render a single node to Markdown
+const markdown = manager.renderNodeToMarkdown(node)
+console.log(markdown)
+
+// Render multiple nodes to Markdown
+const markdown = manager.renderNodes(nodes)
+console.log(markdown)
+
 // Inspect the full MarkdownManager API
-console.log(markdownManager)
+console.log(manager)
 ```

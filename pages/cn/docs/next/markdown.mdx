@@ -52,7 +52,7 @@ const options = {
 
 **类型**：`Object`
 
-* `document.markedOptions.instance`：Marked 实例。可传入外部创建的 Marked 实例，以实现更灵活、更高级的自定义能力。
+* `document.markedOptions.instance`：Marked 实例。可传入外部创建的 Marked 实例，以接管内部的 Marked 实例，从而实现更灵活、更高级的自定义能力。
 * `document.markedOptions.xxx`：Marked 的配置项，详见官方文档：
   [https://marked.js.org/using_advanced#options](https://marked.js.org/using_advanced#options)
 
@@ -101,7 +101,7 @@ const options = {
 
 ### getMarkdownManager
 
-**说明**：获取编辑器内部的 `MarkdownManager` 实例。
+**说明**：获取编辑器内部的 `MarkdownManager` 实例，通过此实例你。
 
 **参数**：无。
 
@@ -110,20 +110,28 @@ const options = {
 **示例**：
 
 ```js
-const markdownManager = editor.getMarkdownManager()
+const manager = editor.getMarkdownManager()
 
 // 将 Markdown 转换为 JSON
-const json = markdownManager.parse('# Hello, Umo Editor Next')
+const json = manager.parse('# Hello, Umo Editor Next')
 console.log(json)
 
 // 将 JSON 转换为 Markdown
-const markdown = markdownManager.serialize(json)
+const markdown = manager.serialize(json)
 console.log(markdown)
 
 // 访问 Marked 实例
-const marked = markdownManager.instance
+const marked = manager.instance
 console.log(marked)
 
+// 将单个节点渲染为 Markdown
+const markdown = manager.renderNodeToMarkdown(node)
+console.log(markdown)
+
+// 将多个节点渲染为 Markdown
+const markdown = manager.renderNodes(nodes)
+console.log(markdown)
+
 // 查看 MarkdownManager 的完整能力
-console.log(markdownManager)
+console.log(manager)
 ```
