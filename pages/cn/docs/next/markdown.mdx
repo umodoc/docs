@@ -1,0 +1,129 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+import { Callout } from 'nextra/components'
+
+# Markdown 增强
+
+Umo Editor Next 自 v10.0 起，对 Markdown 支持进行了系统性的增强，主要包括：
+
+* 支持将文档内容直接设置为 Markdown，或在编辑器中直接插入 Markdown，并能够被正确解析与渲染；
+* 提供设置文档内容为 Markdown、以及在指定位置插入 Markdown 的相关方法；
+* 支持 Markdown 的导入与导出，可从本地导入 Markdown 文档，或将当前文档内容导出为 Markdown 文件；
+* 采用更快、更现代、更轻量的 [Marked](https://marked.js.org) 作为 Markdown 渲染引擎，并支持自定义 Marked 的渲染器与解析行为；
+* 对外暴露内部的 `MarkdownManager` 实例，可用于 Markdown 与文档内容之间的互转，以及自定义 Marked 解析逻辑；
+* 支持在编辑器扩展中集成并扩展 Markdown 能力。
+
+<Callout type="warning" emoji="⚠️">
+
+**注意**：
+自 v10.0 起，Umo Editor Next 已移除 `import.markdown` 配置，统一改为通过 `document.markedOptions` 进行配置；同时移除了 `getJSONByMarkdown` 方法，改为使用 `getMarkdown` 获取 Markdown 内容。
+
+</Callout>
+
+## 默认配置
+
+```js
+const options = {
+  document: {
+    contentType: undefined,
+    markedOptions: {}
+  }
+}
+```
+
+## 配置说明
+
+### document.contentType
+
+**说明**：文档内容类型。如果初始文档内容（即 `document.content`）为 Markdown，则需要将该值设置为 `markdown`，以确保 Markdown 能被正确识别与解析。
+对于其他类型的 `document.content`，该项可以省略，编辑器会自动进行识别。
+
+**类型**：`String`
+
+**可选值**：`json`、`html`、`markdown`
+
+### document.markedOptions
+
+**说明**：[Marked](https://marked.js.org/) 的实例及其配置项。
+
+**类型**：`Object`
+
+* `document.markedOptions.instance`：Marked 实例。可传入外部创建的 Marked 实例，以实现更灵活、更高级的自定义能力。
+* `document.markedOptions.xxx`：Marked 的配置项，详见官方文档：
+  [https://marked.js.org/using_advanced#options](https://marked.js.org/using_advanced#options)
+
+## 方法列表
+
+### setMarkdown
+
+**说明**：将整个文档内容设置为 Markdown。Umo Editor Next 会自动识别并将 Markdown 转换为内部文档结构。
+
+**参数**：
+
+* `String`：要设置的 Markdown 内容。
+
+**返回值**：`Boolean` | `Error`
+
+### insertMarkdown
+
+**说明**：在当前光标位置插入 Markdown 内容，编辑器会自动解析并渲染。
+
+**参数**：
+
+* `markdown`：要插入的 Markdown 内容；
+* `options`：`editor.insertContent` 的相关配置，详见 [insertContent 方法](../editor/methods#insertcontent)。
+
+**返回值**：`Boolean` | `Error`
+
+### insertMarkdownAt
+
+**说明**：在指定位置或范围内插入 Markdown 内容，编辑器会自动解析并渲染。
+
+**参数**：
+
+* `position`：插入位置或范围，例如 `10`，或 `{ from: 12, to: 16 }`；
+* `markdown`：要插入的 Markdown 内容；
+* `options`：`editor.insertContent` 的相关配置，详见 [insertContent 方法](../editor/methods#insertcontent)。
+
+**返回值**：`Boolean` | `Error`
+
+### getMarkdown
+
+**说明**：获取当前文档内容对应的 Markdown 字符串。
+
+**参数**：无。
+
+**返回值**：`String` | `Error`
+
+### getMarkdownManager
+
+**说明**：获取编辑器内部的 `MarkdownManager` 实例。
+
+**参数**：无。
+
+**返回值**：`Object`
+
+**示例**：
+
+```js
+const markdownManager = editor.getMarkdownManager()
+
+// 将 Markdown 转换为 JSON
+const json = markdownManager.parse('# Hello, Umo Editor Next')
+console.log(json)
+
+// 将 JSON 转换为 Markdown
+const markdown = markdownManager.serialize(json)
+console.log(markdown)
+
+// 访问 Marked 实例
+const marked = markdownManager.instance
+console.log(marked)
+
+// 查看 MarkdownManager 的完整能力
+console.log(markdownManager)
+```

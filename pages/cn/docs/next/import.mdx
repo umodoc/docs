@@ -5,6 +5,7 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文�
 ---
 
 import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
 
 # 文档导入
 
@@ -29,7 +30,7 @@ const defaultOptions = {
     office: {
       limitSize: 50, // 50 MB
     },
-    markdown: {},
+    markdown: {}, // v10.0 已移除
     text: {
       replaceEmptyLines: false,
     },
@@ -64,7 +65,11 @@ const defaultOptions = {
 
 ### import.markdown
 
-**说明**：Markdown 文档导入配置项，用于配置 Markdown 文档导入功能。
+**说明**：Markdown 文档导入配置项，用于配置 Markdown 文档导入功能。 <Badge theme="danger">v10.0 移除</Badge>
+
+<Callout type="warning" emoji="⚠️">
+  v10.0 版本已移除该配置，见 [Markdown 增强](./markdown)。
+</Callout>
 
 **类型**：`Object`
 
@@ -111,7 +116,11 @@ const defaultOptions = {
 
 ### importMarkdown
 
-**说明**：导入 Markdown 文档内容。
+**说明**：导入 Markdown 文档内容。 <Badge theme="danger">v10.0 移除</Badge>
+
+<Callout type="warning" emoji="⚠️">
+  v10.0 版本已移除该配置，见 [Markdown 增强](./markdown)。
+</Callout>
 
 **参数**：
 
@@ -129,15 +138,3 @@ const defaultOptions = {
 - `replaceEmptyLines`，Boolean，是否替换空行，默认值使用 `import.text.replaceEmptyLines`。
 
 **返回值**：`Boolean`，是否导入成功。
-
-## Markdown 语法扩展
-
-### 高亮块
-
-使用 `:::` 来标识高亮块的开始和结束。
-
-```
-:::info
-高亮块内容
-:::
-```

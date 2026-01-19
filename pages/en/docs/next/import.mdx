@@ -5,6 +5,7 @@ description: Umo Editor is a localized open-source document editor based on Vue3
 ---
 
 import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
 
 # Document Import
 
@@ -29,7 +30,7 @@ const defaultOptions = {
     office: {
       limitSize: 50, // 50 MB
     },
-    markdown: {},
+    markdown: {}, // Removed in v10.0
     text: {
       replaceEmptyLines: false,
     },
@@ -64,7 +65,9 @@ const defaultOptions = {
 
 ### import.markdown
 
-**Description:** Configuration for importing Markdown documents.
+**Description:** Configuration for importing Markdown documents.  <Badge theme="danger">Removed in v10</Badge>
+
+<Callout type="warning" emoji="⚠️"> This configuration was removed in v10.0. Please refer to <a href="./markdown">Markdown Enhancements</a> for the new Markdown support mechanism. </Callout>
 
 **Type:** `Object`
 
@@ -111,7 +114,9 @@ const defaultOptions = {
 
 ### importMarkdown
 
-**Description:** Import Markdown document content.
+**Description:** Import Markdown document content. <Badge theme="danger">Removed in v10</Badge>
+
+<Callout type="warning" emoji="⚠️"> This configuration was removed in v10.0. Please refer to <a href="./markdown">Markdown Enhancements</a> for the new Markdown support mechanism. </Callout>
 
 **Parameters:**
 
@@ -129,15 +134,3 @@ const defaultOptions = {
 - `replaceEmptyLines`: `Boolean`, whether to replace empty lines, default uses `import.text.replaceEmptyLines`.
 
 **Returns:** `Boolean`, whether the import was successful.
-
-## Markdown Syntax Extension
-
-### Highlight Block
-
-Use `:::` to mark the start and end of a highlight block.
-
-```
-:::info
-Highlight block content
-:::
-```

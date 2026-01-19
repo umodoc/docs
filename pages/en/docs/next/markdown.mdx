@@ -1,0 +1,130 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+import { Callout } from 'nextra/components'
+
+# Markdown Enhancements
+
+Starting from v10.0, **Umo Editor Next** introduces a comprehensive set of enhancements to its Markdown support, including:
+
+* Support for setting the document content directly as Markdown, or inserting Markdown into the editor and rendering it correctly;
+* APIs for setting the document content as Markdown and inserting Markdown at specific positions;
+* Import and export capabilities for Markdown, allowing users to load local Markdown files or export the current document as Markdown;
+* Adoption of the faster, more modern, and lightweight [Marked](https://marked.js.org) library as the Markdown rendering engine, with support for custom renderers and parsing behavior;
+* Exposure of the internal `MarkdownManager` instance, enabling bidirectional conversion between Markdown and document content, as well as advanced customization of the Marked parser;
+* Support for integrating and extending Markdown capabilities within editor extensions.
+
+<Callout type="warning" emoji="⚠️">
+
+**Important**:
+Starting from v10.0, Umo Editor Next has removed the `import.markdown` configuration. All Markdown-related configuration is now unified under `document.markedOptions`.
+At the same time, the `getJSONByMarkdown` method has been deprecated and replaced by `getMarkdown`.
+
+</Callout>
+
+## Default Configuration
+
+```js
+const options = {
+  document: {
+    contentType: undefined,
+    markedOptions: {}
+  }
+}
+```
+
+## Configuration Reference
+
+### document.contentType
+
+**Description**: Specifies the type of the document content. If the initial document content (i.e. `document.content`) is Markdown, this option must be set to `markdown` so that the editor can correctly recognize and parse it.
+For other content types, this option can be omitted, as the editor will automatically detect the content format.
+
+**Type**: `String`
+
+**Allowed values**: `json`, `html`, `markdown`
+
+### document.markedOptions
+
+**Description**: Configuration options and instance for [Marked](https://marked.js.org/).
+
+**Type**: `Object`
+
+* `document.markedOptions.instance`: A Marked instance. You may pass in an externally created instance to enable more flexible and advanced customization.
+* `document.markedOptions.xxx`: Any Marked configuration option. For a full list, see the official documentation:
+  [https://marked.js.org/using_advanced#options](https://marked.js.org/using_advanced#options)
+
+## API Methods
+
+### setMarkdown
+
+**Description**: Replaces the entire document content with the provided Markdown string. Umo Editor Next will automatically parse and convert the Markdown into the internal document structure.
+
+**Parameters**:
+
+* `String`: The Markdown content to set.
+
+**Returns**: `Boolean` | `Error`
+
+### insertMarkdown
+
+**Description**: Inserts Markdown at the current cursor position. The editor will automatically parse and render the content.
+
+**Parameters**:
+
+* `markdown`: The Markdown content to insert;
+* `options`: Additional options passed to `editor.insertContent`. See the [insertContent method](../editor/methods#insertcontent) for details.
+
+**Returns**: `Boolean` | `Error`
+
+### insertMarkdownAt
+
+**Description**: Inserts Markdown at a specific position or range within the document. The content will be parsed and rendered automatically.
+
+**Parameters**:
+
+* `position`: The insertion position or range, for example `10` or `{ from: 12, to: 16 }`;
+* `markdown`: The Markdown content to insert;
+* `options`: Additional options passed to `editor.insertContent`. See the [insertContent method](../editor/methods#insertcontent) for details.
+
+**Returns**: `Boolean` | `Error`
+
+### getMarkdown
+
+**Description**: Returns the current document content as a Markdown string.
+
+**Parameters**: None.
+
+**Returns**: `String` | `Error`
+
+### getMarkdownManager
+
+**Description**: Returns the internal `MarkdownManager` instance used by the editor.
+
+**Parameters**: None.
+
+**Returns**: `Object`
+
+**Example**:
+
+```js
+const markdownManager = editor.getMarkdownManager()
+
+// Convert Markdown to JSON
+const json = markdownManager.parse('# Hello, Umo Editor Next')
+console.log(json)
+
+// Convert JSON back to Markdown
+const markdown = markdownManager.serialize(json)
+console.log(markdown)
+
+// Access the Marked instance
+const marked = markdownManager.instance
+console.log(marked)
+
+// Inspect the full MarkdownManager API
+console.log(markdownManager)
+```

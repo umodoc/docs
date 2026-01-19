@@ -12,6 +12,7 @@ export default {
   comments: 'Comments',
   import: 'Import',
   export: 'Export',
+  markdown: 'Markdown Enhancement',
   table: 'Table Enhancement',
   template: 'Template Management',
   other: 'Other Configurations',

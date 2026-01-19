@@ -12,6 +12,7 @@ export default {
   comments: '文档批注/评论',
   import: '文档导入',
   export: '文档导出',
+  markdown: 'Markdown 增强',
   table: '表格增强',
   template: '模板管理',
   other: '其他配置',
