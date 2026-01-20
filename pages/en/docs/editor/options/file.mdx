@@ -61,7 +61,7 @@ Additionally, if you want to upload files of the same type, you can use `*` to s
 **Default Value**:
 
 ```js
-;[
+[
   { extensions: ['pdf'], url: '{url}' },
   {
     extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
@@ -74,3 +74,16 @@ Additionally, if you want to upload files of the same type, you can use `*` to s
 
 - `preview[].extensions`: Array of supported file extensions, refer to the default value.
 - `preview[].url`: Preview link, which can be a string or an array of strings. Supports `{url}` and `{{url}}` placeholders, used to replace the uploaded file's URL and encode the URL with `encodeURIComponent`, respectively.
+- `preview[].onPreview(file)`: File preview method. If configured, this method will be called first when the user clicks the file preview button, bypassing the preview link. Use this to intercept the internal preview window, typically for custom preview components. <Badge theme="success">Added in v10.0.0</Badge>
+
+  `onPreview(file)` method configuration demo：
+  ```js
+    [
+      { 
+        extensions: ['pdf'], 
+        onPreview(file) {
+          console.log(file)
+        }
+      },
+    ]
+  ```

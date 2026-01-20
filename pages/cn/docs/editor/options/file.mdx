@@ -61,7 +61,7 @@ import { Badge } from '/components/badge'
 **默认值**:
 
 ```js
-;[
+[
   { extensions: ['pdf'], url: '{url}' },
   {
     extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
@@ -74,3 +74,16 @@ import { Badge } from '/components/badge'
 
 - `preview[].extensions`: 支持的文件后缀名数组，参考默认值。
 - `preview[].url`: 预览链接，可以是字符串或字符串数组，支持 `{url}` 和 `{{url}}` 两种占位符，分别用于替换文件上传后的 URL 和对 URL 进行 encodeURIComponent 编码。
+- `preview[].onPreview(file)`: 文件预览方法，如果配置了此方法，则在用户点击文件预览按钮时，会优先调用此方法而忽略预览链接，利用此方法可拦截内部预览窗口，通常用于自定预览组件的场景等。<Badge theme="success">v10.0.0 新增</Badge>
+
+  `onPreview(file)` 配置示例：
+  ```js
+    [
+      { 
+        extensions: ['pdf'], 
+        onPreview(file) {
+          console.log(file)
+        }
+      },
+    ]
+  ```
