@@ -1,0 +1,104 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# AI Auto Completion
+
+AI Auto Completion is a context-aware intelligent suggestion feature that predicts and generates subsequent content in real time as users type.
+Based on the current text and cursor position, it provides continuous writing, smart suggestions, or code completion options, helping users reduce repetitive input and improve editing efficiency and writing fluency.
+
+AI Auto Completion is commonly used in scenarios such as AI writing, intelligent suggestions, code completion, and text enhancement. Currently, AI Auto Completion is only available for text-based nodes.
+
+This feature supports single or multiple completion suggestions. Users can press the Tab key to quickly accept a completion. When multiple candidate suggestions are available, users can use the Up and Down arrow keys to switch between completion items.
+
+## Screenshots
+
+// TODO
+
+## Demo Video
+
+// TODO
+
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  // AI auto completion related configuration
+  ai: {
+    completion: {
+      enabled: false,
+      async onCompletion() {
+        console.log(
+          'Key "ai": Key "completion": Please set the ai.completion.onCompletion method',
+        )
+      },
+      waitTime: 1000,
+      cursorPlaceholder: '⦙',
+    },
+  },
+}
+```
+
+## Configuration Description
+
+### ai.completion.enabled
+
+**Description**: Whether to enable the AI Auto Completion feature.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### ai.completion.onCompletion
+
+**Description**: The core callback function of AI Auto Completion, used to generate completion suggestions based on the current text context.
+
+**Type**: `AsyncFunction`,`Promise`
+
+**Parameters**:
+
+* `text`: The complete text content of the current node, including the current cursor position. It is used to precisely inform the AI of the current cursor location and surrounding context, making it suitable for LLM completion, context analysis, and continuation scenarios. The current cursor position is represented by the placeholder configured in `ai.completion.cursorPlaceholder`.
+* `context`: An object containing cursor context information, including the node in which the cursor is currently located, the absolute cursor position in the entire document, and the offset of the cursor within the parent node (`context.node`).
+
+**Return Value**: A completion result string `String` or an array `String[]`.
+
+**Example**:
+
+```js
+async onCompletion(text) {
+  await new Promise((r) => setTimeout(r, 100))
+
+  const suggestions = [
+    'Suggestion 001',
+    'Suggestion 002',
+    'Suggestion 003',
+    'Suggestion 004',
+  ]
+
+  // Return a single completion suggestion
+  // return suggestions[0]
+
+  // Return multiple completion suggestions
+  const index = text.length % suggestions.length
+  return suggestions.slice(index, index + 3)
+}
+```
+
+### ai.completion.waitTime
+
+**Description**: The debounce time for triggering AI Auto Completion while the user is typing, used to control the request frequency. The unit is milliseconds.
+
+**Type**: `Number`
+
+**Default**: `1000`
+
+### ai.completion.cursorPlaceholder
+
+**Description**: The placeholder string used to indicate the current cursor position during auto completion.
+
+**Type**: `String`
+
+**Default**: `'⦙'`

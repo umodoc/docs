@@ -5,19 +5,72 @@ description: Umo Editor is a localized open-source document editor based on Vue3
 ---
 
 import { Tabs, Callout } from 'nextra/components'
-import { Badge } from '/components/badge'
 
 # AI Document Assistant
 
-Used to configure information related to the AI Document Assistant. For more information, see [AI Document Assistant](../ai). <Badge theme="success">Added in v3.0.0</Badge>
+The AI Document Assistant is an intelligent interaction feature designed for document editing scenarios, aimed at helping users efficiently manage and process document content.
 
-<Callout type="error" emoji="❗">
-  **Note:** The original `assistant` configuration has been changed to
-  `ai.assistant` in version `v6.0.0`. Additionally, the `onAssistant` method has
-  been renamed to `ai.assistant.onMessage`. Please update accordingly.
-</Callout>
+It supports common document operations such as continuation, rewriting, expansion, abbreviation, polishing, proofreading, and translation, based on selected text or surrounding context. Through a configurable command system, it accurately conveys user intentions to AI models and generates results that conform to the current language and formatting requirements.
 
-In the Umo Editor Next version, we provide a more powerful AI Chat Assistant feature. See [Umo Editor Next AI Chat Assistant](../../next/chat#aichat) for details.
+The AI Document Assistant can be seamlessly integrated with various large language models, supports streaming responses and rich-text output, and is suitable for writing assistance, content optimization, and multilingual processing, significantly improving both editing efficiency and content quality.
+
+## Screenshots
+
+// TODO
+
+## Demo Video
+
+// TODO
+
+## Technical Principles
+
+### Process Description
+
+1. The user sends a command to the AI Document Assistant, specifying the action they wish to perform.
+2. The AI Document Assistant then invokes a method named `ai.assistant.onMessage`.
+3. The `ai.assistant.onMessage` method calls the AI model via HTTP or other means.
+4. The AI model processes the request and then returns and displays the result.
+5. The `ai.assistant.onMessage` method returns the result in a readable stream or text format to the AI Document Assistant.
+6. The user selects the results returned by the AI Document Assistant.
+
+### Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User as User
+    participant AIDocAssistant as AI Document Assistant
+    participant onMessage as onMessage Method
+    participant AIModel as AI Model (Backend Service)
+
+    User->>AIDocAssistant: Send command (i.e., what to do)
+    AIDocAssistant->>onMessage: Invoke onMessage method
+    onMessage->>AIModel: Call AI model via HTTP, etc.
+    AIModel-->>onMessage: Return and display result
+    onMessage-->>AIDocAssistant: Return result (Stream or text format)
+    User-->>AIDocAssistant: Select returned results
+```
+
+## Use Cases
+
+The AI Document Assistant can be applied in various scenarios, providing efficient and intelligent document processing services. Here are some common use cases:
+
+1. **Document Translation**: Translating documents from one language to another.
+2. **Document Summarization**: Automatically generating summaries or overviews of document content.
+3. **Content Proofreading**: Checking for grammatical errors, spelling mistakes, etc., in documents.
+4. **Format Conversion**: Converting documents from one format to another, such as from PDF to Word.
+5. **Information Extraction**: Extracting key information from documents, such as names, locations, dates, etc.
+6. **Content Recommendation**: Recommending related documents based on users' historical reading habits.
+7. **Intelligent Writing**: Generating document content that meets the requirements based on user input.
+8. **Data Entry**: Converting data from paper documents or images into electronic format.
+9. **Document Organization**: Assisting users in organizing messy documents to make them orderly.
+10. **Knowledge Management**: Building a knowledge base to help users manage and retrieve information.
+11. **Automated Report Generation**: Automatically generating reports based on data and templates.
+12. **Legal Document Review**: Assisting legal professionals in reviewing contracts and other legal documents.
+13. **Academic Research**: Assisting researchers in literature searches, data organization, and citation management.
+14. **Educational Support**: Assisting teachers and students in organizing course materials and creating study notes.
+15. **Additional Use Cases**: ...
+
+By utilizing the AI Document Assistant, work efficiency can be significantly increased, repetitive labor can be reduced, and users can focus on more creative and strategic tasks.
 
 ## Default Configuration
 
@@ -169,53 +222,53 @@ import { useUmoEditor } from '@umoteam/editor'
 import OpenAI from 'openai'
 
 const onMessage = async (payload, content) => {
-console.log(payload, content)
-const { command, lang, input, output } = payload
-const client = new OpenAI({
-baseURL: '...',
-apiKey: '...',
-dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
-})
-const langs = {
-'en-US': 'English',
-'zh-CN': 'Chinese',
-}
-const options = {
-stream: true,
-model: '...',
-messages: [
-{
-role: 'system',
-content: `You are a document assistant. Based on the user's input text or HTML content and the corresponding operation command, generate document content that meets the requirements. Requirements: 1. If the command does not require translation, return in ${langs[lang]}; otherwise, return in the language specified by the user. 2. Return in ${output === 'rich-text' ? 'rich-text (HTML)' : 'plain text (remove HTML tags)'} format. 3. If you cannot understand the user's command, prepend "[ERROR]: " to the returned content. 4. Do not return any other unnecessary content.`,
-},
-{
-role: 'user',
-content: `Perform the following operation: [${command}].\n${input}`,
-},
-],
-}
-const completion = await client.chat.completions.create(options)
-const stream = new ReadableStream({
-async start(controller) {
-for await (const chunk of completion) {
-controller.enqueue(chunk.choices[0]?.delta?.content || '')
-}
-controller.close()
-},
-})
-return stream
+  console.log(payload, content)
+  const { command, lang, input, output } = payload
+  const client = new OpenAI({
+    baseURL: '...',
+    apiKey: '...',
+    dangerouslyAllowBrowser: true, // Allow using OpenAI SDK in the browser
+  })
+  const langs = {
+    'en-US': 'English',
+    'zh-CN': 'Chinese',
+  }
+  const options = {
+    stream: true,
+    model: '...',
+    messages: [
+      {
+        role: 'system',
+        content: `You are a document assistant. Based on the user's input text or HTML content and the corresponding operation command, generate document content that meets the requirements. Requirements: 1. If the command does not require translation, return in ${langs[lang]}; otherwise, return in the language specified by the user. 2. Return in ${output === 'rich-text' ? 'rich-text (HTML)' : 'plain text (remove HTML tags)'} format. 3. If you cannot understand the user's command, prepend "[ERROR]: " to the returned content. 4. Do not return any other unnecessary content.`,
+      },
+      {
+        role: 'user',
+        content: `Perform the following operation: [${command}].\n${input}`,
+      },
+    ],
+  }
+  const completion = await client.chat.completions.create(options)
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of completion) {
+        controller.enqueue(chunk.choices[0]?.delta?.content || '')
+      }
+      controller.close()
+    },
+  })
+  return stream
 }
 
 const options = {
-ai: {
-assistant: {
-onMessage,
-},
-},
-};
+  ai: {
+    assistant: {
+      enabled: true,
+      onMessage,
+    },
+  },
+}
 
 app.use(useUmoEditor, options)
-
 ````
 </Tabs.Tab>
 <Tabs.Tab>
@@ -271,6 +324,7 @@ const onMessage = async (payload, content) => {
 const options = {
   ai: {
     assistant: {
+      enabled: true,
       onMessage,
     },
   },

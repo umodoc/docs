@@ -336,8 +336,6 @@ const defaultOptions = {
     showSaveLabel: true, // v9.0.0 新增
     defaultMode: 'ribbon',
     menus: ['base', 'insert', 'table', 'tools', 'page', 'view', 'export'],
-    // disableMenuItems: [], // toolbar.disableMenuItems 在 v8.0.0 已移除，见 disableExtensions 配置
-    // importWord: { ... }, // toolbar.importWord 在 v8.0.0 已移除，见 importWord 配置
   },
   page: {
     layouts: ['page', 'web'], // v8.0.0
@@ -390,43 +388,6 @@ const defaultOptions = {
       enabled: true,
       interval: 300000,
     },
-  },
-  ai:{
-    assistant: {
-      enabled: false,
-      maxlength: 100,
-      commands: [
-        {
-          label: { en_US: 'Continuation', zh_CN: '续写' },
-          value: { en_US: 'Continuation', zh_CN: '续写' },
-        },
-        {
-          label: { en_US: 'Rewrite', zh_CN: '重写' },
-          value: { en_US: 'Rewrite', zh_CN: '重写' },
-        },
-        {
-          label: { en_US: 'Abbreviation', zh_CN: '缩写' },
-          value: { en_US: 'Abbreviation', zh_CN: '缩写' },
-        },
-        {
-          label: { en_US: 'Expansion', zh_CN: '扩写' },
-          value: { en_US: 'Expansion', zh_CN: '扩写' },
-        },
-        {
-          label: { en_US: 'Polish', zh_CN: '润色' },
-          value: { en_US: 'Polish', zh_CN: '润色' },
-        },
-        {
-          label: { en_US: 'Proofread', zh_CN: '校阅' },
-          value: { en_US: 'Proofread', zh_CN: '校阅' },
-        },
-        {
-          label: { en_US: 'Translate', zh_CN: '翻译' },
-          value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文' },
-          autoSend: false,
-        },
-      ],
-      async onMessage() {},
   },
   echarts: {
     mode: 1,
@@ -533,13 +494,6 @@ const defaultOptions = {
       },
     ],
   },
-  importWord: {
-    maxSize: 1024 * 1024 * 5, // 5M
-    options: {},
-    useCustomMethod: false,
-    async onCustomImportMethod() {
-    },
-  },
   user: {},
   users: [],
   extensions: [],
@@ -576,7 +530,6 @@ Umo Editor 的配置项主要分为以下几部分：
 - `toolbar`：Object，工具栏配置，详见[工具栏配置](./toolbar)。
 - `page`：Object，页面配置，详见[页面配置](./page)。
 - `document`：Object，文档配置，详见[文档配置](./document)。
-- `ai`：Object，AI 文档助手配置，详见[AI 文档助手](./ai)。<Badge theme="success">v3.0.0 新增</Badge>
 - `echarts`：Object，ECharts 图表配置，详见[ECharts 配置](./echarts)。<Badge theme="success">v6.0.0 新增</Badge>
 - `webPages`：Object，Web 页面配置，详见[Web 页面](./webpages)。<Badge theme="success">v6.0.0 新增</Badge>
 - `templates`：Array，预置的页面模板配置，详见[模板配置](./templates)。
@@ -586,7 +539,6 @@ Umo Editor 的配置项主要分为以下几部分：
 - `user`：Object，当前用户配置，详见[用户配置](./user)。<Badge theme="success">v4.0.0 新增</Badge>
 - `users`：Array，相关用户配置，详见[相关用户配置](./users)。<Badge theme="success">v6.0.0 新增</Badge>
 - `file`：Object，文件上传配置，详见[功能及扩展配置](./file)。
-- `importWord`：Object，Word 文档导入配置，详见[Word 导入配置](./import-word)。<Badge theme="success">v8.0.0 新增</Badge>
 - `extensions`：Array 详见[自定义扩展](./extensions)。 <Badge theme="success">v1.4.0 新增</Badge>
 - `disableExtensions`：Array 详见[功能及扩展配置](./extensions)。 <Badge theme="success">v8.0.0 新增</Badge>
 - `translations`：Object 详见[本地化语言配置](./locales)。 <Badge theme="success">v2.0.0 新增</Badge>
