@@ -330,8 +330,6 @@ const defaultOptions = {
     showSaveLabel: true, // Added in v9.0.0
     defaultMode: 'ribbon',
     menus: ['base', 'insert', 'table', 'tools', 'page', 'view', 'export'],
-    // disableMenuItems: [], // toolbar.disableMenuItems was removed in v8.0.0, see the disableExtensions configuration
-    // importWord: { ... },  // toolbar.importWord was removed in v8.0.0, see the importWord configuration
   },
   page: {
     layouts: ['page', 'web'], // v8.0.0
@@ -383,44 +381,6 @@ const defaultOptions = {
     autoSave: {
       enabled: true,
       interval: 300000,
-    },
-  },
-  ai:{
-    assistant: {
-      enabled: false,
-      maxlength: 100,
-      commands: [
-        {
-          label: { en_US: 'Continuation', zh_CN: '续写' },
-          value: { en_US: 'Continuation', zh_CN: '续写' },
-        },
-        {
-          label: { en_US: 'Rewrite', zh_CN: '重写' },
-          value: { en_US: 'Rewrite', zh_CN: '重写' },
-        },
-        {
-          label: { en_US: 'Abbreviation', zh_CN: '缩写' },
-          value: { en_US: 'Abbreviation', zh_CN: '缩写' },
-        },
-        {
-          label: { en_US: 'Expansion', zh_CN: '扩写' },
-          value: { en_US: 'Expansion', zh_CN: '扩写' },
-        },
-        {
-          label: { en_US: 'Polish', zh_CN: '润色' },
-          value: { en_US: 'Polish', zh_CN: '润色' },
-        },
-        {
-          label: { en_US: 'Proofread', zh_CN: '校阅' },
-          value: { en_US: 'Proofread', zh_CN: '校阅' },
-        },
-        {
-          label: { en_US: 'Translate', zh_CN: '翻译' },
-          value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文' },
-          autoSend: false,
-        },
-      ],
-      async onMessage() {},
     },
   },
   echarts: {
@@ -528,13 +488,6 @@ const defaultOptions = {
       },
     ],
   },
-  importWord: {
-    maxSize: 1024 * 1024 * 5, // 5M
-    options: {},
-    useCustomMethod: false,
-    async onCustomImportMethod() {
-    },
-  },
   user: {},
   users: [],
   extensions: [],
@@ -571,7 +524,6 @@ The configuration options of Umo Editor are mainly divided into the following pa
 - `toolbar`: Object, toolbar configuration, see [Toolbar Configuration](./toolbar).
 - `page`: Object, page configuration, see [Page Configuration](./page).
 - `document`: Object, document configuration, see [Document Configuration](./document).
-- `ai`: Object, AI document assistant configuration, see [AI Document Assistant](./ai). <Badge theme="success">Added in v3.0.0</Badge>
 - `echarts`: Object, ECharts chart configuration, see [ECharts Configuration](./echarts). <Badge theme="success">Added in v6.0.0</Badge>
 - `webPages`: Object, web page configuration, see [Web Pages](./webpages). <Badge theme="success">Added in v6.0.0</Badge>
 - `templates`: Array, preset page template configuration, see [Template Configuration](./templates).
@@ -581,7 +533,6 @@ The configuration options of Umo Editor are mainly divided into the following pa
 - `user`: Object, current user configuration, see [User Configuration](./user). <Badge theme="success">Added in v4.0.0</Badge>
 - `users`: Array, related user configuration, see [Related User Configuration](./users). <Badge theme="success">Added in v6.0.0</Badge>
 - `file`: Object, file upload configuration, see [File Upload Configuration](./file).
-- `importWord`: Object, Word document import configuration, see [Word Import Configuration](./import-word). <Badge theme="success">Added in v8.0.0</Badge>
 - `extensions`: Array, see [Custom Extensions](./extensions). <Badge theme="success">Added in v1.4.0</Badge>
 - `disableExtensions`: Array, see [Custom Extensions](./extensions). <Badge theme="success">Added in v8.0.0</Badge>
 - `translations`: Object, see [Localization Language](./locales). <Badge theme="success">Added in v2.0.0</Badge>

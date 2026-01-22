@@ -1,0 +1,102 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+# AI 自动补全
+
+AI 自动补全是一种基于上下文的智能提示能力，用于在用户输入过程中实时预测并生成后续内容。它能够根据当前文本及光标位置，提供连续写作、智能提示或文本补全建议，帮助用户减少重复输入，提高编辑效率与写作流畅度。
+
+AI 自动补全功能适用于 AI 写作、智能提示、代码补全、文本增强 等场景。目前，AI 自动补全仅适用于文本类节点。
+
+该功能支持单条或多条补全建议，用户可通过 Tab 键快速采纳补全内容；当存在多条候选建议时，可使用上下方向键在不同补全项之间切换。
+
+## 效果截图
+
+// TODO
+
+## 演示视频
+
+// TODO
+
+## 配置项示例
+
+```js
+const defaultOptions = {
+  // AI 自动补全相关配置
+  ai: {
+    completion: {
+      enabled: false,
+      async onCompletion() {
+        console.log(
+          'Key "ai": Key "completion": Please set the ai.completion.onCompletion method',
+        )
+      },
+      waitTime: 1000,
+      cursorPlaceholder: '⦙',
+    },
+  },
+}
+```
+
+## 配置项说明
+
+### ai.completion.enabled
+
+**说明**：是否启用 AI 自动补全功能。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### ai.completion.onCompletion
+
+**说明**：AI 自动补全的核心回调函数，用于根据当前文本上下文生成补全建议。
+
+**类型**：`AsyncFunction`,`Promise`
+
+**参数**：
+
+- `text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 自动补全的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.completion.cursorPlaceholder` 中配置的占位符表示。
+- `context`：光标上下文信息对象，包含当前当前光标所在节点信息，光标在整个文档中的绝对位置，光标在父节点（context.node）中的偏移量等。
+
+**返回值**：自动补全的结果字符串 `String` 或数组 `String[]`。
+
+**示例**：
+
+```js
+async onCompletion(text) {
+  await new Promise((r) => setTimeout(r, 100))
+
+  const suggestions = [
+    '候选建议001',
+    '候选建议002',
+    '候选建议003',
+    '候选建议004',
+  ]
+
+  // 返回单条补全建议
+  // return suggestions[0]
+
+  // 返回多条补全建议
+  const index = text.length % suggestions.length
+  return suggestions.slice(index, index + 3)
+}
+```
+
+### ai.completion.waitTime
+
+**说明**：用户输入时触发 AI 自动补全的防抖时间，用于控制补全请求的触发频率，单位为毫秒。
+
+**类型**：`Number`
+
+**默认值**：`1000`
+
+### ai.completion.cursorPlaceholder
+
+**说明**：用于标识当前光标位置的占位符字符串。
+
+**类型**：`String`
+
+**默认值**：`'⦙'`

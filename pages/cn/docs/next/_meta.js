@@ -7,7 +7,7 @@ export default {
   server: '服务配置',
   toolbar: '工具栏扩展',
   aside: '页面侧边栏',
-  chat: 'AI 聊天助手',
+  ai: 'AI 助手',
   collaboration: '多人协作编辑',
   comments: '文档批注/评论',
   import: '文档导入',

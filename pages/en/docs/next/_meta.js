@@ -7,7 +7,7 @@ export default {
   server: 'Server Configuration',
   toolbar: 'Toolbar Extensions',
   aside: 'Page Aside',
-  chat: 'AI Chat Assistant',
+  ai: 'AI Assistant',
   collaboration: 'Collaborative',
   comments: 'Comments',
   import: 'Import',

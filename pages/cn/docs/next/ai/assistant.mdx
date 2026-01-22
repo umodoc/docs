@@ -9,15 +9,69 @@ import { Badge } from '/components/badge'
 
 # AI 文档助手
 
-用于配置 AI 文档助手的相关信息，更多信息见[AI 文档助手](../ai)。<Badge theme="success">v3.0.0 新增</Badge>
+AI 文档助手是一种面向文档编辑场景的智能交互能力，旨在帮助用户高效处理文档内容。
 
-<Callout type="error" emoji="❗">
-  **注意：** 原 `assistant` 配置在 `v6.0.0` 版本中已被更改为
-  `ai.assistant`，同时，`onAssistant` 方法改为
-  `ai.assistant.onMessage`，请及时调整。
-</Callout>
+它支持基于选中文本或上下文执行续写、重写、扩写、缩写、润色、校阅、翻译等常见文档操作，并通过可配置的指令体系，将用户意图精准传递给 AI 模型，生成符合当前语言和格式要求的结果。
 
-在 Umo Editor Next 版本中，我们提供了更为强大的 AI 聊天助手功能，详见[Umo Editor Next 配置项](../../next/chat#aichat)。
+AI 文档助手可与多种大模型无缝集成，支持流式返回与富文本输出，适用于写作辅助、内容优化、多语言处理等场景，显著提升文档编辑效率与内容质量。
+
+## 效果截图
+
+// TODO
+
+## 演示视频
+
+// TODO
+
+## 技术原理
+
+### 流程说明
+
+1. 用户向 AI 文档助手发送指令，说明想要执行的操作；
+2. AI 文档助手随后调用名为 ai.assistant.onMessage 的方法；
+3. ai.assistant.onMessage 方法通过 HTTP 或其他方式向 AI 模型发起调用；
+4. AI 模型处理请求，然后返回并显示结果；
+5. ai.assistant.onMessage 方法将结果以可读流或文本格式返回给 AI 文档助手；
+6. 用户对AI 文档助手返回的结果进行选择。
+
+### 流程序列图
+
+```mermaid
+sequenceDiagram
+    participant User as 用户
+    participant AIDocAssistant as AI 文档助手
+    participant onMessage as onMessage 方法
+    participant AIModel as AI 模型 (后端服务)
+
+    User->>AIDocAssistant: 发送指令 (即要干什么)
+    AIDocAssistant->>onMessage: 调用 onMessage 方法
+    onMessage->>AIModel: 通过HTTP等方式调用AI模型
+    AIModel-->>onMessage: 返回并显示结果
+    onMessage-->>AIDocAssistant: 返回结果 (Stream或文本格式)
+    User-->>AIDocAssistant: 对返回结果进行选择
+```
+
+## 使用场景
+
+AI 文档助手可以应用于多种场景，提供高效、智能的文档处理服务。以下是一些常见的使用场景：
+
+1. **文档翻译**：将文档从一种语言翻译成另一种语言。
+2. **文档摘要**：自动生成文档内容的摘要或概述。
+3. **内容校对**：检查文档中的语法错误、拼写错误等。
+4. **格式转换**：将文档从一种格式转换为另一种格式，如PDF转Word。
+5. **信息提取**：从文档中提取关键信息，如人名、地点、日期等。
+6. **内容推荐**：根据用户的历史阅读习惯推荐相关文档。
+7. **智能写作**：根据用户的输入，生成符合要求的文档内容。
+8. **数据录入**：将纸质文档或图片中的数据转换为电子格式。
+9. **文档整理**：帮助用户整理杂乱无章的文档，使其有序。
+10. **知识管理**：构建知识库，帮助用户管理和检索信息。
+11. **自动化报告生成**：根据数据和模板自动生成报告。
+12. **法律文档审查**：帮助法律专业人士审查合同和其他法律文件。
+13. **学术研究**：辅助研究人员进行文献搜索、资料整理和引用管理。
+14. **教育辅助**：帮助教师和学生进行课程资料的整理和学习笔记的制作。
+15. **更多使用场景**：...
+
+通过 AI 文档助手，可以大大提高工作效率，减少重复性劳动，让用户能够专注于更有创造性和战略性的任务。
 
 ## 默认配置
 
@@ -140,7 +194,7 @@ import { Badge } from '/components/badge'
 
 ### ai.assistant.onMessage
 
-**说明**：配置 AI 文档助手返回数据的方法，更多信息见[AI 文档助手](../ai)。
+**说明**：配置 AI 文档助手返回数据的方法。
 
 **类型**：`AsyncFunction`、 `Promise`。
 
@@ -169,53 +223,53 @@ import { useUmoEditor } from '@umoteam/editor'
 import OpenAI from 'openai'
 
 const onMessage = async (payload, content) => {
-console.log(payload, content)
-const { command, lang, input, output } = payload
-const client = new OpenAI({
-baseURL: '...',
-apiKey: '...',
-dangerouslyAllowBrowser: true, // 允许在浏览器中使用 OpenAI SDK
-})
-const langs = {
-'en-US': '英文',
-'zh-CN': '中文',
-}
-const options = {
-stream: true,
-model: '...',
-messages: [
-{
-role: 'system',
-content: `你是一个文档助手，根据用户输入的文本或者HTML内容，以及对应操作指令，生成符合要求的文档内容。要求如下：1.如果指令不是要求翻译内容，请使用${langs[lang]}返回，否则按用户要求翻译的语言返回；2.返回${output === 'rich-text' ? '富文本（HTML）' : '纯文本（剔除内容中的HTML标记）'}格式；3.如果用户输入的指令你不能理解，在返回的内容前加上“[ERROR]: ”，4.除此之外不返回任何其他多余的内容。`,
-},
-{
-role: 'user',
-content: `对以下内容进行：【${command}】操作。\n${input}`,
-},
-],
-}
-const completion = await client.chat.completions.create(options)
-const stream = new ReadableStream({
-async start(controller) {
-for await (const chunk of completion) {
-controller.enqueue(chunk.choices[0]?.delta?.content || '')
-}
-controller.close()
-},
-})
-return stream
+  console.log(payload, content)
+  const { command, lang, input, output } = payload
+  const client = new OpenAI({
+    baseURL: '...',
+    apiKey: '...',
+    dangerouslyAllowBrowser: true, // 允许在浏览器中使用 OpenAI SDK
+  })
+  const langs = {
+    'en-US': '英文',
+    'zh-CN': '中文',
+  }
+  const options = {
+    stream: true,
+    model: '...',
+    messages: [
+      {
+        role: 'system',
+        content: `你是一个文档助手，根据用户输入的文本或者HTML内容，以及对应操作指令，生成符合要求的文档内容。要求如下：1.如果指令不是要求翻译内容，请使用${langs[lang]}返回，否则按用户要求翻译的语言返回；2.返回${output === 'rich-text' ? '富文本（HTML）' : '纯文本（剔除内容中的HTML标记）'}格式；3.如果用户输入的指令你不能理解，在返回的内容前加上“[ERROR]: ”，4.除此之外不返回任何其他多余的内容。`,
+      },
+      {
+        role: 'user',
+        content: `对以下内容进行：【${command}】操作。\n${input}`,
+      },
+    ],
+  }
+  const completion = await client.chat.completions.create(options)
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of completion) {
+        controller.enqueue(chunk.choices[0]?.delta?.content || '')
+      }
+      controller.close()
+    },
+  })
+  return stream
 }
 
 const options = {
-ai: {
-assistant: {
-onMessage,
-},
-},
-};
+  ai: {
+    assistant: {
+      enabled: true,
+      onMessage,
+    },
+  },
+}
 
 app.use(useUmoEditor, options)
-
 ````
 </Tabs.Tab>
 <Tabs.Tab>
@@ -271,6 +325,7 @@ const onMessage = async (payload, content) => {
 const options = {
   ai: {
     assistant: {
+      enabled: true,
       onMessage,
     },
   },
