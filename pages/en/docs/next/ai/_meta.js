@@ -1,5 +1,5 @@
 export default {
-  completion: 'AI Auto Completion',
+  suggestion: 'AI Suggestion',
   assistant: 'AI Document Assistant',
   chat: 'AI Chat Assistant',
 }
