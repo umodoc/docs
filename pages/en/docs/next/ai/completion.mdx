@@ -60,8 +60,9 @@ const defaultOptions = {
 
 **Parameters**:
 
-* `text`: The complete text content of the current node, including the current cursor position. It is used to precisely inform the AI of the current cursor location and surrounding context, making it suitable for LLM completion, context analysis, and continuation scenarios. The current cursor position is represented by the placeholder configured in `ai.completion.cursorPlaceholder`.
-* `context`: An object containing cursor context information, including the node in which the cursor is currently located, the absolute cursor position in the entire document, and the offset of the cursor within the parent node (`context.node`).
+* `params.text`: The complete text content of the current node, including the current cursor position. It is used to precisely inform the AI of the current cursor location and surrounding context, making it suitable for LLM completion, context analysis, and continuation scenarios. The current cursor position is represented by the placeholder configured in `ai.cursorPlaceholder`.
+- `params.node`: The Markdown content of the current node.
+- `params.document`: The Markdown content of the document.
 
 **Return Value**: A completion result string `String` or an array `String[]`.
 
@@ -94,11 +95,3 @@ async onCompletion(text) {
 **Type**: `Number`
 
 **Default**: `1000`
-
-### ai.completion.cursorPlaceholder
-
-**Description**: The placeholder string used to indicate the current cursor position during auto completion.
-
-**Type**: `String`
-
-**Default**: `'⦙'`

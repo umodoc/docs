@@ -58,8 +58,9 @@ const defaultOptions = {
 
 **参数**：
 
-- `text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 自动补全的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.completion.cursorPlaceholder` 中配置的占位符表示。
-- `context`：光标上下文信息对象，包含当前当前光标所在节点信息，光标在整个文档中的绝对位置，光标在父节点（context.node）中的偏移量等。
+- `params.text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 自动补全的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.cursorPlaceholder` 中配置的占位符表示。
+- `params.node`：当前节点的 Markdown 内容。
+- `params.document`：整个文档的 Markdown 内容。
 
 **返回值**：自动补全的结果字符串 `String` 或数组 `String[]`。
 
@@ -92,11 +93,3 @@ async onCompletion(text) {
 **类型**：`Number`
 
 **默认值**：`1000`
-
-### ai.completion.cursorPlaceholder
-
-**说明**：用于标识当前光标位置的占位符字符串。
-
-**类型**：`String`
-
-**默认值**：`'⦙'`
