@@ -21,7 +21,6 @@ This feature supports single or multiple suggestion suggestions. Users can press
 
 // TODO
 
-
 ## Default Configuration
 
 ```js
@@ -32,11 +31,11 @@ const defaultOptions = {
       enabled: false,
       async onSuggestion() {
         console.log(
-          'Key "ai": Key "suggestion": Please set the ai.suggestion.onSuggestion method',
+          'Key "ai": Key "suggestion": Please set the ai.suggestion.onSuggestion method'
         )
       },
       waitTime: 1000,
-      cursorPlaceholder: '⦙',
+      cursorMarkder: '⦙',
     },
   },
 }
@@ -60,9 +59,10 @@ const defaultOptions = {
 
 **Parameters**:
 
-* `params.text`: The complete text content of the current node, including the current cursor position. It is used to precisely inform the AI of the current cursor location and surrounding context, making it suitable for LLM suggestion, context analysis, and continuation scenarios. The current cursor position is represented by the placeholder configured in `ai.cursorPlaceholder`.
-- `params.node`: The Markdown content of the current node.
-- `params.document`: The Markdown content of the document.
+- `params.text`: The complete text content of the current node, including the current cursor position. It is used to precisely inform the AI of the current cursor location and surrounding context, making it suitable for LLM suggestion, context analysis, and continuation scenarios. The current cursor position is represented by the placeholder configured in `ai.cursorMarkder`.
+
+* `params.node`: The Markdown content of the current node.
+* `params.document`: The Markdown content of the document.
 
 **Return Value**: A suggestion result string `String` or an array `String[]`.
 

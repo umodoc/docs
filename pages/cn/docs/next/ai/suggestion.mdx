@@ -30,11 +30,11 @@ const defaultOptions = {
       enabled: false,
       async onSuggestion() {
         console.log(
-          'Key "ai": Key "suggestion": Please set the ai.suggestion.onSuggestion method',
+          'Key "ai": Key "suggestion": Please set the ai.suggestion.onSuggestion method'
         )
       },
       waitTime: 1000,
-      cursorPlaceholder: '⦙',
+      cursorMarkder: '⦙',
     },
   },
 }
@@ -58,7 +58,7 @@ const defaultOptions = {
 
 **参数**：
 
-- `params.text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 建议的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.cursorPlaceholder` 中配置的占位符表示。
+- `params.text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 建议的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.cursorMarkder` 中配置的占位符表示。
 - `params.node`：当前节点的 Markdown 内容。
 - `params.document`：整个文档的 Markdown 内容。
 
