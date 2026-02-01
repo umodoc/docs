@@ -4,11 +4,11 @@ keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,�
 description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
 ---
 
-# AI 建议
+# AI 智能建议
 
-AI 建议是一种基于上下文的智能提示能力，用于在用户输入过程中实时预测并生成后续内容。它能够根据当前文本及光标位置，提供连续写作、智能提示或文本补全建议，帮助用户减少重复输入，提高编辑效率与写作流畅度。
+AI 智能建议是一种基于上下文的智能提示能力，用于在用户输入过程中实时预测并生成后续内容。它能够根据当前文本及光标位置，提供连续写作、智能提示或文本补全建议，帮助用户减少重复输入，提高编辑效率与写作流畅度。
 
-AI 建议功能适用于 AI 写作、智能提示、代码补全、文本增强等场景。目前，AI 建议仅适用于文本类节点。
+AI 智能建议功能适用于 AI 写作、智能提示、代码补全、文本增强等场景。目前，AI 智能建议仅适用于文本类节点。
 
 该功能支持单条或多条补全建议，用户可通过 Tab 键快速采纳补全内容；当存在多条候选建议时，可使用上下方向键在不同补全项之间切换。
 
@@ -24,7 +24,7 @@ AI 建议功能适用于 AI 写作、智能提示、代码补全、文本增强�
 
 ```js
 const defaultOptions = {
-  // AI 建议相关配置
+  // AI 智能建议相关配置
   ai: {
     suggestion: {
       enabled: false,
@@ -34,7 +34,6 @@ const defaultOptions = {
         )
       },
       waitTime: 1000,
-      cursorMarkder: '⦙',
     },
   },
 }
@@ -44,7 +43,7 @@ const defaultOptions = {
 
 ### ai.suggestion.enabled
 
-**说明**：是否启用 AI 建议功能。
+**说明**：是否启用 AI 智能建议功能。
 
 **类型**：`Boolean`
 
@@ -52,15 +51,15 @@ const defaultOptions = {
 
 ### ai.suggestion.onSuggestion
 
-**说明**：AI 建议的核心回调函数，用于根据当前文本上下文生成补全建议。
+**说明**：AI 智能建议的核心回调函数，用于根据当前文本上下文生成补全建议。
 
 **类型**：`AsyncFunction`,`Promise`
 
 **参数**：
 
-- `params.text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 建议的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.cursorMarkder` 中配置的占位符表示。
+- `params.text`：当前节点完整的整文本内容，包含当前光标位置，用于精确告知 AI 智能建议的当前光标位置和上下文内容，适合LLM 补全、上下文分析、续写判断等。当前光标位置用 `ai.cursorMarkder` 中配置的占位符表示。
 - `params.node`：当前节点的 Markdown 内容。
-- `params.document`：整个文档的 Markdown 内容。
+- `params.document`：整个文档的 Markdown 内容，包含当前光标位置，当前光标位置用 `ai.cursorMarkder` 中配置的占位符表示。
 
 **返回值**：建议的结果字符串 `String` 或数组 `String[]`。
 
@@ -88,7 +87,7 @@ async onSuggestion(text) {
 
 ### ai.suggestion.waitTime
 
-**说明**：用户输入时触发 AI 建议的防抖时间，用于控制补全请求的触发频率，单位为毫秒。
+**说明**：用户输入时触发 AI 智能建议的防抖时间，用于控制补全请求的触发频率，单位为毫秒。
 
 **类型**：`Number`
 
@@ -100,7 +99,7 @@ async onSuggestion(text) {
 
 ### enableAiSuggestion
 
-**说明**：在编辑器已就绪且启用 AI 建议（`ai.suggestion.enabled` 为 `true`）的情况下，开启 AI 建议功能。
+**说明**：在编辑器已就绪且启用 AI 智能建议（`ai.suggestion.enabled` 为 `true`）的情况下，开启 AI 智能建议功能。
 
 **参数**：无
 
@@ -108,7 +107,7 @@ async onSuggestion(text) {
 
 ### disableAiSuggestion
 
-**说明**：在编辑器已就绪且启用 AI 建议（`ai.suggestion.enabled` 为 `true`）的情况下，关闭 AI 建议功能。
+**说明**：在编辑器已就绪且启用 AI 智能建议（`ai.suggestion.enabled` 为 `true`）的情况下，关闭 AI 智能建议功能。
 
 **参数**：无
 
@@ -116,7 +115,7 @@ async onSuggestion(text) {
 
 ### toggleAiSuggestion
 
-**说明**：在编辑器已就绪且启用 AI 建议（`ai.suggestion.enabled` 为 `true`）的情况下，切换 AI 建议功能的开启和关闭状态。
+**说明**：在编辑器已就绪且启用 AI 智能建议（`ai.suggestion.enabled` 为 `true`）的情况下，切换 AI 智能建议功能的开启和关闭状态。
 
 **参数**：无
 

@@ -26,6 +26,11 @@ body {
   height: 76px;
   color: #999;
 }
+.nextra-sidebar-container {
+  li._my-4 {
+    margin: 5px 0;
+  }
+}
 .nextra-search-results {
   border-radius: 5px !important;
 }
@@ -91,20 +96,23 @@ body {
 .nextra-code button {
   background-color: var(--nextra-bg);
 }
-.faq-box {
-  margin: 1rem 0;
-  background-color: rgb(250, 250, 250);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+.nextra-code {
+  white-space: pre-wrap;
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: rgba(243, 244, 246, 0.4);
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.4);
+    border-radius: 4px;
+  }
 }
-.faq-box .faq-title {
-  font-size: 18px;
-}
-.faq-box .faq-content {
-  padding: 0.8rem 0.8rem 0;
-}
-.nextra-callout p {
-  margin-top: 0;
+.nextra-callout p:not(:first-child) {
+  margin-top: 0.5rem;
 }
 .contains-task-list {
   line-height: 2rem;

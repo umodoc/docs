@@ -1,0 +1,312 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Tiptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+# 后端对接示例
+
+本章提供后端示例，帮助 Umo Editor Next 发送的 `params` 接到任意大模型提供商（OpenAI / DeepSeek等）或自建 Agent 框架。
+
+重点：
+
+- 前端已经通过 `ai.callbacks.onRequest` 把上下文打包成 `params` 发送给后端
+- 后端要做的核心工作是：**选择协议 + 组装提示词 + 输出 SSE**
+
+## 接口契约（后端会收到什么）
+
+前端发送参数结构见 [前后端交互](./flow) 的 `params`。后端最常见用法：
+
+- 用 `systemPrompt` 作为 system 消息
+- 用 `prompt` 作为 user 消息
+- 用 `selectionNodes/document` 作为可编辑/可参考上下文
+- 用 `skill/from/reasoning` 做路由与策略选择
+
+## 自定义协议（default）示例：
+
+下面示例采用Node.js + Express（SSE）实现，并假设已经有一个 `generateStream()`，能不断 yield 出模型的增量文本（字符串）。
+
+```js
+import express from 'express'
+
+const app = express()
+app.use(express.json({ limit: '2mb' }))
+
+app.post('/api/chat', async (req, res) => {
+  const params = req.body || {}
+
+  res.status(200)
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8')
+  res.setHeader('Cache-Control', 'no-cache, no-transform')
+  res.setHeader('Connection', 'keep-alive')
+
+  const writeEvent = (obj) => {
+    res.write(`data: ${JSON.stringify(obj)}\n\n`)
+  }
+
+  try {
+    writeEvent({ type: 'think', content: '正在生成...' })
+
+    const { systemPrompt, prompt, locale, skill, selectionNodes, document, reasoning } = params
+    const stream = generateStream({
+      systemPrompt,
+      prompt,
+      locale,
+      skill,
+      selectionNodes,
+      document,
+      reasoning,
+    })
+
+    for await (const delta of stream) {
+      writeEvent({ type: 'text', content: delta })
+    }
+
+    res.end()
+  } catch (e) {
+    writeEvent({ type: 'error', content: '生成失败' })
+    res.end()
+  }
+})
+```
+
+Umo Editor Next 显示：需要在 Umo Editor Next 中配置 `ai.callbacks.onMessage` 做映射（否则默认兜底只认 `msg` 字段）：
+
+```js
+const options = {
+  ai: {
+    callbacks: {
+      onMessage(_context, chunk) {
+        const { type, content } = chunk.data || {}
+        if (type === 'text') return { type: 'markdown', data: content }
+        if (type === 'think') {
+          return { type: 'thinking', data: { title: '思考中...', text: content } }
+        }
+        if (type === 'error') return { type: 'markdown', data: content }
+        return null
+      },
+    },
+  },
+}
+```
+
+## 默认协议的推荐输出策略
+
+### 分两路输出：thinking + markdown
+
+- thinking：给用户“正在做什么”的可视反馈（不要太长）
+- markdown：最终要写回编辑器的内容（建议是完整段落/列表/代码块）
+
+### 不要把多行 Markdown 直接写入 SSE data
+
+错误做法：
+
+```
+data: 第一行
+第二行
+```
+
+正确做法：
+
+```
+data: {"type":"text","content":"第一行\\n\\n第二行"}
+```
+
+## AG-UI（agui）对接建议
+
+当 `ai.models[].protocol === 'agui'` 时，前端不走 `ai.callbacks.onMessage`，而是由聊天引擎自动解析 AG-UI 事件。
+
+后端需要做：
+
+- 按 AG-UI 事件类型输出 SSE
+- 把工具调用、状态更新等过程用事件表达
+
+如果已经有 agent 框架（LangGraph / LlamaIndex / 自研），AG-UI 更适合用于表达“多步骤任务 + 工具链进度”。
+
+## 主流大模型快速接入
+
+很多主流大模型提供商提供 “OpenAI-compatible” 的接口形态（通常兼容 `POST /v1/chat/completions` 且支持 `stream: true` 返回 SSE）。本项目推荐的接入方式是：
+
+- 前端：仍然接入自己的 `/api/chat`（本项目协议为 `default` 或 `agui`）
+- 后端：把 `/api/chat` 作为代理/适配层，调用上游 OpenAI 兼容接口，并把上游 SSE 转发/转换为本项目约定的 SSE chunk
+
+### 示例：把 OpenAI-compatible Chat Completions 的流转为本项目 default SSE
+
+下面示例仅演示“协议适配”，省略了具体框架初始化与异常兜底细节。核心点：
+
+- 上游：OpenAI-compatible SSE（`data: {choices:[{delta:{content}}]}`）
+- 下游：本项目 default SSE（`data: {"type":"text","content":...}`）
+
+```js
+import express from 'express'
+
+const app = express()
+app.use(express.json({ limit: '2mb' }))
+
+const UPSTREAM_BASE_URL = process.env.UPSTREAM_BASE_URL
+const UPSTREAM_API_KEY = process.env.UPSTREAM_API_KEY
+const UPSTREAM_MODEL = process.env.UPSTREAM_MODEL
+
+app.post('/api/chat', async (req, res) => {
+  const params = req.body || {}
+
+  res.status(200)
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8')
+  res.setHeader('Cache-Control', 'no-cache, no-transform')
+  res.setHeader('Connection', 'keep-alive')
+
+  const writeEvent = (obj) => {
+    res.write(`data: ${JSON.stringify(obj)}\n\n`)
+  }
+
+  const messages = [
+    { role: 'system', content: params.systemPrompt || '' },
+    {
+      role: 'user',
+      content: [
+        `# 指令`,
+        params.prompt || '',
+        ``,
+        `# 选区（可能为空）`,
+        params.selectionNodes || params.selectionText || '',
+        ``,
+        `# 全文（含光标标记）`,
+        params.document || '',
+      ].join('\n'),
+    },
+  ]
+
+  const upstreamBody = {
+    model: UPSTREAM_MODEL,
+    stream: true,
+    messages,
+  }
+
+  const upstreamRes = await fetch(`${UPSTREAM_BASE_URL}/v1/chat/completions`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${UPSTREAM_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(upstreamBody),
+  })
+
+  if (!upstreamRes.ok || !upstreamRes.body) {
+    writeEvent({ type: 'error', content: 'Upstream request failed' })
+    res.end()
+    return
+  }
+
+  const reader = upstreamRes.body.getReader()
+  const decoder = new TextDecoder('utf-8')
+  let buffer = ''
+
+  while (true) {
+    const { value, done } = await reader.read()
+    if (done) break
+    buffer += decoder.decode(value, { stream: true })
+
+    const events = buffer.split('\n\n')
+    buffer = events.pop() || ''
+
+    for (const evt of events) {
+      const line = evt
+        .split('\n')
+        .map((s) => s.trim())
+        .find((s) => s.startsWith('data:'))
+      if (!line) continue
+
+      const data = line.replace(/^data:\s*/, '')
+      if (data === '[DONE]') {
+        res.end()
+        return
+      }
+
+      let json
+      try {
+        json = JSON.parse(data)
+      } catch {
+        continue
+      }
+
+      const delta = json?.choices?.[0]?.delta?.content
+      if (typeof delta === 'string' && delta.length > 0) {
+        writeEvent({ type: 'text', content: delta })
+      }
+    }
+  }
+
+  res.end()
+})
+```
+
+配套的前端 `onMessage` 映射（default 协议必配）：
+
+```js
+callbacks: {
+  onMessage(_context, chunk) {
+    const { type, content } = chunk.data || {}
+    if (type === 'text') return { type: 'markdown', data: content }
+    if (type === 'error') return { type: 'markdown', data: content }
+    return null
+  },
+}
+```
+
+当然也可以不通过后端转换，直接在 `ai.callbacks.onMessage` 里面直接解析主流大模型返回的 SSE delta，做自定义映射。
+
+### 为什么不建议浏览器直连 OpenAI-compatible？
+
+- 必须把 API Key 暴露到浏览器（极不安全）
+- 许多厂商对浏览器 SSE 有额外限制（CORS、Header、频控）
+- 需要做审计、限流、配额、敏感信息过滤时，后端代理是必需的
+
+## 鉴权与安全要点
+
+### 统一在 onRequest 注入鉴权，不要把 token 写死到代码里
+
+推荐在业务应用层按当前用户注入 token：
+
+- `ai.callbacks.onRequest` 里返回 `headers.Authorization`
+- 不要在日志中输出完整 token
+- 不要在把 AI 模型的 API Key 写到前端
+
+### 做最小化日志
+
+params 里包含 `document`（全文 Markdown）与 `selectionNodes`（选区）：
+
+- 不要把 `document` 等内容全量打到日志，可能会暴露用户隐私
+- 文档内容可能较大，会导致日志体积庞大
+
+### 限流与配额
+
+建议后端按 `(userID, documentID)` 做：
+
+- 请求速率限制（防止恶意刷接口）
+- 并发限制（避免一个用户占满资源）
+- 计费/配额（如果接第三方大模型计费）
+
+### 处理 Abort
+
+前端停止生成会调用聊天引擎终止协议：
+
+- `chatEngine.abortChat()`
+
+后端建议支持：
+
+- 客户端断开连接时中止模型请求（减少成本）
+- 对长连接 SSE 及时释放资源
+
+## 参数策略：如何让模型更“听话”
+
+最有效的组合通常是：
+
+- `systemPrompt`：提供硬规则（输出格式、编辑范围、语言）
+- `selectionNodes`：提供严格可编辑范围（有选区时优先使用）
+- `document`：提供全局上下文与插入点（marker）
+- `skill/from`：控制语气与输出形态（编辑型 vs 对话型）
+
+如果发现模型仍然越界修改，优先做两件事：
+
+- 把 `selectionNodes` 放到最前且明确“只允许改 marker 之间内容”
+- 在后端做输出检查：如果输出包含 marker 以外的上下文复述或大段无关内容，直接拒绝/重试

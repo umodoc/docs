@@ -1,0 +1,391 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+# 配置与方法
+
+本章节介绍了 Umo Editor 中 AI 相关的通用配置项和方法，各 AI 功能相关的配置项和方法请参考各自的文档：
+
+- [AI 文档助手](./assistant)
+- [AI 聊天助手](./chat)
+- [AI 智能建议](./suggestion)
+
+## 默认配置
+
+```js wordWrap
+const systemPrompt = `你是一个集成在基于 Tiptap 的编辑器中的多技能 AI 文档助手，你的名字是 Umo Editor AI Assistant。你的行为必须严格遵循当前系统规则与用户所选的技能模式。
+
+## 可用上下文
+
+你可能可以从用户每次发送的消息中获得以下信息：
+
+- 用户当前选中的纯文本（可能为空）：\`selectionText\`
+- 用户当前选中的节点级 Markdown（可能为空，不为空时包含选区开始/结束标记）：\`selectionNodes\`
+- 整个文档的完整 Markdown（包含光标所在位置）：\`document\`
+- 当前界面语言：\`locale\`
+- 当前技能模式：\`skill\`
+- 用户的自然语言指令：\`prompt\`
+
+文档中的光标位置用“{cursorMarker}”进行表示，如果是选区，则第一个{cursorMarker}表示起始位置，第二个{cursorMarker}表示结束位置。
+
+## 核心通用规则
+
+1. 你是“执行型编辑助手”，不是聊天机器人  
+2. 所有输出必须直接服务于用户当前任务  
+3. 保持当前界面语言，除非用户明确要求切换  
+4. 不输出解释、分析、寒暄或多余说明  
+5. 不得破坏 Markdown 语法或节点结构
+
+## 编辑范围判定规则
+
+1. 如果存在用户选区：
+   - 仅允许修改选区内内容，除非用户另有要求
+   - 未选中内容视为只读上下文
+
+2. 如果不存在选区，仅存在光标：
+   - 根据光标所在位置与用户指令决定编辑行为
+   - 可在光标处插入新内容，或修改光标所在的最小语义单元
+   - 不得影响与当前指令无关的其他内容
+
+3. 如果既无选区也无法确定安全编辑位置：
+   - 请求用户明确选择内容或调整指令
+
+## 技能模式（Skill Mode）规则
+
+你在任意一次交互中只能工作在“当前技能模式”下，不得擅自切换或混合其他技能行为。
+
+1. 文档助手（write，默认）
+   - 编辑或生成文本 / Markdown
+   - 输出用于直接插入或替换的内容
+
+2. 图像生成（image）
+   - 仅根据用户描述生成图像内容
+   - 不编辑文档，返回图片 Markdown
+
+3. 代码助手（code）
+   - 专注于代码生成、补全、重构或解释
+   - 输出以代码块 Markdown
+   - 不进行文档润色或结构调整
+
+4. 公式助手（katex）
+   - 专注于数学公式、逻辑推导与计算
+   - 使用适合于 katex 展示的公式表示
+
+5. 图表助手（mermaid）
+   - 专注于流程图、UML、架构图等结构化图表
+   - 必须以代码块形式输出
+   - 不使用自然语言描述图表结构
+
+6. 网页解读（search）
+   - 对网页或页面内容进行理解、总结或解释
+   - 不修改本地文档内容
+
+## 选区与结构规则
+
+- 如果提供了选区，只允许修改选区内内容
+- 不得删除、移动或新增选区标记
+- 列表、表格、代码块等节点必须保持结构合法
+
+## 冲突与兜底
+
+- 指令与选区冲突时，以“最小破坏文档”为原则
+- 无法在当前约束下完成任务时，请求用户澄清或调整选区
+
+## 最终目标
+
+你需要像一个可靠的“编辑器内 AI 引擎”一样，精准、可控地完成用户在当前技能模式下的任务，要时刻保持专业、理性与克制，让用户值得信赖。`
+
+export const defaultAIOptions = {
+  icon: '<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="96" height="96"><path d="M510.896 0c283.552 0 513.12 229.056 513.12 512 0 280.704-231.808 512-513.12 512-87.776 0-173.28-22.464-249.792-65.12h-2.24L78.8 994.816h-6.752c-11.264 0-20.256-4.48-27.008-11.232a41.376 41.376 0 0 1-11.264-35.936L69.808 772.48v-2.24C22.544 691.648.016 601.824.016 512-2.224 229.056 227.344 0 510.896 0zm-43.552 306.656H366.096l-4.16 4.224-135.04 396.448v8.448l4.288 4.224h80.096l4.224-4.224 33.728-97.056h139.2l33.728 92.832 8.448 8.448h75.936l4.224-4.224 4.16-4.224v-8.448L471.568 310.88l-4.224-4.224zm261.472-4.32h-67.52l-4.192 4.224h-4.288v4.16l-4.224 4.256V707.2l4.224 8.416 4.288 4.16h75.904l4.224-4.192v-4.224l4.192-4.224V319.2l-4.224-8.448-8.416-8.416zm-316.288 97.12l4.224 12.64 12.64 33.76 33.728 92.768h-97.024l21.12-63.232 25.28-75.936z" fill="var(--umo-primary-color)"/></svg>',
+  skills: ['write', 'image', 'code', 'katex', 'mermaid', 'search'],
+  maxlength: 500,
+  retryInterval: 5000,
+  maxRetries: 3,
+  timeout: 10000,
+  models: [],
+  cursorMarker: '⦙',
+  systemPrompt,
+  chat: {
+    enabled: false,
+    showName: true,
+    showAvatar: true,
+    showDatetime: true,
+    layout: 'both',
+    welcomeMessage:
+      '欢迎使用 Umo Editor AI 聊天助手！有什么问题可以问我哦，我会尽力帮助您完成文档编辑工作。',
+    files: {
+      enabled: true,
+      maxSize: 1024 * 1024 * 10,
+      maxCount: 3,
+      allowed: {
+        image: 'image/*',
+        file: '.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.md,.csv,.json,.xml',
+      },
+    },
+    maxHistory: 10,
+  },
+  assistant: {
+    enabled: false,
+  },
+  suggestion: {
+    enabled: false,
+    async onSuggestion() {
+      console.log(
+        'Key "ai": Key "suggestion": Please set the ai.suggestion.onSuggestion method'
+      )
+    },
+    waitTime: 1000,
+  },
+  callbacks: {},
+}
+```
+
+注意：默认配置中 `ai.models` 默认是空数组 `[]`。如果要启用 AI（文档助手/聊天/建议），请务必自行提供 [`ai.models`](#aimodels)（至少 1 个）。
+
+## 配置项说明
+
+### ai.icon
+
+**说明**：用于自定义 AI 入口图标（SVG 字符串），用于聊天入口按钮、气泡助手等。
+
+**类型**：`String`
+
+**默认值**：见“默认配置”中的 `defaultAIOptions.icon`
+
+### ai.skills
+
+**说明**：允许的技能模式列表，决定发送框技能下拉里可切换的模式，可选值为 `['write','image','code','katex','mermaid','search']`，其中每个项目的说明如下：
+
+- `write`：文档助手，编辑或生成文本 / Markdown。
+- `image`：图像生成，仅根据用户描述生成图像内容。
+- `code`：代码助手，专注于代码生成、补全、重构或解释。
+- `katex`：公式助手，专注于数学公式、逻辑推导与计算。
+- `mermaid`：图表助手，专注于流程图、UML、架构图等结构化图表。
+- `search`：网页解读，对网页或页面内容进行理解、总结或解释。
+
+**类型**：`Array`
+
+**默认值**：`['write','image','code','katex','mermaid','search']`
+
+### ai.maxlength
+
+**说明**：发送框最大输入长度。
+
+**类型**：`number`
+
+**默认值**：`500`
+
+### ai.retryInterval
+
+**说明**：请求失败后，请求的重试间隔（毫秒）。
+
+**类型**：`number`
+
+**默认值**：`5000`
+
+### ai.maxRetries
+
+**说明**：请求失败后，最大重试次数。
+
+**类型**：`number`
+
+**默认值**：`3`
+
+### ai.timeout
+
+**说明**：单次请求超时（毫秒）。
+
+**类型**：`number`
+
+**默认值**：`10000`
+
+### ai.cursorMarker
+
+**说明**：用来标注文档中光标 / 选区的标记符号，前端会把它注入到 `document`、`selectionNodes`、`systemPrompt` 等内容中，你可以在 [`ai.callbacks.onRequest`](#aicallbacksonrequest) 中将这些内容作为请求体的一部分发送给后端，方便 AI 模型更好的理解文档上下文和用户操作意图。
+
+**类型**：`String`
+
+**默认值**：`'⦙'`
+
+### ai.systemPrompt
+
+**说明**：系统提示词模板。发送前会把其中的 `{cursorMarker}` 替换为 `ai.cursorMarker`。
+
+**类型**：`String`
+
+**默认值**：见“默认配置”中的 `systemPrompt`
+
+### ai.models
+
+**说明**：模型列表（数组）。这是 AI 能否工作的关键配置：文档助手、聊天、建议都会依赖“当前模型”。
+
+**类型**：`Array`
+
+**默认值**：`[]`（默认配置提供空数组）；启用 AI 时必须自行提供至少 1 个。
+
+**示例**：
+
+```js
+{
+  value: 'default',
+  label: { zh_CN: '默认模型', en_US: 'Default Model' },
+  avatar: '/path/to/avatar.svg',
+  protocol: 'default' | 'agui',
+  endpoint: '/api/chat',
+  stream: true,
+  reasoning: true,
+}
+```
+
+字段说明：
+
+- `value`：模型值，传递给的后端的实际值。
+- `label`：模型名称，在消息列表等场景中显示。
+- `avatar`：模型头像的 URL，在消息列表中显示。
+- `protocol`：模型协议，可选值为 `'default' | 'agui'`。
+- `endpoint`：模型接口地址。
+- `stream`：是否使用流式传输。
+- `reasoning`：该模型是否支持推理模式。
+
+### ai.chat
+
+**说明**：AI 聊天助手配置（入口、布局、历史、附件等）。详细字段说明见 [AI 聊天助手](./chat)。
+
+**类型**：`Object`
+
+**默认值**：见“默认配置”中的 `defaultAIOptions.chat`
+
+### ai.assistant
+
+**说明**：AI 文档助手配置（入口、面板等）。详细字段说明见 [AI 文档助手](./assistant)。
+
+**类型**：`Object`
+
+**默认值**：见“默认配置”中的 `defaultAIOptions.assistant`
+
+### ai.suggestion
+
+**说明**：AI 建议配置（防抖、回调等）。详细字段说明见 [AI 智能建议](./suggestion)。
+
+**类型**：`Object`
+
+**默认值**：见“默认配置”中的 `defaultAIOptions.suggestion`
+
+### ai.callbacks
+
+**说明**：请求生命周期回调与自定义解析（最常用）。
+
+**类型**：`{ onRequest?, onMessage?, onStart?, onComplete?, onAbort?, onError? }`
+
+**默认值**：`{}`
+
+#### ai.callbacks.onRequest
+
+**说明**：发送请求前的统一改写入口。可以在这里注入鉴权 headers、改写 body、或把前端 `params` 映射为后端协议。
+
+**类型**：`Function`，
+
+**默认值**：无
+
+**返回值**：`Object` 见 [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
+
+示例：
+
+```js
+const onRequest = (context, params) => {
+  return {
+    // 注入鉴权 headers
+    headers: {
+      ...params.headers,
+      'Authorization': 'Bearer ' + getAccessToken(),
+    },
+    // 发送的内容
+    body: JSON.stringify({
+      ...context,
+      ...params,
+    }),
+  }
+}
+```
+
+#### ai.callbacks.onMessage
+
+**说明**：自定义协议（`model.protocol !== 'agui'`）下，用于把后端 SSE chunk 映射为聊天内容块（markdown / thinking 等）。
+
+**类型**：`(context, chunk) => { type: string, data: any } | null`
+
+**默认值**：无（未配置时会使用内置兜底：读取 `chunk.data.msg` 并作为 markdown 渲染）
+
+#### ai.callbacks.onStart
+
+**说明**：流式传输开始时触发。
+
+**类型**：`(context, chunk) => void`
+
+**默认值**：无
+
+#### ai.callbacks.onComplete
+
+**说明**：流式传输结束时触发（包含是否被中止、最终 params 等信息）。
+
+**类型**：`(context, aborted, params, event) => void`
+
+**默认值**：无
+
+#### ai.callbacks.onAbort
+
+**说明**：用户点击停止或因组件销毁等原因导致请求被中止时触发。
+
+**类型**：`(context) => void`
+
+**默认值**：无
+
+#### ai.callbacks.onError
+
+**说明**：请求或解析过程中发生错误时触发。
+
+**类型**：`(context, err) => void`
+
+**默认值**：无
+
+## 与 AI 相关的其它配置
+
+### user
+
+当前登录用户信息。AI 会把 `user.id` 作为 `userID` 传给后端，聊天 UI 也会可能用到 `user.avatar`。相关配置见[用户配置](../../editor/options/user)。
+
+### document
+
+文档信息。AI 会把 `document.id` 作为 `documentID` 传给后端。相关配置见[文档配置](../../editor/options/document)。
+
+### onFileUpload
+
+当启用 `ai.chat.files.enabled` 时，上传附件必须实现该回调。相关配置见[文件上传配置](../../editor/options/file)。
+
+### onFileDelete
+
+删除附件时触发（建议实现，用于清理后端存储）。相关配置见[文件上传配置](../../editor/options/file)。
+
+## 方法列表
+
+### getAiEngine
+
+**说明**：获取 AI 引擎状态对象（Vue ref）。AI 文档助手与 AI 聊天助手共用同一个聊天引擎状态对象，可以用它读取当前模型 / 消息 / 状态等信息和聊天引擎实例等，或在业务侧做更深度的 UI 联动与调试。
+
+**参数**：无
+
+**返回值**：`Ref<object>`
+
+#### AiEngine 结构
+
+`AiEngine` 是一个对象（通过 `ref` 包裹），常用字段如下：
+
+- `from`: `undefined | 'assistant' | 'chat'`，最近一次交互来源（发送器会在发送前写入）。
+- `options`: `Object`，当前生效的 `options.ai` 配置对象。
+- `model`: `Object`，当前选中的模型（来自 `options.ai.models[]`）。
+- `status`: `String`，当前请求状态（`'idle' | 'pending' | 'streaming' | 'complete' | 'stop' | 'error'`）。
+- `messages`: `ChatMessage[]`，当前消息列表（包含 `user/assistant/system` 三种角色）。
+- `assistantMessage`: `ChatMessage | undefined`，文档助手场景下的“最后一条 assistant 消息”（用于面板展示与写回操作）。
+- `engine`: `Object`，Umo Editor Next 内部的聊天引擎对象。您可以利用 `engine` 进行更复杂的场景定制，如发送消息、调试与埋点等。

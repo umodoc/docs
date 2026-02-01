@@ -1,0 +1,115 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+# 快速接入
+
+本章目标是让开发者从“完全不了解”到“可以在 demo 跑起来并看到 AI 回复”，并知道后端需要实现什么。
+
+必须提供的能力（否则必然报错 / 不可用）：
+
+1. 至少一个 AI 模型配置：`ai.models.length > 0`，Umo Editor Next 会读取 `ai.models[0]` 作为默认模型；
+2. 一个可访问的后端 endpoint（推荐 SSE）：`ai.models[].endpoint`，前端会向该 endpoint 发起请求，具体请求体由 `ai.callbacks.onRequest` 决定（几乎一定需要实现它）。
+
+## 默认配置
+
+最小可用配置：
+
+```js
+const options = {
+  ai: {
+    models: [
+      {
+        value: 'default',
+        label: { zh_CN: '默认模型', en_US: 'Default Model' },
+        avatar: '/images/ai.svg',
+        protocol: 'default',     // 或 'agui'
+        endpoint: '/api/chat',   // 后端 SSE 地址
+        stream: true,
+        reasoning: false,
+      },
+    ],
+    chat: { enabled: true },      // 侧边栏聊天
+    assistant: { enabled: true }, // 文档气泡助手
+    callbacks: {
+      onRequest(_context, params) {
+        return {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer <YOUR_TOKEN>',
+          },
+          body: JSON.stringify(params),
+        }
+      },
+    },
+  },
+}
+```
+
+- `ai.models[]` 必须要手动配置。
+- `ai.callbacks.onRequest` 是“对接后端”的关键：它决定 headers、body，甚至可以把 params 映射为后端的协议。
+
+## 协议选择
+
+协议解释详见 [支持的协议](./protocols)。此处给出选择建议：
+
+- 后端只做“把大模型输出以 SSE 发回来”，并且愿意自定义数据结构：用 `protocol: 'default'`。
+- 已有 / 准备实现 AG-UI 协议（包含工具调用、状态等事件）：用 `protocol: 'agui'`。
+
+**是否支持 OpenAI 标准协议？如何快速接入 OpenAI 兼容大模型？**
+
+结论：
+
+- 本项目**前端侧并不直接实现** OpenAI 的 Chat Completions / Responses 之类的“OpenAI 标准协议”。
+- 本项目的 `protocol`（default / agui）描述的是：**前端与“后端 SSE 服务”之间**的协议。
+- 如果要接入遵循 OpenAI 兼容协议的主流大模型，推荐在后端加一个适配层：把前端的 `params` 转成 OpenAI 兼容请求，再把上游的 stream 转回本项目的 SSE chunk。
+
+最快落地路径（推荐）：
+
+1. 前端模型配置为 `protocol: 'default'`，`endpoint: '/api/chat'`
+2. 后端 `/api/chat` 内部去请求 OpenAI 兼容的上游（`POST /v1/chat/completions` 或厂商兼容路径）
+3. 解析上游流式返回，把增量内容转成 `data: {"type":"text","content":"..."}` 逐段推回
+4. 前端配置 `callbacks.onMessage`，把 `type=text` 映射为 `{type:'markdown',data:...}`
+
+后端示例见：[后端示例](./backend-examples)。
+
+## 后端最低要求
+
+### 默认协议
+
+当 `protocol !== 'agui'` 且没有配置 `ai.callbacks.onMessage` 时，编辑器会使用一个内置兜底解析：
+
+- 读取 `chunk.data.msg`
+- 映射为 `{ type: 'markdown', data: msg }`
+
+因此后端可以最简单地按 SSE 逐行输出：
+
+```
+data: {"msg":"你好"}
+
+data: {"msg":"继续输出下一段"}
+
+```
+
+注意：
+
+- SSE 必须是 `Content-Type: text/event-stream`，并保持连接不断开直至结束。
+- 每个事件以空行分隔（`\n\n`）。
+
+更推荐实现 `ai.callbacks.onMessage` 并显式解析后端数据结构。
+
+### AG-UI 协议
+
+当 `protocol: 'agui'` 时，前端不会走 `onMessage` 的自定义解析，而是交给内置的 AG-UI 解析与渲染。后端必须输出 AG-UI 事件流（详见 [支持的协议](./protocols)）。
+
+## 验证
+
+可以直接：
+
+1. 打开“文档助手”入口（气泡菜单）或右下角聊天入口
+2. 输入任意内容发送
+3. 观察是否能出现 assistant 回复消息
+
+若无输出，优先阅读 [故障排除](./troubleshooting)。

@@ -1,0 +1,135 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Tiptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+# 常见问题与排查
+
+本章按“现象 -> 可能原因 -> 排查/修复”组织，优先覆盖最常见的接入踩坑点。
+
+## 打不开 AI / 直接报错
+
+现象一：打开文档助手时报错 “Key "ai": Key "models": No AI model found”
+
+可能原因：`ai.assistant.enabled = true`，但 `ai.models` 为空
+
+排查：
+
+- 检查传入的 `ai.models` 是否至少 1 个
+- 参考 [快速开始](./quickstart) 的最小可用配置
+
+现象二：点击聊天入口时报错 “No AI chat model found”
+
+可能原因：`ai.chat.enabled = true`，但 `ai.models` 为空
+
+## 能发送，但没有任何回复/一直 loading
+
+现象：发送后一直处于 pending/streaming，没有 complete
+
+可能原因（按概率排序）：
+
+1. 后端没有正确返回 SSE（没有 `text/event-stream` 或没有 `\n\n` 分隔）
+2. 后端缓冲输出导致前端收不到 chunk（需要 flush）
+3. CORS / 鉴权失败，浏览器阻断（Authorization/Origin/Headers）
+4. `callbacks.onRequest` 返回的 `body` 不是字符串或为空（导致后端拿不到参数）
+5. endpoint 不可达或被代理重写到错误地址
+
+排查建议：
+
+- 用浏览器 DevTools Network 查看请求响应：
+  - Response Headers 是否为 `text/event-stream`
+  - Response 是否在持续增长（流式）
+- 把 `callbacks.onError` 打开打印错误（但不要打印 token）
+- 临时把后端改成每 200ms 输出一条 `data: {"msg":"ping"}`，验证流是否通
+
+## 有回复，但 UI 不显示内容 / 显示为空
+
+现象：后端确实在推流，但前端消息为空
+
+可能原因：
+
+- 自定义协议模式下，`ai.callbacks.onMessage` 没有返回合法的内容块
+- 没有正确配置 `ai.callbacks.onMessage`，但后端输出不是 `{"msg":"..."}`，导致默认解析拿不到 `msg`
+
+排查：
+
+- 确认当前模型 `ai.models[].protocol`：
+  - `default`：必须保证 `onMessage` 映射正确，或后端输出 `msg`
+  - `agui`：必须输出 AG-UI 事件，不走 `onMessage`
+- 在 `ai.callbacks.onMessage` 中先 `console.log(chunk.data)`（线上注意去掉）
+
+修复：
+
+- 为 `default` 协议显式实现 `ai.callbacks.onMessage`，不要依赖 `msg` 兜底
+
+## Markdown 显示错乱 / 段落换行丢失
+
+现象：模型输出包含换行，但渲染出来成一行或被截断
+
+可能原因：
+
+- 把带真实换行的 Markdown 直接输出到 SSE `data:`，导致 SSE 解析按行切分
+
+正确做法：
+
+- SSE `data:` 后始终输出 **一行 JSON**
+- 在 JSON 字段中用 `\\n` 表示换行，例如：
+
+```
+data: {"type":"text","content":"第一行\\n\\n第二行"}
+
+```
+
+## “替换 / 插入”写回文档后结构被破坏
+
+现象：点击替换 / 插入后，表格 / 列表结构不合法，或出现奇怪的节点
+
+可能原因：
+
+- 最后一段 content 的 `data` 不是合法 Markdown（例如包含未闭合代码块）
+- 把“解释 / 日志”放在最后一段，actions 会把它写进文档
+
+排查：
+
+- 观察该条消息的 `message.content` 数组：最后一个 segment 是什么
+
+修复建议：
+
+- 规范 `ai.callbacks.onMessage`：保证最后一段永远是“可直接写回的 Markdown”
+- 对模型输出做后端校验/修复（例如确保代码块闭合、列表缩进合理）
+
+## 选区/光标标记（cursorMarker）导致模型“乱改”
+
+现象：用户只选中一段，模型却改了整篇
+
+可能原因：
+
+- 后端没有把 marker 当作“编辑范围约束”，仅当普通字符处理
+- `systemPrompt` 被删改，缺少“只修改选区内内容”的硬规则
+- 在后端把 `selectionNodes` 丢弃，只用 `document` 作为输入，导致范围放大
+
+建议策略：
+
+- 有选区时：以 `selectionNodes` 为主输入，并严格限制输出只针对选区
+- 光标插入时：以 `document` 的 marker 附近为输入，并要求“只在 marker 处插入”
+
+相关实现：
+
+- marker 注入发生在前端发送时；systemPrompt 默认模板见 [05-config-reference.md](./05-config-reference.md)
+
+## 附件上传相关问题
+
+现象：点击上传按钮没反应 / 上传失败提示
+
+可能原因：
+
+- `onFileUpload` 未实现或抛错
+- 文件大小超过 `ai.chat.files.maxSize`
+- 文件数量超过 `ai.chat.files.maxCount`
+- accept 类型不匹配（`ai.chat.files.allowed`）
+
+排查：
+
+- 查看 `ai.chat.files` 配置
+- 在 `onFileUpload` 加入错误日志

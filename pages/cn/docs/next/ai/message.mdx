@@ -1,0 +1,337 @@
+---
+target: Umo Editor
+keywords: Umo Editor,Tiptap,Tiptap3,富文本编辑器,文档编辑器,文档编辑,协同办公,开源编辑器,国产编辑器
+description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。此外，Umo Editor 还支持自定义扩展、多语言设置和暗色主题。
+---
+
+# AI 消息体说明
+
+通常情况下，您不需要了解这些信息，因为它们已经被聊天引擎处理过了，但是在以下情况下，您可能需要：
+
+- 自定义协议解析（`ai.callbacks.onMessage` 返回什么）
+- 后端输出不同类型内容
+- 对消息结果做二次处理（如替换 / 插入文档）
+
+## Message 基本结构
+
+### 基础示例
+
+在 Umo Editor Next 的 AI 功能中，一条消息通常形如：
+
+```js
+{
+  id: 'xxx',
+  role: 'user' | 'assistant' | 'system',
+  status: 'pending' | 'streaming' | 'complete' | 'stop' | 'error',
+  datetime: '2026-01-01T00:00:00Z', // 可选
+  content: [
+    { type: 'text', data: '...' },
+    { type: 'markdown', data: '...' },
+    // ...
+  ],
+}
+```
+
+### 相关说明
+
+- `status` 在类型上是可选字段（在实际使用中，通常会在消息流转过程中写入它）。
+- `assistant` 消息的 `content` 在类型上也是可选字段：流式过程中可能先创建空的 AI 消息，再逐步追加内容块。
+
+在本项目里，聊天窗口与文档助手都会渲染同一套消息结构；当启用聊天时，会注入一条欢迎消息用于 UI 展示。
+
+#### message.role
+
+- `user`：用户输入
+- `assistant`：模型输出
+- `system`：系统消息（例如“开启新对话”的提示，或欢迎消息等）
+
+注意：聊天记录保存到历史记录时会过滤掉 `system` 与欢迎消息。
+
+#### message.status
+
+- `idle`：表示当前没有进行中的请求
+- `pending`：请求已发起但尚未开始产出
+- `streaming`：流式产出中
+- `complete`：正常结束
+- `stop`：用户中止
+- `error`：错误
+
+UI 行为依赖 `status`：例如流式期间会显示发送中状态；输出完成且有内容时才会展示“替换 / 插入 / 复制”等操作。
+
+其中：
+
+- 消息上的 `status` 对应 `pending/streaming/complete/stop/error`
+- 消息引擎上的 `status` 对应 `idle` + 消息状态
+
+## content 内容块
+
+`content` 是一个数组，每个元素称为“内容块 / 内容片段”（segment）。不同 `type` 需要不同 `data` 结构。
+
+### 用户消息支持的类型
+
+- 文本消息（TextContent）
+- 附件消息（AttachmentContent）
+
+### AI 消息支持的类型
+
+- 文本消息（TextContent）
+- Markdown 消息（MarkdownContent）
+- 搜索消息（SearchContent）
+- 建议消息（SuggestionContent）
+- 思考状态（ThinkingContent）
+- 图片消息（ImageContent）
+- 推理内容（ReasoningContent）
+- 工具调用（ToolCallContent）
+- 自定义消息（AIContentTypeOverrides）
+
+提示：本项目默认把绝大多数 AI 输出渲染为 `markdown`，这样能更好支持列表 / 代码块 / 表格等结构化内容。
+
+### 消息内容的通用字段
+
+- `type`: 内容块类型（见下文）
+- `data`: 与 `type` 对应的数据结构
+- `status?`: `'pending' | 'streaming' | 'complete' | 'stop' | 'error'`
+- `id?`: 内容块 id
+- `strategy?`: `'merge' | 'append'`（流式 chunk 合并策略）
+- `ext?`: `Record<string, any>`（扩展字段）
+
+### 消息内容格式
+
+#### TextContent
+
+```js
+{ type: 'text', data: '纯文本内容' }
+```
+
+#### MarkdownContent
+
+```js
+{ type: 'markdown', data: '# 标题\n\n- 列表\n- 代码块等' }
+```
+
+#### SearchContent
+
+```js
+{
+  type: 'search',
+  data: {
+    title: '本次检索概览',
+    references: [
+      {
+        title: '参考标题',
+        url: 'https://example.com',
+        site: 'example.com',
+        date: '2026-01-01',
+        content: '摘要内容（可选）',
+      },
+    ],
+  },
+}
+```
+
+其中 `references[]` 支持的字段为：
+
+- `title`: `string`（必填）
+- `icon?`: `string`
+- `type?`: `string`
+- `url?`: `string`
+- `content?`: `string`
+- `site?`: `string`
+- `date?`: `string`
+
+#### ThinkingContent
+
+```js
+{
+  type: 'thinking',
+  data: {
+    title: '思考中',
+    text: '这里是思考态内容（可选）',
+  },
+}
+```
+
+#### SuggestionContent
+
+```js
+{
+  type: 'suggestion',
+  data: [
+    { title: '建议 1', prompt: '可选：点击后填入的 prompt' },
+    { title: '建议 2' },
+  ],
+}
+```
+
+#### ImageContent
+
+```js
+{
+  type: 'image',
+  data: {
+    name: 'image.png',
+    url: 'https://example.com/image.png',
+    width: 800,
+    height: 600,
+  },
+}
+```
+
+#### AttachmentContent
+
+用户消息可以包含附件内容块；其 `data` 是一个数组：
+
+```js
+{
+  type: 'attachment',
+  data: [
+    {
+      fileType: 'pdf',
+      name: 'spec.pdf',
+      url: 'https://example.com/spec.pdf',
+      size: 123456,
+      metadata: {},
+    },
+  ],
+}
+```
+
+`fileType` 在类型定义中的可选值为：`image` / `video` / `audio` / `pdf` / `doc` / `ppt` / `txt` 等。
+
+`data[]` 支持的字段为：
+
+- `fileType`: `image | video | audio | pdf | doc | ppt | txt` 等，（必填）
+- `size?`: `number`
+- `name?`: `string`
+- `url?`: `string`
+- `isReference?`: `boolean`（是否为引用附件）
+- `width?`: `number`（图片/视频类可能用到）
+- `height?`: `number`（图片/视频类可能用到）
+- `extension?`: `string`
+- `metadata?`: `Record<string, any>`
+
+#### ReasoningContent
+
+`reasoning` 用于承载“推理过程的内容块数组”。它本质上是把一组 `AIMessageContent[]` 嵌套在一个内容块里：
+
+```js
+{
+  type: 'reasoning',
+  data: [
+    { type: 'text', data: '第一段推理' },
+    { type: 'markdown', data: '第二段推理（可 Markdown）' },
+  ],
+}
+```
+
+#### ToolCallContent
+
+用于表示工具调用事件（AG-UI 协议下常见）：
+
+```js
+{
+  type: 'toolcall',
+  data: {
+    toolCallId: 'call_xxx',
+    toolCallName: 'search',
+    eventType: 'start', // 可选：ToolCallEventType
+    parentMessageId: 'm1', // 可选：父消息 id
+    args: '{ "q": "xxx" }',
+    chunk: '可选：增量片段',
+    result: '可选：工具调用结果',
+  },
+}
+```
+
+### AIContentTypeOverrides
+
+可以通过扩展 `AIContentTypeOverrides` 来新增内容块类型，然后在业务侧为该类型提供渲染器/处理逻辑。
+
+示例（仅演示类型扩展思路）：
+
+```ts
+declare global {
+  interface AIContentTypeOverrides {
+    audio: {
+      type: 'audio'
+      data: { url: string; name?: string }
+      status?: 'pending' | 'streaming' | 'complete' | 'stop' | 'error'
+      id?: string
+      strategy?: 'merge' | 'append'
+      ext?: Record<string, any>
+    }
+  }
+}
+```
+
+### Message 具体类型
+
+Message 包括 3 中类型：User / Assistant / System
+
+#### UserMessage（role = user）
+
+`content` 仅允许：
+
+- `{ type: 'text', data: string }`
+- `{ type: 'attachment', data: AttachmentItem[] }`
+
+示例：
+
+```js
+{
+  id: 'm1',
+  role: 'user',
+  status: 'complete',
+  content: [
+    { type: 'text', data: '请总结附件内容' },
+    { type: 'attachment', data: [{ fileType: 'pdf', name: 'a.pdf', url: '...' }] },
+  ],
+}
+```
+
+#### AIMessage（role = assistant）
+
+除常见 `content` 外，AI 消息还可能包含：
+
+- `history?`: `AIMessageContent[][]`（内容分支/版本）
+- `comment?`: `'good' | 'bad' | ''`（点赞点踩）
+
+示例（包含 reasoning 与最终 markdown）：
+
+```js
+{
+  id: 'm2',
+  role: 'assistant',
+  status: 'complete',
+  content: [
+    { type: 'reasoning', data: [{ type: 'text', data: '...' }] },
+    { type: 'markdown', data: '## 最终答案\n\n...' },
+  ],
+}
+```
+
+#### SystemMessage（role = system）
+
+系统消息的 `content` 是文本内容块数组：
+
+```js
+{
+  id: 'm3',
+  role: 'system',
+  content: [{ type: 'text', data: '开启新对话' }],
+}
+```
+
+## 自定义协议解析
+
+当使用 `protocol: 'default'` 时，`ai.callbacks.onMessage` 的返回值应该是：
+
+- `null`：表示本 chunk 不渲染任何内容
+- 一个内容块对象：例如 `{ type: 'markdown', data: '...' }`
+- 一个内容块数组：例如 `[{ type: 'thinking', data: { title: '...' } }, { type: 'markdown', data: '...' }]`
+
+推荐做法：
+
+- 对 `think`/`reasoning` 类 chunk 映射为 `thinking`
+- 对最终输出文本映射为 `markdown`
+- 对工具类输出（如检索结果）映射为 `search` 或自定义类型
