@@ -62,9 +62,9 @@ const options = {
 
 结论：
 
-- 本项目**前端侧并不直接实现** OpenAI 的 Chat Completions / Responses 之类的“OpenAI 标准协议”。
-- 本项目的 `protocol`（default / agui）描述的是：**前端与“后端 SSE 服务”之间**的协议。
-- 如果要接入遵循 OpenAI 兼容协议的主流大模型，推荐在后端加一个适配层：把前端的 `params` 转成 OpenAI 兼容请求，再把上游的 stream 转回本项目的 SSE chunk。
+- Umo Editor Next 中**并不直接实现** OpenAI 的 Chat Completions / Responses 之类的“OpenAI 标准协议”，但是在源代码中，仍然提供了一个前端解析器的示例，见`src/demos/openai-adapter.js`，用于解析后端返回的 OpenAI 兼容流式数据。
+- Umo Editor Next 中的 `protocol`（default / agui）描述的是：**前端与“后端 SSE 服务”之间**的协议。
+- 如果要接入遵循 OpenAI 兼容协议的主流大模型，推荐在后端加一个适配层：把前端的 `params` 转成 OpenAI 兼容请求，再把上游的 stream 转回到 Umo Editor Next 中的 SSE chunk。也可以参考 `src/demos/openai-adapter.js`，在前端解析 OpenAI 兼容流式数据，但是无论如何，都不应该在前端直接调用 OpenAI 兼容接口，具体原因见：[为什么不建议浏览器直连 OpenAI-compatible？](./backend#为什么不建议浏览器直连-openai-compatible)。
 
 最快落地路径（推荐）：
 

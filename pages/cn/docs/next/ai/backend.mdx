@@ -125,17 +125,17 @@ data: {"type":"text","content":"第一行\\n\\n第二行"}
 
 ## 主流大模型快速接入
 
-很多主流大模型提供商提供 “OpenAI-compatible” 的接口形态（通常兼容 `POST /v1/chat/completions` 且支持 `stream: true` 返回 SSE）。本项目推荐的接入方式是：
+很多主流大模型提供商提供 “OpenAI-compatible” 的接口形态（通常兼容 `POST /v1/chat/completions` 且支持 `stream: true` 返回 SSE）。推荐的接入方式是：
 
-- 前端：仍然接入自己的 `/api/chat`（本项目协议为 `default` 或 `agui`）
-- 后端：把 `/api/chat` 作为代理/适配层，调用上游 OpenAI 兼容接口，并把上游 SSE 转发/转换为本项目约定的 SSE chunk
+- 前端：仍然接入自己的 `/api/chat`（协议为 `default` 或 `agui`）
+- 后端：把 `/api/chat` 作为代理/适配层，调用上游 OpenAI 兼容接口，并把上游 SSE 转发/转换为 Umo Editor Next 约定的 SSE chunk
 
-### 示例：把 OpenAI-compatible Chat Completions 的流转为本项目 default SSE
+### 示例：把 OpenAI-compatible Chat Completions 的流转为 default SSE
 
 下面示例仅演示“协议适配”，省略了具体框架初始化与异常兜底细节。核心点：
 
 - 上游：OpenAI-compatible SSE（`data: {choices:[{delta:{content}}]}`）
-- 下游：本项目 default SSE（`data: {"type":"text","content":...}`）
+- 下游：Umo Editor Next 中的 default SSE（`data: {"type":"text","content":...}`）
 
 ```js
 import express from 'express'

@@ -37,7 +37,7 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文�
 - `status` 在类型上是可选字段（在实际使用中，通常会在消息流转过程中写入它）。
 - `assistant` 消息的 `content` 在类型上也是可选字段：流式过程中可能先创建空的 AI 消息，再逐步追加内容块。
 
-在本项目里，聊天窗口与文档助手都会渲染同一套消息结构；当启用聊天时，会注入一条欢迎消息用于 UI 展示。
+在 Umo Editor Next 中，聊天窗口与文档助手都会渲染同一套消息结构；当启用聊天时，会注入一条欢迎消息用于 UI 展示。
 
 #### message.role
 
@@ -84,7 +84,7 @@ UI 行为依赖 `status`：例如流式期间会显示发送中状态；输出�
 - 工具调用（ToolCallContent）
 - 自定义消息（AIContentTypeOverrides）
 
-提示：本项目默认把绝大多数 AI 输出渲染为 `markdown`，这样能更好支持列表 / 代码块 / 表格等结构化内容。
+提示：Umo Editor Next 默认把绝大多数 AI 输出渲染为 `markdown`，这样能更好支持列表 / 代码块 / 表格等结构化内容。
 
 ### 消息内容的通用字段
 

@@ -19,11 +19,11 @@ AG-UI 协议更多信息见：https://docs.ag-ui.com/introduction
 
 ## OpenAI 协议
 
-本项目的 `protocol` 只用于描述 **前端与“后端 SSE 服务”之间** 的数据协议（default / agui），并不等同于 “OpenAI Chat Completions / Responses API 协议”。
+Umo Editor Next 中的 `protocol` 只用于描述 **前端与“后端 SSE 服务”之间** 的数据协议（default / agui），并不等同于 “OpenAI Chat Completions / Responses API 协议”。
 
 如果希望接入“遵循 OpenAI 兼容协议”的主流大模型（许多厂商提供 OpenAI-compatible endpoint）：
 
-- 推荐做法：在后端实现一个 **适配层/代理**：前端仍按本项目的 `default` 或 `agui` 访问后端，后端再去调用 OpenAI 兼容接口，并把返回转换为 SSE 事件回推给前端。
+- 推荐做法：在后端实现一个 **适配层/代理**：前端的 `default` 或 `agui` 协议访问后端，后端再去调用 OpenAI 兼容接口，并把返回转换为 SSE 事件回推给前端。
 - 不推荐：浏览器端直连 OpenAI 兼容接口（会暴露密钥、且常见 CORS 限制）。
 
 具体接入示例见 [后端示例](./backend)。

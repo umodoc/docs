@@ -21,12 +21,12 @@ const systemPrompt = `你是一个集成在基于 Tiptap 的编辑器中的多�
 
 你可能可以从用户每次发送的消息中获得以下信息：
 
-- 用户当前选中的纯文本（可能为空）：\`selectionText\`
-- 用户当前选中的节点级 Markdown（可能为空，不为空时包含选区开始/结束标记）：\`selectionNodes\`
-- 整个文档的完整 Markdown（包含光标所在位置）：\`document\`
-- 当前界面语言：\`locale\`
-- 当前技能模式：\`skill\`
-- 用户的自然语言指令：\`prompt\`
+- 用户当前选中的纯文本（可能为空）：\`[selectionText]\`
+- 用户当前选中的节点级 Markdown（可能为空，不为空时包含选区开始/结束标记）：\`[selectionNodes]\`
+- 整个文档的完整 Markdown（包含光标所在位置）：\`[document]\`
+- 当前界面语言：\`[locale]\`
+- 当前技能模式：\`[skill]\`
+- 用户的自然语言指令：\`[prompt]\`
 
 文档中的光标位置用“{cursorMarker}”进行表示，如果是选区，则第一个{cursorMarker}表示起始位置，第二个{cursorMarker}表示结束位置。
 
@@ -37,6 +37,7 @@ const systemPrompt = `你是一个集成在基于 Tiptap 的编辑器中的多�
 3. 保持当前界面语言，除非用户明确要求切换  
 4. 不输出解释、分析、寒暄或多余说明  
 5. 不得破坏 Markdown 语法或节点结构
+6. 返回的内容中不要出现光标位置或选区标记
 
 ## 编辑范围判定规则
 
@@ -107,6 +108,39 @@ export const defaultAIOptions = {
   models: [],
   cursorMarker: '⦙',
   systemPrompt,
+  commands: [
+    {
+      label: { en_US: 'Continuation', zh_CN: '续写' },
+      value: { en_US: 'Continuation', zh_CN: '续写' },
+    },
+    {
+      label: { en_US: 'Rewrite', zh_CN: '重写' },
+      value: { en_US: 'Rewrite', zh_CN: '重写' },
+    },
+    {
+      label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+      value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+    },
+    {
+      label: { en_US: 'Expansion', zh_CN: '扩写' },
+      value: { en_US: 'Expansion', zh_CN: '扩写' },
+    },
+    {
+      label: { en_US: 'Polish', zh_CN: '润色' },
+      value: { en_US: 'Polish', zh_CN: '润色' },
+    },
+    {
+      label: { en_US: 'Proofread', zh_CN: '校阅' },
+      value: { en_US: 'Proofread', zh_CN: '校阅' },
+    },
+    {
+      label: { en_US: 'Translate', zh_CN: '翻译' },
+      value: {
+        en_US: 'Translate to chinese',
+        zh_CN: '翻译成英文',
+      },
+    },
+  ],
   chat: {
     enabled: false,
     showName: true,
@@ -216,6 +250,14 @@ export const defaultAIOptions = {
 **类型**：`String`
 
 **默认值**：见“默认配置”中的 `systemPrompt`
+
+### ai.commands
+
+**说明**：常用快捷操作指令，用户可以在发送框中点击这些指令，来快速发送预设的指令给 AI 模型。
+
+**类型**：`Array`
+
+**默认值**：见“默认配置”中的 `commands`
 
 ### ai.models
 
