@@ -425,8 +425,6 @@ const onRequest = (context, params) => {
 `AiEngine` 是一个对象（通过 `ref` 包裹），常用字段如下：
 
 - `from`: `undefined | 'assistant' | 'chat'`，最近一次交互来源（发送器会在发送前写入）。
-- `options`: `Object`，当前生效的 `options.ai` 配置对象。
-- `model`: `Object`，当前选中的模型（来自 `options.ai.models[]`）。
 - `status`: `String`，当前请求状态（`'idle' | 'pending' | 'streaming' | 'complete' | 'stop' | 'error'`）。
 - `messages`: `ChatMessage[]`，当前消息列表（包含 `user/assistant/system` 三种角色）。
 - `assistantMessage`: `ChatMessage | undefined`，文档助手场景下的“最后一条 assistant 消息”（用于面板展示与写回操作）。
