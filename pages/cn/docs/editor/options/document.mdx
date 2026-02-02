@@ -30,7 +30,7 @@ import { Badge } from '/components/badge'
     enableBlockMenu: true,
     enableNodeId: false, // v10 新增
     readOnly: false,
-    autofocus: true,
+    autofocus: false, // v10 以前默认为 true
     characterLimit: 0,
     typographyRules: {},
     // https://prosemirror.net/docs/ref/#view.EditorProps
@@ -144,7 +144,7 @@ import { Badge } from '/components/badge'
 
 **类型**：`Boolean`
 
-**默认值**：`true`
+**默认值**：`false`，v10 以前默认为 true
 
 ### document.characterLimit
 

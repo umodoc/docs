@@ -30,7 +30,7 @@ Used to configure the display and behavior of the Umo Editor document area and d
     enableBlockMenu: true,
     enableNodeId: false, // Added in v10
     readOnly: false,
-    autofocus: true,
+    autofocus: false, // Default was true before v10
     characterLimit: 0,
     typographyRules: {},
     // https://prosemirror.net/docs/ref/#view.EditorProps
@@ -145,7 +145,7 @@ For a Tiptap example, see: [https://tiptap.dev/docs/examples/advanced/forced-con
 
 **Type**: `Boolean`
 
-**Default Value**: `true`
+**Default Value**: `false`, Default was true before v10
 
 ### document.characterLimit
 
