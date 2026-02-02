@@ -11,7 +11,7 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文�
 必须提供的能力（否则必然报错 / 不可用）：
 
 1. 至少一个 AI 模型配置：`ai.models.length > 0`，Umo Editor Next 会读取 `ai.models[0]` 作为默认模型；
-2. 一个可访问的后端 endpoint（推荐 SSE）：`ai.models[].endpoint`，前端会向该 endpoint 发起请求，具体请求体由 `ai.callbacks.onRequest` 决定（几乎一定需要实现它）。
+2. 一个可访问的后端 endpoint（推荐 SSE）：`ai.models[].endpoint`，前端会向该 endpoint 发起请求，你可以先行连接到 Umo Editor Server 提供的默认 SSE 示例服务 `/ai/sse/normal-demo` 或 `/ai/sse/agui-demo` 进行测试，见：[接口列表](../../server/api)。
 
 ## 默认配置
 
@@ -26,30 +26,16 @@ const options = {
         label: { zh_CN: '默认模型', en_US: 'Default Model' },
         avatar: '/images/ai.svg',
         protocol: 'default',     // 或 'agui'
-        endpoint: '/api/chat',   // 后端 SSE 地址
+        endpoint: 'http://127.0.0.1:1235/ai/sse/normal-demo',   // Umo Editor Server 的 SSE 示例接口
         stream: true,
-        reasoning: false,
+        reasoning: true,
       },
     ],
     chat: { enabled: true },      // 侧边栏聊天
     assistant: { enabled: true }, // 文档气泡助手
-    callbacks: {
-      onRequest(_context, params) {
-        return {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer <YOUR_TOKEN>',
-          },
-          body: JSON.stringify(params),
-        }
-      },
-    },
   },
 }
 ```
-
-- `ai.models[]` 必须要手动配置。
-- `ai.callbacks.onRequest` 是“对接后端”的关键：它决定 headers、body，甚至可以把 params 映射为后端的协议。
 
 ## 协议选择
 
@@ -58,51 +44,7 @@ const options = {
 - 后端只做“把大模型输出以 SSE 发回来”，并且愿意自定义数据结构：用 `protocol: 'default'`。
 - 已有 / 准备实现 AG-UI 协议（包含工具调用、状态等事件）：用 `protocol: 'agui'`。
 
-**是否支持 OpenAI 标准协议？如何快速接入 OpenAI 兼容大模型？**
-
-结论：
-
-- Umo Editor Next 中**并不直接实现** OpenAI 的 Chat Completions / Responses 之类的“OpenAI 标准协议”，但是在源代码中，仍然提供了一个前端解析器的示例，见`src/demos/openai-adapter.js`，用于解析后端返回的 OpenAI 兼容流式数据。
-- Umo Editor Next 中的 `protocol`（default / agui）描述的是：**前端与“后端 SSE 服务”之间**的协议。
-- 如果要接入遵循 OpenAI 兼容协议的主流大模型，推荐在后端加一个适配层：把前端的 `params` 转成 OpenAI 兼容请求，再把上游的 stream 转回到 Umo Editor Next 中的 SSE chunk。也可以参考 `src/demos/openai-adapter.js`，在前端解析 OpenAI 兼容流式数据，但是无论如何，都不应该在前端直接调用 OpenAI 兼容接口，具体原因见：[为什么不建议浏览器直连 OpenAI-compatible？](./backend#为什么不建议浏览器直连-openai-compatible)。
-
-最快落地路径（推荐）：
-
-1. 前端模型配置为 `protocol: 'default'`，`endpoint: '/api/chat'`
-2. 后端 `/api/chat` 内部去请求 OpenAI 兼容的上游（`POST /v1/chat/completions` 或厂商兼容路径）
-3. 解析上游流式返回，把增量内容转成 `data: {"type":"text","content":"..."}` 逐段推回
-4. 前端配置 `callbacks.onMessage`，把 `type=text` 映射为 `{type:'markdown',data:...}`
-
-后端示例见：[后端示例](./backend-examples)。
-
-## 后端最低要求
-
-### 默认协议
-
-当 `protocol !== 'agui'` 且没有配置 `ai.callbacks.onMessage` 时，编辑器会使用一个内置兜底解析：
-
-- 读取 `chunk.data.msg`
-- 映射为 `{ type: 'markdown', data: msg }`
-
-因此后端可以最简单地按 SSE 逐行输出：
-
-```
-data: {"msg":"你好"}
-
-data: {"msg":"继续输出下一段"}
-
-```
-
-注意：
-
-- SSE 必须是 `Content-Type: text/event-stream`，并保持连接不断开直至结束。
-- 每个事件以空行分隔（`\n\n`）。
-
-更推荐实现 `ai.callbacks.onMessage` 并显式解析后端数据结构。
-
-### AG-UI 协议
-
-当 `protocol: 'agui'` 时，前端不会走 `onMessage` 的自定义解析，而是交给内置的 AG-UI 解析与渲染。后端必须输出 AG-UI 事件流（详见 [支持的协议](./protocols)）。
+当 `protocol: 'agui'` 时，前端不会走 `ai.callbacks.onMessage` 的自定义解析，而是交给内置的 AG-UI 解析与渲染。后端必须输出 AG-UI 事件流（详见 [支持的协议](./protocols)）。
 
 ## 验证
 

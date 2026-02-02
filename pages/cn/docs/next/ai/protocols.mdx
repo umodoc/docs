@@ -23,7 +23,7 @@ Umo Editor Next 中的 `protocol` 只用于描述 **前端与“后端 SSE 服�
 
 如果希望接入“遵循 OpenAI 兼容协议”的主流大模型（许多厂商提供 OpenAI-compatible endpoint）：
 
-- 推荐做法：在后端实现一个 **适配层/代理**：前端的 `default` 或 `agui` 协议访问后端，后端再去调用 OpenAI 兼容接口，并把返回转换为 SSE 事件回推给前端。
+- 推荐做法：在后端实现一个 **适配层/代理**：前端的 `default` 或 `agui` 协议访问后端，后端再去调用 OpenAI 兼容接口，并把返回转换为 SSE 事件回推给前端，可以参考或直接调用 Umo Editor Server 中的 [AI 服务代理接口](../../server/api#ai-服务代理) 接口。
 - 不推荐：浏览器端直连 OpenAI 兼容接口（会暴露密钥、且常见 CORS 限制）。
 
 具体接入示例见 [后端示例](./backend)。
@@ -35,59 +35,6 @@ Umo Editor Next 中的 `protocol` 只用于描述 **前端与“后端 SSE 服�
 - 已有后端接口，返回数据结构难以改造成 AG-UI
 - 只需要“文本 / Markdown / 思考态”等基础能力，不需要工具调用、状态机等复杂事件
 - 希望快速落地：只要返回标准 SSE，前端通过回调进行映射即可
-
-### 后端返回要求（SSE）
-
-后端需要返回标准的 SSE（Server-Sent Events）流。每个事件用 `data:` 开头，事件之间以空行分隔：
-
-```
-data: {"type":"think","content":"正在分析..."}
-
-data: {"type":"text","content":"我是**腾讯云**助手"}
-
-data: {"type":"text","content":"很高兴为您服务！"}
-
-```
-
-### 前端如何解析
-
-应当通过 `ai.callbacks.onMessage` 来解析每个 chunk，并返回内容块（content segment）。
-
-代码示例（把后端的 `{type, content}` 映射为消息体的 `thinking` 与 `markdown`）：
-
-```js
-const options = {
-  ai: {
-    callbacks: {
-      onMessage(_context, chunk) {
-        const { type, content } = chunk.data || {}
-        if (type === 'text') {
-          return { type: 'markdown', data: content }
-        }
-        if (type === 'think') {
-          return {
-            type: 'thinking',
-            data: { title: '思考中...', text: content },
-          }
-        }
-        return null
-      },
-    },
-  },
-}
-```
-
-如果不配置 `onMessage`，编辑器会使用一个兜底映射：
-
-- 读取 `chunk.data.msg`
-- 返回 `{ type: 'markdown', data: rest?.msg || '' }`
-
-这意味着后端最简事件格式可以是：
-
-```
-data: {"msg":"hello"}
-
-```
 
 ### 常见坑位
 
@@ -113,13 +60,13 @@ data: {"msg":"hello"}
 
 当 `models[].protocol === 'agui'` 时：
 
-- 不会走 `callbacks.onMessage` 的自定义解析
+- 不会走 `ai.callbacks.onMessage` 的自定义解析
 - chunk 的解析交给内置的 AG-UI 解析器
 
 因此：
 
 - 必须确保后端输出的 SSE 事件符合 AG-UI 约定
-- 需要在后端完成“把模型输出/工具调用”转换为 AG-UI 事件
+- 需要在后端完成“把模型输出 / 工具调用”转换为 AG-UI 事件
 
 ## 如何选择不同协议
 

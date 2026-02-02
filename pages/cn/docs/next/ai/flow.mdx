@@ -145,10 +145,10 @@ sequenceDiagram
 附件只在满足条件时出现：
 
 - `from === 'chat'`
-- `options.ai.chat.files.enabled === true`
+- `ai.chat.files.enabled === true`
 - 用户已上传且上传完成（文件状态不是 progress）
 
-`attachments` 来自 `options.onFileUpload` 返回信息。
+`attachments` 来自 `onFileUpload` 返回信息。
 
 后端常见策略：
 
@@ -163,11 +163,11 @@ sequenceDiagram
 - 控制输出 JSON 结构
 - 前端用 `ai.callbacks.onMessage` 做映射
 
-最低要求：每个 SSE 事件输出一行 JSON（不要直接输出带换行的 Markdown）。
+最低要求：每个 SSE 事件输出一行 JSON（不要直接输出带换行的 Markdown），可以参考：Umo Editor Server 的 [AI SSE 示例接口](../../server/api#ai-sse-示例)。
 
 ### SSE + AG-UI（agui）
 
 - 控制输出 AG-UI 事件类型
 - 前端自动解析显示（适合 agent 工具调用）
 
-如果准备做“工具调用 / 多步骤任务 / 进度状态”，建议优先 AG-UI。
+如果准备做“工具调用 / 多步骤任务 / 进度状态”，建议优先 AG-UI，可以参考：Umo Editor Server 的 [AI SSE 示例接口](../../server/api#ai-sse-示例)。

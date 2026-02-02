@@ -325,7 +325,7 @@ export const defaultAIOptions = {
 
 #### ai.callbacks.onRequest
 
-**说明**：发送请求前的统一改写入口。可以在这里注入鉴权 headers、改写 body、或把前端 `params` 映射为后端协议。
+**说明**：发送请求前的统一改写入口。可以在这里注入鉴权 headers、改写 body 等，如果你需要自定义请求，请可以通过此方法实现。
 
 **类型**：`Function`，
 
@@ -340,25 +340,21 @@ const onRequest = (context, params) => {
   return {
     // 注入鉴权 headers
     headers: {
-      ...params.headers,
       'Authorization': 'Bearer ' + getAccessToken(),
     },
     // 发送的内容
-    body: JSON.stringify({
-      ...context,
-      ...params,
-    }),
+    body: JSON.stringify(params),
   }
 }
 ```
 
 #### ai.callbacks.onMessage
 
-**说明**：自定义协议（`model.protocol !== 'agui'`）下，用于把后端 SSE chunk 映射为聊天内容块（markdown / thinking 等）。
+**说明**：自定义协议（`model.protocol !== 'agui'`）下，用于把后端 SSE chunk 映射为聊天内容块（markdown / thinking 等），如果你要自定义消息解析，可以通过此方法实现。
 
 **类型**：`(context, chunk) => { type: string, data: any } | null`
 
-**默认值**：无（未配置时会使用内置兜底：读取 `chunk.data.msg` 并作为 markdown 渲染）
+**默认值**：无
 
 #### ai.callbacks.onStart
 

@@ -8,10 +8,7 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文�
 
 本章提供后端示例，帮助 Umo Editor Next 发送的 `params` 接到任意大模型提供商（OpenAI / DeepSeek等）或自建 Agent 框架。
 
-重点：
-
-- 前端已经通过 `ai.callbacks.onRequest` 把上下文打包成 `params` 发送给后端
-- 后端要做的核心工作是：**选择协议 + 组装提示词 + 输出 SSE**
+后端要做的核心工作是：**选择协议 + 组装提示词 + 输出 SSE**
 
 ## 接口契约（后端会收到什么）
 
@@ -22,75 +19,11 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文�
 - 用 `selectionNodes/document` 作为可编辑/可参考上下文
 - 用 `skill/from/reasoning` 做路由与策略选择
 
-## 自定义协议（default）示例：
+## 自定义协议（default）：
 
-下面示例采用Node.js + Express（SSE）实现，并假设已经有一个 `generateStream()`，能不断 yield 出模型的增量文本（字符串）。
+你可以在 Umo Editor Server 源码中获得完整的示例，从而快速上手。
 
-```js
-import express from 'express'
-
-const app = express()
-app.use(express.json({ limit: '2mb' }))
-
-app.post('/api/chat', async (req, res) => {
-  const params = req.body || {}
-
-  res.status(200)
-  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8')
-  res.setHeader('Cache-Control', 'no-cache, no-transform')
-  res.setHeader('Connection', 'keep-alive')
-
-  const writeEvent = (obj) => {
-    res.write(`data: ${JSON.stringify(obj)}\n\n`)
-  }
-
-  try {
-    writeEvent({ type: 'think', content: '正在生成...' })
-
-    const { systemPrompt, prompt, locale, skill, selectionNodes, document, reasoning } = params
-    const stream = generateStream({
-      systemPrompt,
-      prompt,
-      locale,
-      skill,
-      selectionNodes,
-      document,
-      reasoning,
-    })
-
-    for await (const delta of stream) {
-      writeEvent({ type: 'text', content: delta })
-    }
-
-    res.end()
-  } catch (e) {
-    writeEvent({ type: 'error', content: '生成失败' })
-    res.end()
-  }
-})
-```
-
-Umo Editor Next 显示：需要在 Umo Editor Next 中配置 `ai.callbacks.onMessage` 做映射（否则默认兜底只认 `msg` 字段）：
-
-```js
-const options = {
-  ai: {
-    callbacks: {
-      onMessage(_context, chunk) {
-        const { type, content } = chunk.data || {}
-        if (type === 'text') return { type: 'markdown', data: content }
-        if (type === 'think') {
-          return { type: 'thinking', data: { title: '思考中...', text: content } }
-        }
-        if (type === 'error') return { type: 'markdown', data: content }
-        return null
-      },
-    },
-  },
-}
-```
-
-## 默认协议的推荐输出策略
+## 默认协议的对接建议
 
 ### 分两路输出：thinking + markdown
 
@@ -130,128 +63,9 @@ data: {"type":"text","content":"第一行\\n\\n第二行"}
 - 前端：仍然接入自己的 `/api/chat`（协议为 `default` 或 `agui`）
 - 后端：把 `/api/chat` 作为代理/适配层，调用上游 OpenAI 兼容接口，并把上游 SSE 转发/转换为 Umo Editor Next 约定的 SSE chunk
 
-### 示例：把 OpenAI-compatible Chat Completions 的流转为 default SSE
+### 如何把 OpenAI-compatible Chat Completions 的流转为 default SSE？
 
-下面示例仅演示“协议适配”，省略了具体框架初始化与异常兜底细节。核心点：
-
-- 上游：OpenAI-compatible SSE（`data: {choices:[{delta:{content}}]}`）
-- 下游：Umo Editor Next 中的 default SSE（`data: {"type":"text","content":...}`）
-
-```js
-import express from 'express'
-
-const app = express()
-app.use(express.json({ limit: '2mb' }))
-
-const UPSTREAM_BASE_URL = process.env.UPSTREAM_BASE_URL
-const UPSTREAM_API_KEY = process.env.UPSTREAM_API_KEY
-const UPSTREAM_MODEL = process.env.UPSTREAM_MODEL
-
-app.post('/api/chat', async (req, res) => {
-  const params = req.body || {}
-
-  res.status(200)
-  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8')
-  res.setHeader('Cache-Control', 'no-cache, no-transform')
-  res.setHeader('Connection', 'keep-alive')
-
-  const writeEvent = (obj) => {
-    res.write(`data: ${JSON.stringify(obj)}\n\n`)
-  }
-
-  const messages = [
-    { role: 'system', content: params.systemPrompt || '' },
-    {
-      role: 'user',
-      content: [
-        `# 指令`,
-        params.prompt || '',
-        ``,
-        `# 选区（可能为空）`,
-        params.selectionNodes || params.selectionText || '',
-        ``,
-        `# 全文（含光标标记）`,
-        params.document || '',
-      ].join('\n'),
-    },
-  ]
-
-  const upstreamBody = {
-    model: UPSTREAM_MODEL,
-    stream: true,
-    messages,
-  }
-
-  const upstreamRes = await fetch(`${UPSTREAM_BASE_URL}/v1/chat/completions`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${UPSTREAM_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(upstreamBody),
-  })
-
-  if (!upstreamRes.ok || !upstreamRes.body) {
-    writeEvent({ type: 'error', content: 'Upstream request failed' })
-    res.end()
-    return
-  }
-
-  const reader = upstreamRes.body.getReader()
-  const decoder = new TextDecoder('utf-8')
-  let buffer = ''
-
-  while (true) {
-    const { value, done } = await reader.read()
-    if (done) break
-    buffer += decoder.decode(value, { stream: true })
-
-    const events = buffer.split('\n\n')
-    buffer = events.pop() || ''
-
-    for (const evt of events) {
-      const line = evt
-        .split('\n')
-        .map((s) => s.trim())
-        .find((s) => s.startsWith('data:'))
-      if (!line) continue
-
-      const data = line.replace(/^data:\s*/, '')
-      if (data === '[DONE]') {
-        res.end()
-        return
-      }
-
-      let json
-      try {
-        json = JSON.parse(data)
-      } catch {
-        continue
-      }
-
-      const delta = json?.choices?.[0]?.delta?.content
-      if (typeof delta === 'string' && delta.length > 0) {
-        writeEvent({ type: 'text', content: delta })
-      }
-    }
-  }
-
-  res.end()
-})
-```
-
-配套的前端 `onMessage` 映射（default 协议必配）：
-
-```js
-callbacks: {
-  onMessage(_context, chunk) {
-    const { type, content } = chunk.data || {}
-    if (type === 'text') return { type: 'markdown', data: content }
-    if (type === 'error') return { type: 'markdown', data: content }
-    return null
-  },
-}
-```
+你可以在 Umo Editor Server 源码中获得完整的示例，从而快速上手。
 
 当然也可以不通过后端转换，直接在 `ai.callbacks.onMessage` 里面直接解析主流大模型返回的 SSE delta，做自定义映射。
 
@@ -261,15 +75,7 @@ callbacks: {
 - 许多厂商对浏览器 SSE 有额外限制（CORS、Header、频控）
 - 需要做审计、限流、配额、敏感信息过滤时，后端代理是必需的
 
-## 鉴权与安全要点
-
-### 统一在 onRequest 注入鉴权，不要把 token 写死到代码里
-
-推荐在业务应用层按当前用户注入 token：
-
-- `ai.callbacks.onRequest` 里返回 `headers.Authorization`
-- 不要在日志中输出完整 token
-- 不要在把 AI 模型的 API Key 写到前端
+## 安全要点
 
 ### 做最小化日志
 
@@ -297,9 +103,9 @@ params 里包含 `document`（全文 Markdown）与 `selectionNodes`（选区）
 - 客户端断开连接时中止模型请求（减少成本）
 - 对长连接 SSE 及时释放资源
 
-## 参数策略：如何让模型更“听话”
+## 参数策略
 
-最有效的组合通常是：
+如何让模型更“听话”，最有效的组合通常是：
 
 - `systemPrompt`：提供硬规则（输出格式、编辑范围、语言）
 - `selectionNodes`：提供严格可编辑范围（有选区时优先使用）
