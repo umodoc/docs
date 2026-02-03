@@ -26,14 +26,14 @@
     "format": "prettier --write 'pages/**/*'"
   },
   "dependencies": {
-    "next": "^14.2.5",
-    "nextra": "^3.3.1",
-    "nextra-theme-docs": "^3.3.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "typescript": "^5.5.3"
+    "next": "14.2.5",
+    "nextra": "3.3.1",
+    "nextra-theme-docs": "3.3.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "5.5.3"
   },
   "devDependencies": {
-    "prettier": "^3.7.4"
+    "prettier": "3.7.4"
   }
 }

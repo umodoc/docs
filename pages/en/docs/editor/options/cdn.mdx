@@ -40,16 +40,22 @@ You can quickly copy files to the project **root directory** using the following
 
 <Tabs items={['Windows', 'Linux / MacOS / Others']}>
   <Tabs.Tab>
-    ```bash mkdir -p public/libs mkdir -p public/icons mkdir -p public/static
-    xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I xcopy
-    node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I xcopy
-    node_modules\@umoteam\editor-external\static\* public\static\ /E /I ```
+    ```bat
+    mkdir public\libs
+    mkdir public\icons
+    mkdir public\static
+    xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
+    xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
+    xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-    ```bash mkdir -p public/libs mkdir -p public/icons mkdir -p public/static cp
-    -r node_modules/@umoteam/editor-external/libs/* public/libs/ cp -r
-    node_modules/@umoteam/editor-external/icons/* public/icons/ cp -r
-    node_modules/@umoteam/editor-external/static/* public/static/ ```
+    ```bash
+    mkdir -p public/libs public/icons public/static
+    cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
+    cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
+    cp -r node_modules/@umoteam/editor-external/static/* public/static/
+    ```
   </Tabs.Tab>
 </Tabs>
 

@@ -34,7 +34,7 @@ body {
 .nextra-search-results {
   border-radius: 5px !important;
 }
-.nextra-sidebar-container li._font-semibold {
+.nextra-sidebar-container li li._font-semibold {
   margin: 10px 0 0 !important;
   font-weight: 400;
   &::after {

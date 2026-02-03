@@ -31,8 +31,8 @@ A brief description of the currently provided interfaces is as follows. For more
 
 ## AI SSE Demo
 
-- `POST /ai/sse/normal-demo`: SSE example interface, returns `text/event-stream`. The `data` field of each SSE is JSON, facilitating parsing by the frontend according to the default protocol.
-- `POST /ai/sse/normal-demo`: AG-UI SSE example interface, returns `text/event-stream`. The `data` field of each SSE is AG-UI event JSON. This interface is for demonstration purposes to facilitate joint debugging of frontend AG-UI parsing and rendering, and will not call the upstream model.
+- `POST /mock/sse/normal`: SSE example interface, returns `text/event-stream`. The `data` field of each SSE is JSON, facilitating parsing by the frontend according to the default protocol.
+- `POST /mock/sse/normal`: AG-UI SSE example interface, returns `text/event-stream`. The `data` field of each SSE is AG-UI event JSON. This interface is for demonstration purposes to facilitate joint debugging of frontend AG-UI parsing and rendering, and will not call the upstream model.
 
 ## Collaboration and Comments
 

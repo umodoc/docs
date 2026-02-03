@@ -31,8 +31,8 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 
 ## AI SSE 示例
 
-- `POST /ai/sse/normal-demo`：SSE 示例接口，返回 `text/event-stream`，每条 SSE 的 data 字段为 JSON，便于前端按 default 协议解析。
-- `POST /ai/sse/normal-demo`：AG-UI SSE 示例接口，返回 `text/event-stream`，每条 SSE 的 data 字段为 AG-UI 事件 JSON。 该接口为演示用途，便于联调前端 AG-UI 解析与渲染，不会调用上游模型。
+- `POST /mock/sse/normal`：SSE 示例接口，返回 `text/event-stream`，每条 SSE 的 data 字段为 JSON，便于前端按 default 协议解析。
+- `POST /mock/sse/agui`：AG-UI SSE 示例接口，返回 `text/event-stream`，每条 SSE 的 data 字段为 AG-UI 事件 JSON。 该接口为演示用途，便于联调前端 AG-UI 解析与渲染，不会调用上游模型。
 
 ## 文档协作、批注
 

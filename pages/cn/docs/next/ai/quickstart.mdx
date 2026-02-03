@@ -11,7 +11,7 @@ description: Umo Editor 是一个基于 Vue3 和 Tiptap3 的本土化开源文�
 必须提供的能力（否则必然报错 / 不可用）：
 
 1. 至少一个 AI 模型配置：`ai.models.length > 0`，Umo Editor Next 会读取 `ai.models[0]` 作为默认模型；
-2. 一个可访问的后端 endpoint（推荐 SSE）：`ai.models[].endpoint`，前端会向该 endpoint 发起请求，你可以先行连接到 Umo Editor Server 提供的默认 SSE 示例服务 `/ai/sse/normal-demo` 或 `/ai/sse/agui-demo` 进行测试，见：[接口列表](../../server/api)。
+2. 一个可访问的后端 endpoint（推荐 SSE）：`ai.models[].endpoint`，前端会向该 endpoint 发起请求，你可以先行连接到 Umo Editor Server 提供的默认 SSE 示例服务 `/mock/sse/normal` 或 `/mock/sse/agui` 进行测试，见：[接口列表](../../server/api)。
 
 ## 默认配置
 
@@ -26,7 +26,7 @@ const options = {
         label: { zh_CN: '默认模型', en_US: 'Default Model' },
         avatar: '/images/ai.svg',
         protocol: 'default',     // 或 'agui'
-        endpoint: 'http://127.0.0.1:1235/ai/sse/normal-demo',   // Umo Editor Server 的 SSE 示例接口
+        endpoint: 'http://127.0.0.1:1235/mock/sse/normal',   // Umo Editor Server 的 SSE 示例接口
         stream: true,
         reasoning: true,
       },
