@@ -16,7 +16,7 @@ sequenceDiagram
   participant U as 用户
   participant S as 发送器
   participant E as 编辑器
-  participant C as 聊天引擎
+  participant C as 消息引擎
   participant B as 后端
   participant M as 模型
 
@@ -45,7 +45,7 @@ sequenceDiagram
 
 流程中的关键点：
 
-- 构造并发送 params：收集上下文包 + 用户输入，交给聊天引擎发起请求
+- 构造并发送 params：收集上下文包 + 用户输入，交给消息引擎发起请求
 - 流式解析与渲染：default 协议走 `callbacks.onMessage`；agui 协议走内置解析
 - 结果写回编辑器：用户点击“替换/插入”等动作后执行写回
 
@@ -66,6 +66,7 @@ sequenceDiagram
   selectionText,    // 用户选区纯文本（可能为空）
   selectionNodes,   // 选区节点级 Markdown（可能为空；可能含选区标记）
   document,         // 全文 Markdown（含光标/选区标记）
+  cursorMarker,     // 当前光标位置标记（默认 '⦙'）
 
   chatID,           // 当前会话 id（会话 id 相同可认为是连续对话）
   documentID,       // 文档 id（业务可用于检索/存档）

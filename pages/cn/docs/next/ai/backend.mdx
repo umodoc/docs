@@ -47,7 +47,7 @@ data: {"type":"text","content":"第一行\\n\\n第二行"}
 
 ## AG-UI（agui）对接建议
 
-当 `ai.models[].protocol === 'agui'` 时，前端不走 `ai.callbacks.onMessage`，而是由聊天引擎自动解析 AG-UI 事件。
+当 `ai.models[].protocol === 'agui'` 时，前端不走 `ai.callbacks.onMessage`，而是由消息引擎自动解析 AG-UI 事件。
 
 后端需要做：
 
@@ -94,7 +94,7 @@ params 里包含 `document`（全文 Markdown）与 `selectionNodes`（选区）
 
 ### 处理 Abort
 
-前端停止生成会调用聊天引擎终止协议：
+前端停止生成会调用消息引擎终止协议：
 
 - `chatEngine.abortChat()`
 
