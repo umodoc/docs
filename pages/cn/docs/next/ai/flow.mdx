@@ -57,7 +57,7 @@ sequenceDiagram
 {
   systemPrompt,     // 已替换 {cursorMarker} 的系统提示词
   prompt,           // 用户输入的内容，即用户的要求
-  skill,            // 用户所选的技能名称：'write' | 'image' | 'code' | 'katex' | 'mermaid' | 'search'
+  skill,            // 用户所选的技能名称：'write' | 'image' | 'code' | 'mermaid' | 'search'
   from,             // 当前对话的来源：'assistant' | 'chat'
   reasoning,        // 是否深度思考（boolean）
   model,            // 当前模型对象（value/label/endpoint/protocol/...）
@@ -97,7 +97,6 @@ sequenceDiagram
 
 - `write`：允许生成 / 改写 Markdown；输出应尽量是“可直接替换 / 插入”的内容
 - `code`：输出应是代码块 Markdown（避免解释性文字）
-- `katex`：输出 KaTeX 公式（避免自然语言推导太长）
 - `mermaid`：输出 Mermaid 代码块
 - `image`：返回图片 Markdown
 - `search`：返回总结/解释，但不要改写文档结构（除非业务定义允许）

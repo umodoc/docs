@@ -29,14 +29,14 @@ A brief description of the currently provided interfaces is as follows. For more
 
 - `POST /ai/{provider}/chat/completions`: Dynamically proxies requests to different AI service providers (e.g., DeepSeek, OpenAI, etc.) based on the `provider`. Can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response results that comply with the AI messages in Umo Editor Next. Please refer to the code comments for specific implementation and usage.
 
-## AI SSE Demo
-
-- `POST /mock/sse/normal`: SSE example interface, returns `text/event-stream`. The `data` field of each SSE is JSON, facilitating parsing by the frontend according to the default protocol.
-- `POST /mock/sse/normal`: AG-UI SSE example interface, returns `text/event-stream`. The `data` field of each SSE is AG-UI event JSON. This interface is for demonstration purposes to facilitate joint debugging of frontend AG-UI parsing and rendering, and will not call the upstream model.
-
 ## Collaboration and Comments
 
 - `GET /collaboration`: WebSocket interface, should be connected via the ws(s):// protocol. Most of the content of this interface is stored and transmitted in binary form. Please refer to the source code for its configuration and related instructions.
+
+## AI SSE Demo
+
+- `POST /mock/sse/normal`: SSE example interface, returns `text/event-stream`. The `data` field of each SSE is JSON, facilitating parsing by the frontend according to the default protocol.
+- `POST /mock/sse/normal`: AG-UI SSE example interface, returns `text/event-stream`. The `data` field of each SSE is AG-UI event JSON. This interface is for demonstration purposes to facilitate joint debugging of frontend AG-UI parsing and rendering.
 
 ## Template Endpoints
 
