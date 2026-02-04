@@ -21,6 +21,7 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 ## 文档导入导出
 
 - `POST /import/office`：将 Office 等格式的文档转换为 Umo Editor 所支持的格式，支持的格式包括：doc, docx, xls, xlsx, ppt, pptx, odp, odt, ods, rtf, wps, et, dps 等，并可自行扩展。
+- `POST /import/anyweb`：将任意网页内容导入 Umo Editor Next 中。
 - `POST /export/pdf`：将文档导出为 PDF 格式。
 - `POST /export/image/:type`：将文档导出为图片格式，支持 `jpeg`、`png`、`webp` 格式图片的导出。
 - `POST /export/thumbnail`：导出文档缩略图（仅导出文档第一页内容）。
