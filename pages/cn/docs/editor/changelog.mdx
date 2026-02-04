@@ -11,12 +11,14 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/changelog
 
-## 🎉 v10.0.0 <Badge>2026-01-11</Badge>
+## 🎉 v10.0.0 <Badge>2026-02-10</Badge>
 
 <Callout type="info" emoji="❗">
-  本次更新是一次**里程碑式的大版本升级**。在不破坏原有配置与使用习惯的前提下，Umo Editor 底层代码已无痛迁移至 Tiptap v3 最新版本，所有扩展也同时升级到了 v3 最新版本，同时移除了对所有 Pro 扩展的引用，并对整体代码进行了系统性重构。
+  本次更新是一次**里程碑式的大版本升级**。在尽量不破坏原有配置与使用习惯的前提下，Umo Editor 底层代码已无痛迁移至 Tiptap v3 最新版本，所有扩展也同时升级到了 v3 最新版本，同时移除了对所有 Pro 扩展的引用，并对整体代码进行了系统性重构。
   
   本次升级不仅显著**降低了打包体积**、**提升了大文档的加载和编辑性能**，也为后续功能扩展和长期维护奠定了更加稳固的基础。**强烈建议所有用户升级。**
+
+  需要注意的是，如果您需要升级到 v10，`cdnUrl` 配置所引用的 [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN 资源也需要升级到 v10。 to v10.
 </Callout>
 
 ---
@@ -36,53 +38,68 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 1. **全面移除 TypeScript 支持**，核心代码统一使用 JavaScript 重构；
 2. 重构了全部 Tiptap 扩展及其相关实现逻辑；
 3. 重构工具栏、菜单系统及多处核心交互逻辑，为后续功能扩展提供更清晰的结构；
-4. 升级所有依赖到最新版本。
+4. 升级所有依赖到最新版本；
+5. 使用 oxfmt 和 oxlint 作为代码美化和代码检查工具，提高开发效率；
+6. 重构 getSelectionNode 工具类；
+7. 重构分栏扩展，支持多行展示、支持添加分栏、支持拖动手柄改变大小；
+8. 大量优化了核心代码逻辑，提升了整体运行效率和响应速度。
 
 ---
 
 ### ✨ 新增
 
-1. 工具栏新增「视图」菜单，支持：大纲显示、全屏模式、演示模式、视图设置、缩放比例、外观设置、主题设置、语言设置等，详见
-   👉 [Umo Editor 在线示例](https://www.umodoc.com/demo)；
-2. 新增全新的 **「公式」工具**；
-3. 新增 **「详情」节点**；
-4. 新增 **「字间距」** 调整功能；
-5. 新增 **「文字换行方式」** 设置；
-6. 新增 **「脚注」** 功能；
-7. 增强 **「Mermaid」** 编辑能力；
-8. **「文本框」** 新增文本对齐功能；
-9. 工具栏支持鼠标滚轮进行左右滚动；
-10. 增强对 **Office 文档粘贴** 的兼容性；
-11. 新增文档结构配置项，详见 👉 [document.structure 配置](options/document#documentstructure)；
-12. 新增节点 ID 配置，支持所有节点类型，开启后可通过 ID 查找文档节点，详见 👉 [document.enableNodeId 配置](options/document#documentenablenodeid)；
-13. 新增皮肤机制，并提供切换皮肤的事件与方法，详见 👉 [setSkin 方法](./methods#setskin)；
-14. 新增 `paste`、`drop`、`delete` 事件，详见 👉 [事件列表](./events)；
-15. `setPage` 方法新增对页边距的支持，详见 👉 [setPage 方法](./methods#setpage)；
-16. 开发构建流程中引入打包分析工具，便于持续优化体积与性能。
+1. Mermaid 图表等在编辑时保留原大小信息；
+2. 文件节点增加对自定义预览方法的支持，详见：[文件上传-文件预览设置](./options/file#filepreview)；
+3. 页面布局默认从本地缓存中获取；
+4. 工具栏新增「视图」菜单，支持：大纲显示、全屏模式、演示模式、视图设置、缩放比例、外观设置、主题设置、语言设置等，详见 👉 [Umo Editor 在线示例](https://www.umodoc.com/demo)；
+5. 新增全新的 **「公式」工具**；
+6. 新增 **「详情」节点**；
+7. 新增 **「字间距」** 调整功能；
+8. 新增 **「文字换行方式」** 设置；
+9. 新增 **「脚注」** 功能；
+10. 增强 **「Mermaid」** 编辑能力；
+11. **「文本框」** 新增文本对齐功能；
+12. 工具栏支持鼠标滚轮进行左右滚动；
+13. 增强对 **Office 文档粘贴** 的兼容性；
+14. 新增文档结构配置项，详见 👉 [document.structure 配置](options/document#documentstructure)；
+15. 新增节点 ID 配置，支持所有节点类型，开启后可通过 ID 查找文档节点，详见 👉 [document.enableNodeId 配置](options/document#documentenablenodeid)；
+16. 新增皮肤机制，并提供切换皮肤的事件与方法，详见 👉 [setSkin 方法](./methods#setskin)；
+17. 新增 `paste`、`drop`、`delete` 事件，详见 👉 [事件列表](./events)；
+18. `setPage` 方法新增对页边距的支持，详见 👉 [setPage 方法](./methods#setpage)；
+19. 开发构建流程中引入打包分析工具，便于持续优化体积与性能。
 
 ---
 
 ### 🐛 修复
 
-1. 修复有序列表起始编号设置无效的问题；
-2. Indent 扩展改为使用 `style` 而非 `class` 实现缩进 @tellbom [(#426)](https://github.com/umodoc/editor/issues/426)；
-3. 修复文本框相关的若干问题；
-4. 修复节点拖拽过程中的异常行为；
-5. 修复「公式」在部分场景下插入后无法显示的问题；
-6. 优化「选项」元素节点的显示样式；
-7. 修复「选项」元素在打印时会独占一行、不符合预期的问题 @cheecheebaishu [(#407)](https://github.com/umodoc/editor/issues/407)；
-8. 修复选中表格中的文本时，气泡菜单显示不正确的问题；
-9. 修复图片高度可无限拖动的问题。
+1. 修复重新加载文档后支持预览的文件节点不显示预览按钮的问题；
+2. 修复文件节点文件上传后文件地址不正确的问题；
+3. 修复选中表格中的文本时，气泡菜单显示不正确的问题；
+4. 修复图片高度可无限拖动的问题；
+5. 修复有序列表起始编号设置无效的问题；
+6. Indent 扩展改为使用 `style` 而非 `class` 实现缩进 @tellbom [(#426)](https://github.com/umodoc/editor/issues/426)；
+7. 修复文本框相关的若干问题；
+8. 修复节点拖拽过程中的异常行为；
+9. 修复「公式」在部分场景下插入后无法显示的问题；
+10. 优化「选项」元素节点的显示样式；
+11. 修复「选项」元素在打印时会独占一行、不符合预期的问题 @cheecheebaishu [(#407)](https://github.com/umodoc/editor/issues/407)；
+12. 修复选中表格中的文本时，气泡菜单显示不正确的问题；
+13. 修复图片高度可无限拖动的问题；
+14. 修复文档初始化后，第一个节点会自动获得焦点的问题
+14. 大量细节问题修复。
 
 ---
 
 ### ⚡ 优化
 
-1. 调整工具栏中菜单的整体显示顺序；
-2. 优化链接、图片等节点的气泡菜单选项；
-3. 可编辑文本的自定义节点默认不再显示多余换行；
-4. 优化文档大纲的展示效果；
-5. 优化文档在预览模式下的整体显示效果；
+1. 优化图片预览，支持更多类型更多格式；
+2. 统一和简化路径为 dataURL 的图片的上传方法等；
+3. 文件节点增加自动宽度功能；
+4. 调整工具栏中菜单的整体显示顺序；
+5. 优化链接、图片等节点的气泡菜单选项；
+6. 可编辑文本的自定义节点默认不再显示多余换行；
+7. 优化文档大纲的展示效果；
+8. 优化文档在预览模式下的整体显示效果；
 6. 优化对编辑器内容变化的监听逻辑，减少页面高度的重复计算；
 7. Mermaid、Plyr 等第三方资源改为通过 CDN 加载，进一步降低打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
 8. 优化块菜单手柄样式；
@@ -92,10 +109,12 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 
 ### 🧹 移除
 
-1. 移除 `contentError` 事件；
-2. 出于第三方资源体积控制的考虑，移除 **电子签章** 与 **图片去除背景** 功能 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
-3. 移除文档预览功能，以进一步优化整体打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
-4. 移除了部分 `disableExtensions` 的配置项，见:[disableExtensions 配置](./options/extensions)。
+1. 移除 AI 相关配置及 AI 文档助手，AI 统一合并到 Umo Editor Next 中
+移除了鸡肋的word导入功能，注意：相关配置项也已移除，请及时从配置中删除，否则会导致报错。
+2. 移除 `contentError` 事件；
+3. 出于第三方资源体积控制的考虑，移除 **电子签章** 与 **图片去除背景** 功能 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
+4. 移除文档预览功能，以进一步优化整体打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
+5. 移除了部分 `disableExtensions` 的配置项，见:[disableExtensions 配置](./options/extensions)。
 
 ## 🚀 v9.0.1 <Badge>2025-12-05</Badge>
 

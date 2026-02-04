@@ -1,0 +1,118 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Backend Integration Example
+
+This chapter provides backend guidance for connecting the `params` sent by Umo Editor Next to any model provider (OpenAI, DeepSeek, etc.) or to your own agent framework.
+
+The backend’s core work is: **choose a protocol + assemble prompts + output SSE**
+
+## Contract (what the backend receives)
+
+See `params` in [Frontend/Backend Flow](./flow). Common backend usage:
+
+- Use `systemPrompt` as the system message
+- Use `prompt` as the user message
+- Use `selectionNodes` / `document` as editable/reference context
+- Use `skill` / `from` / `reasoning` for routing and strategy selection
+
+## Custom protocol (default)
+
+You can find a complete reference implementation in the Umo Editor Server source code.
+
+## Recommendations for the default protocol
+
+### Split output into thinking + markdown
+
+- thinking: a visual cue of “what’s happening” (keep it short)
+- markdown: the final content to write back into the editor (prefer complete paragraphs/lists/code blocks)
+
+### Do not write multi-line Markdown directly into SSE data
+
+Wrong:
+
+```
+data: Line 1
+Line 2
+```
+
+Correct:
+
+```
+data: {"type":"text","content":"Line 1\\n\\nLine 2"}
+```
+
+## Recommendations for AG-UI (agui)
+
+When `ai.models[].protocol === 'agui'`, the frontend does not use `ai.callbacks.onMessage`. Instead, the chat engine parses AG-UI events automatically.
+
+Your backend should:
+
+- Output SSE by AG-UI event type
+- Express tool calls, status updates, and other process steps as events
+
+If you already have an agent framework (LangGraph/LlamaIndex/custom), AG-UI is a better fit to express “multi-step tasks + toolchain progress”.
+
+## Quick integration with mainstream models
+
+Many providers offer “OpenAI-compatible” APIs (often compatible with `POST /v1/chat/completions` and support `stream: true` SSE). Recommended approach:
+
+- Frontend: keep calling your own `/api/chat` (protocol `default` or `agui`)
+- Backend: treat `/api/chat` as a proxy/adapter that calls an upstream OpenAI-compatible API, then forwards/converts upstream SSE into the SSE chunks expected by Umo Editor Next
+
+### How to convert OpenAI-compatible streaming to default SSE?
+
+You can find a complete example in the Umo Editor Server source code.
+
+Alternatively, you can skip backend conversion and parse the provider’s SSE deltas directly in `ai.callbacks.onMessage` to do custom mapping.
+
+### Why not connect directly from the browser to OpenAI-compatible APIs?
+
+- You would have to expose your API key to the browser (very unsafe)
+- Many providers impose extra constraints on browser SSE (CORS, headers, rate limits)
+- When you need auditing, rate limiting, quotas, or sensitive-data filtering, a backend proxy is required
+
+## Security checklist
+
+### Minimize logging
+
+`params` can include `document` (full Markdown) and `selectionNodes` (selection):
+
+- Do not log full `document` contents; it may leak user privacy
+- Document content can be large and will bloat logs
+
+### Rate limiting and quotas
+
+Recommended backend controls (e.g. by `(userID, documentID)`):
+
+- Request rate limiting (prevent abuse)
+- Concurrency limits (avoid a single user exhausting resources)
+- Billing/quotas (when using paid model providers)
+
+### Handle Abort
+
+When the frontend stops generation, it will abort via the chat engine:
+
+- `chatEngine.abortChat()`
+
+Backend recommendations:
+
+- Abort upstream model requests when the client disconnects (reduce cost)
+- Release resources promptly for long-lived SSE connections
+
+## Parameter strategy
+
+To make the model more compliant, the most effective combination is usually:
+
+- `systemPrompt`: hard rules (output format, edit scope, language)
+- `selectionNodes`: strict editable range (prefer when there is a selection)
+- `document`: global context and insertion point (marker)
+- `skill` / `from`: tone and output form (editing-oriented vs chat-oriented)
+
+If the model still edits out of scope, prioritize:
+
+- Put `selectionNodes` first and clearly state “only edit content between markers”
+- Validate output on the backend: if it repeats large amounts of out-of-marker context or includes irrelevant content, reject/retry

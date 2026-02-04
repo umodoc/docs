@@ -11,12 +11,14 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next/changelog
 
-## 🎉 v10.0.0 <Badge>2026-01-11</Badge>
+## 🎉 v10.0.0 <Badge>2026-02-10</Badge>
 
 <Callout type="info" emoji="❗">
-  This release is a **major milestone upgrade**. Without breaking existing configurations or usage patterns, the core of Umo Editor has been seamlessly migrated to **Tiptap v3**, along with a systematic refactoring of the overall codebase. All extensions have been upgraded to the latest v3 versions, references to all Pro extensions have been removed, and the entire codebase has undergone a systematic refactor.
+  This update is a **milestone major upgrade**. Without breaking existing configurations or usage patterns, Umo Editor’s core codebase has been smoothly migrated to the **latest Tiptap v3**, and all extensions have been upgraded to the latest v3 versions. At the same time, we removed all references to Pro extensions and performed a systematic refactor of the overall codebase.
   
-  This upgrade significantly **reduces bundle size**, **improves loading and editing performance for large documents**, and lays a much more solid foundation for future feature expansion and long-term maintenance. **We strongly recommend all users upgrade to this version.**
+  This upgrade not only significantly **reduces bundle size** and **improves loading and editing performance for large documents**, but also lays a more solid foundation for future feature expansion and long-term maintenance. **We strongly recommend all users upgrade.**
+
+  Note: If you are upgrading to v10, the synchronized `cdnUrl` configuration that references [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN resources must also be upgraded to v10.
 </Callout>
 
 ---
@@ -24,10 +26,10 @@ Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next
 ### 🚀 Major Upgrades
 
 1. Upgraded the Tiptap core from **v2 to the latest v3**, fully embracing **Tiptap 3**;
-2. Significantly reduced production bundle size, with an overall reduction of approximately **3–4×**;
-3. Greatly improved large-document loading and editing performance—under the same benchmarks, supported document size has increased by **more than 3× (plain text)**;
-4. Introduced a large number of new features—see the **“New”** section below for details;
-5. Fundamentally resolved several long-standing minor issues.
+2. Significantly reduced production bundle size, cutting overall size by approximately **3–4×**;
+3. Greatly improved large-document loading and editing performance—under the same benchmarks, supported document scale increased by **more than 3× (plain text)**;
+4. Introduced many new features—see the **“Added”** section below;
+5. Fixed some long-standing minor issues at the root.
 
 ---
 
@@ -35,66 +37,83 @@ Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next
 
 1. **Completely removed TypeScript support**, refactoring all core code to JavaScript;
 2. Refactored all Tiptap extensions and their related implementations;
-3. Reworked the toolbar, menu system, and multiple core interaction logics to provide a cleaner and more extensible architecture.
-4. Upgraded all dependencies to their latest versions.
+3. Refactored the toolbar, menu system, and multiple core interaction logics to provide a clearer structure for future feature expansion;
+4. Upgraded all dependencies to their latest versions;
+5. Adopted oxfmt and oxlint as formatting and linting tools to improve development efficiency;
+6. Refactored the getSelectionNode utility;
+7. Refactored the column extension: supports multi-line display, adding columns, and resizing via drag handles;
+8. Optimized a large amount of core logic, improving overall runtime efficiency and responsiveness.
 
 ---
 
-### ✨ New
+### ✨ Added
 
-1. Added a new **“View”** menu to the toolbar, including: outline view, fullscreen mode, presentation mode, view settings, zoom level, appearance settings, theme settings, and language settings. 👉 See the [Umo Editor Online Demo](https://www.umodoc.com/demo);
-2. Introduced a brand-new **Formula** tool;
-3. Added a new **Details** node;
-4. Added **letter spacing** adjustment;
-5. Added **text wrapping mode** settings;
-6. Added **footnotes** support;
-7. Enhanced **Mermaid** editing capabilities;
-8. Added text alignment support for **Text Box** nodes;
-9. The toolbar now supports horizontal scrolling via mouse wheel;
-10. Improved compatibility when pasting **Office documents**;
-11. Added document structure configuration options—see 👉 [document.structure](options/document#documentstructure);
-12. Added node ID configuration for all node types. When enabled, document nodes can be located by ID—see 👉 [document.enableNodeId](options/document#documentenablenodeid);
-13. Introduced a new skin system, along with events and methods for switching skins—see 👉 [setSkin method](./methods#setskin);
-14. Added new `paste`, `drop`, and `delete` events—see 👉 [Events list](./events);
-15. Added margin support to the `setPage` method—see 👉 [setPage method](./methods#setpage);
-16. Introduced bundle analysis tools into the development build process to continuously optimize size and performance.
+1. Keep original size information for Mermaid diagrams and more when editing;
+2. File nodes added support for custom preview methods; see: [File upload - file preview](./options/file#filepreview);
+3. Page layout now defaults to values from local cache;
+4. Added a new **View** menu to the toolbar, supporting: outline, fullscreen, presentation mode, view settings, zoom, appearance settings, theme settings, language settings, etc. See 👉 [Umo Editor Online Demo](https://www.umodoc.com/demo);
+5. Added a brand-new **Formula** tool;
+6. Added a new **Details** node;
+7. Added **letter spacing** adjustment;
+8. Added **text wrapping mode** settings;
+9. Added **footnotes** support;
+10. Enhanced **Mermaid** editing capabilities;
+11. **Text Box** now supports text alignment;
+12. The toolbar supports horizontal scrolling with the mouse wheel;
+13. Improved compatibility for pasting **Office documents**;
+14. Added document structure configuration; see 👉 [document.structure](options/document#documentstructure);
+15. Added node ID configuration for all node types. When enabled, nodes can be located by ID; see 👉 [document.enableNodeId](options/document#documentenablenodeid);
+16. Added a skin system, plus events and methods to switch skins; see 👉 [setSkin method](./methods#setskin);
+17. Added `paste`, `drop`, and `delete` events; see 👉 [Events list](./events);
+18. The `setPage` method added margin support; see 👉 [setPage method](./methods#setpage);
+19. Introduced bundle analysis tools into the development build process to continuously optimize size and performance.
 
 ---
 
 ### 🐛 Fixes
 
-1. Fixed an issue where the starting index of ordered lists was not applied correctly;
-2. Updated the Indent extension to use `style` instead of `class` for indentation @tellbom [(#426)](https://github.com/umodoc/editor/issues/426);
-3. Fixed several issues related to text boxes;
-4. Fixed abnormal behavior during node dragging;
-5. Fixed an issue where formulas might not render correctly after insertion;
-6. Improved the display style of **Option** element nodes;
-7. Fixed an issue where **Option** elements would occupy an entire line when printing, which did not match expectations @cheecheebaishu [(#407)](https://github.com/umodoc/editor/issues/407);
-8. Fixed an issue where the bubble menu was displayed incorrectly when text within a table was selected;
-9. Fixed an issue where image height could be dragged infinitely.
+1. Fixed an issue where file nodes that support preview did not show the preview button after reloading a document;
+2. Fixed incorrect file URLs after uploading files in file nodes;
+3. Fixed incorrect bubble menu display when selecting text inside a table;
+4. Fixed an issue where image height could be dragged infinitely;
+5. Fixed an issue where the start number setting for ordered lists did not work;
+6. Updated the Indent extension to use `style` instead of `class` for indentation @tellbom [(#426)](https://github.com/umodoc/editor/issues/426);
+7. Fixed several issues related to text boxes;
+8. Fixed abnormal behavior during node dragging;
+9. Fixed an issue where formulas might not render correctly after insertion in some scenarios;
+10. Improved the display style of the **Option** element node;
+11. Fixed an issue where the **Option** element would occupy an entire line when printing, which did not match expectations @cheecheebaishu [(#407)](https://github.com/umodoc/editor/issues/407);
+12. Fixed incorrect bubble menu display when selecting text inside a table;
+13. Fixed an issue where image height could be dragged infinitely;
+14. Fixed an issue where the first node in a document would automatically gain focus after initialization;
+15. Fixed a large number of minor issues.
 
 ---
 
 ### ⚡ Improvements
 
-1. Adjusted the overall menu order in the toolbar;
-2. Improved bubble menu options for links, images, and other nodes;
-3. Custom editable text nodes no longer display unnecessary line breaks by default;
-4. Improved the visual presentation of the document outline;
-5. Improved overall document rendering in preview mode;
-6. Optimized editor content change listeners to reduce unnecessary page height recalculations;
-7. Switched Mermaid, Plyr, and other third-party resources to CDN loading, further reducing bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);  
-8. Optimized the block menu handle styles;
-9. Numerous minor tweaks and optimizations.
+1. Improved image preview, supporting more types and formats;
+2. Unified and simplified the upload method for dataURL images;
+3. File nodes added auto-width support;
+4. Adjusted the overall menu order in the toolbar;
+5. Improved bubble menu options for links, images, and other nodes;
+6. Custom editable text nodes no longer display unnecessary line breaks by default;
+7. Improved the visual presentation of the document outline;
+8. Improved overall document rendering in preview mode;
+9. Optimized editor content change listeners to reduce redundant page height calculations;
+10. Switched Mermaid, Plyr, and other third-party resources to CDN loading, further reducing bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
+11. Optimized the block menu handle styles;
+12. Numerous minor tweaks and optimizations.
 
 ---
 
 ### 🧹 Removed
 
-1. Removed the `contentError` event;
-2. Removed **Electronic Signature** and **Image Background Removal** features due to third-party resource size considerations [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
-3. Removed the document preview feature to further optimize overall bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415).
-4. Removed some configuration items from `disableExtensions`. See: [disableExtensions configuration](./options/extensions).
+1. Removed AI-related configuration and the AI Document Assistant. AI has been unified into Umo Editor Next. Also removed the little-used Word import feature. Note: related configuration items have also been removed—please delete them from your configuration, otherwise errors may occur.
+2. Removed the `contentError` event;
+3. Removed **Electronic Signature** and **Image Background Removal** features due to third-party resource size considerations [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
+4. Removed the document preview feature to further optimize overall bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
+5. Removed some configuration items from `disableExtensions`. See: [disableExtensions configuration](./options/extensions).
 
 ## 🚀 v9.0.1 <Badge>2025-12-05</Badge>
 

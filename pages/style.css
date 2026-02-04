@@ -118,6 +118,9 @@ body {
     border-radius: 4px;
   }
 }
+.nextra-callout p {
+  margin-top: 0;
+}
 .nextra-callout p:not(:first-child) {
   margin-top: 0.5rem;
 }

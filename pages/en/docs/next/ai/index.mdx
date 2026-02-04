@@ -1,0 +1,90 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+import { Callout } from 'nextra/components'
+
+# Introduction
+
+<Callout type="warning" emoji="❗" style={{ marginBottom: '50px !important' }}>
+  Starting from V10, Umo Editor Next has fully refactored its AI features. The related APIs have changed significantly and are not compatible with V9. Please upgrade if you are using an older version.
+
+  The goal of the V10 AI refactor is not to add more flashy features, but to shift the core approach: upgrading AI from isolated features into a controllable capability system designed for editing workflows:
+  - Frontend: collect editor context in a unified way (selection / node-level Markdown / full document / cursor marker), stream-render in a unified way, and write results back reliably
+  - Backend: act as an adapter layer that can connect to any model, and choose between the `default` and `agui` protocols, making it pluggable, extensible, and evolvable
+  
+  This refactor primarily addresses common pain points when shipping AI features in real projects: unstable context and write-back (unclear what to change and how much), fragmented protocol/model integrations (high cost to switch models or add tool-calling), and unclear frontend/backend responsibilities leading to higher security and maintenance costs.
+  
+  The benefits: AI output behaves more like “actions executed inside the editor”, write-back becomes more reliable, models and protocols become easier to extend, and private deployment/compliance becomes easier to guarantee.
+</Callout>
+
+---
+
+The AI capabilities in **Umo Editor Next** are designed to make the model behave like a reliable **execution-oriented editing assistant** inside the editor—helping users complete document editing tasks safely, controllably, and efficiently, rather than acting as a generic chatbot. The key traits are “controllable, reproducible, and extensible”, and they heavily rely on editor context (selection, nodes, document structure, cursor position, etc.).
+
+The core integration idea is:
+
+- Frontend: collect editor context, send requests, and render SSE streaming output
+- Backend: act as a business-side adapter/proxy layer, connect to any LLM provider (including mainstream OpenAI-compatible models), and output SSE chunks that follow the agreed format
+
+## Capabilities
+
+- [AI Document Assistant (Assistant)](./assistant): a floating entry focused on editing output for the current selection / near the cursor, with one-click replace/insert.
+- [AI Chat Assistant (Chat)](./chat): a sidebar chat entry with history and optional attachments, suitable for multi-turn Q&A, task clarification, and information organization.
+- [AI Suggestions (Suggestion)](./suggestion): auto-proposes candidate text while typing; accept with Tab/Enter (autocomplete/continuation), switch suggestions with arrow keys.
+
+## Key Features
+
+### Streaming output
+
+- Supports SSE streaming responses: render as content is generated for faster interaction
+- Supports non-streaming responses: return the full result at once (depending on your backend and model setup)
+
+### Multiple protocols
+
+- Supports the `default` protocol and the AG-UI standard protocol
+- AG-UI has built-in frontend parsing, better suited for agent tool-calling, multi-step tasks, and progress/status events
+
+### Multiple models & reasoning mode
+
+- Configure multiple AI models and switch them in the UI
+- If the model supports reasoning, the UI provides a “Reasoning” toggle
+
+### Attachments
+
+- Upload images/files in the AI Chat Assistant and send attachment metadata to your backend
+- Display files and images in messages
+
+### Skill modes
+
+Built-in skill modes guide the output format, including:
+
+- `write`: generate or rewrite Markdown
+- `code`: output Markdown code blocks
+- `mermaid`: output Mermaid diagram code blocks
+- `image`: output image-related Markdown (requires backend support)
+- `search`: interpret/summarize web content (more for understanding, not direct document editing)
+
+### Write-back actions
+
+After the AI output completes, a full “result handling loop” is provided:
+
+- Replace: replace the current selection with the result
+- Insert: insert the result at the cursor position
+- Copy: copy the result to the clipboard
+- Rewrite: regenerate the result
+
+### Pluggable request lifecycle hooks
+
+You can inject custom logic during the request lifecycle:
+
+- `onRequest`: rewrite requests (headers/body/routing/auth, etc.)
+- `onMessage`: in the `default` protocol, map SSE chunks to renderable content segments
+- `onStart / onComplete / onAbort / onError`: start/finish/abort/error handling
+
+### Privacy & security (control-first by default)
+
+- No secrets in the frontend: auth and key management are handled by your backend
+- You control the context: decide what context can be sent, how to desensitize it, and whether to log it on the server

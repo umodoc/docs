@@ -8,10 +8,31 @@ import { Callout } from 'nextra/components'
 
 # 更新日志
 
-<Callout type="warning" emoji="❗">
-  为了和 Umo Editor 的代码保持同步，Umo Editor Next 采用和 Umo Editor
-  大版本号，直接从 v7.0.0 开始发布。
+## 🎉 v10.0.0
+
+<Callout type="info" emoji="❗">
+  本次更新是一次**里程碑式的大版本升级**。Umo Editor Next 底层代码已无痛迁移至 Tiptap v3 最新版本，所有扩展也同时升级到了 v3 最新版本，同时移除了对所有 Pro 扩展的引用，并对整体代码进行了系统性重构。配套的 Umo Editor Server 也同步更新到了 v10 版本。
+
+  本次更新经历了 300 多次代码提交，优化和修复了大量的问题，推荐所有用户升级。
+
+  需要注意的是，如果您需要升级到 v10，`cdnUrl` 配置所引用的 [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN 资源也需要升级到 v10。
 </Callout>
+
+### 重磅升级
+
+1. 同步 Umo Editor v10 开源版本的代码更改，详细的更新日志见：[Umo Editor v10.0.0](../editor/changelog)；
+2. Tiptap 内核从 **v2 升级至 v3 最新版**，全面支持并拥抱 **Tiptap 3**；
+3. 大文档加载和编辑性能大幅提升，在相同基准测试下，支持的文档规模约提升 **3 倍以上（纯文本）**；
+4. 从根本上修复了一些长期存在的细小问题。
+
+### 更新日志
+
+1. 完全重构了 AI 的相关功能，相关 API 发生了重大变更，与 V9 版本不兼容。老用户请及时升级，详见：[AI 扩展](./ai)。
+2. 对 Markdown 语法的支持进行了系统性的增强，以便更好的拥抱 AI。现可以直接导入导出 Markdown 文件，详见：[Markdown 增强](./markdown)。
+3. 增加在协作模式下，页面信息（如页面大小、页面背景等）实时保存功能，并实时同步给其他协作者；
+4. 修复协作模式下菜单栏仍然显示保存提示的问题；
+5. 修复某些特殊情况下，表格会自动无限增宽的问题；
+6. 大量的细节问题修复，优化调整。
 
 ## 🚀 v9.1.0
 
@@ -77,6 +98,11 @@ import { Callout } from 'nextra/components'
 2. 细节调整与优化。
 
 ## 🎉 v7.0.0
+
+<Callout type="warning" emoji="❗">
+  为了和 Umo Editor 的代码保持同步，Umo Editor Next 采用和 Umo Editor
+  大版本号，直接从 v7.0.0 开始发布。
+</Callout>
 
 1. 增加多人协作编辑功能；
 2. 增加 AI 文档助手功能；

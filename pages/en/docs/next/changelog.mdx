@@ -8,10 +8,31 @@ import { Callout } from 'nextra/components'
 
 # Changelog
 
-<Callout type="warning" emoji="❗">
-  To maintain code synchronization with Umo Editor, Umo Editor Next adopts the
-  same major version number as Umo Editor, starting directly from v7.0.0.
+## 🎉 v10.0.0
+
+<Callout type="info" emoji="❗">
+  This update is a **milestone major release**. Umo Editor Next has been seamlessly upgraded to the latest Tiptap v3, and all extensions have also been upgraded to their v3 versions. At the same time, all references to Pro extensions have been removed, and the overall codebase has been systematically refactored. The companion Umo Editor Server has also been updated to v10.
+
+  This update includes over 300 commits, with numerous optimizations and bug fixes. All users are recommended to upgrade.
+
+  Note: if you upgrade to v10, the CDN assets referenced by `cdnUrl` (provided by [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external)) must also be upgraded to v10.
 </Callout>
+
+### Major upgrades
+
+1. Synced code changes from Umo Editor v10. For details, see: [Umo Editor v10.0.0](../editor/changelog);
+2. Upgraded the Tiptap core from **v2 to the latest v3**, fully embracing **Tiptap 3**;
+3. Significantly improved large-document loading and editing performance. Under the same benchmark, supported document size increases by about **3x+ (plain text)**;
+4. Fixed some long-standing minor issues at the root.
+
+### Changes
+
+1. Completely refactored AI features. Related APIs have major breaking changes and are incompatible with v9. Existing users should upgrade promptly. See: [AI Extension](./ai).
+2. Systematically enhanced Markdown support to better embrace AI. You can now directly import and export Markdown files. See: [Enhanced Markdown](./markdown).
+3. Added real-time saving of page info (such as page size and background) in collaboration mode, and synced it to other collaborators in real time.
+4. Fixed an issue where the menu bar still showed a save prompt in collaboration mode.
+5. Fixed an issue where tables could expand infinitely in width in certain edge cases.
+6. Many detail fixes and optimizations.
 
 ## 🚀 v9.1.0
 
@@ -79,6 +100,11 @@ import { Callout } from 'nextra/components'
 2. Various improvements and optimizations.
 
 ## 🎉 v7.0.0
+
+<Callout type="warning" emoji="❗">
+  To maintain code synchronization with Umo Editor, Umo Editor Next adopts the
+  same major version number as Umo Editor, starting directly from v7.0.0.
+</Callout>
 
 1. Added multi-user collaboration editing feature;
 2. Added AI document assistant feature;

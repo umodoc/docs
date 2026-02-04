@@ -1,0 +1,74 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Supported Protocols
+
+Umo Editor Next supports two message transport modes: **custom protocol (`default`)** and **AG-UI standard protocol (`agui`)**.
+
+Learn more about AG-UI: https://docs.ag-ui.com/introduction
+
+In Umo Editor Next, the protocol comes from `ai.models[].protocol`:
+
+- `protocol: 'default'`: custom protocol mode (map backend chunks to UI segments via `ai.callbacks.onMessage`)
+- `protocol: 'agui'`: AG-UI standard protocol mode (use built-in parsing)
+
+Selection logic: the editor decides whether to use custom parsing (`ai.callbacks.onMessage`) or built-in AG-UI parsing based on the current model’s `protocol`.
+
+## OpenAI protocols vs Umo protocols
+
+In Umo Editor Next, `protocol` only describes the data contract **between the frontend and your backend SSE service** (`default` / `agui`). It is not the same thing as the “OpenAI Chat Completions / Responses API protocol”.
+
+If you want to connect to an “OpenAI-compatible” model provider (many vendors expose OpenAI-compatible endpoints):
+
+- Recommended: implement an **adapter/proxy** on your backend. The frontend talks to your backend using `default` or `agui`; the backend calls the upstream OpenAI-compatible API and converts/forwards the stream as SSE events to the frontend. See or reuse Umo Editor Server’s [AI service proxy API](../../server/api#ai-服务代理).
+- Not recommended: call OpenAI-compatible APIs directly from the browser (exposes secrets and commonly hits CORS restrictions).
+
+For an integration walkthrough, see [Backend Integration Example](./backend).
+
+## Default protocol
+
+### When to use
+
+- You already have a backend API and it’s hard to reshape it into AG-UI
+- You only need basic capabilities (text/Markdown/thinking) and not complex agent events (tool calls, state machines, etc.)
+- You want the fastest path: return standard SSE and map in the frontend callback
+
+### Common pitfalls
+
+- **JSON must be single-line per chunk**: if you output Markdown with real newlines after `data:`, SSE parsing will split it. Use JSON fields with `\n` for newlines.
+- **Flush promptly**: many frameworks buffer output, making the frontend appear “stuck”. Disable buffering or flush explicitly.
+- **Correct headers**: `Content-Type: text/event-stream`, and usually `Cache-Control: no-cache` and `Connection: keep-alive`.
+- **CORS**: cross-origin SSE often fails in browsers; allow custom headers like `Authorization` and `Content-Type`.
+
+## AG-UI standard protocol
+
+### When to use
+
+- You want advanced agent interactions (tool calls, status updates, multi-step tasks)
+- You can output AG-UI event types from your backend (frontend parses/renders automatically)
+
+### Characteristics
+
+- AG-UI is a lightweight standard designed for AI agent ↔ frontend interaction
+- Standard event types describe lifecycle, text messages, thinking, tool calls, status updates, etc.
+- Built-in support for AG-UI conversion: a compliant backend can integrate directly
+
+### Behavior differences
+
+When `models[].protocol === 'agui'`:
+
+- Custom parsing via `ai.callbacks.onMessage` is skipped
+- Chunk parsing is handled by the built-in AG-UI parser
+
+Therefore:
+
+- Your backend must output SSE events that conform to AG-UI
+- Your backend must convert model output/tool calls into AG-UI events
+
+## How to choose
+
+- Fastest path / minimal changes: `default` + `ai.callbacks.onMessage` (you control the mapping logic)
+- Tool calls / state machine / multi-step tasks: `agui` (you control the event protocol)

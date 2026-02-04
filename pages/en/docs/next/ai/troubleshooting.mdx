@@ -1,0 +1,135 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Troubleshooting
+
+This chapter is organized as “symptom → possible cause → diagnose/fix”, prioritizing the most common integration pitfalls.
+
+## Cannot open AI / errors immediately
+
+Symptom 1: opening the Document Assistant throws “Key "ai": Key "models": No AI model found”
+
+Possible cause: `ai.assistant.enabled = true` but `ai.models` is empty.
+
+Fix:
+
+- Ensure `ai.models` has at least one entry
+- Use the minimal configuration in [Quick Start](./quickstart)
+
+Symptom 2: clicking the Chat entry throws “No AI chat model found”
+
+Possible cause: `ai.chat.enabled = true` but `ai.models` is empty.
+
+## Can send, but no response / stuck loading
+
+Symptom: after sending, it stays in pending/streaming and never reaches complete.
+
+Possible causes (most likely first):
+
+1. The backend does not return SSE correctly (missing `text/event-stream` or missing `\n\n` separators)
+2. Backend buffering prevents the frontend from receiving chunks (needs flush)
+3. CORS / auth fails and the browser blocks it (Authorization/Origin/Headers)
+4. `callbacks.onRequest` returns a `body` that is not a string or is empty (backend can’t read params)
+5. The endpoint is unreachable or the proxy rewrites it to a wrong address
+
+Diagnosis:
+
+- Use browser DevTools Network to inspect the request/response:
+  - Response headers should include `text/event-stream`
+  - Response body should keep growing (streaming)
+- Enable `callbacks.onError` to log errors (do not log tokens)
+- Temporarily make the backend write `data: {"msg":"ping"}` every 200ms to verify streaming works
+
+## Backend streams, but UI shows empty content
+
+Symptom: the backend is streaming, but messages render as empty.
+
+Possible causes:
+
+- In custom protocol mode, `ai.callbacks.onMessage` does not return valid segments
+- `ai.callbacks.onMessage` is not configured correctly, and the backend output is not `{"msg":"..."}`, so fallback parsing can’t read `msg`
+
+Diagnosis:
+
+- Confirm `ai.models[].protocol`:
+  - `default`: ensure `onMessage` mapping is correct, or output `msg` from the backend for fallback parsing
+  - `agui`: output AG-UI events; `onMessage` is not used
+- Temporarily `console.log(chunk.data)` inside `ai.callbacks.onMessage` (remove in production)
+
+Fix:
+
+- Implement `ai.callbacks.onMessage` explicitly for `default`; do not rely on `msg` fallback parsing
+
+## Broken Markdown rendering / missing newlines
+
+Symptom: model output contains newlines, but rendering becomes a single line or is truncated.
+
+Possible cause:
+
+- Writing Markdown with real newlines directly into SSE `data:` causes SSE parsing to split by line
+
+Correct approach:
+
+- Always output **a single line of JSON** after SSE `data:`
+- Use `\\n` to represent newlines inside JSON fields, for example:
+
+```
+data: {"type":"text","content":"Line 1\\n\\nLine 2"}
+
+```
+
+## Document structure breaks after “Replace/Insert”
+
+Symptom: after replace/insert, tables/lists become invalid or strange nodes appear.
+
+Possible causes:
+
+- The last segment’s `data` is not valid Markdown (e.g. unclosed code fences)
+- Putting “explanations / logs” in the last segment makes actions write it into the document
+
+Diagnosis:
+
+- Inspect this message’s `message.content` array: what is the last segment?
+
+Fix:
+
+- Standardize `ai.callbacks.onMessage`: ensure the last segment is always “Markdown that can be written back directly”
+- Validate/repair model output on the backend (e.g. ensure code fences are closed and list indentation is correct)
+
+## cursorMarker causes out-of-scope edits
+
+Symptom: user selects a paragraph, but the model rewrites the whole document.
+
+Possible causes:
+
+- The backend does not treat markers as “edit-scope constraints” and handles them as normal characters
+- `systemPrompt` is modified/removed and misses the hard rule “only edit inside the selection”
+- The backend drops `selectionNodes` and uses only `document` as input, expanding the scope
+
+Recommended strategy:
+
+- With a selection: use `selectionNodes` as the primary input and strictly constrain output to the selection
+- With cursor insertion: use context near the marker in `document` and require “insert only at the marker”
+
+Related docs:
+
+- Marker injection happens in the frontend when sending; the default systemPrompt template is shown in [Configuration & Methods](./options).
+
+## Attachment upload issues
+
+Symptom: clicking Upload does nothing or shows an upload failure.
+
+Possible causes:
+
+- `onFileUpload` is not implemented or throws
+- File size exceeds `ai.chat.files.maxSize`
+- File count exceeds `ai.chat.files.maxCount`
+- Accept type mismatch (`ai.chat.files.allowed`)
+
+Diagnosis:
+
+- Check `ai.chat.files` configuration
+- Add error logging in `onFileUpload`

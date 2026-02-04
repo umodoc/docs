@@ -1,0 +1,427 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Configuration & Methods
+
+This page covers shared AI configuration options and methods in Umo Editor Next. Feature-specific options are documented separately:
+
+- [AI Document Assistant](./assistant)
+- [AI Chat Assistant](./chat)
+- [AI Suggestions](./suggestion)
+
+## Default configuration
+
+```js wordWrap
+const systemPrompt = `You are a multi-skill AI document assistant integrated into a Tiptap-based editor. Your name is Umo Editor AI Assistant. You must strictly follow the current system rules and the user-selected skill mode.
+
+## Available context
+
+You may receive the following information from each user message:
+
+- User-selected plain text (may be empty): \`[selectionText]\`
+- User-selected node-level Markdown (may be empty; if not empty it includes selection start/end markers): \`[selectionNodes]\`
+- Full document Markdown (includes cursor position): \`[document]\`
+- Current UI language: \`[locale]\`
+- Current skill mode: \`[skill]\`
+- User instruction in natural language: \`[prompt]\`
+
+The cursor position in the document is represented by "{cursorMarker}". For selections, the first {cursorMarker} is the start and the second is the end.
+
+## Core rules
+
+1. You are an execution-oriented editing assistant, not a chatbot  
+2. All output must directly serve the user’s current task  
+3. Keep the current UI language unless the user explicitly asks to switch  
+4. Do not output explanations, analysis, greetings, or extra commentary  
+5. Do not break Markdown syntax or node structure
+6. Do not include cursor/selection markers in the returned content
+
+## Editing scope rules
+
+1. If there is a user selection:
+   - Only modify content inside the selection unless the user requests otherwise
+   - Treat non-selected content as read-only context
+
+2. If there is no selection and only a cursor:
+   - Decide editing behavior based on cursor location and the user instruction
+   - You may insert new content at the cursor, or modify the smallest semantic unit at the cursor
+   - Do not affect other content unrelated to the current instruction
+
+3. If there is no selection and no safe edit location can be determined:
+   - Ask the user to select content or adjust the instruction
+
+## Skill mode rules
+
+In any interaction, you must operate only in the current skill mode. Do not switch modes or mix behaviors without permission.
+
+1. Document assistant (write, default)
+   - Edit or generate text/Markdown
+   - Output content that can be inserted or replaced directly
+
+2. Image generation (image)
+   - Generate images based only on the user description
+   - Do not edit the document; return image Markdown
+
+3. Code assistant (code)
+   - Focus on code generation, completion, refactoring, or explanation
+   - Output as Markdown code blocks
+   - Do not polish document prose or adjust document structure
+
+4. Diagram assistant (mermaid)
+   - Focus on structured diagrams such as flowcharts, UML, architecture diagrams
+   - Must output as code blocks
+   - Do not describe the diagram in natural language
+
+5. Web reading (search)
+   - Understand, summarize, or explain web/page content
+   - Do not modify local document content
+
+## Selection & structure rules
+
+- If a selection is provided, only modify content inside the selection
+- Do not delete, move, or add selection markers
+- Keep list/table/code-block structures valid
+
+## Conflicts & fallback
+
+- If instructions conflict with the selection, follow the “minimum damage to the document” principle
+- If the task cannot be completed under current constraints, ask the user to clarify or adjust the selection
+
+## Final goal
+
+You should behave like a reliable “in-editor AI engine”: complete tasks precisely and controllably under the current skill mode, staying professional, rational, and restrained so users can trust you.`
+
+export const defaultAIOptions = {
+  icon: '<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="96" height="96"><path d="M510.896 0c283.552 0 513.12 229.056 513.12 512 0 280.704-231.808 512-513.12 512-87.776 0-173.28-22.464-249.792-65.12h-2.24L78.8 994.816h-6.752c-11.264 0-20.256-4.48-27.008-11.232a41.376 41.376 0 0 1-11.264-35.936L69.808 772.48v-2.24C22.544 691.648.016 601.824.016 512-2.224 229.056 227.344 0 510.896 0zm-43.552 306.656H366.096l-4.16 4.224-135.04 396.448v8.448l4.288 4.224h80.096l4.224-4.224 33.728-97.056h139.2l33.728 92.832 8.448 8.448h75.936l4.224-4.224 4.16-4.224v-8.448L471.568 310.88l-4.224-4.224zm261.472-4.32h-67.52l-4.192 4.224h-4.288v4.16l-4.224 4.256V707.2l4.224 8.416 4.288 4.16h75.904l4.224-4.192v-4.224l4.192-4.224V319.2l-4.224-8.448-8.416-8.416zm-316.288 97.12l4.224 12.64 12.64 33.76 33.728 92.768h-97.024l21.12-63.232 25.28-75.936z" fill="var(--umo-primary-color)"/></svg>',
+  skills: ['write', 'image', 'code', 'mermaid', 'search'],
+  maxlength: 500,
+  retryInterval: 5000,
+  maxRetries: 3,
+  timeout: 10000,
+  models: [],
+  cursorMarker: '⦙',
+  systemPrompt,
+  commands: [
+    {
+      label: { en_US: 'Continuation', zh_CN: '续写' },
+      value: { en_US: 'Continuation', zh_CN: '续写' },
+    },
+    {
+      label: { en_US: 'Rewrite', zh_CN: '重写' },
+      value: { en_US: 'Rewrite', zh_CN: '重写' },
+    },
+    {
+      label: { en_US: 'Abbreviation', zh_CN: '缩写' },
+      value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+    },
+    {
+      label: { en_US: 'Expansion', zh_CN: '扩写' },
+      value: { en_US: 'Expansion', zh_CN: '扩写' },
+    },
+    {
+      label: { en_US: 'Polish', zh_CN: '润色' },
+      value: { en_US: 'Polish', zh_CN: '润色' },
+    },
+    {
+      label: { en_US: 'Proofread', zh_CN: '校阅' },
+      value: { en_US: 'Proofread', zh_CN: '校阅' },
+    },
+    {
+      label: { en_US: 'Translate', zh_CN: '翻译' },
+      value: {
+        en_US: 'Translate to English',
+        zh_CN: '翻译成英文',
+      },
+    },
+  ],
+  chat: {
+    enabled: false,
+    showName: true,
+    showAvatar: true,
+    showDatetime: true,
+    layout: 'both',
+    welcomeMessage:
+      'Welcome to Umo Editor AI Chat Assistant! Ask me anything and I will help you with document editing.',
+    files: {
+      enabled: true,
+      maxSize: 1024 * 1024 * 10,
+      maxCount: 3,
+      allowed: {
+        image: 'image/*',
+        file: '.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.md,.csv,.json,.xml',
+      },
+    },
+    maxHistory: 10,
+  },
+  assistant: {
+    enabled: false,
+  },
+  suggestion: {
+    enabled: false,
+    async onSuggestion() {
+      console.log(
+        'Key "ai": Key "suggestion": Please set the ai.suggestion.onSuggestion method'
+      )
+    },
+    waitTime: 1000,
+  },
+  callbacks: {},
+}
+```
+
+Note: in the default configuration, `ai.models` is an empty array `[]`. To enable AI (assistant/chat/suggestions), you must provide [`ai.models`](#aimodels) with at least 1 model.
+
+## Options reference
+
+### ai.icon
+
+**Description**: Custom AI entry icon (SVG string), used by the chat button, bubble assistant, etc.
+
+**Type**: `String`
+
+**Default**: `defaultAIOptions.icon` in the snippet above
+
+### ai.skills
+
+**Description**: Allowed skill modes shown in the composer dropdown. Values: `['write','image','code','mermaid','search']`.
+
+- `write`: document assistant, edit/generate text/Markdown.
+- `image`: image generation, generate images from user descriptions.
+- `code`: code assistant, generate/complete/refactor/explain code.
+- `mermaid`: diagram assistant, produce structured diagrams.
+- `search`: web reading, understand/summarize/explain web content.
+
+**Type**: `Array`
+
+**Default**: `['write','image','code','mermaid','search']`
+
+### ai.maxlength
+
+**Description**: Maximum input length for the composer.
+
+**Type**: `number`
+
+**Default**: `500`
+
+### ai.retryInterval
+
+**Description**: Retry interval (ms) after a request fails.
+
+**Type**: `number`
+
+**Default**: `5000`
+
+### ai.maxRetries
+
+**Description**: Maximum retry attempts after a request fails.
+
+**Type**: `number`
+
+**Default**: `3`
+
+### ai.timeout
+
+**Description**: Per-request timeout (ms).
+
+**Type**: `number`
+
+**Default**: `10000`
+
+### ai.cursorMarker
+
+**Description**: Marker symbol for cursor/selection. The frontend injects it into `document`, `selectionNodes`, `systemPrompt`, etc. You can send these fields to your backend in [`ai.callbacks.onRequest`](#aicallbacksonrequest) to help the model understand document context and user intent.
+
+**Type**: `String`
+
+**Default**: `'⦙'`
+
+### ai.systemPrompt
+
+**Description**: System prompt template. Before sending, `{cursorMarker}` is replaced with `ai.cursorMarker`.
+
+**Type**: `String`
+
+**Default**: `systemPrompt` in the snippet above
+
+### ai.commands
+
+**Description**: Preset quick commands. Users can click these in the composer to send predefined prompts.
+
+**Type**: `Array`
+
+**Default**: `commands` in the snippet above
+
+### ai.models
+
+**Description**: Model list (array). This is the critical configuration for AI to work. Assistant/chat/suggestions all rely on the current model.
+
+**Type**: `Array`
+
+**Default**: `[]`. You must provide at least 1 model to enable AI.
+
+**Example**:
+
+```js
+{
+  value: 'default',
+  label: { zh_CN: '默认模型', en_US: 'Default Model' },
+  avatar: '/path/to/avatar.svg',
+  protocol: 'default' | 'agui',
+  endpoint: '/api/chat',
+  stream: true,
+  reasoning: true,
+}
+```
+
+Field descriptions:
+
+- `value`: model identifier passed to your backend.
+- `label`: model name shown in message lists, etc.
+- `avatar`: avatar URL shown in message lists.
+- `protocol`: `'default' | 'agui'`.
+- `endpoint`: API endpoint.
+- `stream`: whether to use streaming.
+- `reasoning`: whether the model supports reasoning mode.
+
+> Note: this configuration is cached in localStorage. In local development, you may need to clear local storage after edits. Avoid dynamically changing this config in production.
+
+### ai.chat
+
+**Description**: AI Chat Assistant options (entry, layout, history, attachments, etc.). See [AI Chat Assistant](./chat).
+
+**Type**: `Object`
+
+**Default**: `defaultAIOptions.chat` in the snippet above
+
+### ai.assistant
+
+**Description**: AI Document Assistant options (entry, panel, etc.). See [AI Document Assistant](./assistant).
+
+**Type**: `Object`
+
+**Default**: `defaultAIOptions.assistant` in the snippet above
+
+### ai.suggestion
+
+**Description**: AI Suggestions options (debounce, callbacks, etc.). See [AI Suggestions](./suggestion).
+
+**Type**: `Object`
+
+**Default**: `defaultAIOptions.suggestion` in the snippet above
+
+### ai.callbacks
+
+**Description**: Request lifecycle callbacks and custom parsing (most commonly used).
+
+**Type**: `{ onRequest?, onMessage?, onStart?, onComplete?, onAbort?, onError? }`
+
+**Default**: `{}`
+
+#### ai.callbacks.onRequest
+
+**Description**: Unified hook to rewrite the request before sending. Inject auth headers, rewrite the body, etc.
+
+**Type**: `Function`
+
+**Default**: none
+
+**Returns**: `Object`. See [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+
+Example:
+
+```js
+const onRequest = (context, params) => {
+  console.log('onRequest', {context, params})
+  return {
+    // Inject auth headers
+    headers: {
+      'Authorization': `Bearer ${options.server.token}`,
+    },
+    // Request body
+    body: JSON.stringify(params),
+  }
+}
+```
+
+For the flow and default `onRequest` params, see: [Frontend/Backend Flow](./flow)
+
+#### ai.callbacks.onMessage
+
+**Description**: In custom protocol mode (`model.protocol !== 'agui'`), map backend SSE chunks to renderable segments (markdown/thinking/etc.). Implement this to customize message parsing.
+
+**Type**: `(context, chunk) => { type: string, data: any } | null`
+
+**Default**: none
+
+#### ai.callbacks.onStart
+
+**Description**: Called when streaming starts.
+
+**Type**: `(context, chunk) => void`
+
+**Default**: none
+
+#### ai.callbacks.onComplete
+
+**Description**: Called when streaming completes (includes abort status, final params, etc.).
+
+**Type**: `(context, aborted, params, event) => void`
+
+**Default**: none
+
+#### ai.callbacks.onAbort
+
+**Description**: Called when the request is aborted (user clicks stop or component unmounts).
+
+**Type**: `(context) => void`
+
+**Default**: none
+
+#### ai.callbacks.onError
+
+**Description**: Called when an error occurs during request or parsing.
+
+**Type**: `(context, err) => void`
+
+**Default**: none
+
+## Other AI-related options
+
+### user
+
+Current user info. AI passes `user.id` as `userID` to the backend. Chat UI may also use `user.avatar`. See [User options](../../editor/options/user).
+
+### document
+
+Document info. AI passes `document.id` as `documentID` to the backend. See [Document options](../../editor/options/document).
+
+### onFileUpload
+
+Required when `ai.chat.files.enabled` is enabled. See [File options](../../editor/options/file).
+
+### onFileDelete
+
+Triggered when deleting an attachment (recommended to clean backend storage). See [File options](../../editor/options/file).
+
+## Methods
+
+### getAiEngine
+
+**Description**: Get the chat engine state object (Vue ref). The document assistant and chat assistant share the same engine state. Use it to read the current model/messages/status, access the engine instance, and build deeper UI integrations or debugging tools.
+
+**Parameters**: none
+
+**Returns**: `Ref<object>`
+
+#### AiEngine structure
+
+`AiEngine` is an object wrapped by `ref`. Common fields:
+
+- `from`: `undefined | 'assistant' | 'chat'`, last interaction source (written before send).
+- `status`: `String`, current request status (`'idle' | 'pending' | 'streaming' | 'complete' | 'stop' | 'error'`).
+- `messages`: `ChatMessage[]`, message list (roles: user/assistant/system).
+- `assistantMessage`: `ChatMessage | undefined`, last assistant message in document-assistant mode (for panel display and write-back).
+- `engine`: `Object`, internal chat engine instance for advanced customization (sending messages, debugging, analytics, etc.).

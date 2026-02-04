@@ -1,0 +1,57 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Quick Start
+
+The goal of this chapter is to take you from “knowing nothing” to “running the demo and seeing AI responses”, and to clarify what your backend needs to implement.
+
+Required pieces (otherwise it will error or be unavailable):
+
+1. At least one AI model configuration: `ai.models.length > 0`. Umo Editor Next uses `ai.models[0]` as the default model.
+2. An accessible backend endpoint (SSE recommended): `ai.models[].endpoint`. The frontend will call this endpoint. You can test first by pointing to the default SSE demo endpoints provided by Umo Editor Server: `/mock/sse/normal` or `/mock/sse/agui`. See: [API list](../../server/api).
+
+## Minimal configuration
+
+The minimum working configuration:
+
+```js
+const options = {
+  ai: {
+    models: [
+      {
+        value: 'default',
+        label: { zh_CN: '默认模型', en_US: 'Default Model' },
+        avatar: '/images/ai.svg',
+        protocol: 'default', // or 'agui'
+        endpoint: 'http://127.0.0.1:1235/mock/sse/normal', // SSE demo endpoint from Umo Editor Server
+        stream: true,
+        reasoning: true,
+      },
+    ],
+    chat: { enabled: true }, // Sidebar chat
+    assistant: { enabled: true }, // Document bubble assistant
+  },
+}
+```
+
+## Choosing a protocol
+
+For protocol details, see [Supported protocols](./protocols). Practical guidance:
+
+- If your backend only needs to “return model output via SSE” and you want a custom data shape: use `protocol: 'default'`.
+- If you already have (or plan to implement) AG-UI (with tool calls, status events, etc.): use `protocol: 'agui'`.
+
+When `protocol: 'agui'`, the frontend will not use custom parsing via `ai.callbacks.onMessage`. Instead it uses the built-in AG-UI parser and renderer. Your backend must output an AG-UI event stream (see [Supported protocols](./protocols)).
+
+## Verify
+
+You can simply:
+
+1. Open the “Document Assistant” entry (bubble menu) or the chat entry at the bottom-right
+2. Type anything and send
+3. Check whether you can see an assistant reply
+
+If there is no output, start with [Troubleshooting](./troubleshooting).

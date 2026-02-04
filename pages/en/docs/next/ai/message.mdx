@@ -1,0 +1,337 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# AI Message Schema
+
+In most cases you do not need these details because the chat engine handles them for you. However, you may need them when:
+
+- You implement custom protocol parsing via `ai.callbacks.onMessage`
+- Your backend outputs different content types (JSON/Markdown/etc.)
+- You post-process results (replace/insert into the document)
+
+## Message structure
+
+### Basic example
+
+In Umo Editor Next AI, a message typically looks like:
+
+```js
+{
+  id: 'xxx',
+  role: 'user' | 'assistant' | 'system',
+  status: 'pending' | 'streaming' | 'complete' | 'stop' | 'error',
+  datetime: '2026-01-01T00:00:00Z', // optional
+  content: [
+    { type: 'text', data: '...' },
+    { type: 'markdown', data: '...' },
+    // ...
+  ],
+}
+```
+
+### Notes
+
+- `status` is optional in the type definition (in practice it is usually written during message lifecycle).
+- For `assistant` messages, `content` is also optional in the type definition: during streaming, an empty message may be created first and segments are appended later.
+
+In Umo Editor Next, both the chat panel and the document assistant render the same message structure. When chat is enabled, a welcome message is injected for UI display.
+
+#### message.role
+
+- `user`: user input
+- `assistant`: model output
+- `system`: system messages (e.g. “start new chat” hints, welcome messages)
+
+Note: when saving chat history, `system` and welcome messages are filtered out.
+
+#### message.status
+
+- `idle`: no active request
+- `pending`: request started but no output yet
+- `streaming`: streaming output in progress
+- `complete`: finished successfully
+- `stop`: stopped by user
+- `error`: error occurred
+
+UI behavior depends on `status`: for example, it shows a sending state during streaming; actions like “Replace/Insert/Copy” only appear when output completes and has content.
+
+Where:
+
+- Message `status` maps to `pending/streaming/complete/stop/error`
+- Engine `status` is `idle` plus the active message state
+
+## content segments
+
+`content` is an array. Each element is a “segment”. Different `type` values require different `data` shapes.
+
+### Types supported by user messages
+
+- Text content (TextContent)
+- Attachments (AttachmentContent)
+
+### Types supported by AI messages
+
+- Text content (TextContent)
+- Markdown content (MarkdownContent)
+- Search content (SearchContent)
+- Suggestions (SuggestionContent)
+- Thinking state (ThinkingContent)
+- Images (ImageContent)
+- Reasoning content (ReasoningContent)
+- Tool calls (ToolCallContent)
+- Custom types (AIContentTypeOverrides)
+
+Tip: Umo Editor Next renders most AI output as `markdown` by default, which better supports structured content like lists, code blocks, and tables.
+
+### Common fields for segments
+
+- `type`: segment type (see below)
+- `data`: data shape for the given `type`
+- `status?`: `'pending' | 'streaming' | 'complete' | 'stop' | 'error'`
+- `id?`: segment id
+- `strategy?`: `'merge' | 'append'` (stream chunk merge strategy)
+- `ext?`: `Record<string, any>` (extension fields)
+
+### Segment examples
+
+#### TextContent
+
+```js
+{ type: 'text', data: 'Plain text content' }
+```
+
+#### MarkdownContent
+
+```js
+{ type: 'markdown', data: '# Title\n\n- List\n- Code blocks, etc.' }
+```
+
+#### SearchContent
+
+```js
+{
+  type: 'search',
+  data: {
+    title: 'Search overview',
+    references: [
+      {
+        title: 'Reference title',
+        url: 'https://example.com',
+        site: 'example.com',
+        date: '2026-01-01',
+        content: 'Summary (optional)',
+      },
+    ],
+  },
+}
+```
+
+Supported fields in `references[]`:
+
+- `title`: `string` (required)
+- `icon?`: `string`
+- `type?`: `string`
+- `url?`: `string`
+- `content?`: `string`
+- `site?`: `string`
+- `date?`: `string`
+
+#### ThinkingContent
+
+```js
+{
+  type: 'thinking',
+  data: {
+    title: 'Thinking',
+    text: 'Thinking details (optional)',
+  },
+}
+```
+
+#### SuggestionContent
+
+```js
+{
+  type: 'suggestion',
+  data: [
+    { title: 'Suggestion 1', prompt: 'Optional: prompt to fill when clicked' },
+    { title: 'Suggestion 2' },
+  ],
+}
+```
+
+#### ImageContent
+
+```js
+{
+  type: 'image',
+  data: {
+    name: 'image.png',
+    url: 'https://example.com/image.png',
+    width: 800,
+    height: 600,
+  },
+}
+```
+
+#### AttachmentContent
+
+User messages can include attachment segments; `data` is an array:
+
+```js
+{
+  type: 'attachment',
+  data: [
+    {
+      fileType: 'pdf',
+      name: 'spec.pdf',
+      url: 'https://example.com/spec.pdf',
+      size: 123456,
+      metadata: {},
+    },
+  ],
+}
+```
+
+Allowed `fileType` values include: `image` / `video` / `audio` / `pdf` / `doc` / `ppt` / `txt`, etc.
+
+Supported fields in `data[]`:
+
+- `fileType`: `image | video | audio | pdf | doc | ppt | txt` etc. (required)
+- `size?`: `number`
+- `name?`: `string`
+- `url?`: `string`
+- `isReference?`: `boolean` (whether it's a reference attachment)
+- `width?`: `number` (used by images/videos)
+- `height?`: `number` (used by images/videos)
+- `extension?`: `string`
+- `metadata?`: `Record<string, any>`
+
+#### ReasoningContent
+
+`reasoning` carries an array of “reasoning segments”. It is essentially a wrapper segment that nests `AIMessageContent[]`:
+
+```js
+{
+  type: 'reasoning',
+  data: [
+    { type: 'text', data: 'First reasoning chunk' },
+    { type: 'markdown', data: 'Second reasoning chunk (Markdown allowed)' },
+  ],
+}
+```
+
+#### ToolCallContent
+
+Represents tool call events (common in AG-UI):
+
+```js
+{
+  type: 'toolcall',
+  data: {
+    toolCallId: 'call_xxx',
+    toolCallName: 'search',
+    eventType: 'start', // optional: ToolCallEventType
+    parentMessageId: 'm1', // optional: parent message id
+    args: '{ "q": "xxx" }',
+    chunk: 'Optional: incremental chunk',
+    result: 'Optional: tool result',
+  },
+}
+```
+
+### AIContentTypeOverrides
+
+You can extend `AIContentTypeOverrides` to add new segment types, then provide renderers/handlers for them in your app.
+
+Example (showing the extension idea only):
+
+```ts
+declare global {
+  interface AIContentTypeOverrides {
+    audio: {
+      type: 'audio'
+      data: { url: string; name?: string }
+      status?: 'pending' | 'streaming' | 'complete' | 'stop' | 'error'
+      id?: string
+      strategy?: 'merge' | 'append'
+      ext?: Record<string, any>
+    }
+  }
+}
+```
+
+### Message variants
+
+There are three message roles: User / Assistant / System.
+
+#### UserMessage (role = user)
+
+`content` allows only:
+
+- `{ type: 'text', data: string }`
+- `{ type: 'attachment', data: AttachmentItem[] }`
+
+Example:
+
+```js
+{
+  id: 'm1',
+  role: 'user',
+  status: 'complete',
+  content: [
+    { type: 'text', data: 'Please summarize the attachment.' },
+    { type: 'attachment', data: [{ fileType: 'pdf', name: 'a.pdf', url: '...' }] },
+  ],
+}
+```
+
+#### AIMessage (role = assistant)
+
+In addition to `content`, AI messages may include:
+
+- `history?`: `AIMessageContent[][]` (branches/versions)
+- `comment?`: `'good' | 'bad' | ''` (thumbs up/down)
+
+Example (with reasoning and final markdown):
+
+```js
+{
+  id: 'm2',
+  role: 'assistant',
+  status: 'complete',
+  content: [
+    { type: 'reasoning', data: [{ type: 'text', data: '...' }] },
+    { type: 'markdown', data: '## Final answer\n\n...' },
+  ],
+}
+```
+
+#### SystemMessage (role = system)
+
+System message `content` is a text segment array:
+
+```js
+{
+  id: 'm3',
+  role: 'system',
+  content: [{ type: 'text', data: 'Start new chat' }],
+}
+```
+
+## Custom protocol parsing
+
+When using `protocol: 'default'`, `ai.callbacks.onMessage` should return:
+
+- `null`: render nothing for this chunk
+- A single segment object: e.g. `{ type: 'markdown', data: '...' }`
+- An array of segments: e.g. `[{ type: 'thinking', data: { title: '...' } }, { type: 'markdown', data: '...' }]`
+
+Recommended:
+
+- Map `think`/`reasoning`-style chunks to `thinking`
+- Map final output text to `markdown`
+- Map tool output (e.g. search results) to `search` or custom types

@@ -6,217 +6,146 @@ description: Umo Editor is a localized open-source document editor based on Vue3
 
 # AI Chat Assistant
 
-The AI Chat Assistant is an intelligent interaction tool designed for document editing. It allows users to converse with AI in real time while editing, providing smart suggestions such as continuation, rewriting, polishing, and translation based on selected text or surrounding context. Supporting multi-turn conversations, history management, and file uploads, it helps users efficiently create and optimize documents.
+The AI Chat Assistant is an interactive tool designed for document editing, allowing users to talk with AI in real time while they work. It can understand selected text and contextual content, provide suggestions such as continuation, rewrite, polish, and translation, and supports multi-turn conversations, history, and file uploads to help users create and optimize documents efficiently.
 
-## Effect Screenshot
+It supports all document node types, enabling fast creation, editing, and optimization of text, images, tables, code blocks, and more.
 
-![AI Chat Assistant](https://s2.umodoc.com/demos/ai-chat-en.png)
+Typical features include:
 
-## Demo Video
+- Private deployment support: the frontend only sends requests and renders output; models and auth are controlled by your backend
+- Multi-turn conversation: append content continuously via SSE streaming
+- Multiple models: configure multiple `ai.models[]` and switch in the UI
+- Reasoning mode: if `ai.models[].reasoning = true`, toggle showing/enabling reasoning
+- Message history: current version uses local history by default (no server API required)
+- File uploads: upload images/files and send attachment metadata to your backend
+- Skill modes: switch skills in chat based on your configuration
+
+Before integrating, read [Quick Start](./quickstart).
+
+## Screenshot
+
+![AI Chat Assistant](https://s2.umodoc.com/demos/ai-chat-cn.png)
+
+## Demo video
 
 <video src="https://s1.umodoc.com/videos/ai-chat.mp4" controls="true"></video>
 
-## Features and Advantages
-
-- Support for private deployment, allowing you to ensure data security and controllability through private deployment;
-- More user-friendly operation experience and non-intrusive chat tool design compared to AI document assistants;
-- Support for multi-turn conversations, enabling you to obtain more accurate intelligent suggestions through extended dialogues;
-- Support for customizing multiple AI models, allowing you to switch between and use custom AI models;
-- Support for inference mode, enabling you to configure and display inference mode for AI models that support it;
-- Support for message history, allowing you to view historical messages in the chat record for message viewing and management;
-- Support for file uploads, enabling you to configure file uploads to provide AI models with richer contextual information.
-
-## Default Configuration
+## Default configuration
 
 ```js
-const systemPrompt = `**角色定位**
-你是一个专业文档 AI 助手，具备以下核心能力：
-1. 精准解析用户碎片化需求
-2. 上下文敏感的内容整合
-3. 多维度文档质量把控
-4. Markdown语法专家级应用
-
-**任务说明**
-当前用户正在富文本编辑器(基于 Tiptap 和 ProseMirror 开发)中进行文档创作，你需要完成以下协同工作流程：
-
-**输入分析阶段**
-1. 深度理解用户提供的上下文片段（即用户所选择的内容）：{context}
-2. 通读当前完整文档：
-\`\`\`html
-{document}
-\`\`\`
-3. 确认目标语言要求：{lang}（需确保语法地道性）
-4. 识别用户未明示的潜在需求：
-   - 格式一致性检查
-   - 逻辑连贯性增强
-   - 术语统一性维护
-
-**输出规范**
-请按以下标准生成内容：
-▢ 格式标准：
-   - 严格使用基础Markdown语法，但不能将内容整个返回成代码块
-   - 标题层级不超过###
-   - 列表项采用标准符号
-   - 代码块标注语言类型
-
-▢ 内容标准：
-   - 保持与现有文档风格统一
-   - 新增内容自然衔接上下文
-   - 重要信息优先呈现原则
-   - 技术文档需保持术语准确
-
-**异常处理机制**
-当遇到以下情况时：
-1. 需求存在歧义
-2. 上下文信息不足
-3. 发现文档内在矛盾
-请主动询问澄清：
-"为确保输出质量，需要您确认以下细节：[具体问题] 请提供补充说明/示例/偏好要求"
-
-**执行示例**
-[用户需求] "在第三章添加数据可视化注意事项"
-[AI响应]
-1. 定位第三章现有内容
-2. 分析文档中已有的图表规范
-3. 生成符合整体风格的注意事项列表
-4. 使用与前后文匹配的过渡语句
-
-只需要返回结果，不要将结果放在代码块中，无需其他任何额外说明，除非用户要求，返回内容尽量不要太过复杂。
-`
-
-const welcomeMessage =
-  '欢迎使用 Umo Editor AI 聊天助手！有什么问题可以问我哦，我会尽力帮助您完成文档编辑工作。'
-
-// AI Chatbot
+// AI Chat Assistant default configuration
 const defaultOptions = {
   ai: {
     chat: {
       enabled: false,
-      layout: 'both',
       showName: true,
-      showDatetime: true,
       showAvatar: true,
-      commands: [
-        {
-          label: { en_US: 'Continuation', zh_CN: '续写' },
-          value: { en_US: 'Continuation', zh_CN: '续写' },
+      showDatetime: true,
+      layout: 'both',
+      welcomeMessage:
+        'Welcome to Umo Editor AI Chat Assistant! Ask me anything and I will help you with document editing.',
+      files: {
+        enabled: true,
+        maxSize: 1024 * 1024 * 10,
+        maxCount: 3,
+        allowed: {
+          image: 'image/*',
+          file: '.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.md,.csv,.json,.xml',
         },
-        {
-          label: { en_US: 'Rewrite', zh_CN: '重写' },
-          value: { en_US: 'Rewrite', zh_CN: '重写' },
-        },
-        {
-          label: { en_US: 'Abbreviation', zh_CN: '缩写' },
-          value: { en_US: 'Abbreviation', zh_CN: '缩写' },
-        },
-        {
-          label: { en_US: 'Expansion', zh_CN: '扩写' },
-          value: { en_US: 'Expansion', zh_CN: '扩写' },
-        },
-        {
-          label: { en_US: 'Polish', zh_CN: '润色' },
-          value: { en_US: 'Polish', zh_CN: '润色' },
-        },
-        {
-          label: { en_US: 'Proofread', zh_CN: '校阅' },
-          value: { en_US: 'Proofread', zh_CN: '校阅' },
-        },
-        {
-          label: { en_US: 'Translate', zh_CN: '翻译' },
-          value: {
-            en_US: 'Translate to chinese',
-            zh_CN: '翻译成英文'
-          },
-        },
-      ],
-      models: [],
-      systemPrompt,
-      welcomeMessage,
-      maxHistory: 10,
-      async onGetHistory() {
       },
-      async onChangeHistory(type, data) {
-      }
+      maxHistory: 10,
     },
+  },
 }
 ```
 
-## Configuration Description
+## Configuration reference (ai.chat)
 
-### ai.chat
+This page only covers options under `options.ai.chat`. For shared options (such as `ai.models` and `ai.callbacks`), see [Configuration & Methods](./options).
 
-AI Chat Assistant configuration. For more details, see [AI Document Assistant](../editor/ai).
+### ai.chat.enabled
 
-- `ai.chat.enabled`: Boolean – whether to enable the AI assistant.
-- `ai.chat.layout`: String – the message layout mode of the AI Document Assistant. Supports `both` and `single`, default is `both`.
-- `ai.chat.showName`: Boolean – whether to display the message name. Default is `true`.
-- `ai.chat.showDatetime`: Boolean – whether to display the message timestamp. Default is `true`.
-- `ai.chat.showAvatar`: Boolean – whether to display the avatar. Default is `true`.
-- `ai.chat.commands`: Array – commonly used commands. See [AI Document Assistant Configuration](../editor/options/ai#aiassistantcommands).
-- `ai.chat.systemPrompt`: String – the system prompt to help the AI better understand its role and tasks.
-- `ai.chat.welcomeMessage`: String – welcome message shown when the AI Chat Assistant is opened. If empty, no message is displayed.
-- `ai.chat.maxHistory`: Number – maximum number of historical messages.
-- `ai.chat.onGetHistory`: AsyncFunction – callback for fetching historical messages, can be used to retrieve them from the server.
-- `ai.chat.onChangeHistory`: AsyncFunction – callback for updating historical messages on the server (e.g., delete, add).
-- `ai.chat.models`: Array – configuration of AI models. Supports multiple models; at least one should be configured. See below for options.
+**Description**: Enable/disable the AI Chat Assistant entry/sidebar.
 
-| Option          | Type    | Description                                                                        |
-| --------------- | ------- | ---------------------------------------------------------------------------------- |
-| `isDefault`     | Boolean | Whether it is the default model                                                    |
-| `label`         | String  | Model name shown in the message list                                               |
-| `value`         | String  | Model identifier sent to the backend                                               |
-| `avatar`        | URL     | URL of the model avatar shown in the message list                                  |
-| `provider`      | URL     | AI service provider endpoint for the model                                         |
-| `withToken`     | Boolean | Whether to include token in request headers                                        |
-| `supportReason` | Boolean | Whether the model supports reasoning mode                                          |
-| `file`          | Object  | Upload file configuration; supports `accept`, `multiple`, `maxSize`, `limit`, etc. |
+**Type**: `boolean`
 
-**Example**:
+**Default**: `false`
 
-```js
-;[
-  // DeepSeek
-  {
-    label: 'DeepSeek-R1',
-    value: 'deepseek-reasoner',
-    avatar: '...',
-    isDefault: true,
-    // In this example, Umo Editor Server proxies AI requests to other providers, but you can customize the provider
-    provider: 'http://127.0.0.1:1235/ai/deepseek/chat%2Fcompletions',
-    withToken: true,
-    supportReason: true,
-    file: {
-      accept: '.docx,.doc,.xls,.xlsx,.txt', // Supported file types
-      multiple: true, // Allow multiple file selection
-      maxSize: 1024 * 1024 * 5, // Max size per file
-      limit: 5, // Maximum number of files
-    },
-  },
-  // Moonshot AI
-  {
-    label: 'Moonshot AI',
-    value: 'moonshot-v1-8k',
-    avatar: kimiLogo,
-    provider: 'http://127.0.0.1:1235/ai/moonshot/chat%2Fcompletions',
-    withToken: true,
-  },
-]
-```
+### ai.chat.layout
 
-## Method List
+**Description**: Message layout.
+
+**Type**: `'single' | 'both'`
+
+**Default**: `'both'`
+
+### ai.chat.showName
+
+**Description**: Show sender name.
+
+**Type**: `boolean`
+
+**Default**: `true`
+
+### ai.chat.showDatetime
+
+**Description**: Show message timestamp.
+
+**Type**: `boolean`
+
+**Default**: `true`
+
+### ai.chat.showAvatar
+
+**Description**: Show avatar.
+
+**Type**: `boolean`
+
+**Default**: `true`
+
+### ai.chat.welcomeMessage
+
+**Description**: Welcome message shown in the chat window.
+
+**Type**: `string`
+
+**Default**: `defaultOptions.chat.welcomeMessage` in the snippet above
+
+### ai.chat.maxHistory
+
+**Description**: Maximum number of local history items (used by the history panel). The current version uses local history by default; for server persistence, implement your own storage strategy.
+
+**Type**: `number`
+
+**Default**: `10`
+
+### ai.chat.files
+
+**Description**: File upload configuration.
+
+**Type**: `object`
+
+**Defaults**:
+
+- `enabled`: `boolean`, enable file uploads. Default: `true`.
+- `maxSize`: `number`, per-file size limit (bytes). Default: `1024 * 1024 * 10`.
+- `maxCount`: `number`, max attachments per send. Default: `3`.
+- `allowed`: `object`, allowed file types. Default: `defaultOptions.chat.files.allowed`.
+
+## Methods
 
 ### openAIChat
 
 **Description**: Open the AI Chat Assistant.
 
-**Parameters**: None
+**Parameters**: none
 
-**Return Value**: None
+**Returns**: void
 
 ### closeAIChat
 
 **Description**: Close the AI Chat Assistant.
 
-**Parameters**: None
+**Parameters**: none
 
-**Return Value**: None
+**Returns**: void

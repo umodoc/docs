@@ -1,8 +1,10 @@
 import { useConfig } from 'nextra-theme-docs';
 import { useRouter } from 'nextra/hooks';
+import { Badge } from './components/badge.jsx';
 
 export default {
 	docsRepositoryBase: 'https://github.com/umodoc/docs/tree/main',
+	components: { Badge },
 	banner: {
     key: 'umo-editor-next',
     content(){

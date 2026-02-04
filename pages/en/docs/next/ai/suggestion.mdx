@@ -4,28 +4,27 @@ keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document 
 description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
 ---
 
-# AI Suggestion
+# AI Suggestions
 
-AI Suggestion is a context-aware intelligent suggestion feature that predicts and generates subsequent content in real time as users type.
-Based on the current text and cursor position, it provides continuous writing, smart suggestions, or code suggestion options, helping users reduce repetitive input and improve editing efficiency and writing fluency.
+AI Suggestions is a context-aware hinting feature that predicts and generates subsequent content while the user types. Based on the current text and cursor position, it provides continuations and completions to reduce repetitive input and improve editing efficiency and writing flow.
 
-AI Suggestion is commonly used in scenarios such as AI writing, intelligent suggestions, code suggestion, and text enhancement. Currently, AI Suggestion is only available for text-based nodes.
+It can be used for AI writing, smart hints, code completion, and text enhancement. Currently, AI Suggestions only applies to text-type nodes.
 
-This feature supports single or multiple suggestion suggestions. Users can press the Tab key to quickly accept a suggestion. When multiple candidate suggestions are available, users can use the Up and Down arrow keys to switch between suggestion items.
+It supports single or multiple completion candidates. Users can accept with Tab. When multiple candidates are available, use the up/down arrow keys to switch between them.
 
 ## Screenshots
 
 // TODO
 
-## Demo Video
+## Demo video
 
 // TODO
 
-## Default Configuration
+## Configuration example
 
 ```js
 const defaultOptions = {
-  // AI auto suggestion related configuration
+  // AI Suggestions configuration
   ai: {
     suggestion: {
       enabled: false,
@@ -35,17 +34,16 @@ const defaultOptions = {
         )
       },
       waitTime: 1000,
-      cursorMarkder: '⦙',
     },
   },
 }
 ```
 
-## Configuration Description
+## Configuration reference
 
 ### ai.suggestion.enabled
 
-**Description**: Whether to enable the AI Suggestion feature.
+**Description**: Enable/disable AI Suggestions.
 
 **Type**: `Boolean`
 
@@ -53,17 +51,17 @@ const defaultOptions = {
 
 ### ai.suggestion.onSuggestion
 
-**Description**: The core callback function of AI Suggestion, used to generate suggestion suggestions based on the current text context.
+**Description**: The core callback used to generate completion candidates from the current text context.
 
-**Type**: `AsyncFunction`,`Promise`
+**Type**: `AsyncFunction`, `Promise`
 
 **Parameters**:
 
-- `params.text`: The complete text content of the current node, including the current cursor position. It is used to precisely inform the AI of the current cursor location and surrounding context, making it suitable for LLM suggestion, context analysis, and continuation scenarios. The current cursor position is represented by the placeholder configured in `ai.cursorMarkder`.
-- `params.node`: The Markdown content of the current node.
-- `params.document`: The Markdown content of the entire document, including the current cursor position. The current cursor position is represented by the placeholder configured in `ai.cursorMarkder`.
+- `params.text`: full plain text of the current node, including the cursor marker, useful for LLM completion and context-aware prediction. The cursor position is represented by the placeholder configured in `ai.cursorMarker`.
+- `params.node`: Markdown content of the current node.
+- `params.document`: full document Markdown including the cursor marker. The cursor position is represented by the placeholder configured in `ai.cursorMarker`.
 
-**Return Value**: A suggestion result string `String` or an array `String[]`.
+**Returns**: a suggestion string `String` or an array of suggestions `String[]`.
 
 **Example**:
 
@@ -89,40 +87,36 @@ async onSuggestion(text) {
 
 ### ai.suggestion.waitTime
 
-**Description**: The debounce time for triggering AI Suggestion while the user is typing, used to control the request frequency. The unit is milliseconds.
+**Description**: Debounce time (ms) for triggering AI Suggestions while typing.
 
 **Type**: `Number`
 
 **Default**: `1000`
 
-当然，下面是**规范、技术文档风格**的英文翻译，语义和你原文一一对应，适合直接放到 README / Docs 里。
+## Methods
 
----
-
-## Method List
-
-For examples of method usage, see: [Method List](../../editor/methods).
+For usage examples of methods, see: [Methods](../../editor/methods).
 
 ### enableAiSuggestion
 
-**Description**: Enables the AI Suggestion feature when the editor is ready and AI Suggestion is enabled (`ai.suggestion.enabled` is `true`).
+**Description**: Enable AI Suggestions when the editor is ready and `ai.suggestion.enabled` is `true`.
 
-**Parameters**: None
+**Parameters**: none
 
-**Return Value**: `Boolean` | `Error`
+**Returns**: `Boolean` | `Error`
 
 ### disableAiSuggestion
 
-**Description**: Disables the AI Suggestion feature when the editor is ready and AI Suggestion is enabled (`ai.suggestion.enabled` is `true`).
+**Description**: Disable AI Suggestions when the editor is ready and `ai.suggestion.enabled` is `true`.
 
-**Parameters**: None
+**Parameters**: none
 
-**Return Value**: `Boolean` | `Error`
+**Returns**: `Boolean` | `Error`
 
 ### toggleAiSuggestion
 
-**Description**: Toggles the AI Suggestion feature on or off when the editor is ready and AI Suggestion is enabled (`ai.suggestion.enabled` is `true`).
+**Description**: Toggle AI Suggestions when the editor is ready and `ai.suggestion.enabled` is `true`.
 
-**Parameters**: None
+**Parameters**: none
 
-**Return Value**: `Boolean` | `Error`
+**Returns**: `Boolean` | `Error`
