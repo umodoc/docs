@@ -334,16 +334,19 @@ export const defaultAIOptions = {
 
 ```js
 const onRequest = (context, params) => {
+  console.log('onRequest', {context, params})
   return {
     // 注入鉴权 headers
     headers: {
-      'Authorization': 'Bearer ' + getAccessToken(),
+      'Authorization': `Bearer ${options.server.token}`,
     },
     // 发送的内容
     body: JSON.stringify(params),
   }
 }
 ```
+
+前后端交互流程和默认的 `onRequest` 传递的参数见：[前后端交互](./flow)
 
 #### ai.callbacks.onMessage
 
@@ -407,7 +410,7 @@ const onRequest = (context, params) => {
 
 ### getAiEngine
 
-**说明**：获取 AI 引擎状态对象（Vue ref）。AI 文档助手与 AI 聊天助手共用同一个聊天引擎状态对象，可以用它读取当前模型 / 消息 / 状态等信息和聊天引擎实例等，或在业务侧做更深度的 UI 联动与调试。
+**说明**：获取消息引擎状态对象（Vue ref）。AI 文档助手与 AI 聊天助手共用同一个消息引擎状态对象，可以用它读取当前模型 / 消息 / 状态等信息和消息引擎实例等，或在业务侧做更深度的 UI 联动与调试。
 
 **参数**：无
 
@@ -421,4 +424,4 @@ const onRequest = (context, params) => {
 - `status`: `String`，当前请求状态（`'idle' | 'pending' | 'streaming' | 'complete' | 'stop' | 'error'`）。
 - `messages`: `ChatMessage[]`，当前消息列表（包含 `user/assistant/system` 三种角色）。
 - `assistantMessage`: `ChatMessage | undefined`，文档助手场景下的“最后一条 assistant 消息”（用于面板展示与写回操作）。
-- `engine`: `Object`，Umo Editor Next 内部的聊天引擎对象。您可以利用 `engine` 进行更复杂的场景定制，如发送消息、调试与埋点等。
+- `engine`: `Object`，Umo Editor Next 内部的消息引擎对象。您可以利用 `engine` 进行更复杂的场景定制，如发送消息、调试与埋点等。
