@@ -108,6 +108,28 @@ const defaultOptions = {
 }
 ```
 
+Starting from v10, Umo Editor Next’s document save option `onSave` method includes an additional `comments` parameter, which is used to save comment threads.
+
+See the `onSave` method in [Document Save Options](../editor/options/methods#onsave).
+
+Below is a simple example of an `onSave` method:
+
+```js
+const onSave = async (content, page, document, comments) => {
+  // Save the document and comment threads to localStorage
+  localStorage.setItem('document.content', content)
+  localStorage.setItem('document.comments', JSON.stringify(comments))
+
+  // Simulate a save delay
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('onSave', { content, page, document, comments })
+      resolve('Operation successful')
+    }, 1000)
+  })
+}
+```
+
 ## Configuration Details
 
 ### `comments`

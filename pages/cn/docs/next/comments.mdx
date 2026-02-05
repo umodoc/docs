@@ -108,6 +108,28 @@ const defaultOptions = {
 }
 ```
 
+自 v10 开始，Umo Editor Next 文档保存配置 `onSave` 方法新增了 `comments` 参数，用于保存文档批注线程。
+
+`onSave` 方法见 [文档保存配置](../editor/options/methods#onsave)
+
+以下是一个简单的 `onSave` 方法示例：
+
+```js
+const onSave = async (content, page, document, comments) => {
+  // 将文档和评论线程保存到 localStorage
+  localStorage.setItem('document.content', content)
+  localStorage.setItem('document.comments', JSON.stringify(comments))
+
+  // 模拟保存等待过程
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('onSave', { content, page, document, comments })
+      resolve('操作成功')
+    }, 1000)
+  })
+}
+```
+
 ## 配置说明
 
 ### comments
