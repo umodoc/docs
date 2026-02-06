@@ -1,7 +1,7 @@
 ---
 target: Umo Viewer
-keywords: Umo Viewer,Vue3 pdfjs,PDF.js,PDF预览,PDF在线查看,PDF查看器
-description: Umo Viewer 是一款开源的 PDF 文档查看器，基于 Vue3 和 PDF.js 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
+keywords: Umo Viewer,Umo Editor
+description: Umo Viewer 是一款开源的 Umo Editor 文档查看器，可以脱离 Umo Editor 独立预览 Umo Editor 文档。
 ---
 
 import { Callout } from 'nextra/components'
@@ -17,19 +17,16 @@ Umo Viewer 默认配置，您可以访问 https://www.umodoc.com/demo?target=vie
 {
   lang: 'zh-CN',
   theme: 'light',
-  mode: ['html', 'pdf'],
   title: undefined,
+  content: undefined,
   meta: [],
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
   showHeader: true,
   showAside: false,
   editable: false,
   printable: true,
-  downloadable: true,
   closeable: false,
   shareUrl: undefined,
-  html: undefined,
-  pdf: undefined,
-  showMultiPage: false,
   fitWidth: false,
   needPassword: false,
 }
@@ -57,21 +54,24 @@ Umo Viewer 默认配置，您可以访问 https://www.umodoc.com/demo?target=vie
 
 **是否必填**: 否
 
-### mode
-
-**说明**: 文档预览模式。如果同时提供了 `pdf` 和 `html`，则会显示切换按钮。数组中的第一项为默认预览模式。
-
-**类型**: `string[]`
-
-**默认值**: `['pdf', 'html']`
-
-**是否必填**: 否
-
 ### title
 
 **说明**: 文档标题。
 
 **类型**: `string`
+
+**是否必填**: 是
+
+
+**是否必填**: 否
+
+### content
+
+**说明**: 要预览的文档内容，在 Umo Editor 中，可以通过 [`getVanillaHTML`](../editor/methods#getvanillahtml) 方法获取要预览的文档内容。
+
+**类型**: `string`
+
+**默认值**: `undefined`
 
 **是否必填**: 是
 
@@ -104,6 +104,16 @@ meta: [
   // ……
 ]
 ```
+
+### cdnUrl
+
+**说明**: 第三方资源（如 ECharts 图表）的 CDN 地址，详见 [Umo Editor 配置项中的 `cdnUrl` 配置项](../editor/options/cdn)。
+
+**类型**: `string`
+
+**默认值**: `https://unpkg.com/@umoteam/editor-external@latest`
+
+**是否必填**: 否
 
 ### showHeader
 
@@ -145,16 +155,6 @@ meta: [
 
 **是否必填**: 否
 
-### downloadable
-
-**说明**: 是否可下载，默认值为 `true`。
-
-**类型**: `boolean`
-
-**默认值**: `true`
-
-**是否必填**: 否
-
 ### closeable
 
 **说明**: 是否显示关闭按钮，默认值为 `false`，如果配置为 `true`，则会在顶部导航栏显示一个关闭按钮，此时需要配置[onClose 事件](./events#onclose)。
@@ -172,38 +172,6 @@ meta: [
 **类型**: `string`
 
 **默认值**: `undefined`
-
-**是否必填**: 否
-
-### html
-
-**说明**: 要预览的 HTML 富文本文档内容，在 Umo Editor 中，可以通过 [`getVanillaHTML`](../editor/methods#getvanillahtml) 方法获取富文本文档。
-
-**类型**: `string`
-
-**默认值**: `undefined`
-
-**是否必填**: 当 `mode` 配置中包含 `html` 时，该配置项为必填项。
-
-### pdf
-
-**说明**: 要预览的 PDF 文档 URL。
-
-**类型**: `string`
-
-**默认值**: `undefined`
-
-**是否必填**: 当 `mode` 配置中包含 `pdf` 时，该配置项为必填项。
-
-### showMultiPage
-
-**说明**: 默认是否显示多页模式，仅在 PDF 文档中生效，默认值为 `false`。
-
-**类型**: `boolean`
-
-**默认值**: `false`
-
-**是否必填**: 否
 
 ### fitWidth
 

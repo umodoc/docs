@@ -1,8 +1,11 @@
 ---
+target: Umo Viewer
 title: Umo Viewer Introduction
+keywords: Umo Viewer,Umo Editor
+description: An open-source, lightweight document viewer for Umo Editor.
 ---
 
-<p style={{ textAlign: 'center', margin: '5rem 0 1rem' }}>
+<div style={{ textAlign: 'center', margin: '5rem 0 1rem' }}>
   <a href="https://www.umodoc.com/en" target="_blank">
     <img
       src="https://s2.umodoc.com/images/logo.svg"
@@ -10,9 +13,9 @@ title: Umo Viewer Introduction
       width="280"
     />
   </a>
-</p>
+</div>
 
-<p style={{ textAlign: 'center' }}>
+<div style={{ textAlign: 'center' }}>
   <a href="https://github.com/umodoc/viewer/blob/main/LICENSE" target="_blank">
     <img src="https://img.shields.io/npm/l/@umoteam/viewer" />
   </a>
@@ -28,22 +31,22 @@ title: Umo Viewer Introduction
   <a href="https://github.com/umodoc/viewer/commits" target="_blank">
     <img src="https://img.shields.io/github/commit-activity/m/umodoc/viewer" />
   </a>
-</p>
-<p style={{ textAlign: 'center' }}>
-  English Documentation |{' '}
+</div>
+
+<div style={{ textAlign: 'center', marginBottom: '2rem' }}>
   <a
     className="nextra-focus _text-primary-600 _underline hover:_no-underline _decoration-from-font [text-underline-position:from-font]"
     href="/cn/docs/viewer"
   >
     [中文文档]
-  </a>{' '}
-</p>
+  </a>{' | English Documentation'}
+</div>
 
 # Introduction
 
-Umo Viewer is a PDF document viewer built with Vue3 and [PDF.js](https://github.com/mozilla/pdf.js). It supports previewing PDF documents directly in the browser and also supports previewing Umo Editor document content.
+> Note: Starting from version v1.0.0, Umo Viewer no longer supports PDF document preview.
 
-Umo Viewer was created to solve the preview problem for [Umo Editor](https://github.com/umodoc/editor) documents. In most non-editing scenarios, you only need to display document content without loading the entire editor, which improves loading speed. Umo Viewer integrates seamlessly with [Umo Editor](https://github.com/umodoc/editor) documents and maintains great compatibility.
+Umo Viewer is a document viewer for previewing Umo Editor documents. It was created to solve the preview problem of [Umo Editor](https://github.com/umodoc/editor) documents. In most non-editing scenarios, only the document content needs to be displayed without loading the entire editor to improve loading speed. Umo Viewer can seamlessly integrate with [Umo Editor](https://github.com/umodoc/editor) documents and maintain good compatibility.
 
 [Umo Editor](https://github.com/umodoc/editor) is a localized open-source document editor based on Vue3 and Tiptap3. It provides powerful document editing capabilities, AI creation features, and supports pagination, Markdown syntax, rich text editing, and much more.
 
@@ -63,17 +66,16 @@ See [https://dev.umodoc.com/en/docs/viewer](https://dev.umodoc.com/en/docs/viewe
 
 ## Key Features
 
-- Support for previewing PDF documents and [Umo Editor](https://github.com/umodoc/editor) documents, can be used solely as a PDF document viewer
+- Support for previewing [Umo Editor](https://github.com/umodoc/editor) document content
 - Password protection for documents
 - Extensive customization options
 - Multi-language support
 - Custom themes
 - Custom document metadata
-- Print, export PDF, and share
-- Automatic outline extraction and thumbnail navigation
+- Print and share
+- Automatic outline extraction
 - Zoom and responsive layout
 - Display in modal dialogs or embed via iframe
-- Fully compatible with [Umo Editor](https://github.com/umodoc/editor) document content
 
 ## Browser Support
 
@@ -125,7 +127,7 @@ If you find Umo Viewer useful, please consider supporting us in the following wa
 ## Products from Umo Team
 
 - [Umo Editor](https://dev.umodoc.com/en/docs/editor): A localized open-source document editor based on Vue3 and Tiptap.
-- [Umo Viewer](https://dev.umodoc.com/en/docs/viewer): A PDF viewer built with Vue3 and PDF.js, enabling direct PDF preview in the browser and also supporting preview of Umo Editor documents.
+- [Umo Viewer](https://dev.umodoc.com/en/docs/viewer): An open-source, lightweight document viewer for Umo Editor.
 - [Umo Editor Next](https://dev.umodoc.com/en/docs/next): An enhanced version of Umo Editor that includes all features of the latest Umo Editor, with enhanced support for multi-user real-time collaboration, document annotations (comments), version history, AI-assisted creation, import/export, tables, and more. It also improves the customization of toolbars and sidebars.
 - [Umo Editor Server](https://dev.umodoc.com/en/docs/server): A companion server-side software developed to extend Umo Editor capabilities such as multi-user collaborative editing, document annotations, and document import/export.
 - [Umo Office Viewer](https://dev.umodoc.com/en/docs/office-viewer): An Office document viewer that supports previewing over 40 mainstream office document formats in web pages.

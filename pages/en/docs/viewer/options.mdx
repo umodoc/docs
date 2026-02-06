@@ -1,3 +1,9 @@
+---
+target: Umo Viewer
+keywords: Umo Viewer,Umo Editor
+description: An open-source, lightweight document viewer for Umo Editor.
+---
+
 import { Callout } from 'nextra/components'
 import { Badge } from '/components/badge'
 
@@ -11,19 +17,16 @@ The default configuration of Umo Viewer. You can visit https://www.umodoc.com/en
 {
   lang: 'zh-CN',
   theme: 'light',
-  mode: ['html', 'pdf'],
   title: undefined,
+  content: undefined,
   meta: [],
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
   showHeader: true,
   showAside: false,
   editable: false,
   printable: true,
-  downloadable: true,
   closeable: false,
   shareUrl: undefined,
-  html: undefined,
-  pdf: undefined,
-  showMultiPage: false,
   fitWidth: false,
   needPassword: false,
 }
@@ -51,21 +54,21 @@ The default configuration of Umo Viewer. You can visit https://www.umodoc.com/en
 
 **Required**: No
 
-### mode
-
-**Description**: The document preview mode. If both `pdf` and `html` are provided, a toggle button is displayed. The first item in the array is the default mode.
-
-**Type**: `string[]`
-
-**Default**: `['pdf', 'html']`
-
-**Required**: No
-
 ### title
 
 **Description**: Document title.
 
 **Type**: `string`
+
+**Required**: Yes
+
+### content
+
+**Description**: The document content to be previewed. In Umo Editor, you can obtain the content to preview via the [`getVanillaHTML`](../editor/methods#getvanillahtml) method.
+
+**Type**: `string`
+
+**Default**: `undefined`
 
 **Required**: Yes
 
@@ -99,6 +102,16 @@ meta: [
   // ...
 ]
 ```
+
+### cdnUrl
+
+**Description**: CDN URL for third-party resources (e.g., ECharts charts). For details, see the [`cdnUrl` configuration item](../editor/options/cdn) in Umo Editor configuration options.
+
+**Type**: `string`
+
+**Default**: `https://unpkg.com/@umoteam/editor-external@latest`
+
+**Required**: No
 
 ### showHeader
 
@@ -140,16 +153,6 @@ meta: [
 
 **Required**: No
 
-### downloadable
-
-**Description**: Whether the document can be downloaded. Default is `true`.
-
-**Type**: `boolean`
-
-**Default**: `true`
-
-**Required**: No
-
 ### closeable
 
 **Description**: Whether to display a close button. Default is `false`. If set to `true`, a close button will appear in the top navigation bar, and you must configure the [onClose event](./events#onclose).
@@ -167,36 +170,6 @@ meta: [
 **Type**: `string`
 
 **Default**: `undefined`
-
-**Required**: No
-
-### html
-
-**Description**: The HTML rich text document content to preview. In Umo Editor, you can get the rich text document through the [`getVanillaHTML`](../editor/methods#getvanillahtml) method.
-
-**Type**: `string`
-
-**Default**: `undefined`
-
-**Required**: Required if `mode` includes `html`.
-
-### pdf
-
-**Description**: The URL of the PDF document to preview.
-
-**Type**: `string`
-
-**Default**: `undefined`
-
-**Required**: Required if `mode` includes `pdf`.
-
-### showMultiPage
-
-**Description**: Whether to show multi-page mode by default (PDF only). Default is `false`.
-
-**Type**: `boolean`
-
-**Default**: `false`
 
 **Required**: No
 

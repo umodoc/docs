@@ -1,3 +1,9 @@
+---
+target: Umo Viewer
+keywords: Umo Viewer,Umo Editor
+description: An open-source, lightweight document viewer for Umo Editor.
+---
+
 import { Tabs } from 'nextra/components'
 
 # Getting Started
@@ -22,10 +28,7 @@ Choose one of the following usage methods:
 import { createApp } from 'vue'
 import { useUmoViewer } from '@umoteam/viewer'
 
-// If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
 // Requires Umo Editor version 8.0.0 or later
-// import '@umoteam/editor/style'
-
 const app = createApp(App)
 app.use(useUmoViewer, {
   // options
@@ -54,10 +57,7 @@ You can use either the Composition API or Options API as shown below:
 import { ref } from 'vue'
 import { UmoViewer } from '@umoteam/viewer'
 
-// If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
 // Requires Umo Editor version 8.0.0 or later
-// import '@umoteam/editor/style'
-
 const options = ref({
   // options
   // ...
@@ -68,10 +68,7 @@ const options = ref({
 <script>
 import { UmoViewer } from '@umoteam/viewer'
 
-// If the preview content includes Umo Editor documents (i.e., 'html' is included in the mode configuration), you need to import Umo Editor styles
 // Requires Umo Editor version 8.0.0 or later
-// import '@umoteam/editor/style'
-
 export default {
   components: {
     UmoViewer,

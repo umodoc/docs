@@ -1,7 +1,7 @@
 ---
 target: Umo Viewer
-keywords: Umo Viewer,Vue3 pdfjs,PDF.js,PDF预览,PDF在线查看,PDF查看器
-description: Umo Viewer 是一款开源的 PDF 文档查看器，基于 Vue3 和 PDF.js 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
+keywords: Umo Viewer,Umo Editor
+description: Umo Viewer 是一款开源的 Umo Editor 文档查看器，可以脱离 Umo Editor 独立预览 Umo Editor 文档。
 ---
 
 import { Tabs } from 'nextra/components'
@@ -28,10 +28,7 @@ npm install --save @umoteam/viewer
 import { createApp } from 'vue'
 import { useUmoViewer } from '@umoteam/viewer'
 
-// 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
 // Umo Editor 版本不能低于 8.0.0
-// import '@umoteam/editor/style'
-
 const app = createApp(App)
 app.use(useUmoViewer, {
   // 配置项
@@ -60,10 +57,7 @@ app.mount('#app')
 import { ref } from 'vue'
 import { UmoViewer } from '@umoteam/viewer'
 
-// 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
 // Umo Editor 版本不能低于 8.0.0
-// import '@umoteam/editor/style'
-
 const options = ref({
   // 配置项
   // ...
@@ -74,10 +68,7 @@ const options = ref({
 <script>
 import { UmoViewer } from '@umoteam/viewer'
 
-// 如果预览内容包括 Umo Editor 文档（即 mode 配置中包含 'html'），则需要引入 Umo Editor 样式
 // Umo Editor 版本不能低于 8.0.0
-// import '@umoteam/editor/style'
-
 export default {
   components: {
     UmoViewer,
