@@ -1,0 +1,31 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Docker,Offline Deployment
+description: Deploy Umo Office Convert using Docker.
+---
+
+# Docker
+
+Umo Office Convert can be deployed via Docker. Images and build artifacts are typically placed under `docker/`.
+
+## Build
+
+```sh npm2yarn
+npm run build:docker
+```
+
+## Load
+
+```bash
+docker load -i ./docker/umo-office-convert.tar
+```
+
+## Run
+
+```bash
+docker run -d --name umo-office-convert -p 1236:1236 umo-office-convert:latest
+```
+
+## Verify
+
+Visit `http://127.0.0.1:1236`.

@@ -1,0 +1,58 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,API,Swagger,OpenAPI
+description: API endpoints provided by Umo Office Convert.
+---
+
+# API Reference
+
+## Basics
+
+- Base URL: `http://localhost:1236` (default)
+- Swagger UI (non-production): `/openapi`
+
+## Endpoints
+
+### Health
+
+- `GET /`
+
+### Convert by upload
+
+- `POST /convert/upload`
+- `Content-Type: multipart/form-data`
+- Field: `file`
+
+On success, returns the converted file stream. Response headers may include:
+
+- `X-Task-Id`
+- `X-Document-Name`
+- `X-From-Cache`
+
+### Convert by JSON
+
+- `POST /convert`
+- `Content-Type: application/json`
+
+```json
+{
+  "path": "/path/to/document.docx",
+  "filename": "document.docx"
+}
+```
+
+### Convert by URL
+
+- `GET /convert?url=<encoded>&filename=<encoded>`
+
+### Download by taskId
+
+- `GET /convert/{taskId}?target=converted|original`
+
+## Supported Formats
+
+See [Supported File Formats](./index#supported-file-formats).
+
+## Webhook
+
+Configure `CONVERTED_WEBHOOK_URL` to receive callbacks. See [Webhook](./webhook) and [Environment Variables](./env#webhook).

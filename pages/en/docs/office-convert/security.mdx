@@ -1,0 +1,32 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Security,Compliance
+description: Security recommendations and compliance considerations for Umo Office Convert.
+---
+
+# Security & Compliance
+
+## Access Control
+
+- Use `WHITE_LIST` to restrict allowed origins (CORS).
+- Place the service behind a gateway for authentication/authorization.
+
+## Input Safety
+
+- Limit upload size via `MAX_FILE_SIZE`.
+- Validate file extension and MIME types.
+- For URL-based conversion, restrict schemes to `http/https` and validate sources to reduce SSRF risk.
+
+## Data Safety
+
+- Keep uploads and converted outputs in separate directories.
+- Avoid logging sensitive configuration values such as database passwords.
+
+## Transport
+
+- Use HTTPS in production.
+
+## Webhook Security
+
+- Prefer HTTPS.
+- Consider signing requests (HMAC) and implement replay protection on the receiver side.

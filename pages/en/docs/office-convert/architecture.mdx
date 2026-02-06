@@ -1,0 +1,36 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Architecture,Office Preview,WPS Preview,DOCX Preview
+description: High-level architecture and data flow of Umo Office Convert.
+---
+
+# Architecture
+
+Umo Office Convert is a Node.js service (Express) that converts office documents into formats supported by [Umo Office Viewer](../office-viewer). It typically uses MySQL to persist conversion tasks and can expose Swagger API documentation for integration.
+
+## Components
+
+- HTTP service: Express routes for conversion and downloads
+- Conversion engine: converts Office/WPS/PDF to viewer-compatible outputs
+- Database: stores conversion tasks (table: `convert_tasks`), see [Database](./database)
+- Storage: local filesystem and/or object storage
+- Configuration: `.env` environment variables, see [Environment Variables](./env)
+- Security: CORS whitelist, file size limits, MIME checks, see [Security & Compliance](./security)
+- API docs: Swagger UI (usually mounted at `/openapi` in non-production), see [API Reference](./api)
+
+## Data Flow
+
+1. A document is uploaded or referenced by path/URL.
+2. The service creates a task ID and writes a record into `convert_tasks` (status transitions like uploaded → converted/failed).
+3. The conversion engine runs and writes outputs to the configured directory.
+4. The service returns the converted file stream and task metadata (such as `X-Task-Id`).
+5. Optional: if `CONVERTED_WEBHOOK_URL` is configured, a webhook is sent when key stages finish.
+
+## Key Modules
+
+- `src/index.mjs`: application entry, middleware and route mounting
+- `src/routes/base.mjs`: basic health route
+- `src/routes/convert.mjs`: upload/convert/download and caching
+- `src/routes/openapi.mjs`: Swagger UI
+- `src/utils/mysql.mjs`: MySQL connection and table initialization
+- `src/utils/env.mjs`: environment variable loading

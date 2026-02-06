@@ -1,0 +1,41 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Fonts,CJK,Chinese
+description: Install fonts to improve CJK rendering and layout consistency during conversion.
+---
+
+# Fonts (CJK & Layout)
+
+If the server/container is missing required fonts (especially CJK fonts), converted documents may have garbled characters, tofu (□), and layout differences (line breaks, table alignment, etc.).
+
+## Recommended Approach
+
+The project usually includes a `./fonts` directory with commonly used fonts. Copy these fonts into the system font directory and refresh the font cache.
+
+## Linux (Debian/Ubuntu/CentOS)
+
+```bash
+sudo mkdir -p /usr/share/fonts
+sudo cp -r ./fonts/* /usr/share/fonts
+sudo fc-cache -f -v
+```
+
+## macOS
+
+```bash
+mkdir -p ~/Library/Fonts
+cp -r ./fonts/* ~/Library/Fonts/
+```
+
+## Docker
+
+```dockerfile
+COPY fonts /usr/share/fonts/
+RUN fc-cache -f -v
+```
+
+## Verification
+
+```bash
+fc-list
+```

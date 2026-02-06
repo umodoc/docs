@@ -1,0 +1,45 @@
+---
+target: Umo Office Viewer
+keywords: Umo Office Viewer,Watermark,Password
+description: Watermark and password validation guidance for Umo Office Viewer.
+---
+
+# Watermark & Password
+
+## Watermark
+
+Configure the watermark via `watermark`:
+
+- `text`: watermark text
+- `columns` / `rows`: grid density
+- `color`: CSS color (e.g. `rgba(0,0,0,0.2)`)
+- `rotation`: rotation in degrees
+- `fontSize`: font size in px
+
+Example:
+
+```js
+const options = ref({
+  watermark: {
+    text: 'Internal document',
+    columns: 3,
+    rows: 3,
+    color: 'rgba(0, 0, 0, 0.1)',
+    rotation: 25,
+  },
+})
+```
+
+## Password
+
+When a document requires a password, you can enable and validate it via:
+
+- `needPassword: boolean`
+- `onValidatePassword(password) => boolean | Promise<boolean>`
+
+```ts
+const options = ref({
+  needPassword: true,
+  onValidatePassword: (password) => password === '1234',
+})
+```

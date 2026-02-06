@@ -1,0 +1,31 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Troubleshooting,Errors
+description: Common issues and troubleshooting steps for Umo Office Convert.
+---
+
+# Troubleshooting
+
+## 403 NotAllowed (CORS)
+
+- Check whether `WHITE_LIST` includes the request origin host.
+
+## 500 Conversion failure
+
+- Verify the format is supported and extension matches MIME.
+- Check directory permissions for `UPLOAD_DIR` and `CONVERTED_DIR`.
+- Check logs and correlate with `X-Task-Id`.
+
+## Database connection / table init failure
+
+- Verify `DB_HOST/DB_PORT/DB_USER/DB_PASSWORD/DB_NAME`.
+- Ensure MySQL is reachable from the service environment.
+
+## Webhook not received
+
+- Verify `CONVERTED_WEBHOOK_URL` and network reachability.
+- Check firewall and proxy rules.
+
+## Port already in use
+
+- Change `PORT` or stop the conflicting process.

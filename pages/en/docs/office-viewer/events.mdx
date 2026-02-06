@@ -1,0 +1,44 @@
+---
+target: Umo Office Viewer
+keywords: Umo Office Viewer,Events
+description: Events emitted by Umo Office Viewer.
+---
+
+# Events
+
+## Example
+
+```vue
+<template>
+  <umo-office-viewer
+    v-bind="options"
+    @loaded="onLoaded"
+    @closed="onClosed"
+    @aside-changed="onAsideChanged"
+    @page-changed="onPageChanged"
+    @rotate-changed="onRotateChanged"
+    @scale-changed="onScaleChanged"
+    @fullscreen-changed="onFullscreenChanged"
+    @download="onDownload"
+    @export="onExport"
+    @print="onPrint"
+    @error="onError"
+  />
+</template>
+```
+
+## Event List
+
+| Event               | Description                                  | Params      |
+| ------------------- | -------------------------------------------- | ----------- |
+| loaded              | Document loaded                               | -           |
+| closed              | Close button clicked                          | -           |
+| aside-changed        | Sidebar opened / panel switched               | aside       |
+| page-changed         | Active page changed                           | activePage  |
+| rotate-changed       | Rotate angle changed                          | rotate      |
+| scale-changed        | Scale changed                                 | scale       |
+| fullscreen-changed   | Fullscreen toggled                            | fullscreen  |
+| download             | Download triggered                            | -           |
+| export               | Export triggered                              | -           |
+| print                | Print triggered                               | -           |
+| error                | Load error                                    | error       |

@@ -175,7 +175,7 @@ For more information, see: [Umo Viewer Documentation](../viewer).
 5. Refactored [Dialog component](./components/dialog) to support TDialog properties, events, slots, and methods;
 6. Added [`getVanillaHTML`](./methods#getvanillahtml) method to retrieve complete native HTML content;
 7. Removed line breaks and carriage returns from print output;
-8. Removed `toolbar.disableMenuItems` and `toolbar.importWord` options, replaced with new [`disableExtensions`](./options/extensions#disableextensions) and [`importWord`](./options/import-word#importword) configurations;
+8. Removed `toolbar.disableMenuItems` and `toolbar.importWord` options, replaced with new [`disableExtensions`](./options/extensions#disableextensions) and `importWord` configurations;
 9. Fixed floating image position issues in read-only mode @alsdn123123 [#309](https://github.com/umodoc/editor/issues/309);
 10. Fixed onFileDelete method not triggering when deleting or replacing document content @ChenErik [#300](https://github.com/umodoc/editor/issues/300);
 11. Fixed display issues after page zoom;
@@ -196,7 +196,7 @@ For more information, see: [Umo Viewer Documentation](../viewer).
 6. Fixed incorrect rendering of ordered and unordered lists when the document content is empty. Thanks to @vCloudSail [#273](https://github.com/umodoc/editor/issues/273).
 7. Document content now supports line breaks for content containing the special character `\n`.
 8. Fixed an issue where links in the document could not be opened.
-9. File size is now configurable when importing Word documents [#276](https://github.com/umodoc/editor/issues/276) [#279](https://github.com/umodoc/editor/issues/279), see [Configuration-Toolbar](./options/toolbar#toolbarimportword);
+9. File size is now configurable when importing Word documents [#276](https://github.com/umodoc/editor/issues/276) [#279](https://github.com/umodoc/editor/issues/279), see [Toolbar configuration](./options/toolbar);
 10. Fixed missing dependency for `prosemirror-state`, now obtained from `@tiptap/pm/state`. Contributed by @ChenErik in [(#281)](https://github.com/umodoc/editor/pull/281).
 11. Fixed incorrect selection area when a selected block loses focus. #236, contributed by @ChenErik in [(#281)](https://github.com/umodoc/editor/pull/281).
 12. Fixed the 'implicitly has an any type' error [#287](https://github.com/umodoc/editor/issues/287).

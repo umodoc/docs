@@ -176,8 +176,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 5. 重新封装 [Dialog 组件](./components/dialog)，使其支持 TDialog 的属性、事件、插槽、方法等；
 6. 添加 [`getVanillaHTML`](./methods#getvanillahtml) 方法，用于获取完整的文档原生 HTML 内容；
 7. 打印时不显示换行符和回车符；
-8. 删除 `toolbar.disableMenuItems` 和 `toolbar.importWord` 选项，并增加新的 [`disableExtensions`](./options/extensions#disableextensions) 和 [`importWord` 配置项](./import-word#importword)；
-   ；
+8. 删除 `toolbar.disableMenuItems` 和 `toolbar.importWord` 选项，并增加新的 [`disableExtensions`](./options/extensions#disableextensions) 和 `importWord` 配置项；
 9. 修复只读模式时，浮动图片位置异常 @alsdn123123 [#309](https://github.com/umodoc/editor/issues/309)；
 10. 修复在删除或者替换文档内容时，未触发 onFileDelete 方法的问题 @ChenErik [#300](https://github.com/umodoc/editor/issues/300)；
 11. 修复页面放大缩小后显示异常的问题；
@@ -185,7 +184,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 13. 移除对俄语的默认支持；
 14. 添加了意大利语翻译文件 @claudiorivetti [#311](https://github.com/umodoc/editor/issues/311)；
 15. 增强对 Word 文档导入的支持；
-16. 修复 TypeScript 提示异常的问题，增强对 TypesScript 的支持，由 @SevenDreamYang 在 [(#303)](https://github.com/umodoc/editor/pull/303) 提交；
+16. 修复 TypeScript 提示异常的问题，增强对 TypeScript 的支持，由 @SevenDreamYang 在 [(#303)](https://github.com/umodoc/editor/pull/303) 提交；
 17. 其他细节调整及优化。
 
 ## 🎉 v7.0.0 <Badge>2025-06-21</Badge>
@@ -198,7 +197,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 6. 修复文档内容为空时，有序列表和无序列表渲染不正确的问题 @vCloudSail [#273](https://github.com/umodoc/editor/issues/273)；
 7. 文档内容支持包含 `\n` 特殊字符的内容换行；
 8. 修复文档中的链接打开无效的问题；
-9. Word 文档导入时，文件大小可配置 [#276](https://github.com/umodoc/editor/issues/276) [#279](https://github.com/umodoc/editor/issues/279)，见[配置项-工具栏](./options/toolbar#toolbarimportword)；
+9. Word 文档导入时，文件大小可配置 [#276](https://github.com/umodoc/editor/issues/276) [#279](https://github.com/umodoc/editor/issues/279)，见[工具栏配置](./options/toolbar)；
 10. 修复引入 `prosemirror-state` 依赖不存在的问题，改为从 `@tiptap/pm/state` 获取，由 @ChenErik 在 [(#281)](https://github.com/umodoc/editor/pull/281) 提交；
 11. 选中块失焦文本选中区域不正确的问题 #236 由 @ChenErik 在 [(#281)](https://github.com/umodoc/editor/pull/281) 提交；
 12. 修复 implicitly has an any type 错误 [#287](https://github.com/umodoc/editor/issues/287)；

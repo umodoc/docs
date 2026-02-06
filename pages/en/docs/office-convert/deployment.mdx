@@ -1,0 +1,35 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Deployment,PM2,Docker
+description: Deployment and runtime guide for Umo Office Convert.
+---
+
+# Deployment & Run
+
+## Prerequisites
+
+- Node.js 18+ (recommended)
+- MySQL 5.7+/8.0+
+- Optional: PM2 or Docker
+
+## Run Locally
+
+1. Install dependencies: `npm install`
+2. Configure environment variables: copy `.env.example` to `.env` and update values
+3. Start: `npm start`
+4. Visit:
+   - Health: `http://localhost:[PORT]/`
+   - Swagger UI (non-production): `http://localhost:[PORT]/openapi`
+
+## PM2
+
+```bash
+npm i -g pm2
+pm2 start ecosystem.config.cjs --env production
+pm2 status
+pm2 logs
+```
+
+## Docker
+
+See [Docker](./docker).

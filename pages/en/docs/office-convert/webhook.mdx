@@ -1,0 +1,42 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,Webhook,Callback
+description: Webhook callback payloads and triggering conditions for Umo Office Convert.
+---
+
+# Webhook
+
+Umo Office Convert can notify your system when uploads and conversions complete. Enable it via `CONVERTED_WEBHOOK_URL`.
+
+## Trigger Points
+
+- After a document upload succeeds
+- After a conversion succeeds
+- When a cached result is returned (`fromCache=true`)
+
+## Request
+
+- Method: `POST`
+- Header: `Content-Type: application/json`
+- Destination: `CONVERTED_WEBHOOK_URL`
+
+## Payload Example
+
+```json
+{
+  "taskId": "bccbff66-fa2c-4d6d-bc30-a7c34ca0181b",
+  "type": "uploaded",
+  "fromCache": false,
+  "file": {
+    "filename": "document.docx",
+    "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 90239,
+    "path": "/uploads/2024/10/bccbff66-fa2c-4d6d-bc30-a7c34ca0181b.docx"
+  }
+}
+```
+
+## Security Notes
+
+- Use HTTPS webhook URLs.
+- Consider adding signature verification (HMAC) and replay protection.

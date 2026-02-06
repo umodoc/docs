@@ -14,6 +14,12 @@ export default {
   },
   next: 'Umo Editor Next',
   server: 'Umo Editor Server',
+  '--office': {
+    type: 'separator',
+    title: 'Umo Office',
+  },
+  'office-viewer': 'Umo Office Viewer',
+  'office-convert': 'Umo Office Convert',
   '--other': {
     type: 'separator',
     title: 'Other',

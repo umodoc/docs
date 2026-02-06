@@ -10,9 +10,9 @@ Umo Viewer supports a dark theme. See [Theme Configuration](./options/themes).
 
 Below are all available CSS variables. [Click here](https://github.com/umodoc/viewer/tree/main/src/assets/styles/_variables.less) to view the full list of CSS variables.
 
-````css
+```css
 /* Default Theme */
-```css :root {
+:root {
   /** Theme Colors **/
   --uv-primary-color: #3480f9;
   --uv-color-white: #fff;
@@ -67,14 +67,14 @@ Below are all available CSS variables. [Click here](https://github.com/umodoc/vi
   --uv-border-color-light: rgba(255, 255, 255, 0.08);
   --uv-container-background: #2a2b2d;
 }
-````
+```
 
 ## Example
 
 ```vue
 <template>
   <div class="theme-demo">
-    <umo-editor />
+    <umo-viewer />
   </div>
 </template>
 
@@ -84,7 +84,7 @@ import { UmoViewer } from '@umoteam/viewer'
 
 <style>
 .theme-demo {
-  --umo-primary-color: red;
+  --uv-primary-color: red;
   /* ... */
 }
 </style>

@@ -1,0 +1,126 @@
+---
+target: Umo Office Viewer
+keywords: Umo Office Viewer,Options,Configuration
+description: Configuration options for Umo Office Viewer.
+---
+
+# Options
+
+Use these options to control UI and behavior. Umo Office Viewer is typically used together with [Umo Office Convert](../office-convert).
+
+## Default Options
+
+```js
+{
+  lang: 'zh-CN',
+  theme: 'light',
+  title: undefined,
+  meta: [],
+  showHeader: true,
+  showMenu: true,
+  showAside: false,
+  downloadable: true,
+  exportable: true,
+  printable: true,
+  closeable: false,
+  fileId: undefined,
+  fileUrl: undefined,
+  serverUrl: undefined,
+  shareUrl: undefined,
+  multiPage: false,
+  fitWidth: false,
+  watermark: {
+    text: '',
+    columns: 4,
+    rows: 4,
+    color: 'rgba(0, 0, 0, 0.2)',
+    rotation: 30,
+    fontSize: 12 * window.devicePixelRatio
+  },
+  needPassword: false,
+  onClose: undefined,
+  onValidatePassword: undefined
+}
+```
+
+## Key Fields
+
+### lang
+
+- Type: `String`
+- Default: `zh-CN`
+- Values: `zh-CN` | `en-US`
+
+### theme
+
+- Type: `String`
+- Default: `light`
+- Values: `light` | `dark` | `auto`
+
+### title
+
+- Type: `String`
+- Required: yes
+
+The document title must include an extension (e.g. `.docx`, `.xlsx`). It is shown in the header and used as the download/export filename.
+
+### meta
+
+- Type: `Array<{ label: String; content: any }>`
+
+Displayed in the sidebar info panel.
+
+### showHeader / showMenu
+
+- Type: `Boolean`
+
+Controls whether the header bar and its menu are shown.
+
+### showAside
+
+- Type: `Boolean`
+
+Whether to open the sidebar by default. You can also call `openAside('info'|'thumbs')`.
+
+### downloadable / exportable / printable
+
+- Type: `Boolean`
+
+Control download, export-to-PDF, and printing capabilities.
+
+### closeable / onClose
+
+- Type: `Boolean` / `Function`
+
+When `closeable` is `true`, a close button is shown and triggers the `onClose` callback and the `closed` event.
+
+### fileId / fileUrl
+
+- Type: `String`
+
+At least one of `fileId` and `fileUrl` must be provided.
+
+### serverUrl
+
+- Type: `String`
+- Required: yes
+
+The [Umo Office Convert](../office-convert) service URL, for example `http://127.0.0.1:1236`.
+
+### shareUrl
+
+- Type: `String`
+
+If provided, a “Share” entry is shown in the header menu.
+
+### watermark
+
+- Type: `Object`
+
+Watermark settings. See [Watermark & Password](./security).
+
+### needPassword / onValidatePassword
+
+- Type: `Boolean` / `Function`
+
+Password validation hook. See [Watermark & Password](./security).

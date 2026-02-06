@@ -1,0 +1,44 @@
+---
+target: Umo Office Viewer
+keywords: Umo Office Viewer,Methods,API
+description: Methods provided by Umo Office Viewer.
+---
+
+# Methods
+
+## Example
+
+```vue
+<template>
+  <umo-office-viewer ref="viewerRef" v-bind="options" />
+  <button @click="getOptions">Get options</button>
+  <button @click="openSidebar">Open sidebar</button>
+  <button @click="downloadFile">Download</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
+
+const viewerRef = ref(null)
+const options = ref({})
+
+const getOptions = () => viewerRef.value.getOptions()
+const openSidebar = () => viewerRef.value.openAside('thumbs')
+const downloadFile = () => viewerRef.value.download()
+</script>
+```
+
+## Reference
+
+- `setTheme('light' | 'dark' | 'auto')`
+- `setLocale('zh-CN' | 'en-US')`
+- `openAside('info' | 'thumbs')`
+- `download(target?: string)`
+- `exportPDF(filename?: string)`
+- `print(dpi?: number)`
+- `fullscreen()`
+- `rotate(deg: number)`
+- `gotoPage(page?: number)`
+- `getState()`
+- `getOptions()`

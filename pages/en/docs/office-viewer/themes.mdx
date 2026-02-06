@@ -1,0 +1,43 @@
+---
+target: Umo Office Viewer
+keywords: Umo Office Viewer,Theme,CSS Variables,Dark Mode
+description: Theme modes and CSS variable customization for Umo Office Viewer.
+---
+
+# Themes
+
+Umo Office Viewer uses CSS variables for theming. The theme mode can be:
+
+- `light`
+- `dark`
+- `auto` (follow system)
+
+## Switching Theme
+
+```ts
+viewerRef.value?.setTheme('dark')
+viewerRef.value?.setTheme('auto')
+```
+
+## Override Variables
+
+```vue
+<template>
+  <div class="viewer-theme">
+    <umo-office-viewer />
+  </div>
+</template>
+
+<style>
+.viewer-theme {
+  --uv-primary-color: #ff4444;
+  --uv-container-background: #f7f8fa;
+  --uv-scrollbar-size: 8px;
+}
+
+html[theme-mode='dark'] .viewer-theme {
+  --uv-text-color: #eaeff4;
+  --uv-border-color: #31363b;
+}
+</style>
+```

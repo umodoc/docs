@@ -1,0 +1,44 @@
+---
+target: Umo Office Convert
+keywords: Umo Office Convert,MySQL,Database,Convert Tasks
+description: Database schema and task model used by Umo Office Convert.
+---
+
+# Database
+
+Umo Office Convert typically uses MySQL to store metadata for conversion tasks. You can follow the same pattern if you want to use another database.
+
+## Configuration
+
+Database settings are configured via environment variables. See [Environment Variables](./env#mysql).
+
+## Table: convert_tasks
+
+This table stores conversion task records.
+
+| Column         | Type         | Description                 | Constraints                  |
+| -------------- | ------------ | --------------------------- | ---------------------------- |
+| id             | VARCHAR(255) | Task ID                      | PRIMARY KEY                  |
+| filename       | VARCHAR(255) | Original filename            |                              |
+| mime           | VARCHAR(255) | MIME type                    |                              |
+| size           | INT          | Original size (bytes)        |                              |
+| path           | VARCHAR(255) | Original file path            |                              |
+| hash           | VARCHAR(255) | File hash                     |                              |
+| converted_size | INT          | Converted size (bytes)       |                              |
+| converted_path | VARCHAR(255) | Converted file path           |                              |
+| status         | VARCHAR(255) | Task status                   |                              |
+| converted_at   | TIMESTAMP    | Conversion time               | DEFAULT CURRENT_TIMESTAMP    |
+
+Common status values:
+
+- `uploaded`
+- `converted`
+- `failed`
+
+## Initialization
+
+On startup, the service checks and creates required tables automatically. The initialization code is typically in `src/utils/mysql.mjs`.
+
+## Caching
+
+The service can use file hashes as a cache key. When the same file is uploaded again, it may return a cached converted result to avoid repeated conversion.
