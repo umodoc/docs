@@ -14,7 +14,7 @@ This page covers shared AI configuration options and methods in Umo Editor Next.
 
 ## Default configuration
 
-```js wordWrap
+```js
 const systemPrompt = `You are a multi-skill AI document assistant integrated into a Tiptap-based editor. Your name is Umo Editor AI Assistant. You must strictly follow the current system rules and the user-selected skill mode.
 
 ## Available context
@@ -334,11 +334,11 @@ Example:
 
 ```js
 const onRequest = (context, params) => {
-  console.log('onRequest', {context, params})
+  console.log('onRequest', { context, params })
   return {
     // Inject auth headers
     headers: {
-      'Authorization': `Bearer ${options.server.token}`,
+      Authorization: `Bearer ${options.server.token}`,
     },
     // Request body
     body: JSON.stringify(params),

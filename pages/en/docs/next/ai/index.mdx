@@ -11,13 +11,15 @@ import { Callout } from 'nextra/components'
 <Callout type="warning" emoji="❗" style={{ marginBottom: '50px !important' }}>
   Starting from V10, Umo Editor Next has fully refactored its AI features. The related APIs have changed significantly and are not compatible with V9. Please upgrade if you are using an older version.
 
-  The goal of the V10 AI refactor is not to add more flashy features, but to shift the core approach: upgrading AI from isolated features into a controllable capability system designed for editing workflows:
-  - Frontend: collect editor context in a unified way (selection / node-level Markdown / full document / cursor marker), stream-render in a unified way, and write results back reliably
-  - Backend: act as an adapter layer that can connect to any model, and choose between the `default` and `agui` protocols, making it pluggable, extensible, and evolvable
-  
-  This refactor primarily addresses common pain points when shipping AI features in real projects: unstable context and write-back (unclear what to change and how much), fragmented protocol/model integrations (high cost to switch models or add tool-calling), and unclear frontend/backend responsibilities leading to higher security and maintenance costs.
-  
-  The benefits: AI output behaves more like “actions executed inside the editor”, write-back becomes more reliable, models and protocols become easier to extend, and private deployment/compliance becomes easier to guarantee.
+The goal of the V10 AI refactor is not to add more flashy features, but to shift the core approach: upgrading AI from isolated features into a controllable capability system designed for editing workflows:
+
+- Frontend: collect editor context in a unified way (selection / node-level Markdown / full document / cursor marker), stream-render in a unified way, and write results back reliably
+- Backend: act as an adapter layer that can connect to any model, and choose between the `default` and `agui` protocols, making it pluggable, extensible, and evolvable
+
+This refactor primarily addresses common pain points when shipping AI features in real projects: unstable context and write-back (unclear what to change and how much), fragmented protocol/model integrations (high cost to switch models or add tool-calling), and unclear frontend/backend responsibilities leading to higher security and maintenance costs.
+
+The benefits: AI output behaves more like “actions executed inside the editor”, write-back becomes more reliable, models and protocols become easier to extend, and private deployment/compliance becomes easier to guarantee.
+
 </Callout>
 
 ---

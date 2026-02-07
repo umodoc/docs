@@ -10,12 +10,12 @@ import { Callout } from 'nextra/components'
 
 Umo Editor Next 自 v10.0 起，对 Markdown 支持进行了系统性的增强，主要包括：
 
-* 支持将文档内容直接设置为 Markdown，或在编辑器中直接插入 Markdown，并能够被正确解析与渲染；
-* 提供设置文档内容为 Markdown、以及在指定位置插入 Markdown 的相关方法；
-* 支持 Markdown 的导入与导出，可从本地导入 Markdown 文档，或将当前文档内容导出为 Markdown 文件；
-* 采用更快、更现代、更轻量的 [Marked](https://marked.js.org) 作为 Markdown 渲染引擎，并支持自定义 Marked 的渲染器与解析行为；
-* 对外暴露内部的 `MarkdownManager` 实例，可用于 Markdown 与文档内容之间的互转，以及自定义 Marked 解析逻辑；
-* 支持在编辑器扩展中集成并扩展 Markdown 能力。
+- 支持将文档内容直接设置为 Markdown，或在编辑器中直接插入 Markdown，并能够被正确解析与渲染；
+- 提供设置文档内容为 Markdown、以及在指定位置插入 Markdown 的相关方法；
+- 支持 Markdown 的导入与导出，可从本地导入 Markdown 文档，或将当前文档内容导出为 Markdown 文件；
+- 采用更快、更现代、更轻量的 [Marked](https://marked.js.org) 作为 Markdown 渲染引擎，并支持自定义 Marked 的渲染器与解析行为；
+- 对外暴露内部的 `MarkdownManager` 实例，可用于 Markdown 与文档内容之间的互转，以及自定义 Marked 解析逻辑；
+- 支持在编辑器扩展中集成并扩展 Markdown 能力。
 
 <Callout type="warning" emoji="⚠️">
 
@@ -30,8 +30,8 @@ Umo Editor Next 自 v10.0 起，对 Markdown 支持进行了系统性的增强�
 const options = {
   document: {
     contentType: undefined,
-    markedOptions: {}
-  }
+    markedOptions: {},
+  },
 }
 ```
 
@@ -52,8 +52,8 @@ const options = {
 
 **类型**：`Object`
 
-* `document.markedOptions.instance`：Marked 实例。可传入外部创建的 Marked 实例，以接管内部的 Marked 实例，从而实现更灵活、更高级的自定义能力。
-* `document.markedOptions.xxx`：Marked 的配置项，详见官方文档：
+- `document.markedOptions.instance`：Marked 实例。可传入外部创建的 Marked 实例，以接管内部的 Marked 实例，从而实现更灵活、更高级的自定义能力。
+- `document.markedOptions.xxx`：Marked 的配置项，详见官方文档：
   [https://marked.js.org/using_advanced#options](https://marked.js.org/using_advanced#options)
 
 ## 方法列表
@@ -64,7 +64,7 @@ const options = {
 
 **参数**：
 
-* `String`：要设置的 Markdown 内容。
+- `String`：要设置的 Markdown 内容。
 
 **返回值**：`Boolean` | `Error`
 
@@ -74,8 +74,8 @@ const options = {
 
 **参数**：
 
-* `markdown`：要插入的 Markdown 内容；
-* `options`：`editor.insertContent` 的相关配置，详见 [insertContent 方法](../editor/methods#insertcontent)。
+- `markdown`：要插入的 Markdown 内容；
+- `options`：`editor.insertContent` 的相关配置，详见 [insertContent 方法](../editor/methods#insertcontent)。
 
 **返回值**：`Boolean` | `Error`
 
@@ -85,9 +85,9 @@ const options = {
 
 **参数**：
 
-* `position`：插入位置或范围，例如 `10`，或 `{ from: 12, to: 16 }`；
-* `markdown`：要插入的 Markdown 内容；
-* `options`：`editor.insertContent` 的相关配置，详见 [insertContent 方法](../editor/methods#insertcontent)。
+- `position`：插入位置或范围，例如 `10`，或 `{ from: 12, to: 16 }`；
+- `markdown`：要插入的 Markdown 内容；
+- `options`：`editor.insertContent` 的相关配置，详见 [insertContent 方法](../editor/methods#insertcontent)。
 
 **返回值**：`Boolean` | `Error`
 

@@ -1,31 +1,48 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Docker,Offline Deployment
-description: Deploy Umo Office Convert using Docker.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# Docker
+# Deploy with Docker
 
-Umo Office Convert can be deployed via Docker. Images and build artifacts are typically placed under `docker/`.
+Umo Office Convert can be deployed using Docker images (image artifacts are located in the `docker/` directory). You can deploy Umo Office Convert with Docker and modify the `Dockerfile` in the project root directory as needed.
 
-## Build
+Deploying with Docker can simplify the deployment process, and is especially suitable for **intranet deployments**.
+
+## 0. Preparation
+
+Install [Docker](https://www.docker.com/) and sign in.
+
+## 1. Build the Docker image
 
 ```sh npm2yarn
 npm run build:docker
 ```
 
-## Load
+The packaged Docker image is located at `docker/umo-office-convert:latest`. You can use this image to deploy on your local machine or on a server.
+
+## 2. Load the Docker image
 
 ```bash
+# Run in the project root directory
 docker load -i ./docker/umo-office-convert.tar
 ```
 
-## Run
+## 3. Start the container
 
 ```bash
+# Run in the project root directory
 docker run -d --name umo-office-convert -p 1236:1236 umo-office-convert:latest
 ```
 
-## Verify
+## 4. Verify container status
 
-Visit `http://127.0.0.1:1236`.
+```bash
+# Check container status
+docker ps | grep umo-office-convert
+```
+
+## 5. Access Umo Office Convert
+
+Visit `http://127.0.0.1:1236` in a browser to verify the service is running normally.

@@ -1,58 +1,146 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,API,Swagger,OpenAPI
-description: API endpoints provided by Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# API Reference
+# API Documentation
 
-## Basics
+## Overview
 
-- Base URL: `http://localhost:1236` (default)
-- Swagger UI (non-production): `/openapi`
+This document describes the APIs provided by Umo Office Convert. This service is mainly used to convert Office documents and PDF documents into formats that can be viewed with [Umo Office Viewer](https://dev.umodoc.com/en/docs/office-viewer).
+
+## Basic Information
+
+- Base URL: `http://localhost:1236` (default port, configurable via environment variables)
+- In non-production environments, you can access the Swagger UI via `/openapi`
 
 ## Endpoints
 
-### Health
+### 1. Health Check
 
-- `GET /`
+Check whether the service is running normally.
 
-### Convert by upload
+- **URL**: `/`
+- **Method**: `GET`
+- **Description**: Returns information indicating whether the service is running. If this route is not accessible, it indicates the service is not started or is unhealthy.
 
-- `POST /convert/upload`
-- `Content-Type: multipart/form-data`
-- Field: `file`
-
-On success, returns the converted file stream. Response headers may include:
-
-- `X-Task-Id`
-- `X-Document-Name`
-- `X-From-Cache`
-
-### Convert by JSON
-
-- `POST /convert`
-- `Content-Type: application/json`
+**Response example**:
 
 ```json
 {
-  "path": "/path/to/document.docx",
-  "filename": "document.docx"
+  "code": 200,
+  "success": true,
+  "data": "Umo Office Convert service is running"
 }
 ```
 
-### Convert by URL
+### 2. Convert by Uploading a File
 
-- `GET /convert?url=<encoded>&filename=<encoded>`
+Upload a file via a multipart form and convert it.
 
-### Download by taskId
+- **URL**: `/convert/upload`
+- **Method**: `POST`
+- **Content-Type**: `multipart/form-data`
+- **Parameters**:
+  - `file`: the file to be converted (required)
 
-- `GET /convert/{taskId}?target=converted|original`
+**Response**:
 
-## Supported Formats
+- On success, returns the converted file stream.
+- On failure, returns a JSON error response.
 
-See [Supported File Formats](./index#supported-file-formats).
+**Response headers**:
 
-## Webhook
+- `X-Task-Id`: conversion task ID
+- `X-Document-Name`: original document name
+- `X-From-Cache`: whether the result is served from cache
+- `Content-Disposition`: file download information
+- `Content-Type`: file type
+- `Content-Length`: file size
 
-Configure `CONVERTED_WEBHOOK_URL` to receive callbacks. See [Webhook](./webhook) and [Environment Variables](./env#webhook).
+**Error response example**:
+
+```json
+{
+  "code": 500,
+  "success": false,
+  "message": "Document conversion failed: an exception occurred during conversion"
+}
+```
+
+### 3. Convert by JSON
+
+Submit file information via JSON and convert it.
+
+- **URL**: `/convert`
+- **Method**: `POST`
+- **Content-Type**: `application/json`
+- **Request body**:
+  ```json
+  {
+    "path": "/path/to/document.docx",
+    "filename": "document.docx"
+  }
+  ```
+
+**Response**:
+
+- On success, returns the converted file stream.
+- On failure, returns a JSON error response.
+
+### 4. Convert by URL
+
+Submit file information via query parameters and convert it.
+
+- **URL**: `/convert`
+- **Method**: `GET`
+- **Parameters**:
+  - `url`: the file URL to convert (required, URL-encoded)
+  - `filename`: original file name (required, URL-encoded)
+
+**Response**:
+
+- On success, returns the converted file stream.
+- On failure, returns a JSON error response.
+
+### 5. Download by Task ID
+
+Download the converted file or the original file by conversion task ID.
+
+- **URL**: `/convert/{taskId}`
+- **Method**: `GET`
+- **Parameters**:
+  - `taskId`: task ID (path parameter)
+  - `target`: file type to fetch. Values: `converted` (converted output) or `original` (original file). Default: `converted`.
+
+**Response**:
+
+- On success, returns the requested file stream.
+- On failure, returns a JSON error response.
+
+## Supported File Formats
+
+Umo Office Convert supports converting multiple office document formats. See: [Supported File Formats](./index#supported-file-formats).
+
+## Error Handling
+
+When an error occurs, all endpoints return a unified JSON response:
+
+```json
+{
+  "code": 500,
+  "success": false,
+  "message": "error message"
+}
+```
+
+Common status codes:
+
+- `400`: invalid request parameters
+- `404`: resource not found
+- `500`: internal server error
+
+## Webhook Notifications
+
+The service supports using webhooks to receive notifications when file conversion completes. Configure `CONVERTED_WEBHOOK_URL` in environment variables. See: [Environment Variables - Webhook](./env#webhook-configuration).

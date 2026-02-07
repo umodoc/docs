@@ -77,13 +77,14 @@ import { Badge } from '/components/badge'
 - `preview[].onPreview(file)`: 文件预览方法，如果配置了此方法，则在用户点击文件预览按钮时，会优先调用此方法而忽略预览链接，利用此方法可拦截内部预览窗口，通常用于自定预览组件的场景等。<Badge theme="success">v10.0.0 新增</Badge>
 
   `onPreview(file)` 配置示例：
+
   ```js
-    [
-      { 
-        extensions: ['pdf'], 
-        onPreview(file) {
-          console.log(file)
-        }
+  [
+    {
+      extensions: ['pdf'],
+      onPreview(file) {
+        console.log(file)
       },
-    ]
+    },
+  ]
   ```

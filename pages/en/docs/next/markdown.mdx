@@ -10,12 +10,12 @@ import { Callout } from 'nextra/components'
 
 Starting from v10.0, **Umo Editor Next** introduces a comprehensive set of enhancements to its Markdown support, including:
 
-* Support for setting the document content directly as Markdown, or inserting Markdown into the editor and rendering it correctly;
-* APIs for setting the document content as Markdown and inserting Markdown at specific positions;
-* Import and export capabilities for Markdown, allowing users to load local Markdown files or export the current document as Markdown;
-* Adoption of the faster, more modern, and lightweight [Marked](https://marked.js.org) library as the Markdown rendering engine, with support for custom renderers and parsing behavior;
-* Exposure of the internal `MarkdownManager` instance, enabling bidirectional conversion between Markdown and document content, as well as advanced customization of the Marked parser;
-* Support for integrating and extending Markdown capabilities within editor extensions.
+- Support for setting the document content directly as Markdown, or inserting Markdown into the editor and rendering it correctly;
+- APIs for setting the document content as Markdown and inserting Markdown at specific positions;
+- Import and export capabilities for Markdown, allowing users to load local Markdown files or export the current document as Markdown;
+- Adoption of the faster, more modern, and lightweight [Marked](https://marked.js.org) library as the Markdown rendering engine, with support for custom renderers and parsing behavior;
+- Exposure of the internal `MarkdownManager` instance, enabling bidirectional conversion between Markdown and document content, as well as advanced customization of the Marked parser;
+- Support for integrating and extending Markdown capabilities within editor extensions.
 
 <Callout type="warning" emoji="⚠️">
 
@@ -31,8 +31,8 @@ At the same time, the `getJSONByMarkdown` method has been deprecated and replace
 const options = {
   document: {
     contentType: undefined,
-    markedOptions: {}
-  }
+    markedOptions: {},
+  },
 }
 ```
 
@@ -53,8 +53,8 @@ For other content types, this option can be omitted, as the editor will automati
 
 **Type**: `Object`
 
-* `document.markedOptions.instance`: The Marked instance. You can pass in an externally created Marked instance to take over the internal one, enabling more flexible and advanced customization.
-* `document.markedOptions.xxx`: Any Marked configuration option. For a full list, see the official documentation:
+- `document.markedOptions.instance`: The Marked instance. You can pass in an externally created Marked instance to take over the internal one, enabling more flexible and advanced customization.
+- `document.markedOptions.xxx`: Any Marked configuration option. For a full list, see the official documentation:
   [https://marked.js.org/using_advanced#options](https://marked.js.org/using_advanced#options)
 
 ## API Methods
@@ -65,7 +65,7 @@ For other content types, this option can be omitted, as the editor will automati
 
 **Parameters**:
 
-* `String`: The Markdown content to set.
+- `String`: The Markdown content to set.
 
 **Returns**: `Boolean` | `Error`
 
@@ -75,8 +75,8 @@ For other content types, this option can be omitted, as the editor will automati
 
 **Parameters**:
 
-* `markdown`: The Markdown content to insert;
-* `options`: Additional options passed to `editor.insertContent`. See the [insertContent method](../editor/methods#insertcontent) for details.
+- `markdown`: The Markdown content to insert;
+- `options`: Additional options passed to `editor.insertContent`. See the [insertContent method](../editor/methods#insertcontent) for details.
 
 **Returns**: `Boolean` | `Error`
 
@@ -86,9 +86,9 @@ For other content types, this option can be omitted, as the editor will automati
 
 **Parameters**:
 
-* `position`: The insertion position or range, for example `10` or `{ from: 12, to: 16 }`;
-* `markdown`: The Markdown content to insert;
-* `options`: Additional options passed to `editor.insertContent`. See the [insertContent method](../editor/methods#insertcontent) for details.
+- `position`: The insertion position or range, for example `10` or `{ from: 12, to: 16 }`;
+- `markdown`: The Markdown content to insert;
+- `options`: Additional options passed to `editor.insertContent`. See the [insertContent method](../editor/methods#insertcontent) for details.
 
 **Returns**: `Boolean` | `Error`
 

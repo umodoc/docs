@@ -1,10 +1,10 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Deployment,PM2,Docker
-description: Deployment and runtime guide for Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# Deployment & Run
+# Deployment and Runtime Guide
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ description: Deployment and runtime guide for Umo Office Convert.
 - MySQL 5.7+/8.0+
 - Optional: PM2 or Docker
 
-## Run Locally
+## Start the Project
 
 1. Install dependencies: `npm install`
 2. Configure environment variables: copy `.env.example` to `.env` and update values
@@ -21,7 +21,9 @@ description: Deployment and runtime guide for Umo Office Convert.
    - Health: `http://localhost:[PORT]/`
    - Swagger UI (non-production): `http://localhost:[PORT]/openapi`
 
-## PM2
+## PM2 Deployment
+
+Use `ecosystem.config.cjs`:
 
 ```bash
 npm i -g pm2
@@ -30,6 +32,34 @@ pm2 status
 pm2 logs
 ```
 
+- Logs: `logs/`
+- Stop: `pm2 stop umo-office-convert`
+
 ## Docker
 
-See [Docker](./docker).
+See [Docker Deployment](./docker).
+
+- Note: expose the MySQL service to the container and ensure it is reachable (for example, use host networking or container networking).
+
+## Database Preparation
+
+- Create the database and user (example):
+  ```sql
+  CREATE DATABASE IF NOT EXISTS `umo_office_convert` DEFAULT CHARACTER SET utf8mb4;
+  CREATE USER 'convert_user'@'%' IDENTIFIED BY 'strong_password';
+  GRANT ALL PRIVILEGES ON `umo_office_convert`.* TO 'convert_user'@'%';
+  FLUSH PRIVILEGES;
+  ```
+- After the service starts, it will automatically create the `convert_tasks` table.
+
+## Runtime Directories
+
+- Original file storage directory (optional)
+- Converted document storage directory
+- Log directory
+
+## Production Recommendations
+
+- Use object storage (S3/OSS) instead of local disks.
+- Enable HTTPS and rate limiting via a reverse proxy (such as Nginx).
+- Adjust `MAX_FILE_SIZE` and `FILE_HASH_ALGORITHM` to fit business needs.

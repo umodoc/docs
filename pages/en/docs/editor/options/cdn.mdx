@@ -39,31 +39,25 @@ For scenarios like improving loading speed further or working in an intranet env
 You can quickly copy files to the project **root directory** using the following commands:
 
 <Tabs items={['Windows', 'Linux / MacOS / Others']}>
-  <Tabs.Tab>
-    ```bat
-    mkdir public\libs
-    mkdir public\icons
-    mkdir public\static
-    xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
-    xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
-    xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```bash
-    mkdir -p public/libs public/icons public/static
-    cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
-    cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
-    cp -r node_modules/@umoteam/editor-external/static/* public/static/
-    ```
-  </Tabs.Tab>
+<Tabs.Tab>
+```bat
+mkdir public\libs
+mkdir public\icons
+mkdir public\static
+xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
+xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
+xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs public/icons public/static
+cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
+cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
+cp -r node_modules/@umoteam/editor-external/static/* public/static/
+```
+</Tabs.Tab>
 </Tabs>
-
-<Callout type="warning" emoji="⚠️">
-  **Note**: After updating the `@umoteam/editor` version, please copy the latest
-  `@umoteam/editor-external` files to the `public` directory. Ensure the version
-  matches `@umoteam/editor-external`.
-</Callout>
 
 <Callout type="info">
   You can also place the files under `node_modules/@umoteam/editor-external/` in

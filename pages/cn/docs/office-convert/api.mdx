@@ -138,10 +138,9 @@ description: 将 Office、WPS 等 40 余种办公文档转换为可在线查看�
 常见错误状态码：
 
 - `400`: 请求参数错误
-- `403`: 访问被拒绝（白名单限制）
 - `404`: 资源不存在
 - `500`: 服务器内部错误
 
 ## Webhook 通知
 
-服务支持通过 Webhook 接收文件转换完成的通知。可以在环境变量中配置 `WEBHOOK_URL`，详见：[环境变量-Webhook 配置](./env#webhook-配置)。
+服务支持通过 Webhook 接收文件转换完成的通知。可以在环境变量中配置 `CONVERTED_WEBHOOK_URL`，详见：[环境变量-Webhook 配置](./env#webhook-配置)。

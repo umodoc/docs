@@ -1,32 +1,51 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Security,Compliance
-description: Security recommendations and compliance considerations for Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
 # Security & Compliance
 
-## Access Control
+## Goals
 
-- Use `WHITE_LIST` to restrict allowed origins (CORS).
-- Place the service behind a gateway for authentication/authorization.
+Keep the document conversion service safe and controllable across upload, conversion, and download stages, to protect the system and user data.
 
 ## Input Safety
 
-- Limit upload size via `MAX_FILE_SIZE`.
-- Validate file extension and MIME types.
-- For URL-based conversion, restrict schemes to `http/https` and validate sources to reduce SSRF risk.
+- Upload file size limit: `MAX_FILE_SIZE` (MB) to prevent resource abuse.
+- Path and URL validation:
+  - Prevent directory traversal (only allow controlled paths within the service).
+  - When downloading remote files, validate `http/https` and restrict trusted sources to reduce SSRF risk.
+  - URL-decode and re-validate parameters such as `filename` and `url`.
 
 ## Data Safety
 
-- Keep uploads and converted outputs in separate directories.
-- Avoid logging sensitive configuration values such as database passwords.
+- File hash caching: reduce repeated conversions and resource consumption.
+- Directory isolation: separate `uploads` and `converted` directories, and optionally partition by date.
+- Logging: avoid logging sensitive values (such as database passwords).
 
 ## Transport
 
-- Use HTTPS in production.
+- Prefer HTTPS, especially in production and for webhook callbacks.
+- Add security headers (such as `X-Content-Type-Options` and `X-Frame-Options`) at a reverse proxy layer (for example, Nginx).
+
+## Rate Limiting and Concurrency
+
+- Add rate limiting at the gateway/proxy layer (by IP/user).
+- Consider queueing and concurrency control for large file conversions to reduce peak risk.
 
 ## Webhook Security
 
-- Prefer HTTPS.
-- Consider signing requests (HMAC) and implement replay protection on the receiver side.
+- Use HTTPS callback URLs.
+- Add request signing (for example, HMAC-SHA256) and include `X-Signature` in headers.
+- Implement replay protection on the receiver side (use `taskId` for idempotency).
+
+## Dependency Security
+
+- Regularly update NPM dependencies to patch known vulnerabilities.
+- Mount font/resource directories as read-only where possible.
+
+## Logging and Auditing
+
+- Use `LOG_DIR` to aggregate logs and record key events (uncaught exceptions, denied access, etc.).
+- Follow data minimization and auditability principles to meet enterprise security requirements.

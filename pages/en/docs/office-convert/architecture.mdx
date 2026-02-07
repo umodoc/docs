@@ -1,32 +1,36 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Architecture,Office Preview,WPS Preview,DOCX Preview
-description: High-level architecture and data flow of Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# Architecture
+# System Architecture
 
-Umo Office Convert is a Node.js service (Express) that converts office documents into formats supported by [Umo Office Viewer](../office-viewer). It typically uses MySQL to persist conversion tasks and can expose Swagger API documentation for integration.
+Umo Office Convert is a document conversion service built with Node.js and Express. It converts various office documents into formats supported by [Umo Office Viewer](../office-viewer). The system integrates MySQL to persist conversion task information, supports cross-origin access, and provides Swagger API documentation.
 
-## Components
+## Architecture Components
 
-- HTTP service: Express routes for conversion and downloads
-- Conversion engine: converts Office/WPS/PDF to viewer-compatible outputs
-- Database: stores conversion tasks (table: `convert_tasks`), see [Database](./database)
-- Storage: local filesystem and/or object storage
-- Configuration: `.env` environment variables, see [Environment Variables](./env)
-- Security: CORS whitelist, file size limits, MIME checks, see [Security & Compliance](./security)
-- API docs: Swagger UI (usually mounted at `/openapi` in non-production), see [API Reference](./api)
+- Application service: `Express` provides HTTP APIs.
+- Routing layer: `src/routes` includes base routes, conversion routes, and OpenAPI documentation routes.
+- Conversion engine: converts Office documents into formats supported by Umo Office Viewer.
+- Database: `MySQL` stores conversion tasks (table: `convert_tasks`). You can replace it with another database. See: [Database](./database).
+- Storage: supports local filesystem or network object storage.
+- Configuration: configured via environment variables (`.env`). See: [Environment Variables](./env).
+- Authentication & security: file size limits and MIME type validation. See: [Security & Compliance](./security).
+- Documentation: Swagger API documentation (mounted at `/openapi` in non-production). See: [API Documentation](./api).
+- Logging: the log directory is configured via the `LOG_DIR` environment variable (PM2 optional).
 
-## Data Flow
+## Main Data Flow
 
-1. A document is uploaded or referenced by path/URL.
-2. The service creates a task ID and writes a record into `convert_tasks` (status transitions like uploaded → converted/failed).
-3. The conversion engine runs and writes outputs to the configured directory.
-4. The service returns the converted file stream and task metadata (such as `X-Task-Id`).
-5. Optional: if `CONVERTED_WEBHOOK_URL` is configured, a webhook is sent when key stages finish.
+1. An uploaded document or a document provided via path/URL is stored under `UPLOAD_DIR` (if configured).
+2. The service generates an ID for the task and writes it to the `convert_tasks` table (status transitions: uploaded → converted/failed).
+3. The document conversion engine converts the document.
+4. The result file is written under `CONVERTED_DIR`.
+5. The service returns the file stream and includes metadata in response headers (such as `X-Task-Id`).
+6. You can download the converted file or the original file via `/convert/{taskId}`.
+7. If `CONVERTED_WEBHOOK_URL` is configured, callbacks will be sent at the corresponding stages with conversion information.
 
-## Key Modules
+## Key Paths and Modules
 
 - `src/index.mjs`: application entry, middleware and route mounting
 - `src/routes/base.mjs`: basic health route
@@ -34,3 +38,26 @@ Umo Office Convert is a Node.js service (Express) that converts office documents
 - `src/routes/openapi.mjs`: Swagger UI
 - `src/utils/mysql.mjs`: MySQL connection and table initialization
 - `src/utils/env.mjs`: environment variable loading
+
+## Deployment Topology
+
+- Single service instance (PM2 / container)
+- External MySQL service (recommended)
+- Mount persistent volumes: upload directory, converted file storage directory, and log storage directory
+
+## Performance & Scalability
+
+- Use caching (based on file hash) to avoid duplicate conversions.
+- Move storage to object storage (such as S3) to reduce disk IO pressure.
+- Use Nginx proxying and rate-limiting strategies to protect the service.
+
+## Observability
+
+- Standardized log directory (`LOG_DIR`) and PM2 log collection
+- Record key exceptions
+
+## Security Highlights
+
+- Limit upload file size (`MAX_FILE_SIZE`).
+- Validate MIME type and file extension consistency.
+- Handle paths and URLs to avoid directory traversal and SSRF risks.

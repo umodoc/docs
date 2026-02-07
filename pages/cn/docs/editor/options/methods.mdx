@@ -54,25 +54,27 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-async onSave(content, page, document) => {
-const res = await axios.post('/api/save', {
-content,
-page,
-document,
-},{
-headers: {
-'Content-Type': 'application/json',
-}
-});
+  async onSave(content, page, document) {
+    const res = await axios.post(
+      '/api/save',
+      {
+        content,
+        page,
+        document,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
 
     // 保存成功则返回 true，否则返回 false，否则返回 false 或者抛出错误
-    return true;
-
-},
-};
+    return true
+  },
+}
 
 app.use(useUmoEditor, options)
-
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -133,27 +135,25 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-async onFileUpload(file) => {
-let formData = new FormData();
-// 添加文件到 formData 对象中
-formData.append('file', file);
-const res = await axios.post('/api/file-upload', formData,{
-headers: {
-'Content-Type': 'multipart/form-data',
-}
-});
+  async onFileUpload(file) {
+    let formData = new FormData()
+    // 添加文件到 formData 对象中
+    formData.append('file', file)
+    const res = await axios.post('/api/file-upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
 
     // 保存成功则返回 {id, url}，否则返回 false 或者抛出错误
     return {
       id: res.data.id,
       url: res.data.url,
-    };
-
-},
-};
+    }
+  },
+}
 
 app.use(useUmoEditor, options)
-
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -212,13 +212,12 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-onFileDelete(id, url) => {
-axios.delete(`/api/file/${id}`);
-},
-};
+  onFileDelete(id, url) {
+    axios.delete(`/api/file/${id}`)
+  },
+}
 
 app.use(useUmoEditor, options)
-
 ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -238,6 +237,5 @@ const onFileDelete = (id, url) => {
 }
 </script>
 ```
-
 </Tabs.Tab>
 </Tabs>

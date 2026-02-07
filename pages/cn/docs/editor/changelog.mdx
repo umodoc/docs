@@ -18,7 +18,8 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
   
   本次升级不仅显著**降低了打包体积**、**提升了大文档的加载和编辑性能**，也为后续功能扩展和长期维护奠定了更加稳固的基础。**强烈建议所有用户升级。**
 
-  需要注意的是，如果您需要升级到 v10，`cdnUrl` 配置所引用的 [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN 资源也需要升级到 v10。
+需要注意的是，如果您需要升级到 v10，`cdnUrl` 配置所引用的 [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN 资源也需要升级到 v10。
+
 </Callout>
 
 ---
@@ -86,7 +87,7 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 12. 修复选中表格中的文本时，气泡菜单显示不正确的问题；
 13. 修复图片高度可无限拖动的问题；
 14. 修复文档初始化后，第一个节点会自动获得焦点的问题
-14. 大量细节问题修复。
+15. 大量细节问题修复。
 
 ---
 
@@ -100,17 +101,17 @@ Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/c
 6. 可编辑文本的自定义节点默认不再显示多余换行；
 7. 优化文档大纲的展示效果；
 8. 优化文档在预览模式下的整体显示效果；
-6. 优化对编辑器内容变化的监听逻辑，减少页面高度的重复计算；
-7. Mermaid、Plyr 等第三方资源改为通过 CDN 加载，进一步降低打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
-8. 优化块菜单手柄样式；
-9. 大量的细节调整与优化。
+9. 优化对编辑器内容变化的监听逻辑，减少页面高度的重复计算；
+10. Mermaid、Plyr 等第三方资源改为通过 CDN 加载，进一步降低打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
+11. 优化块菜单手柄样式；
+12. 大量的细节调整与优化。
 
 ---
 
 ### 🧹 移除
 
 1. 移除 AI 相关配置及 AI 文档助手，AI 统一合并到 Umo Editor Next 中
-移除了鸡肋的word导入功能，注意：相关配置项也已移除，请及时从配置中删除，否则会导致报错。
+   移除了鸡肋的word导入功能，注意：相关配置项也已移除，请及时从配置中删除，否则会导致报错。
 2. 移除 `contentError` 事件；
 3. 出于第三方资源体积控制的考虑，移除 **电子签章** 与 **图片去除背景** 功能 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；
 4. 移除文档预览功能，以进一步优化整体打包体积 [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415)；

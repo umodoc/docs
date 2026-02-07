@@ -16,7 +16,7 @@ Umo Office Convert 是一个基于 Node.js 和 Express 构建的文档转换服�
 - 数据库：`MySQL` 存储转换任务（表：`convert_tasks`），可替换成其他数据库，见：[数据库说明](./database)
 - 存储：支持本地文件系统或网络对象存储
 - 配置：通过环境变量（`.env`）配置，见：[环境变量](./env)
-- 认证与安全：CORS 白名单、文件大小限制、MIME 类型校验，见：[安全策略与合规说明](./security)
+- 认证与安全：文件大小限制、MIME 类型校验，见：[安全策略与合规说明](./security)
 - 文档：提供 Swagger 接口文档（在非生产环境挂载 `/openapi`），详见：[API 接口文档](./api)
 - 日志：日志目录通过环境变量 `LOG_DIR` 指定（PM2 可选）
 
@@ -58,7 +58,6 @@ Umo Office Convert 是一个基于 Node.js 和 Express 构建的文档转换服�
 
 ## 安全要点
 
-- 严格 CORS 白名单控制（`WHITE_LIST`）
 - 限制上传文件大小（`MAX_FILE_SIZE`）
 - 校验 MIME 与扩展名一致性
 - 路径与 URL 处理避免目录穿越与 SSRF 风险

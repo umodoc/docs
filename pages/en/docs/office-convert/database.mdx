@@ -1,44 +1,60 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,MySQL,Database,Convert Tasks
-description: Database schema and task model used by Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# Database
+# Database Overview
 
-Umo Office Convert typically uses MySQL to store metadata for conversion tasks. You can follow the same pattern if you want to use another database.
+This document describes the database design used by the Umo Office Convert service. The service uses MySQL to store information related to document conversion tasks. You can also follow the same implementation approach and choose a different database.
 
-## Configuration
+## Database Configuration
 
-Database settings are configured via environment variables. See [Environment Variables](./env#mysql).
+Database configuration is stored in environment variables and can be configured via the `.env` file. For details, see: [Environment Variables - MySQL Database Configuration](./env#mysql-database-configuration).
 
-## Table: convert_tasks
+## Table Schema
 
-This table stores conversion task records.
+### convert_tasks table
 
-| Column         | Type         | Description                 | Constraints                  |
-| -------------- | ------------ | --------------------------- | ---------------------------- |
-| id             | VARCHAR(255) | Task ID                      | PRIMARY KEY                  |
-| filename       | VARCHAR(255) | Original filename            |                              |
-| mime           | VARCHAR(255) | MIME type                    |                              |
-| size           | INT          | Original size (bytes)        |                              |
-| path           | VARCHAR(255) | Original file path            |                              |
-| hash           | VARCHAR(255) | File hash                     |                              |
-| converted_size | INT          | Converted size (bytes)       |                              |
-| converted_path | VARCHAR(255) | Converted file path           |                              |
-| status         | VARCHAR(255) | Task status                   |                              |
-| converted_at   | TIMESTAMP    | Conversion time               | DEFAULT CURRENT_TIMESTAMP    |
+This table is used to store information about document conversion tasks.
 
-Common status values:
+| Column         | Type         | Description                 | Constraints               |
+| -------------- | ------------ | --------------------------- | ------------------------- |
+| id             | VARCHAR(255) | Task ID                     | PRIMARY KEY               |
+| filename       | VARCHAR(255) | Original filename           |                           |
+| mime           | VARCHAR(255) | File MIME type              |                           |
+| size           | INT          | Original file size (bytes)  |                           |
+| path           | VARCHAR(255) | Original file path          |                           |
+| hash           | VARCHAR(255) | File hash                   |                           |
+| converted_size | INT          | Converted file size (bytes) |                           |
+| converted_path | VARCHAR(255) | Converted file path         |                           |
+| status         | VARCHAR(255) | Conversion status           |                           |
+| converted_at   | TIMESTAMP    | Conversion time             | DEFAULT CURRENT_TIMESTAMP |
 
-- `uploaded`
-- `converted`
-- `failed`
+Possible values of the `status` field include:
 
-## Initialization
+- `uploaded`: file uploaded
+- `converted`: conversion completed
+- `failed`: conversion failed
 
-On startup, the service checks and creates required tables automatically. The initialization code is typically in `src/utils/mysql.mjs`.
+## Database Initialization
 
-## Caching
+When the service starts, it will automatically check and create the required data tables. The initialization code is located in `src/utils/mysql.mjs`.
 
-The service can use file hashes as a cache key. When the same file is uploaded again, it may return a cached converted result to avoid repeated conversion.
+## Data Flow
+
+1. When a conversion task is obtained through the API, the system will create a new conversion task record. If an already converted task is matched by file `hash`, the system will not create a new task and will directly retrieve the converted file from cache.
+2. After conversion completes, the converted file information and status will be updated.
+3. Users can query conversion task information and results by task ID.
+
+## Caching Mechanism
+
+The system uses the file hash value as a cache mechanism. When a user uploads the same file, the system checks whether a conversion task with the same hash already exists in the database. If it exists and the conversion succeeded, the system returns the converted file directly to avoid repeated conversion.
+
+## Backup Recommendations
+
+It is recommended to regularly back up the `convert_tasks` table data to prevent data loss. You can use the following command to back up:
+
+```bash
+mysqldump -u [username] -p [database] convert_tasks > convert_tasks_backup_$(date +%Y%m%d).sql
+```

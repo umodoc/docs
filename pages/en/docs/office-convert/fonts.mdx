@@ -1,18 +1,26 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Fonts,CJK,Chinese
-description: Install fonts to improve CJK rendering and layout consistency during conversion.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# Fonts (CJK & Layout)
+# Fonts and CJK Compatibility
 
-If the server/container is missing required fonts (especially CJK fonts), converted documents may have garbled characters, tofu (□), and layout differences (line breaks, table alignment, etc.).
+## Background and Common Issues
 
-## Recommended Approach
+When using a document conversion service, if the system is missing the required fonts (especially CJK fonts), you may encounter:
 
-The project usually includes a `./fonts` directory with commonly used fonts. Copy these fonts into the system font directory and refresh the font cache.
+- Garbled text, tofu (□), or pinyin substitutions
+- Layout issues, unexpected line breaks, table border shifts
+- Western fonts render correctly, but CJK typography is inconsistent
 
-## Linux (Debian/Ubuntu/CentOS)
+Root cause: when the required fonts are missing on the server/container, a fallback font is used, which causes rendering and layout differences.
+
+## Solution (Copy `./fonts` into the System Font Directory)
+
+The project includes a `./fonts` directory containing commonly used CJK fonts and related fonts. Copy the contents to the system font directory and refresh the font cache.
+
+### Linux (Debian/Ubuntu, CentOS/RHEL, etc.)
 
 ```bash
 sudo mkdir -p /usr/share/fonts
@@ -20,22 +28,65 @@ sudo cp -r ./fonts/* /usr/share/fonts
 sudo fc-cache -f -v
 ```
 
-## macOS
+- Verify installation:
+
+```bash
+fc-list
+```
+
+- Common font directories: `/usr/share/fonts/`, `/usr/local/share/fonts/`
+
+### macOS
+
+- System-level installation: copy fonts to `~/Library/Fonts/` (current user) or `/Library/Fonts/` (global).
 
 ```bash
 mkdir -p ~/Library/Fonts
 cp -r ./fonts/* ~/Library/Fonts/
 ```
 
-## Docker
+- Usually no cache refresh is required. If you see issues, try restarting or verify using Font Book.
+
+### Windows Server / Windows
+
+- Installation directory: `C:\Windows\Fonts`
+- Installation methods: select font files under `./fonts` and choose “Install”, or copy them into the system font directory (admin permission required).
+- Note: in some environments, copying may not take effect. Installing via context menu or a PowerShell script is recommended.
+
+### Docker (Recommended)
+
+Copy and cache fonts during image build:
 
 ```dockerfile
 COPY fonts /usr/share/fonts/
 RUN fc-cache -f -v
 ```
 
-## Verification
+## Verification and Troubleshooting
 
 ```bash
 fc-list
 ```
+
+- Check whether CJK fonts are recognized:
+
+```bash
+fc-list : family | grep -E "SimSun|SimHei|Microsoft YaHei|KaiTi|NSimSun"
+```
+
+- Quick conversion validation: convert a test document that contains CJK text and verify:
+  - CJK characters render correctly (no tofu)
+  - Paragraphs, line spacing, and pagination are close to the source
+  - Tables are aligned and borders do not shift
+
+## Compatibility Notes
+
+- Font license and redistribution: ensure fonts used in production are properly licensed. Some system fonts cannot be redistributed commercially.
+- Font conflicts: different versions of the same font family can cause rendering differences. Keep stable versions and avoid duplicates.
+- Font cache: on Linux, run `fc-cache -f -v` after updating fonts. In container images, refresh the cache during build.
+- Locale variants: for Traditional Chinese support, you may add fonts like `PMingLiU`.
+
+## Relation to This Project
+
+- Font directory source: `./fonts` in the project root
+- After copying `./fonts` into the system font directory, the conversion service can use these fonts to improve rendering and layout consistency for CJK documents.

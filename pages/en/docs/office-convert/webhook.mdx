@@ -1,18 +1,18 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Webhook,Callback
-description: Webhook callback payloads and triggering conditions for Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
 # Webhook
 
-Umo Office Convert can notify your system when uploads and conversions complete. Enable it via `CONVERTED_WEBHOOK_URL`.
+After a file is uploaded or converted, the service can send notifications to a configured webhook URL. This helps your business system receive events and trigger follow-up workflows. Enable it via the `CONVERTED_WEBHOOK_URL` environment variable.
 
 ## Trigger Points
 
-- After a document upload succeeds
-- After a conversion succeeds
-- When a cached result is returned (`fromCache=true`)
+- Send one notification after an upload succeeds.
+- Send one notification after a conversion succeeds.
+- If a cached result is returned (same file hash), it will also send a notification (`fromCache=true`).
 
 ## Request
 
@@ -36,7 +36,17 @@ Umo Office Convert can notify your system when uploads and conversions complete.
 }
 ```
 
-## Security Notes
+Field descriptions:
+
+- `taskId`: conversion task ID, used for downloading the original/converted file later.
+- `type`: event type. Possible values: `uploaded`, `converted`.
+- `fromCache`: whether the result is returned from cache.
+- `file`: file metadata.
+
+## Security Recommendations
 
 - Use HTTPS webhook URLs.
-- Consider adding signature verification (HMAC) and replay protection.
+
+## Work with Download APIs
+
+- After receiving a webhook callback, your business system can use `GET /convert/{taskId}` to download the file.

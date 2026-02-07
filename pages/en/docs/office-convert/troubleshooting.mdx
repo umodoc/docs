@@ -1,31 +1,60 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Troubleshooting,Errors
-description: Common issues and troubleshooting steps for Umo Office Convert.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
 # Troubleshooting
 
-## 403 NotAllowed (CORS)
+## Conversion failure (500)
 
-- Check whether `WHITE_LIST` includes the request origin host.
+- Symptom: error message like `Document conversion failed: ...`.
+- Checks:
+  - Verify the format is supported (ensure the extension matches the MIME type).
+  - Check disk permissions and whether directories exist (`UPLOAD_DIR` / `CONVERTED_DIR`).
+  - Check logs and correlate with `X-Task-Id`.
 
-## 500 Conversion failure
+## Database connection error / table initialization failure
 
-- Verify the format is supported and extension matches MIME.
-- Check directory permissions for `UPLOAD_DIR` and `CONVERTED_DIR`.
-- Check logs and correlate with `X-Task-Id`.
+- Symptom: startup logs show errors like table creation failures.
+- Checks:
+  - Verify `DB_HOST/DB_PORT/DB_USER/DB_PASSWORD/DB_NAME`.
+  - Ensure the MySQL service is running and reachable.
+  - Try creating the database and granting privileges manually.
 
-## Database connection / table init failure
+## Downloading original file fails
 
-- Verify `DB_HOST/DB_PORT/DB_USER/DB_PASSWORD/DB_NAME`.
-- Ensure MySQL is reachable from the service environment.
+- Symptom: `404 File not found`, or remote URL download returns a non-200 status.
+- Checks:
+  - Verify the local file path is correct; the file may have been cleaned up or not saved (for example, if `UPLOAD_DIR` is not set, uploads may not be persisted).
+  - Verify the remote URL is reachable and does not require authentication.
+
+## Cache hit but content is unexpected
+
+- Symptom: `X-From-Cache: true`, but the output does not match expectations.
+- Checks:
+  - Verify `FILE_HASH_ALGORITHM` and ensure hash computation is stable.
+  - If you have cases where the content changes but the hash key does not, consider adding a secondary validation (such as timestamps or metadata).
+
+## Large files and performance issues
+
+- Symptom: conversions are slow or the service becomes unresponsive.
+- Checks:
+  - Adjust `MAX_FILE_SIZE` and concurrency; consider queue-based processing.
+  - Upgrade CPU/memory; consider object storage and CDN.
 
 ## Webhook not received
 
-- Verify `CONVERTED_WEBHOOK_URL` and network reachability.
-- Check firewall and proxy rules.
+- Symptom: your business system does not receive callbacks.
+- Checks:
+  - Verify `CONVERTED_WEBHOOK_URL` and network reachability.
+  - Check firewall, proxy, and routing rules.
 
 ## Port already in use
 
-- Change `PORT` or stop the conflicting process.
+- Symptom: service fails to start due to a port conflict.
+- Checks: change `PORT` or stop the conflicting process (PM2/other services).
+
+## Version and dependency issues
+
+- Recommendation: regularly update Node.js and NPM dependencies to improve security and compatibility.

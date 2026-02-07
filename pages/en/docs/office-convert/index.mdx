@@ -1,36 +1,339 @@
 ---
 target: Umo Office Convert
-keywords: Umo Office Convert,Office Online Preview,WPS Online Preview,DOCX Preview,Word Preview,PDF Preview
-description: Converts 40+ Office/WPS formats into web-viewable formats and pairs with Umo Office Viewer for online preview.
+keywords: Umo Office Convert,office online preview,wps online preview,docx online preview,word online preview,pdf online preview
+description: Converts Office/WPS and other office documents into web-viewable formats, and can be used with Umo Office Viewer for online preview.
 ---
 
-# Introduction
+# Basics
 
-Umo Office Convert converts Microsoft Office documents, WPS Office documents, OpenDocument (ODF), Unified Office Format (UOF), and other common office formats into formats that can be rendered by [Umo Office Viewer](./office-viewer).
+Convert Microsoft Office documents, WPS Office documents, OpenDocument Format (ODF), Unified Office Format (UOF), and other common office document formats into formats that can be viewed with Umo Office Viewer. It supports conversion of more than 40 common office document formats. For details, see [Supported File Formats](#supported-file-formats).
 
-This software is commercial and requires a purchase before use. When using Umo Office Convert, you must comply with the [Umo Team Commercial Software License Agreement](./license).
+This software is a commercial product and can only be used after purchase. After purchase, you will obtain the full source code of this software and access to this software’s private code repository. This means you can always get the latest source code and subsequent new features.
+
+When you use [Umo Office Viewer](./office-viewer), you must comply with the [Umo Team Commercial Software License Agreement](license).
+
+This software can be used as an independent Office document conversion tool, or used together with [Umo Office Viewer](./office-viewer).
+
+For more information, see the `README.md` in the project root directory.
 
 ## Supported File Formats
 
-Umo Office Convert supports 40+ formats, including:
-
-- Microsoft Office: Word/Excel/PowerPoint (DOC/DOCX, XLS/XLSX, PPT/PPTX, and more)
-- WPS Office: WPS/ET/DPS and templates
-- ODF: ODT/ODS/ODP/ODG and related templates
-- UOF: UOT/UOS/UOP
-- Common formats: PDF, RTF, CSV
+<table>
+  <thead>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <th
+        class="_m-0 _border _border-gray-300 _px-4 _py-2 _font-semibold"
+        width="150"
+      >
+        Document Category
+      </th>
+      <th
+        class="_m-0 _border _border-gray-300 _px-4 _py-2 _font-semibold"
+        width="100"
+      >
+        Document Type
+      </th>
+      <th class="_m-0 _border _border-gray-300 _px-4 _py-2 _font-semibold">
+        File Extension
+      </th>
+      <th class="_m-0 _border _border-gray-300 _px-4 _py-2 _font-semibold">
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="18">
+        Microsoft Office Files
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="6">
+        Word Documents
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.doc</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Word 97-2003 document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.docx</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Word 2007 and later document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.docm</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Macro-enabled Word document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.dot</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Word 97-2003 template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.dotx</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Word 2007+ template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.dotm</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Macro-enabled Word template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="7">
+        Excel Spreadsheets
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.xls</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Excel 97-2003 workbook
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.xlsx</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Excel 2007 and later workbook
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.xlsm</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Macro-enabled Excel workbook
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.xlsb</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Excel binary workbook
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.xlt</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Excel 97-2003 template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.xltx</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Excel 2007+ template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.csv</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Comma-Separated Values file
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="5">
+        PowerPoint Presentations
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.ppt</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        PowerPoint 97-2003 presentation
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.pptx</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        PowerPoint 2007+ presentation
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.pptm</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Macro-enabled PowerPoint presentation
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.pps</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        PowerPoint 97-2003 show
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.ppsx</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        PowerPoint 2007+ show
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="9">
+        OpenDocument Format (ODF)
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="3">
+        Text Documents
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.odt</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        ODF text document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.ott</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        ODF text document template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.fodt</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Flat XML text document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="3">
+        Spreadsheets
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.ods</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">ODF spreadsheet</td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.ots</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        ODF spreadsheet template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.fods</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Flat XML spreadsheet
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="3">
+        Presentations / Drawings
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.odp</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        ODF presentation
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.otp</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        ODF presentation template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.odg</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        ODF drawing file
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="6">
+        WPS Office Files
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="2">
+        Text Documents
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.wps</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        WPS text document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.wpt</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        WPS text template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="2">
+        Spreadsheets
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.et</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        WPS spreadsheet file
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.ett</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        WPS spreadsheet template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="2">
+        Presentations
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.dps</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        WPS presentation
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.dpt</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        WPS presentation template
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="3">
+        Unified Office Format (UOF)
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">Text document</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.uot</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        UOF text document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">Spreadsheet</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.uos</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">UOF spreadsheet</td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">Presentation</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.uop</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        UOF presentation
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2" rowspan="3">
+        Common Document Formats
+      </td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">Rich text</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.rtf</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Rich Text Format document
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">PDF document</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.pdf</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Portable Document Format
+      </td>
+    </tr>
+    <tr class="_m-0 _border-t _border-gray-300 _p-0">
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">Data file</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">.csv</td>
+      <td class="_m-0 _border _border-gray-300 _px-4 _py-2">
+        Comma-Separated Values file (compatible with Excel, WPS, etc.)
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Quickstart
 
 ### 1. Prerequisites
 
-See the `README.md` in the project repository.
+See the `README.md` in the project.
 
 ### 2. Configure environment variables
 
-See [Environment Variables](./office-convert/env).
+See [Environment Variable Configuration](./office-convert/env).
 
-### 3. Install dependencies
+### 3. Install NPM dependencies
 
 ```bash npm2yarn
 npm install
@@ -42,15 +345,15 @@ npm install
 npm run start
 ```
 
-### 5. Open API docs
+### 5. Open the API documentation
 
-After the service starts, visit `http://localhost:[PORT]/openapi` to view the Swagger documentation.
+After the service starts, visit `http://localhost:[PORT]/openapi` to view the API documentation.
 
 ## Products from Umo Team
 
-- [Umo Editor](https://dev.umodoc.com/en/docs/editor): A localized open-source document editor based on Vue3 and Tiptap.
-- [Umo Viewer](https://dev.umodoc.com/en/docs/viewer): An open-source lightweight document viewer for Umo Editor.
-- [Umo Editor Next](https://dev.umodoc.com/en/docs/next): An enhanced commercial edition of Umo Editor.
-- [Umo Editor Server](https://dev.umodoc.com/en/docs/server): Companion server-side software for Umo Editor Next.
-- [Umo Office Viewer](https://dev.umodoc.com/en/docs/office-viewer): Office document viewer for the web.
-- [Umo Office Convert](https://dev.umodoc.com/en/docs/office-convert): Office/WPS document conversion service.
+- [Umo Editor](https://dev.umodoc.com/en/docs/editor): A localized open-source document editor based on Vue3 and Tiptap, designed for Chinese users.
+- [Umo Viewer](https://dev.umodoc.com/en/docs/viewer): An open-source lightweight Umo Editor document viewer.
+- [Umo Editor Next](https://dev.umodoc.com/en/docs/next): An enhanced edition of Umo Editor. On top of all features in the latest Umo Editor, it focuses on adding or enhancing support for multi-user real-time collaboration, document annotations (comments), document version history management, AI writing, document import/export, tables, and more, and also improves the customization of areas such as the toolbar and sidebar.
+- [Umo Editor Server](https://dev.umodoc.com/en/docs/server): Companion server-side software developed to enhance Umo Editor features, such as multi-user real-time collaboration, document annotations (comments), and document import/export.
+- [Umo Office Viewer](https://dev.umodoc.com/en/docs/office-viewer): Umo Office Viewer is an Office document viewer that supports viewing more than 40 mainstream office document formats (including WPS documents) in web pages.
+- [Umo Office Convert](https://dev.umodoc.com/en/docs/office-convert): Converts more than 40 Office/WPS document formats into web-viewable formats, and can be used with Umo Office Viewer to enable online preview of office documents.

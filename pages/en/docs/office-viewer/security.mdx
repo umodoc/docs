@@ -37,7 +37,7 @@ When a document requires a password, you can enable and validate it via:
 - `needPassword: boolean`
 - `onValidatePassword(password) => boolean | Promise<boolean>`
 
-```ts
+```js
 const options = ref({
   needPassword: true,
   onValidatePassword: (password) => password === '1234',

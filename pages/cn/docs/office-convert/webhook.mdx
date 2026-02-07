@@ -39,14 +39,13 @@ description: 将 Office、WPS 等 40 余种办公文档转换为可在线查看�
 字段说明：
 
 - `taskId`: 转换任务 ID，用于后续查询原始文件或结果文件。
-- `type`: 事件类型，目前为 `uploaded`。
+- `type`: 事件类型，可为 `uploaded`、`converted`。
 - `fromCache`: 是否从缓存返回的结果。
 - `file`: 文件的元信息。
 
 ## 安全建议
 
 - 使用 HTTPS Webhook 地址。
-- 配置 IP 白名单或签名校验（如 HMAC），签名可在请求头或负载中携带。
 
 ## 与下载接口协同
 

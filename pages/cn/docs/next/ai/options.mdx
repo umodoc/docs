@@ -14,7 +14,7 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 
 ## 默认配置
 
-```js wordWrap
+```js
 const systemPrompt = `你是一个集成在基于 Tiptap 的编辑器中的多技能 AI 文档助手，你的名字是 Umo Editor AI Assistant。你的行为必须严格遵循当前系统规则与用户所选的技能模式。
 
 ## 可用上下文
@@ -334,11 +334,11 @@ export const defaultAIOptions = {
 
 ```js
 const onRequest = (context, params) => {
-  console.log('onRequest', {context, params})
+  console.log('onRequest', { context, params })
   return {
     // 注入鉴权 headers
     headers: {
-      'Authorization': `Bearer ${options.server.token}`,
+      Authorization: `Bearer ${options.server.token}`,
     },
     // 发送的内容
     body: JSON.stringify(params),
