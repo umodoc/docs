@@ -53,7 +53,9 @@ description: 将 Office、WPS 等 40 余种办公文档转换为可在线查看�
 **响应头**:
 
 - `X-Task-Id`: 转换任务 ID
+- `X-Request-Id`: 请求 ID
 - `X-Document-Name`: 原始文档名称
+- `X-Document-Summary`: 文档摘要
 - `X-From-Cache`: 是否从缓存中获取的文件
 - `Content-Disposition`: 文件下载信息
 - `Content-Type`: 文件类型
@@ -113,6 +115,21 @@ description: 将 Office、WPS 等 40 余种办公文档转换为可在线查看�
 - **参数**:
   - `taskId`: 转换任务 ID（路径参数）
   - `target`: 获取的文件类型，可选值为 `converted`（转换后的文件）或 `original`（原始文件），默认为 `converted`
+
+**响应**:
+
+- 成功时返回请求的文件流
+- 失败时返回 JSON 格式的错误信息
+
+### 6. 根据任务 ID 获取文件封面
+
+根据转换任务 ID 获取文件封面（即文件第一页）。
+
+- **URL**: `/convert/{taskId}/cover?size={size}`
+- **方法**: `GET`
+- **参数**:
+  - `taskId`: 转换任务 ID（路径参数）
+  - `size`: 封面大小（查询参数）
 
 **响应**:
 

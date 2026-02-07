@@ -53,6 +53,9 @@ Upload a file via a multipart form and convert it.
 **Response headers**:
 
 - `X-Task-Id`: conversion task ID
+- `X-Request-Id`: request id
+- `X-Document-Name`: original document name
+- `X-Document-Summary`: document summary
 - `X-Document-Name`: original document name
 - `X-From-Cache`: whether the result is served from cache
 - `Content-Disposition`: file download information
@@ -113,6 +116,21 @@ Download the converted file or the original file by conversion task ID.
 - **Parameters**:
   - `taskId`: task ID (path parameter)
   - `target`: file type to fetch. Values: `converted` (converted output) or `original` (original file). Default: `converted`.
+
+**Response**:
+
+- On success, returns the requested file stream.
+- On failure, returns a JSON error response.
+
+### 6. Get File Cover by Task ID
+
+Get the file cover (i.e., the first page) by conversion task ID.
+
+- **URL**: `/convert/{taskId}/cover?size={size}`
+- **Method**: `GET`
+- **Parameters**:
+  - `taskId`: conversion task ID (path parameter)
+  - `size`: cover size (query parameter)
 
 **Response**:
 
