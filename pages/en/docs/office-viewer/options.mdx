@@ -43,84 +43,165 @@ Use these options to control UI and behavior. Umo Office Viewer is typically use
 }
 ```
 
-## Key Fields
+## Option Reference
 
 ### lang
 
-- Type: `String`
-- Default: `zh-CN`
-- Values: `zh-CN` | `en-US`
+**Description**: UI locale. You can switch it dynamically via `setLocale`.
+
+**Type**: `String`
+
+**Default**: `'zh-CN'`
+
+**Values**: `'zh-CN'` | `'en-US'`
 
 ### theme
 
-- Type: `String`
-- Default: `light`
-- Values: `light` | `dark` | `auto`
+**Description**: Theme mode. When set to `auto`, it follows system dark/light mode.
+
+**Type**: `String`
+
+**Default**: `'light'`
+
+**Values**: `'light'` | `'dark'` | `'auto'`
 
 ### title
 
-- Type: `String`
-- Required: yes
-
 The document title must include an extension (e.g. `.docx`, `.xlsx`). It is shown in the header and used as the download/export filename.
+
+**Type**: `String`
+
+**Default**: `undefined`
+
+**Required**: yes
 
 ### meta
 
-- Type: `Array<{ label: String; content: any }>`
-
 Displayed in the sidebar info panel.
 
-### showHeader / showMenu
+**Type**: `Array<{ label: String; content: any }>`
 
-- Type: `Boolean`
+**Default**: `[]`
 
-Controls whether the header bar and its menu are shown.
+### showHeader
+
+**Description**: Whether to show the header bar.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+**Values**: `true` | `false`
+
+### showMenu
+
+**Description**: Whether to show header menu entries (info, download, export, print, share, etc.). Use this to control feature visibility.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+**Values**: `true` | `false`
 
 ### showAside
 
-- Type: `Boolean`
+**Description**: Whether to open the sidebar by default (info / thumbnails). You can also call `openAside('info' | 'thumbs')` to open it programmatically, and users can open it manually.
 
-Whether to open the sidebar by default. You can also call `openAside('info'|'thumbs')`.
+**Type**: `Boolean`
+
+**Default**: `false`
+
+**Values**: `true` | `false`
 
 ### downloadable / exportable / printable
 
-- Type: `Boolean`
-
 Control download, export-to-PDF, and printing capabilities.
 
-### closeable / onClose
+**Type**: `Boolean`
 
-- Type: `Boolean` / `Function`
+### closeable
 
-When `closeable` is `true`, a close button is shown and triggers the `onClose` callback and the `closed` event.
+**Description**: Whether to show the close button. Clicking it triggers the `onClose` callback and emits the `closed` event. This is commonly used when embedding the viewer in a modal/dialog.
 
-### fileId / fileUrl
+**Type**: `Boolean`
 
-- Type: `String`
+**Default**: `false`
 
-At least one of `fileId` and `fileUrl` must be provided.
+**Values**: `true` | `false`
+
+### fileId
+
+**Description**: File ID (task ID). When provided, the viewer can fetch the converted file directly from the [Umo Office Convert](../office-convert) service without re-conversion, which greatly improves loading speed and reduces server resource usage.
+
+**Type**: `String`
+
+**Default**: `undefined`
+
+**Required**: At least one of `fileId` and `fileUrl` must be provided.
 
 ### serverUrl
 
-- Type: `String`
-- Required: yes
-
 The [Umo Office Convert](../office-convert) service URL, for example `http://127.0.0.1:1236`.
+
+**Type**: `String`
+
+**Default**: `undefined`
+
+**Required**: yes
+
+### fileUrl
+
+**Description**: URL of the file to preview.
+
+**Type**: `String`
+
+**Default**: `undefined`
+
+**Required**: At least one of `fileId` and `fileUrl` must be provided.
 
 ### shareUrl
 
-- Type: `String`
-
 If provided, a “Share” entry is shown in the header menu.
+
+**Type**: `String`
+
+**Default**: `undefined`
+
+### multiPage
+
+**Description**: Whether to enable multi-page mode by default. `false` means a horizontal single-column layout, `true` means a horizontal multi-column layout.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+**Values**: `true` | `false`
+
+### fitWidth
+
+**Description**: Whether to fit pages to container width (internal scale calculation).
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+**Values**: `true` | `false`
 
 ### watermark
 
-- Type: `Object`
+**Description**: Watermark settings. You can also update it dynamically via `setWatermark`. See [Watermark & Password](./security).
 
-Watermark settings. See [Watermark & Password](./security).
+**Type**: `Object`
+
+**Fields**:
+
+- `text`: `String`, watermark content (recommended ≤ 30 characters)
+- `columns`: `Number`, column count (default `4`)
+- `rows`: `Number`, row count (default `4`)
+- `color`: `String`, font color (default `'rgba(0, 0, 0, 0.2)'`; any valid CSS color)
+- `rotation`: `Number`, rotation angle (default `30`)
+- `fontSize`: `Number`, font size (default `12 * window.devicePixelRatio`; unit: px)
 
 ### needPassword / onValidatePassword
-
-- Type: `Boolean` / `Function`
 
 Password validation hook. See [Watermark & Password](./security).

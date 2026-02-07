@@ -6,6 +6,8 @@ description: Methods provided by Umo Office Viewer.
 
 # Methods
 
+This page describes the methods provided by Umo Office Viewer. You can use them to control the viewer and perform common operations.
+
 ## Example
 
 ```vue
@@ -21,24 +23,124 @@ import { ref } from 'vue'
 import { UmoOfficeViewer } from '@umoteam/office-viewer'
 
 const viewerRef = ref(null)
-const options = ref({})
+const options = ref({
+  // options
+  // ...
+})
 
-const getOptions = () => viewerRef.value.getOptions()
-const openSidebar = () => viewerRef.value.openAside('thumbs')
-const downloadFile = () => viewerRef.value.download()
+const getOptions = () => {
+  const options = viewerRef.value.getOptions()
+  console.log(options)
+}
+
+const openSidebar = () => {
+  viewerRef.value.openAside('thumbs')
+}
+
+const downloadFile = () => {
+  viewerRef.value.download()
+}
 </script>
 ```
 
-## Reference
+## Method Reference
 
-- `setTheme('light' | 'dark' | 'auto')`
-- `setLocale('zh-CN' | 'en-US')`
-- `openAside('info' | 'thumbs')`
-- `download(target?: string)`
-- `exportPDF(filename?: string)`
-- `print(dpi?: number)`
-- `fullscreen()`
-- `rotate(deg: number)`
-- `gotoPage(page?: number)`
-- `getState()`
-- `getOptions()`
+### setTheme
+
+**Description**: Set the theme mode.
+
+**Parameters**: `light` | `dark` | `auto`.
+
+**Returns**: none.
+
+### setLocale
+
+**Description**: Set the display locale.
+
+**Parameters**: `zh-CN` | `en-US`.
+
+**Returns**: none.
+
+### openAside
+
+**Description**: Open the sidebar and switch to the specified panel.
+
+**Parameters**: `info` | `thumbs` (default: `thumbs`).
+
+**Returns**: none.
+
+### download
+
+**Description**: Download the document. The download uses `options.downloadUrl` and the document title as the filename.
+
+**Parameters**: `String` (optional), download target.
+
+**Returns**: none.
+
+### exportPDF
+
+**Description**: Export the current document as PDF, replacing the original file extension with `.pdf`.
+
+**Parameters**: `String`, export filename (default: document name).
+
+**Returns**: none.
+
+### print
+
+**Description**: Trigger printing.
+
+**Parameters**: `Number` (optional), print DPI (default: 300).
+
+**Returns**: none.
+
+### fullscreen
+
+**Description**: Toggle fullscreen state.
+
+**Parameters**: none.
+
+**Returns**: none.
+
+### rotate
+
+**Description**: Rotate the document by adding degrees and applying modulo 360.
+
+**Parameters**: `Number`, rotation degrees.
+
+**Returns**: none.
+
+### gotoPage
+
+**Description**: Jump to a page and scroll it into view.
+
+**Parameters**: `Number` (optional), page number.
+
+**Returns**: none.
+
+### getState
+
+**Description**: Get the internal reactive state reference.
+
+**Parameters**: none.
+
+**Returns**: `Ref<State>`, which includes `loaded`, `activePage`, `scale`, `rotate`, `page`, `document`, `printing`, `sharing`, `needPassword`, `fullscreen`, and more.
+
+### getOptions
+
+**Description**: Get the merged and validated options reference.
+
+**Parameters**: none.
+
+**Returns**: `Ref<Options>`, which contains the current Umo Office Viewer options.
+
+## Error Handling
+
+If the parameters are invalid or the current viewer state does not allow the operation, calling a method may throw an error. Handle errors where appropriate, for example:
+
+```js
+try {
+  viewerRef.value.gotoPage(5)
+} catch (error) {
+  console.error('Failed to jump to page:', error.message)
+}
+```

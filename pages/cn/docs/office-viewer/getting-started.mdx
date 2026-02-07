@@ -39,7 +39,7 @@ npm install --save ../umo-office-viewer/releases/umo-office-viewer-xxx.tgz
 
 ```js filename="main.js"
 import { createApp } from 'vue'
-import { useUmoOfficeViewer } from '@umotem/office-viewer'
+import { useUmoOfficeViewer } from '@umoteam/office-viewer'
 
 const app = createApp(App)
 app.use(useUmoOfficeViewer, {
@@ -61,7 +61,7 @@ app.mount('#app')
 // 使用组合式 API
 <script setup>
 import { ref } from 'vue'
-import { UmoOfficeViewer } from '@umotem/office-viewer'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
 
 const options = ref({
   // 配置项
@@ -71,7 +71,7 @@ const options = ref({
 
 // 或使用选项式 API
 <script>
-import { UmoOfficeViewer } from '@umotem/office-viewer'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
 
 export default {
   components: {
@@ -101,7 +101,7 @@ Umo Office Viewer 暂不支持 SSR。在 Nuxt 的 SSR 模式下，可以使用 `
 </template>
 
 <script setup>
-import { UmoOfficeViewer } from '@umotem/office-viewer'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
 
 const options = ref({
   // 配置项

@@ -10,7 +10,7 @@ This guide helps you integrate `umo-office-viewer` into a Vue 3 project.
 
 ## 1. Install
 
-### 1) Clone the private repository
+### 1) Clone the official repository
 
 ```bash
 git clone <Umo Office Viewer private repository URL>
@@ -33,6 +33,8 @@ npm install --save ../umo-office-viewer/releases/umo-office-viewer-xxx.tgz
 
 ## 2. Usage
 
+Choose one of the following integration patterns:
+
 ### 1) Global install
 
 ```js filename="main.js"
@@ -40,22 +42,50 @@ import { createApp } from 'vue'
 import { useUmoOfficeViewer } from '@umoteam/office-viewer'
 
 const app = createApp(App)
-app.use(useUmoOfficeViewer, {})
+app.use(useUmoOfficeViewer, {
+  // options
+  // ...
+})
 app.mount('#app')
 ```
 
-### 2) Component usage
+### 2) Direct import
 
-```vue filename="Component.vue"
+Use either the Composition API or Options API example below.
+
+```vue filename="component.vue"
 <template>
   <umo-office-viewer v-bind="options" />
 </template>
 
+// Composition API
 <script setup>
 import { ref } from 'vue'
 import { UmoOfficeViewer } from '@umoteam/office-viewer'
 
-const options = ref({})
+const options = ref({
+  // options
+  // ...
+})
+</script>
+
+// Or Options API
+<script>
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
+
+export default {
+  components: {
+    UmoOfficeViewer,
+  },
+  data() {
+    return {
+      options: {
+        // options
+        // ...
+      },
+    }
+  },
+}
 </script>
 ```
 
@@ -63,12 +93,22 @@ const options = ref({})
 
 Umo Office Viewer does not support SSR. Use `<client-only>` to render it on the client side.
 
-```vue filename="Component.vue"
+```vue {2,4} filename="component.vue"
 <template>
   <client-only>
     <umo-office-viewer v-bind="options" />
   </client-only>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
+
+const options = ref({
+  // options
+  // ...
+})
+</script>
 ```
 
 ## 3. Configuration

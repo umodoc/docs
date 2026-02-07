@@ -6,22 +6,25 @@ description: Watermark and password validation guidance for Umo Office Viewer.
 
 # Watermark & Password
 
-## Watermark
+This page describes how to add watermarks and how to validate passwords when loading protected documents.
 
-Configure the watermark via `watermark`:
+## Watermark Protection
 
-- `text`: watermark text
-- `columns` / `rows`: grid density
-- `color`: CSS color (e.g. `rgba(0,0,0,0.2)`)
-- `rotation`: rotation in degrees
-- `fontSize`: font size in px
+Configure the document watermark via `props.watermark`. The watermark is drawn over the page canvas. Parameters:
+
+- `text`: `String`, watermark text (recommended ≤ 30 characters)
+- `columns`: `Number`, column count (default `4`)
+- `rows`: `Number`, row count (default `4`)
+- `color`: `String`, font color (default `'rgba(0, 0, 0, 0.2)'`; any valid CSS color)
+- `rotation`: `Number`, rotation angle (default `30`)
+- `fontSize`: `Number`, font size (default `12 * window.devicePixelRatio`; unit: px)
 
 Example:
 
 ```js
 const options = ref({
   watermark: {
-    text: 'Internal document',
+    text: 'Internal document, do not leak',
     columns: 3,
     rows: 3,
     color: 'rgba(0, 0, 0, 0.1)',
@@ -32,14 +35,21 @@ const options = ref({
 
 ## Password
 
-When a document requires a password, you can enable and validate it via:
+When previewing a protected document, the viewer will guide the user to enter a password and validate it:
 
 - `needPassword: boolean`
 - `onValidatePassword(password) => boolean | Promise<boolean>`
 
+Workflow (simplified):
+
+- During loading, if a password is required, the viewer sets `state.needPassword = true` and waits for user input.
+- It validates the input using the configured `onValidatePassword`.
+- After validation succeeds, it continues loading the document with the password; when loading finishes, it emits the `loaded` event.
+
 ```js
 const options = ref({
   needPassword: true,
+  // Tip: do not hardcode passwords in frontend code. Put validation on the server and use sessions/tokens; the frontend should only collect input and show feedback.
   onValidatePassword: (password) => password === '1234',
 })
 ```

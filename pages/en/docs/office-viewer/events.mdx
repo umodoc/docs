@@ -6,6 +6,8 @@ description: Events emitted by Umo Office Viewer.
 
 # Events
 
+This page describes the events emitted by Umo Office Viewer. You can listen to the full lifecycle and state changes to integrate with your application logic.
+
 ## Example
 
 ```vue
@@ -25,16 +27,60 @@ description: Events emitted by Umo Office Viewer.
     @error="onError"
   />
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoOfficeViewer } from '@umoteam/office-viewer'
+
+const options = ref({
+  // options
+  // ...
+})
+
+const onLoaded = () => {
+  console.log('emit:loaded', 'Document loaded')
+}
+const onClosed = () => {
+  console.log('emit:closed', 'Close button clicked')
+}
+const onAsideChanged = (aside) => {
+  console.log('emit:aside-changed', 'Sidebar opened / panel switched:', { aside })
+}
+const onPageChanged = (activePage) => {
+  console.log('emit:page-changed', 'Active page changed:', { activePage })
+}
+const onRotateChanged = (rotate) => {
+  console.log('emit:rotate-changed', 'Rotate angle changed:', { rotate })
+}
+const onScaleChanged = (scale) => {
+  console.log('emit:scale-changed', 'Scale changed:', { scale })
+}
+const onFullscreenChanged = (fullscreen) => {
+  console.log('emit:fullscreen-changed', 'Fullscreen toggled:', { fullscreen })
+}
+const onDownload = () => {
+  console.log('emit:download', 'Download triggered')
+}
+const onPrint = () => {
+  console.log('emit:print', 'Print triggered')
+}
+const onExport = () => {
+  console.log('emit:export', 'Export triggered')
+}
+const onError = (error) => {
+  console.log('emit:error', 'Document load error', { errMsg: error.message })
+}
+</script>
 ```
 
-## Event List
+## Event Reference
 
 | Event              | Description                     | Params     |
 | ------------------ | ------------------------------- | ---------- |
 | loaded             | Document loaded                 | -          |
-| closed             | Close button clicked            | -          |
+| closed             | Close button clicked (after `onClose()` runs) | -          |
 | aside-changed      | Sidebar opened / panel switched | aside      |
-| page-changed       | Active page changed             | activePage |
+| page-changed       | Active page changed (scroll or internal trigger) | activePage |
 | rotate-changed     | Rotate angle changed            | rotate     |
 | scale-changed      | Scale changed                   | scale      |
 | fullscreen-changed | Fullscreen toggled              | fullscreen |

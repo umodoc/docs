@@ -6,27 +6,114 @@ description: Theme modes and CSS variable customization for Umo Office Viewer.
 
 # Themes
 
-Umo Office Viewer uses CSS variables for theming. The theme mode can be:
+Umo Office Viewer declares its theme tokens via [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). We recommend customizing appearance by overriding CSS variables.
 
-- `light`
-- `dark`
-- `auto` (follow system)
+## Theme Mode
 
-## Switching Theme
+- `theme: 'light' | 'dark' | 'auto'`
+  - `light`: light theme
+  - `dark`: dark theme
+  - `auto`: follow system dark/light mode and sync automatically when it changes
+
+Internal behavior:
+
+- When `theme !== 'auto'`, the `html` element will have `theme-mode="light|dark"`
+- When `theme === 'auto'`, it listens to `(prefers-color-scheme: dark)` and switches dynamically
+
+You can also switch via methods:
 
 ```js
 viewerRef.value?.setTheme('dark')
 viewerRef.value?.setTheme('auto')
 ```
 
-## Override Variables
+## Default Theme (CSS Variables)
+
+```css
+:root {
+  /** Primary **/
+  --uv-primary-color: #3480f9;
+  --uv-color-white: #fff;
+  --uv-color-black: #000;
+
+  /** Typography **/
+  --uv-font-family:
+    helvetica neue, helvetica, pingfang sc, hiragino sans gb, microsoft yahei,
+    simsun, sans-serif;
+  --uv-font-size: 14px;
+  --uv-font-size-small: 12px;
+  --uv-text-color: rgb(51, 54, 57);
+  --uv-text-color-light: rgba(0, 0, 0, 0.5);
+
+  /** Layout **/
+  --uv-header-height: 56px;
+  --uv-container-background: #f4f5f7;
+  --uv-page-shadow:
+    rgba(0, 0, 0, 0.06) 0 0 10px 0, rgba(0, 0, 0, 0.04) 0 0 0 1px;
+
+  /** Borders & shadows **/
+  --uv-shadow:
+    0 3px 14px 2px rgba(0, 0, 0, 0.03), 0 8px 10px 1px rgba(0, 0, 0, 4%),
+    0 5px 5px -3px rgba(0, 0, 0, 8%);
+  --uv-border-color: rgba(0, 0, 0, 0.08);
+  --uv-border-color-light: rgba(0, 0, 0, 0.05);
+
+  /** Radius **/
+  --uv-radius: 3px;
+  --uv-radius-medium: 5px;
+
+  /** Popups **/
+  --uv-popup-max-height: max(60vh, 180px);
+  --uv-mask-color: transparent;
+
+  /** Scrollbar **/
+  --uv-scrollbar-size: 10px;
+  --uv-scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
+  --uv-scrollbar-thumb-hover-color: rgba(0, 0, 0, 0.35);
+}
+```
+
+## Dark Theme (CSS Variables)
+
+```css
+[theme-mode='dark'] {
+  --uv-color-white: #17171a;
+  --uv-color-black: #fff;
+  --uv-text-color: #ddd;
+  --uv-text-color-light: #bbb;
+  --uv-border-color: rgba(255, 255, 255, 0.15);
+  --uv-border-color-dark: rgba(255, 255, 255, 0.2);
+  --uv-border-color-light: rgba(255, 255, 255, 0.08);
+  --uv-container-background: #2a2b2d;
+}
+```
+
+## Groups
+
+- Primary: `--uv-primary-color`
+- Base colors: `--uv-color-white`, `--uv-color-black`
+- Typography: `--uv-font-family`, `--uv-font-size`, `--uv-font-size-small`, `--uv-text-color`, `--uv-text-color-light`
+- Background & page shadow: `--uv-container-background`, `--uv-page-shadow`
+- Borders & shadows: `--uv-border-color`, `--uv-border-color-light`, `--uv-shadow`
+- Radius: `--uv-radius`, `--uv-radius-medium`
+- Popups: `--uv-popup-max-height`, `--uv-mask-color`
+- Scrollbar: `--uv-scrollbar-size`, `--uv-scrollbar-thumb-color`, `--uv-scrollbar-thumb-hover-color`
+
+## Overriding Variables
+
+Override variables within a container scope. Use a local class to avoid affecting global styles.
 
 ```vue
 <template>
   <div class="viewer-theme">
-    <umo-office-viewer />
+    <umo-office-viewer :theme="theme" />
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const theme = ref<'light' | 'dark' | 'auto'>('light')
+</script>
 
 <style>
 .viewer-theme {
@@ -41,3 +128,10 @@ html[theme-mode='dark'] .viewer-theme {
 }
 </style>
 ```
+
+## Common Variables
+
+- Primary color: `--uv-primary-color`
+- Font size: `--uv-font-size`, `--uv-font-size-small`
+- Container background: `--uv-container-background`
+- Scrollbar styling: `--uv-scrollbar-*`
