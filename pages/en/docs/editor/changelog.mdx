@@ -14,9 +14,9 @@ Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next
 ## 🎉 v10.0.0 <Badge>2026-02-10</Badge>
 
 <Callout type="info" emoji="❗">
-  This update is a **milestone major upgrade**. Without breaking existing configurations or usage patterns, Umo Editor’s core codebase has been smoothly migrated to the **latest Tiptap v3**, and all extensions have been upgraded to the latest v3 versions. At the same time, we removed all references to Pro extensions and performed a systematic refactor of the overall codebase.
+This update is a **milestone major upgrade**. Without breaking existing configurations or usage patterns, Umo Editor’s core codebase has been smoothly migrated to the **latest Tiptap v3**, and all extensions have been upgraded to the latest v3 versions. At the same time, we removed all references to Pro extensions and performed a systematic refactor of the overall codebase.
   
-  This upgrade not only significantly **reduces bundle size** and **improves loading and editing performance for large documents**, but also lays a more solid foundation for future feature expansion and long-term maintenance. **We strongly recommend all users upgrade.**
+This upgrade not only significantly **reduces bundle size** and **improves loading and editing performance for large documents**, but also lays a more solid foundation for future feature expansion and long-term maintenance. **We strongly recommend all users upgrade.**
 
 Note: If you are upgrading to v10, the synchronized `cdnUrl` configuration that references [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN resources must also be upgraded to v10.
 
@@ -115,6 +115,30 @@ Note: If you are upgrading to v10, the synchronized `cdnUrl` configuration that 
 3. Removed **Electronic Signature** and **Image Background Removal** features due to third-party resource size considerations [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
 4. Removed the document preview feature to further optimize overall bundle size [#401](https://github.com/umodoc/editor/issues/401) [#415](https://github.com/umodoc/editor/issues/415);
 5. Removed some configuration items from `disableExtensions`. See: [disableExtensions configuration](./options/extensions).
+
+---
+
+### 📦 Other Updates
+
+#### [Umo Editor Next](../next)
+
+Major upgrade—see [Umo Editor Next v10 changelog](../next/changelog#-v1000) for details.
+
+#### [Umo Editor Server](../server)
+
+1. Full support for Umo Editor Next v10.  
+2. Upgraded all dependencies to their latest versions.  
+3. Added `/import/anyweb` endpoint to import any web page into Umo Editor Next; see [Umo Editor Server API list](../server/api#document-importexport).  
+4. Removed whitelist support.  
+5. Synced static assets for @umoteam/editor-external v10.  
+6. Various minor tweaks and optimizations.
+
+#### [Umo Office Convert](../office-convert)
+
+1. Added endpoints to generate document cover and summary; see [Umo Office Convert API list](../office-convert/api#6-get-file-cover-by-task-id).  
+2. Upgraded all dependencies to their latest versions.  
+3. Removed whitelist support.  
+4. Other minor optimizations.
 
 ## 🚀 v9.0.1 <Badge>2025-12-05</Badge>
 
