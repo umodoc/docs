@@ -28,6 +28,9 @@ npm install --save @umoteam/viewer
 import { createApp } from 'vue'
 import { useUmoViewer } from '@umoteam/viewer'
 
+// 引入所需版本的 Umo Editor 样式
+import '@umoteam/editor/style'
+
 // Umo Editor 版本不能低于 8.0.0
 const app = createApp(App)
 app.use(useUmoViewer, {

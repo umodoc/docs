@@ -28,6 +28,9 @@ Choose one of the following usage methods:
 import { createApp } from 'vue'
 import { useUmoViewer } from '@umoteam/viewer'
 
+// Import the required version of Umo Editor styles
+import '@umoteam/editor/style'
+
 // Requires Umo Editor version 8.0.0 or later
 const app = createApp(App)
 app.use(useUmoViewer, {
