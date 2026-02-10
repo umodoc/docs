@@ -32,44 +32,44 @@ viewerRef.value?.setTheme('auto')
 ```css
 :root {
   /** Primary **/
-  --uv-primary-color: #3480f9;
-  --uv-color-white: #fff;
-  --uv-color-black: #000;
+  --uov-primary-color: #3480f9;
+  --uov-color-white: #fff;
+  --uov-color-black: #000;
 
   /** Typography **/
-  --uv-font-family:
+  --uov-font-family:
     helvetica neue, helvetica, pingfang sc, hiragino sans gb, microsoft yahei,
     simsun, sans-serif;
-  --uv-font-size: 14px;
-  --uv-font-size-small: 12px;
-  --uv-text-color: rgb(51, 54, 57);
-  --uv-text-color-light: rgba(0, 0, 0, 0.5);
+  --uov-font-size: 14px;
+  --uov-font-size-small: 12px;
+  --uov-text-color: rgb(51, 54, 57);
+  --uov-text-color-light: rgba(0, 0, 0, 0.5);
 
   /** Layout **/
-  --uv-header-height: 56px;
-  --uv-container-background: #f4f5f7;
-  --uv-page-shadow:
+  --uov-header-height: 56px;
+  --uov-container-background: #f4f5f7;
+  --uov-page-shadow:
     rgba(0, 0, 0, 0.06) 0 0 10px 0, rgba(0, 0, 0, 0.04) 0 0 0 1px;
 
   /** Borders & shadows **/
-  --uv-shadow:
+  --uov-shadow:
     0 3px 14px 2px rgba(0, 0, 0, 0.03), 0 8px 10px 1px rgba(0, 0, 0, 4%),
     0 5px 5px -3px rgba(0, 0, 0, 8%);
-  --uv-border-color: rgba(0, 0, 0, 0.08);
-  --uv-border-color-light: rgba(0, 0, 0, 0.05);
+  --uov-border-color: rgba(0, 0, 0, 0.08);
+  --uov-border-color-light: rgba(0, 0, 0, 0.05);
 
   /** Radius **/
-  --uv-radius: 3px;
-  --uv-radius-medium: 5px;
+  --uov-radius: 3px;
+  --uov-radius-medium: 5px;
 
   /** Popups **/
-  --uv-popup-max-height: max(60vh, 180px);
-  --uv-mask-color: transparent;
+  --uov-popup-max-height: max(60vh, 180px);
+  --uov-mask-color: transparent;
 
   /** Scrollbar **/
-  --uv-scrollbar-size: 10px;
-  --uv-scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
-  --uv-scrollbar-thumb-hover-color: rgba(0, 0, 0, 0.35);
+  --uov-scrollbar-size: 10px;
+  --uov-scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
+  --uov-scrollbar-thumb-hover-color: rgba(0, 0, 0, 0.35);
 }
 ```
 
@@ -77,27 +77,27 @@ viewerRef.value?.setTheme('auto')
 
 ```css
 [theme-mode='dark'] {
-  --uv-color-white: #17171a;
-  --uv-color-black: #fff;
-  --uv-text-color: #ddd;
-  --uv-text-color-light: #bbb;
-  --uv-border-color: rgba(255, 255, 255, 0.15);
-  --uv-border-color-dark: rgba(255, 255, 255, 0.2);
-  --uv-border-color-light: rgba(255, 255, 255, 0.08);
-  --uv-container-background: #2a2b2d;
+  --uov-color-white: #17171a;
+  --uov-color-black: #fff;
+  --uov-text-color: #ddd;
+  --uov-text-color-light: #bbb;
+  --uov-border-color: rgba(255, 255, 255, 0.15);
+  --uov-border-color-dark: rgba(255, 255, 255, 0.2);
+  --uov-border-color-light: rgba(255, 255, 255, 0.08);
+  --uov-container-background: #2a2b2d;
 }
 ```
 
 ## Groups
 
-- Primary: `--uv-primary-color`
-- Base colors: `--uv-color-white`, `--uv-color-black`
-- Typography: `--uv-font-family`, `--uv-font-size`, `--uv-font-size-small`, `--uv-text-color`, `--uv-text-color-light`
-- Background & page shadow: `--uv-container-background`, `--uv-page-shadow`
-- Borders & shadows: `--uv-border-color`, `--uv-border-color-light`, `--uv-shadow`
-- Radius: `--uv-radius`, `--uv-radius-medium`
-- Popups: `--uv-popup-max-height`, `--uv-mask-color`
-- Scrollbar: `--uv-scrollbar-size`, `--uv-scrollbar-thumb-color`, `--uv-scrollbar-thumb-hover-color`
+- Primary: `--uov-primary-color`
+- Base colors: `--uov-color-white`, `--uov-color-black`
+- Typography: `--uov-font-family`, `--uov-font-size`, `--uov-font-size-small`, `--uov-text-color`, `--uov-text-color-light`
+- Background & page shadow: `--uov-container-background`, `--uov-page-shadow`
+- Borders & shadows: `--uov-border-color`, `--uov-border-color-light`, `--uov-shadow`
+- Radius: `--uov-radius`, `--uov-radius-medium`
+- Popups: `--uov-popup-max-height`, `--uov-mask-color`
+- Scrollbar: `--uov-scrollbar-size`, `--uov-scrollbar-thumb-color`, `--uov-scrollbar-thumb-hover-color`
 
 ## Overriding Variables
 
@@ -117,21 +117,21 @@ const theme = ref<'light' | 'dark' | 'auto'>('light')
 
 <style>
 .viewer-theme {
-  --uv-primary-color: #ff4444;
-  --uv-container-background: #f7f8fa;
-  --uv-scrollbar-size: 8px;
+  --uov-primary-color: #ff4444;
+  --uov-container-background: #f7f8fa;
+  --uov-scrollbar-size: 8px;
 }
 
 html[theme-mode='dark'] .viewer-theme {
-  --uv-text-color: #eaeff4;
-  --uv-border-color: #31363b;
+  --uov-text-color: #eaeff4;
+  --uov-border-color: #31363b;
 }
 </style>
 ```
 
 ## Common Variables
 
-- Primary color: `--uv-primary-color`
-- Font size: `--uv-font-size`, `--uv-font-size-small`
-- Container background: `--uv-container-background`
-- Scrollbar styling: `--uv-scrollbar-*`
+- Primary color: `--uov-primary-color`
+- Font size: `--uov-font-size`, `--uov-font-size-small`
+- Container background: `--uov-container-background`
+- Scrollbar styling: `--uov-scrollbar-*`
