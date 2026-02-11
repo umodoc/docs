@@ -425,3 +425,28 @@ Triggered when deleting an attachment (recommended to clean backend storage). Se
 - `messages`: `ChatMessage[]`, message list (roles: user/assistant/system).
 - `assistantMessage`: `ChatMessage | undefined`, last assistant message in document-assistant mode (for panel display and write-back).
 - `engine`: `Object`, internal chat engine instance for advanced customization (sending messages, debugging, analytics, etc.).
+
+## Slots
+
+Use the `floating_action` slot to append custom content to the area where the "back to top" button is located.
+
+Example:
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #floating_action>
+      <span>slot</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
+
+const options = ref({
+  // ...
+})
+</script>
+```

@@ -425,3 +425,29 @@ const onRequest = (context, params) => {
 - `messages`: `ChatMessage[]`，当前消息列表（包含 `user/assistant/system` 三种角色）。
 - `assistantMessage`: `ChatMessage | undefined`，文档助手场景下的“最后一条 assistant 消息”（用于面板展示与写回操作）。
 - `engine`: `Object`，Umo Editor Next 内部的消息引擎对象。您可以利用 `engine` 进行更复杂的场景定制，如发送消息、调试与埋点等。
+
+## 插槽列表
+
+通过 `floating_action` 插槽可向返回顶部按钮所在区域追加自定义内容。
+
+示例：
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #floating_action>
+      <span>slot</span>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { UmoEditor } from '@umoteam/editor'
+
+const options = ref({
+  // 配置项
+  // ...
+})
+</script>
+```
