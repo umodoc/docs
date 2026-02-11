@@ -10,6 +10,7 @@ export default {
   aside: 'Page Aside',
   collaboration: 'Collaborative',
   comments: 'Comments',
+  annotation: 'Annotation',
   import: 'Import',
   export: 'Export',
   markdown: 'Markdown Enhancement',
