@@ -38,6 +38,10 @@ Umo Editor 自 v3.0 版本开始，提供了插槽功能，允许用户通过插
     <template #toolbar_page="props">
       <span>toolbar_page slot：{{ props }}</span>
     </template>
+    <!-- “视图”菜单插槽 -->
+    <template #toolbar_view="props">
+      <span>toolbar_view slot：{{ props }}</span>
+    </template>
     <!-- “导出”菜单插槽 -->
     <template #toolbar_export="props">
       <span>toolbar_export slot：{{ props }}</span>

@@ -38,6 +38,10 @@ Use slots to insert custom content after specific menus in the toolbar.
     <template #toolbar_page="props">
       <span>toolbar_page slot: {{ props }}</span>
     </template>
+    <!-- Slot for the "View" menu -->
+    <template #toolbar_view="props">
+      <span>toolbar_view slot: {{ props }}</span>
+    </template>
     <!-- Slot for the "Export" menu -->
     <template #toolbar_export="props">
       <span>toolbar_export slot: {{ props }}</span>
