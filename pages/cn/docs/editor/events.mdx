@@ -156,7 +156,7 @@ const onPaste = (content) => {
   console.log('onPaste', '粘贴了新内容，可用参数:', { event, slice })
 }
 const onDrop = (content) => {
-  console.log('onDrop', '拖放了新内容，可用参数:', { event, slice, moved })
+  console.log('onDrop', '内容被拖动，可用参数:', { event, slice, moved })
 }
 const onDelete = (content) => {
   console.log('onDelete', '删除了内容，可用参数:', {
@@ -213,7 +213,7 @@ const onDestroy = () => {
 | changed:locale          | 语言设置发生变化 <Badge theme="success">v2.0.0 新增</Badge>          | \{ locale, oldLocale \}                                                           |
 | changed:theme           | 主题设置发生变化 <Badge theme="success">v2.1.0 新增</Badge>          | theme                                                                             |
 | paste                   | 当内容粘贴到编辑器时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ event, slice \}                                                                |
-| drop                    | 当内容被放入编辑器时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ event, slice, moved \}                                                         |
+| drop                    | 当编辑器内容被拖动时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ event, slice, moved \}                                                         |
 | delete                  | 当编辑器中删除内容时触发 <Badge theme="success">v10.0.0 新增</Badge> | \{ type, deletedRange, newRange, partial, node, mark, from, to, newFrom, newTo \} |
 | print                   | 页面打印 <Badge theme="success">v1.1.0 新增</Badge>                  | -                                                                                 |
 | focus                   | 编辑器获得焦点                                                       | \{ editor, event \}                                                               |
