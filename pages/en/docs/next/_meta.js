@@ -5,7 +5,7 @@ export default {
   roadmap: 'Roadmap',
   'getting-started': 'Getting Started',
   server: 'Server Configuration',
-  ai: 'AI Extensions',
+  ai: 'AI-related features',
   toolbar: 'Toolbar Extensions',
   aside: 'Page Aside',
   collaboration: 'Collaborative',

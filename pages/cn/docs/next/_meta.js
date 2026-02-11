@@ -5,7 +5,7 @@ export default {
   roadmap: '开发计划',
   'getting-started': '快速开始',
   server: '服务配置',
-  ai: 'AI 扩展',
+  ai: 'AI 相关功能',
   toolbar: '工具栏扩展',
   aside: '页面侧边栏',
   collaboration: '多人协作编辑',
