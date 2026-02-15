@@ -18,6 +18,7 @@ const defaultOptions = {
   },
   versions: {
     enabled: true,
+    diffUseUserColor: false,
     diffLabelEnabled: true,
     diffLabelTemplate: '由"{name}"{action}',
     diffIgnoreMarks: ['inlineThread'],
@@ -35,6 +36,14 @@ const defaultOptions = {
 **类型**：`Boolean`
 
 **默认值**：`true`
+
+### versions.diffUseUserColor
+
+**说明**：在版本对比时，是否使用用户颜色（即 `options.user.color`）来显示差异。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
 
 ### versions.diffLabelEnabled
 

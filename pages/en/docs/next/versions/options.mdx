@@ -18,6 +18,7 @@ const defaultOptions = {
   },
   versions: {
     enabled: true,
+    diffUseUserColor: false,
     diffLabelEnabled: true,
     diffLabelTemplate: 'By "{name}" {action}',
     diffIgnoreMarks: ['inlineThread'],
@@ -35,6 +36,14 @@ const defaultOptions = {
 **Type**: `Boolean`
 
 **Default**: `true`
+
+### versions.diffUseUserColor
+
+**Description**: Whether to use user color (`options.user.color`) to highlight differences during version comparison.
+
+**Type**: `Boolean`
+
+**Default**: `false`
 
 ### versions.diffLabelEnabled
 
