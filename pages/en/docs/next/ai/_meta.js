@@ -4,7 +4,7 @@ export default {
     title: 'Start',
   },
   index: 'Introduction',
-  quickstart: 'Quick Start',
+  'getting-started': 'Getting Started',
   options: 'Configuration & Methods',
   features: {
     type: 'separator',

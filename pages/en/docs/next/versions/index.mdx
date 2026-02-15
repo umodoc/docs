@@ -1,0 +1,51 @@
+---
+title: Version history
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Introduction
+
+Document version history helps teams save a document state as a “version” during collaborative editing, and provides a version list, version preview, version comparison, and restore (rollback).
+
+You can think of it as: adding “named milestones + restorable time points” to a collaborative document.
+
+## Screenshots
+
+Not available yet.
+
+## Demo video
+
+Not available yet.
+
+## Prerequisites
+
+Version history relies on collaboration. Make sure you have:
+
+- Collaboration enabled: [Collaboration](../collaboration)
+- Server deployed and configured: [Umo Editor Server](../../server)
+
+## What you can do
+
+- Create versions manually (save the current document as a named version)
+- Preview a version (view the content without affecting the current document)
+- Compare versions (compare the differences between two versions)
+- Restore to a version (restore the document and sync the change to collaborators)
+- View version metadata (creator, created time, etc.)
+- Mark important versions (mark key versions as “Important” for quick scanning)
+
+## How to use it
+
+Version history is mainly used through:
+
+- Configuration: enable/tune it via `options.versions` (see [Configuration](./options))
+- Methods: call exposed methods to manage versions from outside the editor (see [Configuration & Methods](./options))
+- UI: use the built-in “Version History” panel to create/preview/compare/restore (see [Getting Started](./getting-started))
+
+## What is an “Important” version
+
+An “Important” version is used to mark milestones (for example: stage acceptance, release checkpoints, or handoff points):
+
+- The version list shows an “Important” label for quick identification
+- You can toggle “Mark as Important / Unmark as Important” from the version item’s “More” menu

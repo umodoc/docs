@@ -4,7 +4,7 @@ export default {
     title: '开始',
   },
   index: '基础介绍',
-  quickstart: '快速开始',
+  'getting-started': '快速开始',
   options: '配置及事件',
   features: {
     type: 'separator',

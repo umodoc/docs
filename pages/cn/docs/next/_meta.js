@@ -9,6 +9,7 @@ export default {
   toolbar: '工具栏扩展',
   aside: '页面侧边栏',
   collaboration: '多人协作编辑',
+  versions: '文档历史版本管理',
   comments: '文档批注/评论',
   annotation: '文档标注',
   import: '文档导入',

@@ -1,0 +1,108 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+---
+
+# 配置与方法
+
+历史版本只在协作模式下生效（需要已启用在线协作，并正确连接服务端）。在线协作相关配置见 [多人协作编辑](../collaboration)。
+
+## 默认配置
+
+```js
+const defaultOptions = {
+  collaboration: {
+    enabled: true,
+    // ...
+  },
+  versions: {
+    enabled: true,
+    diffLabelEnabled: true,
+    diffLabelTemplate: '由"{name}"{action}',
+    diffIgnoreMarks: ['inlineThread'],
+    diffIgnoreAttributes: ['id', 'data-thread-id'],
+  }
+}
+```
+
+## 配置项说明
+
+### versions.enabled
+
+**说明**：是否启用历史版本管理功能。关闭后历史版本面板不会展示，版本相关交互也不会生效。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### versions.diffLabelEnabled
+
+**说明**：版本对比时是否展示“差异标签”（用于让读者更快理解变更来源）。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### versions.diffLabelTemplate
+
+**说明**：差异标签显示模板（用于对比界面的文案定制）。
+
+**类型**：`String`
+
+**默认值**：`由"{name}"{action}`
+
+**可用占位符**：
+
+- `{name}`：创建人展示名
+- `{action}`：动作描述（例如新增/删除/修改）
+
+### versions.diffIgnoreMarks
+
+**说明**：版本对比时忽略的标记类型。常见用途：忽略评论/批注等非正文信息，避免对比结果被干扰。
+
+**类型**：`String[]`
+
+**默认值**：`['inlineThread']`
+
+### versions.diffIgnoreAttributes
+
+**说明**：版本对比时忽略的属性字段。常见用途：忽略节点 id、批注等非正文属性，避免对比噪音。
+
+**类型**：`String[]`
+
+**默认值**：`['id', 'data-thread-id']`
+
+## 常用方法
+
+以下方法由编辑器组件对外暴露（可通过 ref 调用），前提是 `versions.enabled !== false` 且协作已正常连接。
+
+### getVersions
+
+**说明**：获取版本列表（用于自绘列表或做业务展示）。
+
+**返回值**：`Array`（版本记录列表；字段以实际返回为准）
+
+**补充**：版本记录中可能包含 `important` 字段，用于标记“重要版本”（见 [快速开始](./getting-started)）。
+
+### getCurrentVersion
+
+**说明**：获取当前版本号（用于界面上显示“当前处于哪个版本”）。
+
+**返回值**：`Number`
+
+### saveVersion
+
+**说明**：创建一个新版本。
+
+**参数**：
+
+- `name`：`String`，版本名称。
+
+**返回值**：`Boolean`（是否成功发起请求）
+
+### clearVersions
+
+**说明**：清空版本列表并重置当前版本号（谨慎使用，适合管理端/调试场景）。
+
+**返回值**：`Boolean`

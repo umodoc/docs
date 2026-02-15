@@ -9,6 +9,7 @@ export default {
   toolbar: 'Toolbar Extensions',
   aside: 'Page Aside',
   collaboration: 'Collaborative',
+  versions: 'Version History',
   comments: 'Comments',
   annotation: 'Annotation',
   import: 'Import',

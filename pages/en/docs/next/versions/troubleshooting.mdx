@@ -1,0 +1,52 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Troubleshooting
+
+## 1. Version entry is missing / panel is blank
+
+Checklist:
+
+- `collaboration.enabled` must be `true`
+- `versions.enabled` must not be `false`
+- Collaboration connection must be healthy (WebSocket reachable, token valid)
+
+See also:
+
+- [Collaboration](../collaboration)
+- [Configuration](./options)
+
+## 2. Saving a version says “No changes, cannot create a new version”
+
+This avoids storing “no-op snapshots”.
+
+Default behavior: if the current content is identical to the latest saved version, creating a new version is rejected.
+
+Suggestions:
+
+- Make a small change and save again
+- Or allow “milestone-only versions” in your product (record milestones without requiring content changes)
+
+## 3. Version preview fails / shows “Version content not found”
+
+Possible reasons:
+
+- The version did not finish saving (the record exists, but the preview payload was not persisted or is unreadable)
+- Server storage was cleaned or migrated incompletely, causing old previews to be missing
+- Document identifiers mismatch, so the server can’t find the preview data for that version
+
+How to narrow down:
+
+- Confirm the version exists in the version list (you can see version number and name)
+- In the Network/WebSocket panel, check whether `action: 'version.preview'` receives a corresponding `event: 'version.preview'` response
+
+## 4. “Important” label does not show / toggle does not work
+
+Checklist:
+
+- Confirm you used “Mark as Important / Unmark as Important” in the version item’s “More” menu
+- Confirm collaboration is connected (actions won’t sync while offline)
+- If you render your own list: ensure your version list data includes the `important` field

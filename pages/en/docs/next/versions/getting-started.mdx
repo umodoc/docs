@@ -1,0 +1,80 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Getting Started
+
+This page shows the shortest path: enable collaboration → enable versions → create a version → preview/compare → restore.
+
+## 1. Enable collaboration and server
+
+Version history relies on collaboration.
+
+- Server: deploy and start Umo Editor Server. See [Umo Editor Server](../../server).
+- Client: enable collaboration options. See [Collaboration](../collaboration).
+
+## 2. Enable versions
+
+```js
+const options = {
+  collaboration: {
+    enabled: true,
+    // ...
+  },
+  versions: {
+    enabled: true,
+  },
+}
+```
+
+## 3. Open the Version History panel
+
+In the editor UI, open the “Version History” panel (the entry is usually in the toolbar or the “Start” menu).
+
+Common areas in the panel:
+
+- Version list: shows all saved versions
+- Actions: create versions, enter compare mode, restore, etc.
+
+## 4. Create a version
+
+In the panel, click “Create version / Save version”, enter a version name, and save.
+
+Recommended naming format: “stage + date time”, for example: `Acceptance 02-15 10:30`.
+
+## 5. Preview and compare
+
+Click a version in the list to preview it (usually shown as a diff against the previous version). If there is only one version, it only shows the content without a diff.
+
+If your document has comments enabled, you can ignore non-content differences during comparison (see [Configuration](./options)).
+
+```js
+const options = {
+  versions: {
+    enabled: true,
+    diffIgnoreMarks: ['inlineThread'],
+    diffIgnoreAttributes: ['id', 'data-thread-id'],
+  },
+}
+```
+
+## 6. Restore
+
+Select the target version in the panel and click “Restore”.
+
+After a successful restore:
+
+- The current document content switches to the target version
+- The change is synced to collaborators
+- Two new records are added: a backup before restore and the record after restore
+
+## 7. Mark an important version
+
+In the version list, click “More” on the target version:
+
+- Choose “Mark as Important”: the version shows an “Important” label
+- Choose “Unmark as Important” again: removes the label
+
+This is useful for milestones such as acceptance, release checkpoints, or sharing/handoff points.
