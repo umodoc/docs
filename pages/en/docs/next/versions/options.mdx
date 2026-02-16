@@ -23,7 +23,7 @@ const defaultOptions = {
     diffLabelTemplate: 'By "{name}" {action}',
     diffIgnoreMarks: ['inlineThread'],
     diffIgnoreAttributes: ['id', 'data-thread-id'],
-  },
+  }
 }
 ```
 
@@ -82,9 +82,25 @@ const defaultOptions = {
 
 **Default**: `['id', 'data-thread-id']`
 
-## Common methods
+## Methods
 
 These methods are exposed by the editor component (call via ref). They require `versions.enabled !== false` and a healthy collaboration connection.
+
+### openVersions
+
+**Description**: Open the document history panel.
+
+**Parameters**: None
+
+**Returns**: None
+
+### closeVersions
+
+**Description**: Close the document history panel.
+
+**Parameters**: None
+
+**Returns**: None
 
 ### getVersions
 
@@ -96,9 +112,21 @@ These methods are exposed by the editor component (call via ref). They require `
 
 ### getCurrentVersion
 
-**Description**: Get the current version number (for showing “which version you are on” in UI).
+**Description**: Get current version info and document content.
 
-**Returns**: `Number`
+**Parameters**: None
+
+**Returns**: `Object`
+
+### getVersion
+
+**Description**: Get the specified version info and document content.
+
+**Parameters**:
+
+- `version`: `Number`, version number.
+
+**Returns**: `Object`
 
 ### saveVersion
 
