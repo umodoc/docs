@@ -6,7 +6,9 @@ description: Umo Editor Server is a companion server-side software developed to 
 
 # API List
 
-The Umo Editor Server enhances the capabilities of Umo Editor Next through HTTP or WebSocket interfaces. In the development environment, after starting the project, you can access the Swagger documentation at http://127.0.0.1:1235/docs.
+The Umo Editor Server enhances the capabilities of Umo Editor Next through HTTP or WebSocket interfaces. In the development environment, after starting the project, you can access the Open API documentation at http://127.0.0.1:1235/openapi.
+
+![Open API Documentation](https://s2.umodoc.com/images/openapi.png)
 
 A brief description of the currently provided interfaces is as follows. For more detailed information, please refer to the interface documentation and code comments.
 
@@ -56,4 +58,4 @@ A brief description of the currently provided interfaces is as follows. For more
 Returns static files such as Umo Editor Next bundled files and `@umoteam/editor-external`, for example:
 
 - `GET /static`: Returns the main CSS file of Umo Editor Next, which can be used to configure the [`cdnUrl`](../editor/options/cdn) option of Umo Editor Next.
-- `GET /static/next/7.1.0/style.css`: Returns the style file of Umo Editor Next, which can be used to configure the [`export.styleURL`](../next/export) option of Umo Editor Next.
+- `GET /static/next/10.0.0/umo-editor-next.css`: Returns the style file of Umo Editor Next, which can be used to configure the [`export.styleURL`](../next/export) option of Umo Editor Next.

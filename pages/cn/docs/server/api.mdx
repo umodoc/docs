@@ -6,7 +6,9 @@ description: Umo Editor Server 是为了增强 Umo Editor Next 的部分功能�
 
 # 接口列表
 
-Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor Next 的能力，在开发环境下，您可以启动项目后，通过 http://127.0.0.1:1235/docs 访问 Swagger 文档。
+Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor Next 的能力，在开发环境下，您可以启动项目后，通过 http://127.0.0.1:1235/openapi 访问 Open API 文档。
+
+![Open API 接口文档](https://s2.umodoc.com/images/openapi.png)
 
 目前提供的接口简要说明如下，更详细的信息请查看接口文档和代码注释。
 
@@ -16,7 +18,7 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 
 ## Open API 接口文档
 
-- `GET /docs`：接口文档，用于查看和测试接口，该接口在生产环境下不可用。
+- `GET /openapi`：接口文档，用于查看和测试接口，该接口在生产环境下不可用。
 
 ## 文档导入导出
 
@@ -56,4 +58,4 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 返回 Umo Editor Next 的打包文件和 `@umoteam/editor-external` 等静态文件，例如：
 
 - `GET /static`：返回 Umo Editor Next 的主 CSS 文件，可用于配置 Umo Editor Next 的 [`cdnUrl`](../editor/options/cdn) 配置项。
-- `GET /static/next/7.1.0/style.css`：返回 Umo Editor Next 的样式文件，可用于配置 Umo Editor Next 的 [`export.styleURL`](../next/export) 配置项。
+- `GET /static/next/10.0.0/umo-editor-next.css`：返回 Umo Editor Next 的样式文件，可用于配置 Umo Editor Next 的 [`export.styleURL`](../next/export) 配置项。
