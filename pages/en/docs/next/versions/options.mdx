@@ -23,6 +23,7 @@ const defaultOptions = {
     diffLabelTemplate: 'By "{name}" {action}',
     diffIgnoreMarks: ['inlineThread'],
     diffIgnoreAttributes: ['id', 'data-thread-id'],
+    diffExcludeNodeViews: ['table', 'tableRow', 'tableCell', 'tableHeader'],
   }
 }
 ```
@@ -81,6 +82,14 @@ const defaultOptions = {
 **Type**: `String[]`
 
 **Default**: `['id', 'data-thread-id']`
+
+### versions.diffExcludeNodeViews
+
+**Description**: NodeView names to exclude when rendering version comparison/preview (configured by node name). Common use: some complex nodes (for example, tables) may depend on the host runtime in read-only previews and can cause rendering or diff misalignment. Excluding their NodeViews makes the preview fall back to basic DOM serialization output.
+
+**Type**: `String[]`
+
+**Default**: `['table', 'tableRow', 'tableCell', 'tableHeader']`
 
 ## Methods
 

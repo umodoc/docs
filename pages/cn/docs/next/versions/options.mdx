@@ -23,6 +23,7 @@ const defaultOptions = {
     diffLabelTemplate: '由"{name}"{action}',
     diffIgnoreMarks: ['inlineThread'],
     diffIgnoreAttributes: ['id', 'data-thread-id'],
+    diffExcludeNodeViews: ['table', 'tableRow', 'tableCell', 'tableHeader'],
   }
 }
 ```
@@ -81,6 +82,14 @@ const defaultOptions = {
 **类型**：`String[]`
 
 **默认值**：`['id', 'data-thread-id']`
+
+### versions.diffExcludeNodeViews
+
+**说明**：版本对比/预览渲染时要排除的 NodeView（按节点名配置）。常见用途：某些复杂节点（例如表格）在只读预览中依赖宿主环境，可能导致对比不准确，可通过该配置禁用其 NodeView，让预览回退到基础 DOM 序列化输出。
+
+**类型**：`String[]`
+
+**默认值**：`['table', 'tableRow', 'tableCell', 'tableHeader']`
 
 ## 常用方法
 
