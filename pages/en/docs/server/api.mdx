@@ -1,10 +1,10 @@
 ---
 target: Umo Editor Server
 keywords: Umo Editor Next,Umo Editor Server,Umo Editor Backend,Umo Editor Server-side
-description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+description: Umo Editor Server is a companion server-side software developed to enhance some features of Umo Editor Next, such as multi-user online collaboration, document comments, document import/export, and AI capabilities.
 ---
 
-# API Documentation
+# API List
 
 The Umo Editor Server enhances the capabilities of Umo Editor Next through HTTP or WebSocket interfaces. In the development environment, after starting the project, you can access the Swagger documentation at http://127.0.0.1:1235/docs.
 
@@ -30,14 +30,14 @@ A brief description of the currently provided interfaces is as follows. For more
 
 - `POST /ai/{provider}/chat/completions`: Dynamically proxies requests to different AI service providers (e.g., DeepSeek, OpenAI, etc.) based on the `provider`. Can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response results that comply with the AI messages in Umo Editor Next. Please refer to the code comments for specific implementation and usage.
 
-## Collaboration and Comments
+## Collaboration, Comments, Version History, etc.
 
 - `GET /collaboration`: WebSocket interface, should be connected via the ws(s):// protocol. Most of the content of this interface is stored and transmitted in binary form. Please refer to the source code for its configuration and related instructions.
 
 ## AI SSE Demo
 
-- `POST /mock/sse/normal`: SSE example interface, returns `text/event-stream`. The `data` field of each SSE is JSON, facilitating parsing by the frontend according to the default protocol.
-- `POST /mock/sse/normal`: AG-UI SSE example interface, returns `text/event-stream`. The `data` field of each SSE is AG-UI event JSON. This interface is for demonstration purposes to facilitate joint debugging of frontend AG-UI parsing and rendering.
+- `POST /mock/sse/normal`: SSE demo endpoint. Returns `text/event-stream`. The `data` field of each SSE is JSON, which is convenient for the frontend to parse with the default protocol. This endpoint is for demo/debug only and does not call upstream models.
+- `POST /mock/sse/agui`: AG-UI SSE demo endpoint. Returns `text/event-stream`. The `data` field of each SSE is an AG-UI event JSON. This endpoint is for demo/debug only and does not call upstream models.
 
 ## Template Endpoints
 

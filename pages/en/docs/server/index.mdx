@@ -9,7 +9,7 @@ description: Umo Editor Server is a companion server-side software developed to 
 
 Umo Editor Server is a companion server-side software developed to enhance some features of Umo Editor Next, such as multi-user online collaborative editing, document comments, document import/export, etc. If you have already purchased the commercial license for Umo Editor Next, you can use Umo Editor Server for free under the [Umo Team Commercial Software License Agreement](./license).
 
-Umo Editor Server is a Nodejs server-side software based on [Express](https://expressjs.com/?hl=zh-CN). Its main function and purpose is to enhance the capabilities of Umo Editor Next through HTTP or WebSocket interfaces, supporting private deployment.
+Umo Editor Server is a Node.js server-side software based on [Express](https://expressjs.com/?hl=zh-CN). Its main function and purpose is to enhance the capabilities of Umo Editor Next through HTTP or WebSocket interfaces, supporting private deployment.
 
 Umo Editor Server is not distributed as an NPM package. After obtaining a commercial license, you can directly pull the source code from the private repository and modify and deploy it as needed.
 
@@ -40,8 +40,22 @@ SERVER_NAME = Umo Editor Server
 LOG_DIR = ./logs
 
 ## Database related
-SQLITE_DB_PATH = ./db
-SQLITE_DB_NAME = umo-editor-server.sqlite
+# All database connections use COLLAB_DB_URL
+# SQLite (default)
+COLLAB_DB_URL = sqlite:./db/umo-editor-server.sqlite
+#
+# MySQL
+# COLLAB_DB_URL = mysql://root:password@127.0.0.1:3306/umo_editor_server
+#
+# PostgreSQL
+# COLLAB_DB_URL = postgres://postgres:password@127.0.0.1:5432/umo_editor_server
+#
+# MongoDB
+# COLLAB_DB_URL = mongodb://user:password@127.0.0.1:27017/umo_editor_server
+#
+# S3 / MinIO
+# COLLAB_DB_URL = s3://your-bucket/umo_editor_server?region=ap-southeast-1
+# COLLAB_DB_URL = s3://your-bucket/umo_editor_server?region=us-east-1&endpoint=http://127.0.0.1:9000&forcePathStyle=1
 
 ## Collaboration related
 DOC_SAVE_INTERVAL = 5000 # Unit: milliseconds
@@ -67,14 +81,14 @@ After the above steps, you have successfully started Umo Editor Server. Visit ht
 
 ## Development Notes
 
-- For scenarios such as multi-user collaborative editing and document comments, Umo Editor Server provides detailed configuration and hook methods. By default, SQLite is used to store data (please use different document IDs for different documents). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For details, see the code comments.
-- You can deploy Umo Editor Server as a separate service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication Instructions](./server/auth)). If needed, please implement it yourself.
+- For scenarios such as multi-user collaborative editing, document comments, and document version history, Umo Editor Server provides detailed configuration and hook methods. By default, SQLite is used to store data (you can switch to MySQL/PostgreSQL/MongoDB/S3/MinIO via `COLLAB_DB_URL`). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For details, see the code comments.
+- You can deploy Umo Editor Server as a separate service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication Instructions](./auth)). If needed, please implement it yourself.
 - If you need secondary development, the source code provides a large number of detailed comments that should be very helpful to you.
 
 ## Deployment Notes
 
 - In an environment that supports `nodejs`, you can directly run the project using `npm run production`. This command provides the ability to use the `[pm2](https://pm2.io/)` daemon and record logs.
-- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed. For details, see [Docker Deployment](./server/docker).
+- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed. For details, see [Docker Deployment](./docker).
 
 ## Products from Umo Team
 

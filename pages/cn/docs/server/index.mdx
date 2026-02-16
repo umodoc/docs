@@ -39,8 +39,22 @@ SERVER_NAME = Umo Editor Server
 LOG_DIR = ./logs
 
 ## 数据库相关
-SQLITE_DB_PATH = ./db
-SQLITE_DB_NAME = umo-editor-server.sqlite
+# 所有数据库连接统一使用 COLLAB_DB_URL
+# SQLite（默认）
+COLLAB_DB_URL = sqlite:./db/umo-editor-server.sqlite
+
+#### MySQL
+# COLLAB_DB_URL = mysql://root:password@127.0.0.1:3306/umo_editor_server
+
+### PostgreSQL
+# COLLAB_DB_URL = postgres://postgres:password@127.0.0.1:5432/umo_editor_server
+
+### MongoDB
+# COLLAB_DB_URL = mongodb://user:password@127.0.0.1:27017/umo_editor_server
+
+### S3 / MinIO
+# COLLAB_DB_URL = s3://your-bucket/umo_editor_server?region=ap-southeast-1
+# COLLAB_DB_URL = s3://your-bucket/umo_editor_server?region=us-east-1&endpoint=http://127.0.0.1:9000&forcePathStyle=1
 
 ## 协作相关
 DOC_SAVE_INTERVAL = 5000 # 单位为毫秒
@@ -66,7 +80,7 @@ npm run dev
 
 ## 开发说明
 
-- 对于多人协作编辑、文档批注(评论)等场景，Umo Editor Server 提供了详尽的配置和钩子方法，默认采用 SQLite 存储数据（不同文档请使用不同的文档 id），您可以通过 `database`、`redis`、`sqlite`、`webhook` 等扩展和现有业务系统对接或通信，详细说明见代码注释；
+- 对于多人协作编辑、文档批注(评论)、文档历史版本管理等场景，Umo Editor Server 提供了详尽的配置和钩子方法，默认采用 SQLite 存储数据（通过 `COLLAB_DB_URL` 可切换为 MySQL/PostgreSQL/MongoDB/S3/MinIO 等），您也可以通过 `database`、`redis`、`sqlite`、`webhook` 等扩展和现有业务系统对接或通信，详细说明见代码注释；
 - 您可以将 Umo Editor Server 单独作为一个服务进行部署，通过网关、数据库、HTTP 请求等实现和其他业务系统的对接或通信。Umo Editor Server 目前不包含鉴权的实现（但提供了实现思路和示例代码，见[鉴权说明](./auth)），如果有需要，请自行实现；
 - 如果需要二次开发，源代码中提供了大量详尽的注释应该会对您非常有帮助。
 

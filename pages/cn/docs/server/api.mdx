@@ -30,7 +30,7 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 
 - `POST /ai/{provider}/chat/completions`：根据 provider 将请求动态代理到不同的 AI 服务商（如 DeepSeek、OpenAI等）。可根据需要进行扩展和修改。该接口的主要作用是将请求转发到指定的 AI 服务商，并返回符合 Umo Editor Next 中 AI 消息的响应结果。具体实现和使用方式请参考代码注释。
 
-## 文档协作、批注
+## 文档协作、批注、历史记录等
 
 - `GET /collaboration`：WebSocket 接口，应通过 ws(s):// 协议连接，该接口的大部分内容是以二进制的形式存储和传输。其配置和相关说明等见源代码。
 
