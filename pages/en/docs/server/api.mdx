@@ -30,6 +30,7 @@ A brief description of the currently provided interfaces is as follows. For more
 
 ## AI Service Provider Proxy
 
+- `POST /ai/suggestion`: AI smart suggestion endpoint for generating candidate continuations within the Umo Editor Next.
 - `POST /ai/{provider}/chat/completions`: Dynamically proxies requests to different AI service providers (e.g., DeepSeek, OpenAI, etc.) based on the `provider`. Can be extended and modified as needed. The main purpose of this interface is to forward requests to the specified AI service provider and return the response results that comply with the AI messages in Umo Editor Next. Please refer to the code comments for specific implementation and usage.
 
 ## Collaboration, Comments, Version History, etc.
