@@ -50,6 +50,14 @@ A brief description of the currently provided interfaces is as follows. For more
 - `PUT /template/:id`: Updates the template with the specified ID using the request body and returns the updated template details.
 - `DELETE /template/:id`: Deletes the template with the specified ID and returns the deletion result.
 
+## Asset Library Demo
+
+- `GET /mock/file`: List files and folders with pagination. Supports `parentId/keyword/type/pageIndex/pageSize`.
+- `GET /mock/file/:id`: Get file details by id.
+- `POST /mock/file/upload`: Upload a file (demo).
+- `POST /mock/file/folder`: Create a folder (demo).
+- `DELETE /mock/file/:id`: Delete a file or folder by id (demo).
+
 ## Icon List
 
 - `GET /icons`: Returns a list of all available icon information.

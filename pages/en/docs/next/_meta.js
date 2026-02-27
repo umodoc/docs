@@ -17,6 +17,7 @@ export default {
   markdown: 'Markdown Enhancement',
   table: 'Table Enhancement',
   template: 'Template Management',
+  'file-picker': 'Asset Library',
   other: 'Other Configurations',
   methods: 'Methods',
 }

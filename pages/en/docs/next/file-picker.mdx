@@ -1,0 +1,169 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+import { Callout } from 'nextra/components'
+
+# Asset Library
+
+Asset Library (File Picker) lets you browse and manage server-side files and folders. It supports search, type filtering, pagination, uploading, creating folders, deleting, downloading, and inserting selected items into the editor at the current cursor position.
+
+## Overview
+
+- Browse & navigate: root, breadcrumbs, back-to-parent, pagination
+- Search & filter: keyword search, type filter (image / video / audio / doc / other)
+- Select & confirm: single or multiple selection with a right-side info panel
+- Upload & manage: upload, create folder, delete, download
+- Insert into editor on confirm:
+  - image → `image` node
+  - video → `video` node
+  - audio → `audio` node
+  - others → `file` node
+
+## Options
+
+```js
+const defaultOptions = {
+  filePicker: {
+    enabled: false,
+    multiple: false,
+    pageSize: 40,
+    allowUpload: true,
+    allowDelete: true,
+    allowDownload: true,
+    allowCreateFolder: true,
+    multipleUpload: true,
+    onList: undefined,
+    onGet: undefined,
+    onUpload: undefined,
+    onCreateFolder: undefined,
+    onDelete: undefined,
+    onDownload: undefined,
+  },
+}
+```
+
+### filePicker.enabled
+
+Enable/disable Asset Library UI.
+
+Type: `Boolean`  
+Default: `false`
+
+### filePicker.multiple
+
+Enable multiple selection.
+
+Type: `Boolean`  
+Default: `false`
+
+### filePicker.pageSize
+
+Default page size for list requests.
+
+Type: `Number`  
+Default: `40`
+
+### filePicker.allowUpload / allowDelete / allowDownload / allowCreateFolder
+
+Enable/disable corresponding UI actions.
+
+Type: `Boolean`  
+Default: `true`
+
+### filePicker.multipleUpload
+
+Allow selecting multiple files per upload.
+
+Type: `Boolean`  
+Default: `true`
+
+## Server Integration
+
+Asset Library requires a set of async methods under `options.filePicker` for list/detail/upload/folder management.
+
+### filePicker.onList
+
+Fetch items in a folder (files and folders).
+
+Type: `async (params, ctx) => Result`
+
+Params:
+
+- `parentId`: `String` folder id (`root` for root)
+- `keyword`: `String`
+- `type`: `'all' | 'image' | 'video' | 'audio' | 'doc' | 'other'`
+- `pageIndex`: `Number` (starts from 1)
+- `pageSize`: `Number`
+
+### filePicker.onGet
+
+Fetch details for one item (optional).
+
+Type: `async (id, ctx) => Result`
+
+### filePicker.onUpload
+
+Upload a file.
+
+Type: `async (payload, ctx) => Result`
+
+Payload:
+
+- `file`: `File`
+- `dataUrl`: `String` base64 for images (optional)
+- `parentId`: `String`
+
+<Callout type="info" emoji="ℹ️">
+  Before uploading, Asset Library reuses <code>file.maxSize</code> for size validation and <code>file.allowedMimeTypes</code> for MIME validation.
+</Callout>
+
+### filePicker.onCreateFolder
+
+Create a folder.
+
+Type: `async ({ parentId, name }, ctx) => Result`
+
+### filePicker.onDelete
+
+Delete a file or folder.
+
+Type: `async (item, ctx) => Result`
+
+### filePicker.onDownload
+
+Custom download behavior (optional). If omitted, a default `<a download>` fallback is used.
+
+Type: `(item, ctx) => Result | void | Promise<Result | void>`
+
+## Insert Behavior
+
+When clicking “Confirm” in the Asset Library dialog, selected items are inserted into the editor.
+
+<Callout type="warning" emoji="⚠️">
+  Insert behavior depends on <code>mimeType</code> and <code>url</code> from your list items. If your API cannot provide <code>mimeType</code>, make sure <code>url</code> is valid; otherwise type detection or insertion may fail.
+</Callout>
+
+## Methods
+
+Asset Library methods are exposed on the editor instance (same style as other [Methods](./methods)).
+
+### openFilePicker
+
+Open Asset Library dialog.
+
+Parameters: `payload` (optional)
+
+- `currentFolderId`: open at a specific folder
+- `selected`: preset selection array
+- `type`: constrain type filter (`image` / `video` / `audio` / `all`)
+
+### closeFilePicker
+
+Close Asset Library dialog.
+
+### getFilePickerSelection
+
+Get current selection array.

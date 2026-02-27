@@ -50,6 +50,14 @@ Umo Editor Server 通过 http 或 websocket 接口的形式，增强 Umo Editor 
 - `PUT /template/:id`：更新模板，根据请求体更新指定 ID 的模板信息并返回更新后的模板详情信息。
 - `DELETE /template/:id`：删除模板，根据指定 ID 删除模板并返回删除结果信息。
 
+## 素材库示例
+
+- `GET /mock/file`：文件列表，分页返回文件列表，支持 parentId/keyword/type/pageIndex/pageSize 参数。
+- `GET /mock/file/:id`：文件详情，返回指定 ID 的文件详情信息。
+- `POST /mock/file/upload`：文件上传
+- `POST /mock/file/folder`：创建文件夹
+- `DELETE /mock/file/:id`：删除指定文件
+
 ## 图标列表
 
 - `GET /icons`：图标列表，返回所有可用的图标信息。

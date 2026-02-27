@@ -1,0 +1,278 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+---
+
+import { Callout } from 'nextra/components'
+
+# 素材库
+
+素材库用于从服务端拉取和管理文件 / 文件夹列表，支持搜索、类型筛选、分页、上传、创建文件夹、删除、下载等能力，并支持把选中的文件批量插入到编辑器光标位置。
+
+## 效果截图
+
+![Umo Editor 素材库](https://s2.umodoc.com/demos/file-picker-cn.png)
+
+## 功能概览
+
+- 浏览与导航：根目录、面包屑、返回上级、分页
+- 搜索与筛选：关键词搜索、类型筛选（图片 / 视频 / 音频 / 文档 / 其他）
+- 选择与确认：单选 / 多选，支持在右侧信息面板中选择/取消选择
+- 上传与管理：上传文件、新建文件夹、删除文件 / 文件夹、下载文件
+- 插入编辑器：确认后按类型插入对应节点
+  - 图片 → `image` 节点
+  - 视频 → `video` 节点
+  - 音频 → `audio` 节点
+  - 其他 → `file` 节点
+
+## 配置项示例
+
+```js
+const defaultOptions = {
+  filePicker: {
+    enabled: false,
+    multiple: true,
+    pageSize: 40,
+    allowUpload: true,
+    allowDelete: true,
+    allowDownload: true,
+    allowCreateFolder: true,
+    multipleUpload: true,
+    onList: undefined,
+    onDetail: undefined,
+    onUpload: undefined,
+    onCreateFolder: undefined,
+    onDelete: undefined,
+    onDownload: undefined,
+  },
+}
+```
+
+## 配置项说明
+
+### filePicker.enabled
+
+**说明**：是否启用素材库。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### filePicker.multiple
+
+**说明**：是否支持多选。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### filePicker.pageSize
+
+**说明**：文件列表默认分页大小。
+
+**类型**：`Number`
+
+**默认值**：`40`
+
+### filePicker.allowUpload
+
+**说明**：是否允许上传。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### filePicker.allowDelete
+
+**说明**：是否允许删除（包括文件与文件夹）。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### filePicker.allowDownload
+
+**说明**：是否允许下载。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### filePicker.allowCreateFolder
+
+**说明**：是否允许新建文件夹。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### filePicker.multipleUpload
+
+**说明**：上传时是否允许一次选择多个文件。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+## 事件与方法（服务端对接）
+
+素材库需要你提供一组异步方法用于与服务端交互（列表 / 详情 / 上传 / 创建文件夹 / 删除 / 下载等）。这些方法位于 `options.filePicker` 下。
+
+### filePicker.onList
+
+**说明**：获取文件列表。
+
+**类型**：`async (params, ctx) => Result`
+
+**参数**：
+
+- `params`：
+  - `parentId`：`String`，父级文件夹 ID（根目录为 `root`）
+  - `keyword`：`String`，关键词
+  - `type`：`'all' | 'image' | 'video' | 'audio' | 'doc' | 'other'`
+  - `pageIndex`：`Number`，页码（从 1 开始）
+  - `pageSize`：`Number`，每页数量
+- `ctx`：
+  - `server`：服务端配置（`options.server`）
+  - `container`：弹框挂载容器
+
+**返回值**（示例结构）：
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "f_001",
+      "type": "file",
+      "parentId": "root",
+      "name": "封面图-01.png",
+      "mimeType": "image/png",
+      "size": 123456,
+      "url": "https://example.com/a.png",
+      "thumbnailUrl": "https://example.com/a.png"
+    },
+    {
+      "id": "d_001",
+      "type": "folder",
+      "parentId": "root",
+      "name": "图片"
+    }
+  ],
+  "total": 128,
+  "pageIndex": 1,
+  "pageSize": 40,
+  "breadcrumb": [
+    { "id": "folder_assets", "name": "素材" }
+  ]
+}
+```
+
+### filePicker.onGet
+
+**说明**：获取文件详情（可选）。若提供，点击“查看详情”会拉取详情并更新右侧信息面板。
+
+**类型**：`async (id, ctx) => Result`
+
+### filePicker.onUpload
+
+**说明**：上传文件。
+
+**类型**：`async (payload, ctx) => Result`
+
+**参数**：
+
+- `payload`：
+  - `file`：`File`
+  - `dataUrl`：`String`，当上传的是图片时，组件会提供 base64（可选，便于直传或回显）
+  - `parentId`：`String`
+
+<Callout type="info" emoji="ℹ️">
+  素材库上传前会复用 `file.maxSize` 做大小校验；超限会提示并跳过该文件。同时会复用 `file.allowedMimeTypes` 做 MIME 类型校验；若文件类型不在允许列表中，则不允许上传。
+</Callout>
+
+### filePicker.onCreateFolder
+
+**说明**：创建文件夹。
+
+**类型**：`async ({ parentId, name }, ctx) => Result`
+
+### filePicker.onDelete
+
+**说明**：删除文件或文件夹（文件夹建议递归删除）。
+
+**类型**：`async (item, ctx) => Result`
+
+### filePicker.onDownload
+
+**说明**：自定义下载行为（可选）。若未提供，组件会用 `<a download>` 进行默认下载。
+
+**类型**：`(item, ctx) => Result | void | Promise<Result | void>`
+
+## 插入行为
+
+在素材库弹框点击“确定”后，组件会把选中的条目插入到编辑器：
+
+- 图片：插入 `image` 节点
+- 视频：插入 `video` 节点
+- 音频：插入 `audio` 节点
+- 其他：插入 `file` 节点
+
+<Callout type="warning" emoji="⚠️">
+  素材库插入依赖条目字段 <code>mimeType</code> 与 <code>url</code>。如果你的服务端返回没有 mimeType，请至少保证 url 可用；否则将无法正确判断节点类型或无法插入。
+</Callout>
+
+## 方法
+
+素材库相关方法通过编辑器实例对外暴露，你可以通过 ref 调用（使用方式同 [方法列表](../editor/methods)）。
+
+### openFilePicker
+
+**说明**：打开素材库弹框。
+
+**参数**：`payload`（可选）
+
+- `type`：打开的素材库类型，可选值：`'all' | 'image' | 'video' | 'audio' | 'doc' | 'other'`
+- `currentFolderId`：打开时定位到指定目录
+- `selected`：预置已选列表（数组）
+
+**示例**：
+
+```vue
+<template>
+  <umo-editor ref="editorRef" v-bind="options" />
+  <button @click="open">打开素材库</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const editorRef = ref(null)
+const options = ref({
+  filePicker: {
+    enabled: true,
+  },
+})
+
+const open = () => {
+  editorRef.value?.openFilePicker?.({
+    currentFolderId: 'root',
+  })
+}
+</script>
+```
+
+### closeFilePicker
+
+**说明**：关闭素材库弹框。
+
+**参数**：无
+
+### getFilePickerSelection
+
+**说明**：获取当前已选列表。
+
+**参数**：无
+
+**返回值**：`Array`
