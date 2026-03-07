@@ -16,6 +16,7 @@ export default {
   export: '文档导出',
   markdown: 'Markdown 增强',
   table: '表格增强',
+  locked: '内容锁定',
   template: '模板管理',
   'file-picker': '素材库',
   other: '其他配置',

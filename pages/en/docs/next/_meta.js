@@ -16,6 +16,7 @@ export default {
   export: 'Export',
   markdown: 'Markdown Enhancement',
   table: 'Table Enhancement',
+  locked: 'Content Locking',
   template: 'Template Management',
   'file-picker': 'Asset Library',
   other: 'Other Configurations',
