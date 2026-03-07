@@ -20,6 +20,28 @@ Content Locking protects key parts of a document from accidental edits. Once loc
 - **Training material reuse**: lock standard tutorial blocks and update only examples.
 - **Post-AI finalization**: lock finalized sections to prevent further AI/manual overwrite.
 
+### Implementation Pattern (Template Authoring → Business Filling)
+
+All scenarios above can be implemented with a two-role workflow: template author + filler.
+
+1. The **template author** enables content locking during template design and builds the template skeleton.  
+2. Lock fixed sections (contracts, policy clauses, prompts, announcement body, legally reviewed clauses), and keep only variable fields editable.  
+3. Save and distribute the template to business fillers.  
+4. The **filler** opens the template and fills only editable areas, without needing to enable lock operation entries.  
+5. If structural changes are required during filling, the template author or admin enters maintenance flow: unlock, adjust, relock, and republish.  
+
+> Recommendation: In collaboration mode, let template authors maintain lock strategy centrally, while fillers focus on data entry. This significantly reduces accidental edits and structure drift.
+
+```mermaid
+flowchart LR
+  A[Author enables locking and designs template] --> B[Lock fixed sections and publish]
+  B --> C[Filler edits only unlocked areas]
+  C --> D{Need structural change?}
+  D -- No --> E[Submit or circulate]
+  D -- Yes --> F[Author/admin unlocks, updates and republishes]
+  F --> C
+```
+
 ## Entry Points
 
 ### View Menu
