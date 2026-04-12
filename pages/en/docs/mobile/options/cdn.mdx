@@ -1,0 +1,75 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,CDN configuration,cdnUrl,static assets,Vue3
+description: This section introduces the CDN configuration approach in Umo Editor Mobile, including the default value, local hosting strategy, and the differences from desktop.
+---
+
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# CDN Configuration
+
+Used to configure the CDN path. To reduce the core package size of Umo Editor Mobile and improve loading speed, the mobile editor references some external static assets through `cdnUrl`. These resources typically include third-party libraries, icons, or runtime supplementary files.
+
+## Default Configuration
+
+```js
+{
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
+}
+```
+
+## Use a Public CDN
+
+```js
+{
+  // Use unpkg.com
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
+  // Or use jsdelivr.net
+  // cdnUrl: 'https://cdn.jsdelivr.net/npm/@umoteam/editor-external@latest',
+}
+```
+
+## Use Local Assets
+
+If you want to use the editor in an intranet, private network, or weak-network environment, it is recommended to host the resources from `@umoteam/editor-external` on your own static asset service and then point `cdnUrl` to that path.
+
+You can place the resources in your project’s `public/` directory or in the static file service of your own business system.
+
+<Tabs items={['Windows', 'Linux / MacOS / Others']}>
+<Tabs.Tab>
+```bat
+mkdir public\libs
+mkdir public\icons
+mkdir public\static
+xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
+xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
+xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs public/icons public/static
+cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
+cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
+cp -r node_modules/@umoteam/editor-external/static/* public/static/
+```
+</Tabs.Tab>
+</Tabs>
+
+## Configuration Item
+
+### cdnUrl
+
+**Description**: CDN path.
+
+**Type**: `String`
+
+**Default**: `https://unpkg.com/@umoteam/editor-external@latest`
+
+**Valid value**: a valid [URL](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL) value that should not end with `/`.
+
+## Notes
+
+- In WebView or private container scenarios, it is recommended to prioritize your own static asset address to avoid external CDN availability affecting the user experience. <Badge theme="warning">Different on Mobile</Badge>

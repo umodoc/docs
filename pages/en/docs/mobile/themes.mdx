@@ -1,0 +1,188 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,theme customization,theme,dark mode,CSS variables,Vue3
+description: This section introduces theme and style customization in Umo Editor Mobile, including theme modes, CSS variables, and the differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Themes
+
+Umo Editor Mobile mainly defines its theme tokens using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), so the recommended way to customize branding and themes is to override CSS variables.
+
+## Dark Theme
+
+Mobile supports three theme modes:
+
+- `light`
+- `dark`
+- `auto`
+
+### Theme Configuration
+
+See [Theme Configuration](./options/theme).
+
+### Theme Methods
+
+See [Methods](./methods#settheme).
+
+### Theme Events
+
+See [Events](./events).
+
+## CSS Variables
+
+Below is a subset of commonly used CSS variables on mobile. For the full variable definition, refer to the mobile source code style variable file.
+
+```css
+:root {
+  /* Theme colors */
+  --umo-primary-color: #3480f9;
+  --umo-color-white: #fff;
+  --umo-color-black: #000;
+
+  /* Status colors */
+  --umo-warning-color: #f6913e;
+  --umo-error-color: #f5433a;
+
+  /* Navigation bar height */
+  --umo-navbar-height: 52px;
+
+  /* Container background */
+  --umo-container-background: #f7f8f9;
+  --umo-container-background-light: #fff;
+
+  /* Text selection background */
+  --umo-text-selection-background: #94cfff;
+
+  /* Typography */
+  --umo-font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --umo-font-size: 14px;
+  --umo-font-size-small: 12px;
+  --umo-text-color: #222;
+  --umo-text-color-light: #999;
+  --umo-text-color-disabled: #a7abac;
+
+  /* Buttons */
+  --umo-button-color: #384259;
+  --umo-button-icon-color: #596170;
+  --umo-button-background: #f0f3f6;
+  --umo-button-hover-background: #e8ecf0;
+  --umo-button-active-background: #e2e7ee;
+  --umo-button-active-color: var(--umo-primary-color);
+  --umo-button-disabled-opacity: 0.45;
+
+  /* Borders */
+  --umo-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  --umo-border: solid 0.5px #ddd;
+  --umo-border-dark: solid 0.5px #ccc;
+  --umo-border-light: solid 0.5px #eee;
+
+  /* Radius */
+  --umo-radius: 5px;
+  --umo-radius-medium: 9px;
+
+  /* Motion rhythm */
+  --umo-motion-duration-fast: 180ms;
+  --umo-motion-duration-base: 220ms;
+  --umo-motion-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --umo-interactive-duration: var(--umo-motion-duration-fast);
+  --umo-interactive-ease: var(--umo-motion-ease-standard);
+
+  /* Popups */
+  --umo-popup-title-color: var(--umo-text-color-light);
+  --umo-popup-content-padding: 18px;
+  --umo-popup-max-height: max(60vh, 320px);
+  --umo-tooltip-content-padding: 6px 10px;
+  --umo-mask-color: rgba(0, 0, 0, 0.15);
+
+  /* Editor */
+  --umo-content-placeholder-color: #999;
+  --umo-content-text-color: #000;
+  --umo-content-node-border: #e7e7e7;
+  --umo-content-node-radius: var(--umo-radius);
+  --umo-content-node-bottom: 0.75em;
+  --umo-content-node-selected-background: #f5f8fc;
+  --umo-content-table-border-color: #333;
+  --umo-content-table-thead-background: #f1f3f5;
+  --umo-content-table-selected-background: rgba(200, 200, 255, 0.4);
+  --umo-content-line-number-color: #e7e8ea;
+  --umo-content-search-result-background: #fefc7ef2;
+  --umo-content-search-result-current-background: #0dff00c3;
+  --umo-content-invisible-break-color: rgb(78, 139, 252);
+  --umo-content-code-color: var(--umo-primary-color);
+  --umo-content-code-background: #f1f3f5;
+  --umo-content-code-family:
+    Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+}
+
+[theme-mode='dark'] {
+  /* Theme colors */
+  --umo-color-white: #232529;
+  --umo-color-black: #fff;
+
+  /* Status colors */
+  --umo-warning-color: rgb(207, 110, 45);
+  --umo-error-color: rgb(198, 71, 81);
+
+  /* Backgrounds */
+  --umo-container-background: #363a3e;
+  --umo-container-background-light: #2c2f33;
+
+  /* Typography */
+  --umo-text-color: rgba(255, 255, 255, 0.9);
+  --umo-text-color-light: rgba(255, 255, 255, 0.7);
+  --umo-text-color-disabled: rgba(255, 255, 255, 0.5);
+
+  /* Buttons */
+  --umo-button-color: #bcc6de;
+  --umo-button-icon-color: #bcc6de;
+  --umo-button-background: #1c1e20;
+  --umo-button-hover-background: #2b2c32;
+  --umo-button-active-background: #454a54;
+
+  /* Borders */
+  --umo-border: solid 0.5px rgba(255, 255, 255, 0.1);
+  --umo-border-dark: solid 0.5px rgba(255, 255, 255, 0.2);
+  --umo-border-light: solid 0.5px rgba(255, 255, 255, 0.06);
+}
+```
+
+## Example
+
+```vue
+<template>
+  <div class="theme-demo">
+    <umo-editor v-bind="options" />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+</script>
+
+<style>
+.theme-demo {
+  --umo-primary-color: #e53935;
+  --umo-button-background: #f8f3f3;
+  --umo-navbar-height: 56px;
+}
+</style>
+```
+
+## Recommendations
+
+- If you only need to switch between light and dark mode, prefer the `theme` configuration.
+- If you need branding adaptation, it is recommended to override editor-related CSS variables or add supplemental styles at the business layer.
+- If you need deep UI customization, first verify whether it affects consistency across the mobile navigation bar, bottom toolbar, popup panels, and read-only styling.
+
+## Key Differences from Desktop
+
+- Mobile does not provide the desktop `skin` appearance configuration item, so theme customization should revolve around `theme` and CSS variables. <Badge theme="danger">Not Supported</Badge>
+- Mobile variables are more heavily designed around navigation bars, bottom toolbar interactions, popup panels, and touch buttons. <Badge theme="warning">Different on Mobile</Badge>

@@ -1,0 +1,203 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,mobile editor,Vue3,Tiptap3,H5 editor,WebView editor
+description: This section introduces installation, registration, and the minimum integration approach for Umo Editor Mobile, helping you quickly integrate a mobile document editor into your Vue3 project.
+---
+
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Getting Started
+
+Umo Editor Mobile is a mobile document editor built with Vue3 and Tiptap3, designed for touch-first scenarios such as H5 pages, WebView, and Hybrid containers.
+
+In actual delivery, it is typically not integrated directly from a public NPM package. Instead, it is usually integrated via packaged artifacts provided through an official private repository or by building from the source repository yourself.
+
+You can first try the real product experience at:
+
+- Website: [https://mobile.umodoc.com](https://mobile.umodoc.com)
+- Online Demo: [https://em.umodoc.com](https://em.umodoc.com)
+
+## View the Integration Example
+
+In addition to packaged artifacts, the official code repository also includes a basic integration example. You can run it directly for a quick hands-on experience and use the example code as a reference for your own integration.
+
+### 1. Install Dependencies
+
+Run this in the repository root:
+
+```sh npm2yarn
+npm install
+```
+
+### 2. Start the Example
+
+```sh npm2yarn
+npm run dev
+```
+
+### 3. Reference the Example Code
+
+The core integration example is located in `src/app.vue`. You can use that file as a reference to see how Umo Editor Mobile is initialized and configured in a Vue3 project.
+
+## Use the Official Packaged Build
+
+### 1. Copy the Packaged Build
+
+```sh npm2yarn
+npm install --save ./umoteam-editor-mobile-xxx.tgz
+```
+
+<Callout type="warning" emoji="⚠️">
+  <strong>Note</strong>: the mobile package name is <code>@umoteam/editor-mobile</code>,
+  but in commercial delivery it is usually installed from a local <code>.tgz</code> package
+  rather than directly from a public NPM registry.
+</Callout>
+
+### 2. Ready to Use
+
+After the steps above, Umo Editor Mobile has been installed successfully and is ready to use in your project.
+
+## Build It Yourself
+
+If you receive the full source repository, you can also build it yourself.
+
+### 1. Install Dependencies and Build
+
+```sh npm2yarn
+npm install
+npm run build
+```
+
+### 2. Install the Packaged Output
+
+After building it yourself, copy the final package or the officially required packaged output into your business project, then install it the same way as described in the previous section, "Use the Official Packaged Build".
+
+<Callout type="warning" emoji="⚠️">
+  The actual delivery format after building should follow the commercial delivery instructions or the release rules defined in your private repository.
+</Callout>
+
+## Basic Usage
+
+Once installation is complete, you can use either of the following integration approaches.
+
+### Global Installation
+
+```js filename="main.js"
+import { createApp } from 'vue'
+import App from './App.vue'
+import { useUmoEditor } from '@umoteam/editor-mobile'
+
+const app = createApp(App)
+
+app.use(useUmoEditor, {
+  locale: 'zh-CN',
+})
+
+app.mount('#app')
+```
+
+### Direct Import
+
+```vue filename="component.vue"
+<template>
+  <div class="editor-shell">
+    <umo-editor v-bind="options" />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import UmoEditor from '@umoteam/editor-mobile'
+
+const options = ref({
+  document: {
+    title: 'Test Document',
+    content: '<p>Hello Umo Editor Mobile</p>',
+  },
+  async onSave(content, page, document) {
+    console.log('save', { content, page, document })
+    return 'Saved successfully'
+  },
+})
+</script>
+
+<style scoped>
+.editor-shell {
+  width: 100dvw;
+  height: 100dvh;
+}
+</style>
+```
+
+## Minimum Working Configuration
+
+To make sure the editor can enter a normal "edit + save" workflow, we recommend providing at least the following configuration:
+
+- `document.title`: the document title.
+- `document.content`: the initial content, which can be an HTML string.
+- `onSave`: an async save method. If not provided, the default implementation throws an error.
+- `document.readOnly`: set this to `true` if you only need read-only mode.
+
+```js
+const options = {
+  document: {
+    title: 'Test Document',
+    content: '<p>Hello Umo Editor Mobile</p>',
+  },
+  async onSave(content) {
+    await api.save(content.html)
+    return 'Saved successfully'
+  },
+}
+```
+
+## Common Integration Scenarios
+
+### Use in Nuxt / SSR Scenarios
+
+```vue {2,4} filename="component.vue"
+<template>
+  <client-only>
+    <umo-editor v-bind="options" />
+  </client-only>
+</template>
+
+<script setup>
+import UmoEditor from '@umoteam/editor-mobile'
+
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+</script>
+```
+
+<Callout type="warning" emoji="⚠️">
+  <strong>Note</strong>: the mobile editor depends on browser APIs and DOM
+  capabilities. There is currently no official Nuxt module, so in SSR scenarios
+  you should use <code>client-only</code> or an equivalent mechanism to ensure it
+  renders only on the client.
+</Callout>
+
+### Use in Non-Vue3 Projects
+
+If your business project is not based on Vue3, the recommended approach is to package an independent Vue3 page or sub-application as an H5 page, then embed it through `WebView`, `iframe`, or a micro-frontend container.
+
+<Callout type="info" emoji="ℹ️">
+  Umo Editor Mobile is essentially a Vue3 component library rather than a
+  framework-agnostic runtime. For non-Vue3 projects, the recommended approach is
+  "a standalone mobile page + container embedding".
+</Callout>
+
+## Integration Recommendations
+
+- The editor should ideally occupy a dedicated page, with the editor container sized to `100dvh` in height and `100dvw` in width.
+- If your use case is reading or approval only, prefer `document.readOnly: true` so the editor opens directly in read-only mode.
+- If your business workflow includes document rename, file upload, or file deletion, implement `onRename`, `onFileUpload`, and `onFileDelete` as needed.
+- Mobile supports both `web` and `page` layouts by default. The initial layout is determined by `page.layouts[0]`, and the default value is `['web', 'page']`.
+
+## Configuration
+
+See [Configuration](./options/default) for the full configuration reference.

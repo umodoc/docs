@@ -1,0 +1,66 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,template configuration,templates,document templates,Vue3,Tiptap3
+description: This section introduces the template configuration in Umo Editor Mobile, used to provide preset template capabilities when creating or inserting content.
+---
+
+import { Badge } from '/components/badge'
+
+# Template Configuration
+
+Used to configure the document template list. Through `templates`, business code can inject a set of template data in advance for mobile use when inserting or creating content.
+
+## Default Configuration
+
+```js
+{
+  templates: [],
+}
+```
+
+## Configuration Item
+
+### templates
+
+**Description**: template list.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+Each template usually contains at least the following fields:
+
+- `title`: template title
+- `description`: template description
+- `content`: template content
+
+Business code can also add custom fields such as `cover`, `id`, and `category` as needed and use them at the business layer.
+
+## Usage Example
+
+```js
+const options = {
+  templates: [
+    {
+      title: 'Meeting Minutes',
+      description: 'Suitable for meeting records and conclusion organization',
+      content: '<h1>Meeting Minutes</h1><p>Please enter the main content</p>',
+    },
+    {
+      title: 'Inspection Record',
+      description: 'Suitable for on-site mobile inspection entry',
+      content: '<h1>Inspection Record</h1><p>Please enter the inspection results</p>',
+    },
+  ],
+}
+```
+
+## Recommendations
+
+- If the template content is simple, it can be configured statically on the front end.
+- If templates need to be managed centrally by the server, it is recommended to fetch them at the business layer and then pass them into the editor.
+- If the template structure is complex, validate its rendering in both `page` and `web` layouts.
+
+## Key Differences from Desktop
+
+- Mobile is better suited to exposing a small number of high-frequency templates, and it is not recommended to expose too many template entry points at once, to avoid affecting touch interaction efficiency. <Badge theme="warning">Different on Mobile</Badge>

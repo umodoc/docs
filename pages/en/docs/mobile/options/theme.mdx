@@ -1,0 +1,35 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,theme configuration,theme options,dark mode,Vue3,Tiptap3
+description: This section introduces the theme configuration in Umo Editor Mobile, including light mode, dark mode, and system-following mode, and highlights the differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Theme Configuration
+
+Used to configure the theme mode of Umo Editor Mobile, supporting light mode, dark mode, and follow-system mode.
+
+## Default Configuration
+
+```js
+{
+  theme: 'light',
+}
+```
+
+## Configuration Items
+
+### theme
+
+**Description**: default theme mode.
+
+**Type**: `String`
+
+**Default**: `light`
+
+**Optional values**: `light`, `dark`, `auto`
+
+## Key Differences from Desktop
+
+- `skin` <Badge theme="danger">Not Supported</Badge>: mobile does not provide the desktop appearance configuration item and only supports `theme`.

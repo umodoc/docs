@@ -1,0 +1,70 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,features,mobile editor,Vue3,Tiptap3,H5 editor
+description: This section introduces the core features and capability boundaries of Umo Editor Mobile, helping developers quickly understand its position in mobile scenarios and how it differs from the desktop version.
+---
+
+import { Badge } from '/components/badge'
+
+# Features
+
+Umo Editor Mobile is a document editor designed independently for touch-first scenarios, rather than a simple trimmed-down version of the desktop UI.
+
+It organizes its capabilities around the core mobile workflow of "preview, edit, save, and leave", while keeping configuration semantics, method naming, and the extension system as aligned with Umo Editor and Umo Editor Next as possible.
+
+## Core Capabilities
+
+### Unified Preview and Editing
+
+- Supports stable preview of same-source documents on mobile.
+- Supports switching between read-only mode and edit mode.
+- Supports both `web` and `page` layout modes.
+- Includes mobile-specific entry points such as outline, search, the more panel, and the bottom toolbar.
+
+### Touch-First Interactions
+
+- The navigation bar, TabBar, bottom toolbar, and popup panels are all designed around mobile interaction habits. <Badge theme="primary">Mobile-Only</Badge>
+- Supports zoom, fit-to-width behavior, and gestures in page view. <Badge theme="primary">Mobile-Only</Badge>
+- Handles the extra spacing and input obstruction issues that can happen when the soft keyboard appears. <Badge theme="primary">Mobile-Only</Badge>
+
+### Complete Save State Machine
+
+- Supports manual save, auto-save, and unsaved-change detection.
+- Supports leave confirmation and recovery actions when there are unsaved changes.
+- Supports single-flight save merging to reduce race conditions between manual save and auto-save.
+- Supports recovery paths after save failure, including retry, copy content, and retry later. <Badge theme="primary">Mobile-Only</Badge>
+
+### Configuration, Events, and Methods Aligned with Desktop
+
+- The top-level configuration structure stays as close to the desktop version as possible.
+- Key public method names stay as aligned with the desktop version as possible.
+- Key events cover high-frequency scenarios such as content updates, page settings, language/theme changes, and read/edit mode switching.
+
+### Complete Extension Capability
+
+- Supports built-in extensions.
+- Supports disabling built-in extensions through `disableExtensions`.
+- Supports appending custom extensions through `extensions`.
+- Supports overriding default copy through `translations`.
+
+## Typical Scenarios
+
+- Standalone mobile editor
+- H5 / WebView document editing pages
+- Approval, inspection, meeting notes, and field records
+- Mobile document preview with light editing
+- Multi-platform collaborative systems sharing the same document model as the desktop version
+
+## Key Differences from Desktop
+
+- Different interaction structure <Badge theme="warning">Different on Mobile</Badge>: mobile is centered around the navigation bar, bottom TabBar, bottom toolbar, and popup panels, rather than the desktop top toolbar and complex side areas.
+- Different capability focus <Badge theme="warning">Different on Mobile</Badge>: mobile prioritizes reading, lightweight editing, saving, and leave flows, while desktop focuses more on complex productivity.
+- Different capability boundaries <Badge theme="danger">Partially Unsupported</Badge>: printing, fullscreen, AI Chat, some tool panels, and some desktop events/methods are not yet exposed on mobile. More details are described in the [Roadmap](./roadmap).
+- Different default view priority <Badge theme="warning">Different on Mobile</Badge>: mobile defaults to `web` layout instead of page layout.
+- More app-like entry points for outline, search, and the more panel, all managed by internal component state. <Badge theme="primary">Mobile-Only</Badge>
+
+## Recommended Reading Order
+
+- If you are integrating for the first time, start with [Getting Started](./getting-started) and [Configuration](./options/default).
+- If you are doing business integration, focus on [Events](./events) and [Methods](./methods).
+- If you need capability trimming or secondary development, continue with [Slots](./slots) and [Extensions](./extensions).

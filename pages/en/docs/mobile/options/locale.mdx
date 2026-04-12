@@ -1,0 +1,58 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,localization,locale configuration,i18n,Vue3,Tiptap3
+description: This section introduces the language configuration and translation override mechanism in Umo Editor Mobile and highlights the differences from Umo Editor and Umo Editor Next.
+---
+
+# Localization Configuration
+
+Used to configure the default locale and custom translation content in Umo Editor Mobile. The currently built-in locales are `zh-CN` and `en-US`.
+
+## Default Configuration
+
+```js
+{
+  locale: 'zh-CN',
+  translations: {
+    en_US: {},
+    zh_CN: {},
+  },
+}
+```
+
+## Configuration Items
+
+### locale
+
+**Description**: default locale.
+
+**Type**: `String`
+
+**Default**: `zh-CN`
+
+**Optional values**: `zh-CN`, `en-US`
+
+**Additional notes**:
+
+- The runtime will prioritize the locale setting stored in local cache.
+- If `auto` is passed, it is internally normalized to either `zh-CN` or `en-US` based on the browser language.
+
+### translations
+
+**Description**: custom translation override object.
+
+**Type**: `Object`
+
+**Default**: `{ en_US: {}, zh_CN: {} }`
+
+**Optional values**:
+
+- `translations.zh_CN`
+- `translations.en_US`
+
+The provided translation content is merged with the built-in language pack and can be used to override default copy.
+
+## Recommendations
+
+- If your business only needs Chinese and English, prefer overriding default copy through `translations`.
+- If your business page contains multiple editor instances, it is recommended to control the default locale centrally at the business layer to avoid inconsistent experience caused by local cache.

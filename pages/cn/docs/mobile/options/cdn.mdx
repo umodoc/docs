@@ -1,0 +1,75 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,CDN配置,cdnUrl,静态资源,Vue3
+description: 本节介绍 Umo Editor Mobile 的 CDN 配置方式，包括默认值、本地托管思路以及与桌面端的差异。
+---
+
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# CDN 配置
+
+用于配置 CDN 路径。为了减小 Umo Editor Mobile 核心包体积并提升加载速度，移动端编辑器通过 `cdnUrl` 引用部分外部静态资源，这些资源通常包括第三方库、图标或运行时所需的补充文件。
+
+## 默认配置
+
+```js
+{
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
+}
+```
+
+## 使用公共 CDN
+
+```js
+{
+  // 使用 unpkg.com
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
+  // 或使用 jsdelivr.net
+  // cdnUrl: 'https://cdn.jsdelivr.net/npm/@umoteam/editor-external@latest',
+}
+```
+
+## 使用本地资源
+
+如果您希望在内网环境、私有网络或弱网场景中使用，推荐将 `@umoteam/editor-external` 的资源托管到自己的静态资源服务，再将 `cdnUrl` 指向对应路径。
+
+可以将资源放到项目的 `public/` 目录或业务系统自己的静态文件服务中。
+
+<Tabs items={['Windows', 'Linux / MacOS / Others']}>
+<Tabs.Tab>
+```bat
+mkdir public\libs
+mkdir public\icons
+mkdir public\static
+xcopy node_modules\@umoteam\editor-external\libs\* public\libs\ /E /I
+xcopy node_modules\@umoteam\editor-external\icons\* public\icons\ /E /I
+xcopy node_modules\@umoteam\editor-external\static\* public\static\ /E /I
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```bash
+mkdir -p public/libs public/icons public/static
+cp -r node_modules/@umoteam/editor-external/libs/* public/libs/
+cp -r node_modules/@umoteam/editor-external/icons/* public/icons/
+cp -r node_modules/@umoteam/editor-external/static/* public/static/
+```
+</Tabs.Tab>
+</Tabs>
+
+## 配置项说明
+
+### cdnUrl
+
+**说明**：CDN 路径。
+
+**类型**：`String`
+
+**默认值**：`https://unpkg.com/@umoteam/editor-external@latest`
+
+**配置项**：合法的 [URL](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL) 值，且不要以 `/` 结尾。
+
+## 说明
+
+- 在 WebView 或私有容器场景下，建议优先使用自有静态资源地址，避免外网 CDN 可用性影响体验。<Badge theme="warning">移动端不同</Badge>

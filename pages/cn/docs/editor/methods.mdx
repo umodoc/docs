@@ -94,11 +94,8 @@ const getOptions = () => {
 
 **参数**：Object，包含要设置的文档信息。
 
-- `title`: String，文档标题。
-- `bubbleMenu`: Boolean，是否启用气泡菜单。
-- `blockMenu`: Boolean，是否启用块级菜单。
-- `markdown`: Boolean，是否启用 Markdown 语法。
-- `spellcheck`: Boolean，是否启用浏览器拼写检查。
+- 常见字段如：`title`、`content`、`readOnly`、`placeholder`、`autoSave` 等。
+- 请优先使用对应 `document.*` 配置中的真实字段名，例如 `enableBubbleMenu`、`enableMarkdown`、`enableSpellcheck`。
 
 **返回值**：无。
 
@@ -245,15 +242,15 @@ const getOptions = () => {
 
 ### getEditor
 
-**说明**：获取 Editor 的 Vue 实例。
+**说明**：获取内部编辑器的 `ref`。
 
 **参数**：无。
 
-**返回值**：Tiptap Editor 的 Vue 实例。
+**返回值**：编辑器 `ref`
 
 ### useEditor
 
-**说明**：获取 Editor 的实例。 <Badge theme="success">v4.6.0 新增</Badge>
+**说明**：获取 Tiptap Editor 实例。 <Badge theme="success">v4.6.0 新增</Badge>
 
 **参数**：无。
 

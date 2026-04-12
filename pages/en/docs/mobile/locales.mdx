@@ -1,0 +1,34 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,locales,locale,i18n,translations,Vue3
+description: This section introduces the currently supported language scope, extension methods, and limitations in Umo Editor Mobile, and explains how it differs from desktop.
+---
+
+# Locales
+
+Umo Editor Mobile includes built-in support for Simplified Chinese and English. If you need additional languages, you currently need to extend them yourself and rebuild the code.
+
+## Officially Supported Languages
+
+- Simplified Chinese `zh-CN`
+- English `en-US`
+
+The current language packs are located in `src/locales/zh-CN.json` and `src/locales/en-US.json` in the mobile source code.
+
+## How to Use Language Configuration
+
+- Top-level locale configuration: see [Localization Configuration](./options/locale)
+- Runtime locale switching: see [Methods](./methods#setlocale)
+- Locale switch events: see [Events](./events)
+
+## Current Capability Boundary
+
+- Runtime locale switching currently supports only `zh-CN` and `en-US`.
+- Default copy can be overridden through `translations`.
+- `locale: 'auto'` can be used to automatically choose Chinese or English based on the browser language.
+
+## How to Extend Languages
+
+If you need to support more languages, you can refer to the structure of `zh-CN` and `en-US`, add new language files in the mobile source code, and modify the i18n initialization logic before rebuilding.
+
+If you only need to adjust a small amount of existing copy, it is usually recommended to override it through `translations` rather than modifying the built-in language files directly.

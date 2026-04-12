@@ -1,0 +1,72 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,插槽,slots,Vue3,Tiptap3,移动端编辑器
+description: 本节介绍 Umo Editor Mobile 当前支持的插槽，并标注与 Umo Editor / Umo Editor Next 的差异，便于开发者进行界面扩展。
+---
+
+import { Badge } from '/components/badge'
+
+# 插槽
+
+Umo Editor Mobile 当前仅开放少量高价值插槽，用于在不破坏移动端整体交互结构的前提下，补充业务动作与自定义菜单内容。
+
+与 Umo Editor / Umo Editor Next 相比，移动端不提供 `toolbar_*` 插槽。
+
+## 当前支持的插槽
+
+### navbar_edit_actions
+
+**说明**：在编辑态导航栏右侧追加自定义操作。
+
+**插槽参数**：无
+
+### navbar_view_actions
+
+**说明**：在阅读态导航栏右侧追加自定义操作。
+
+**插槽参数**：无
+
+### bubble_menu
+
+**说明**：在气泡菜单末尾追加自定义菜单项。
+
+**插槽参数**：
+
+- `node-type`：当前选中节点类型
+- `node-attrs`：当前选中节点属性
+
+## 使用示例
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #navbar_edit_actions>
+      <button type="button">帮助</button>
+    </template>
+
+    <template #navbar_view_actions>
+      <button type="button">帮助</button>
+    </template>
+
+    <template #bubble_menu="props">
+      <button type="button">节点类型：{{ props['node-type'] }}</button>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const options = ref({
+  async onSave() {
+    return '保存成功'
+  },
+})
+</script>
+```
+
+## 与桌面端的主要差异
+
+- `toolbar_base_*` <Badge theme="danger">不支持</Badge>
+- 移动端插槽更少 <Badge theme="warning">移动端不同</Badge>：当前只开放导航栏与气泡菜单 3 个插槽。
+- 导航栏插槽更符合移动端业务接入习惯 <Badge theme="primary">移动端特有</Badge>，适合追加帮助、业务按钮等高频操作。

@@ -1,0 +1,72 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,文件上传配置,file配置,移动端附件,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的文件上传与删除相关配置，包括文件类型限制、大小限制以及与桌面端不同的预览能力边界。
+---
+
+import { Badge } from '/components/badge'
+
+# 文件上传配置
+
+用于配置 Umo Editor Mobile 的文件上传限制与附件删除回调。
+
+与 Umo Editor / Umo Editor Next 相比，移动端更强调“上传后在当前容器内预览或播放”，不支持桌面端文档中基于第三方 URL 的通用预览方案。 <Badge theme="warning">移动端不同</Badge>
+
+## 默认配置
+
+```js
+{
+  file: {
+    allowedMimeTypes: [],
+    maxSize: 1024 * 1024 * 100,
+  },
+}
+```
+
+## 配置项说明
+
+### file.allowedMimeTypes
+
+**说明**：允许上传的 MIME 类型列表，空数组表示不做类型限制。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+**可选值**：合法的 [MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+
+**补充说明**：
+
+- 如果要允许某一大类文件，可使用类似 `image/*`、`audio/*`、`video/*` 的写法。
+- 移动端文件节点、图片、音视频节点最终是否可上传成功，还取决于 `onFileUpload` 的业务实现。
+
+### file.maxSize
+
+**说明**：允许上传文件的最大大小，单位为字节（B）。
+
+**类型**：`Number`
+
+**默认值**：`1024 * 1024 * 100`（100M）
+
+### file.preview
+
+**说明**：文件预览配置。
+
+**类型**：`Array`
+
+**默认值**：无内置默认值
+
+仍允许配置 `file.preview`，但移动端默认配置未内置桌面端那套第三方文档预览 URL 模板，文档类附件预览能力需要由业务自行兜底。后续可能会考虑在移动端支持基于 `file.preview` 的预览能力。<Badge theme="warning">移动端不同</Badge>
+
+## 与桌面端的主要差异
+
+- `file.preview` <Badge theme="warning">移动端不同</Badge>：目前移动端不支持桌面端的基于第三方 URL 的预览能力。
+
+## 业务回调联动
+
+文件相关配置最终会与以下回调一起工作：
+
+- `onFileUpload(file)`：上传文件并返回服务端结果
+- `onFileDelete(id, url, type)`：删除文件或附件资源
+
+更详细的回调约定见[方法配置](./methods)。

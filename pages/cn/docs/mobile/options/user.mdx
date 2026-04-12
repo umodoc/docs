@@ -1,0 +1,55 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,用户配置,user,当前用户,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的当前用户配置，用于传递与当前登录用户相关的信息。
+---
+
+# 用户配置
+
+用于配置当前用户信息。移动端编辑器会在需要展示当前操作者、关联用户信息或进行扩展能力判断时使用该配置。
+
+## 默认配置
+
+```js
+{
+  user: {},
+}
+```
+
+## 配置项说明
+
+### user
+
+**说明**：当前用户信息对象。
+
+**类型**：`Object`
+
+**默认值**：`{}`
+
+常见字段包括但不限于：
+
+- `id`：用户 ID
+- `label`：用户名称
+- `avatar`：头像地址
+- `color`：用户颜色，用于快速区分不同用户
+- `name` / `nickname`：业务自定义名称字段，可按需扩展
+
+业务也可以扩展更多字段，由自定义扩展、业务节点或业务逻辑自行消费。
+
+## 使用示例
+
+```js
+const options = {
+  user: {
+    id: 'u_10001',
+    label: '张三',
+    avatar: 'https://example.com/avatar.png',
+    color: '#007bff',
+  },
+}
+```
+
+## 使用建议
+
+- 如果业务接入了 `mention`、评论、审批流或自定义节点，建议同时传入 `user` 与 `users`。
+- 如果仅做单人编辑且没有用户相关展示，也可以保持默认空对象。

@@ -1,0 +1,58 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,Tiptap,Editor实例,useEditor,getEditor,Vue3
+description: 本节介绍如何在 Umo Editor Mobile 中获取底层 Tiptap Editor 实例，并基于底层实例进行更灵活的能力扩展。
+---
+
+# Tiptap 编辑器
+
+## Tiptap 实例
+
+Umo Editor Mobile 基于 [Tiptap](https://tiptap.dev/) 实现，并对外提供了一些[方法](./methods)。如果您需要获取更多底层状态信息，或直接调用 Tiptap 的原生 API，可以先通过 `getEditor()` 或 `useEditor()` 获取 Tiptap 编辑器实例。
+
+Tiptap 官方开发文档：
+
+- [https://tiptap.dev/docs/editor/getting-started/overview](https://tiptap.dev/docs/editor/getting-started/overview)
+
+### 如何获取 Tiptap 编辑器实例
+
+```vue
+<template>
+  <umo-editor ref="editorRef" v-bind="options" />
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const editorRef = ref(null)
+const tiptapEditor = ref({})
+const options = ref({
+  async onSave() {
+    return '保存成功'
+  },
+})
+
+onMounted(() => {
+  tiptapEditor.value = editorRef.value.useEditor()
+  console.log(tiptapEditor.value)
+
+  // 或者
+  // tiptapEditor.value = editorRef.value.getEditor()
+  // console.log(tiptapEditor.value)
+})
+</script>
+```
+
+## 相关方法
+
+- `useEditor()`：返回底层 Tiptap Editor 实例
+- `getEditor()`：返回内部编辑器 `ref`
+
+更详细的方法说明见[方法列表](./methods)。
+
+## 使用建议
+
+- 如果只是业务接入，优先使用 Umo Editor Mobile 已公开的方法与事件。
+- 直接调用底层实例时，请同时验证移动端只读态、编辑态、保存链路与气泡菜单行为，避免破坏组件内置状态管理。
+
+通过 Tiptap 编辑器提供的配置和方法，可以更灵活地控制移动端编辑器能力，同时也可以实现一些更贴近业务场景的自定义功能。

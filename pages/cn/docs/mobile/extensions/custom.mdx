@@ -1,0 +1,57 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,自定义扩展,Tiptap扩展,NodeView,Vue3
+description: 本节介绍如何在 Umo Editor Mobile 中追加自定义扩展，并说明移动端二次开发时需要关注的边界与建议。
+---
+
+import { Badge } from '/components/badge'
+
+# 编写自定义扩展
+
+Umo Editor Mobile 基于 Tiptap 构建，因此自定义扩展的核心方式与 Tiptap 保持一致。
+
+您可以使用 JavaScript 编写扩展，也可以为节点扩展编写 Vue 版 NodeView。
+
+## 推荐阅读
+
+- Tiptap 官方扩展指南：[Custom Extensions](https://tiptap.dev/docs/editor/guide/custom-extensions)
+- Tiptap NodeView（Vue）：[Vue Node Views](https://tiptap.dev/docs/editor/guide/node-views/vue)
+- Tiptap NodeView（JavaScript）：[JavaScript Node Views](https://tiptap.dev/docs/editor/guide/node-views/js)
+
+## 注册自定义扩展
+
+假设您已经实现了一个自定义扩展 `MyCustomExtension`，可以通过 `extensions` 配置追加：
+
+```js
+const options = {
+  extensions: [MyCustomExtension],
+}
+```
+
+如果您希望关闭某个内置扩展，再替换为自己的实现，可以配合 `disableExtensions` 使用：
+
+```js
+const options = {
+  disableExtensions: ['mention'],
+  extensions: [MyMentionExtension],
+}
+```
+
+## 移动端开发建议
+
+- 优先复用 Tiptap 原生扩展能力，减少与移动端既有交互体系的冲突。
+- 如果扩展需要自定义节点视图，优先评估其在触控场景中的点击、滚动、焦点与软键盘行为。
+- 如果扩展需要暴露业务操作入口，优先考虑是否可通过[插槽](../slots)或现有工具栏入口接入，而不是直接照搬桌面端交互。 <Badge theme="warning">移动端不同</Badge>
+- 如果扩展会影响保存、预览或内容结构，请同时验证 `getHTML()`、`getJSON()` 与只读态渲染效果。
+
+## 与桌面端的主要差异
+
+- 扩展编写方式基本一致，但 UI 承载方式不同。 <Badge theme="warning">移动端不同</Badge>
+- 移动端不对外开放组件体系，因此不建议依赖文档站中的公共组件封装来承载扩展 UI。 <Badge theme="danger">不支持</Badge>
+- 扩展最终是否“可用”，除了数据层实现外，还取决于其是否适合移动端交互。 <Badge theme="primary">移动端特有</Badge>
+
+## 相关配置
+
+- [功能及扩展配置](../options/extensions)
+- [方法列表](../methods)
+- [插槽列表](../slots)

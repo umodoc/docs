@@ -1,0 +1,55 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,user configuration,current user,Vue3,Tiptap3
+description: This section introduces the current user configuration in Umo Editor Mobile, used to pass information related to the currently logged-in user.
+---
+
+# User Configuration
+
+Used to configure current user information. The mobile editor uses this configuration when it needs to display the current operator, associate user-related information, or make extension-level judgments.
+
+## Default Configuration
+
+```js
+{
+  user: {},
+}
+```
+
+## Configuration Item
+
+### user
+
+**Description**: current user information object.
+
+**Type**: `Object`
+
+**Default**: `{}`
+
+Common fields include but are not limited to:
+
+- `id`: user ID
+- `label`: user display name
+- `avatar`: avatar URL
+- `color`: user color, used to distinguish users quickly
+- `name` / `nickname`: business-defined name fields that can be extended as needed
+
+Business code can also extend more fields, which can then be consumed by custom extensions, business nodes, or business logic.
+
+## Usage Example
+
+```js
+const options = {
+  user: {
+    id: 'u_10001',
+    label: 'Bob',
+    avatar: 'https://example.com/avatar.png',
+    color: '#007bff',
+  },
+}
+```
+
+## Recommendations
+
+- If your business integrates mention, comments, approval flow, or custom nodes, it is recommended to provide both `user` and `users`.
+- If the editor is only used for single-user editing and there is no user-related display, the default empty object is also fine.

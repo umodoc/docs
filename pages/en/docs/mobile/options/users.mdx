@@ -1,0 +1,52 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,related users configuration,users,mention users,Vue3,Tiptap3
+description: This section introduces the related users configuration in Umo Editor Mobile, used to provide the user list required for mentions, collaboration, or business display.
+---
+
+# Related Users Configuration
+
+Used to configure the user list related to the document. This configuration is commonly used together with mentioning others, multi-user collaborative editing, document comments, custom extensions, or business nodes.
+
+## Default Configuration
+
+```js
+{
+  users: [],
+}
+```
+
+## Configuration Item
+
+### users
+
+**Description**: related user list.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+Each item in the list typically includes:
+
+- `id`: user ID
+- `label`: user display name
+- `avatar`: avatar URL
+- `color`: user color, used to distinguish users quickly
+- `name` / `nickname`: business-defined name fields that can be extended as needed
+
+## Usage Example
+
+```js
+const options = {
+  users: [
+    { id: 'u_10001', label: 'Bob' },
+    { id: 'u_10002', label: 'Alice' },
+    { id: 'u_10003', label: 'Charlie' },
+  ],
+}
+```
+
+## Recommendations
+
+- If your business uses mentions, user picking, custom approval nodes, or similar capabilities, it is recommended to pass the user list in advance.
+- If the number of users is large, it is recommended to handle search, pagination, or lazy loading at the business layer instead of passing the entire dataset at once.

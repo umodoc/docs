@@ -1,0 +1,99 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,built-in extensions,Tiptap extensions,mobile extensions,Vue3
+description: This section introduces the built-in extension scope currently included in Umo Editor Mobile, helping developers understand the editing capabilities available by default on mobile.
+---
+
+import { Badge } from '/components/badge'
+
+# Built-in Extensions
+
+This page focuses on the extension capabilities built into the mobile version by default.
+
+Compared with Umo Editor and Umo Editor Next, mobile keeps many same-source extensions to maintain cross-platform consistency, but whether they are fully exposed in the UI still depends on mobile interaction entry points and UI capability boundaries.
+
+## Basic Text and Typography
+
+- `StarterKit`
+- `Document`
+- `Placeholder`
+- `Bold`
+- `Subscript`
+- `Superscript`
+- `Typography`
+- `CharacterCount`
+- `TextStyleKit`
+- `WordWrap`
+- `Indent`
+- `TextAlign`
+- `NodeAlign`
+- `LetterSpacing`
+- `LineHeight`
+
+## Lists and Structure
+
+- `ordered-list`
+- `bullet-list`
+- `task-list`
+- `TaskItem`
+- `Details`
+- `DetailsContent`
+- `DetailsSummary`
+- `PageBreak`
+- `horizontal-rule`
+- `hard-break`
+
+## Content Blocks and Business Nodes
+
+- `image`
+- `inlineImage`
+- `video`
+- `audio`
+- `file`
+- `code-block`
+- `math`
+- `tag`
+- `columns`
+- `callout`
+- `mention`
+- `date-time`
+- `option-box`
+- `text-box`
+- `web-page`
+- `footnote`
+- `toc`
+
+## Tables and Page-Related Capabilities
+
+- `Table`
+- `TableRow`
+- `TableCell`
+- `TableHeader`
+- `margin`
+- `TableOfContents`
+
+## Utility Extensions
+
+- `SearchReplace`
+- `Selection`
+- `NodeRange`
+- `NodeSelect`
+- `Dropcursor`
+- `OfficePaste`
+- `Echarts`
+
+## Conditionally Enabled Extensions
+
+- `UniqueID`: only enabled when `document.enableNodeId` is `true`.
+
+## Notes
+
+- Built-in extensions can be disabled through `disableExtensions`.
+- Custom extensions can be appended through `extensions`.
+- Although some extensions are already included, the corresponding mobile UI entry points may differ from desktop or may not yet be fully exposed. <Badge theme="warning">Different on Mobile</Badge>
+
+## Key Differences from Desktop
+
+- Extension names may be aligned, but their entry points are not necessarily the same. <Badge theme="warning">Different on Mobile</Badge>
+- Not all desktop productivity extensions provide a complete UI on mobile. <Badge theme="danger">Partially Unsupported</Badge>
+- Mobile places more emphasis on the combined strategy of "available by default + can be disabled + can be appended". <Badge theme="primary">Mobile-Only</Badge>

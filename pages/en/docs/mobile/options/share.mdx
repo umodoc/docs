@@ -1,0 +1,51 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,share configuration,shareUrl,Vue3,Tiptap3
+description: This section introduces the share configuration in Umo Editor Mobile, used to set the document share link and its usage boundary on mobile.
+---
+
+import { Badge } from '/components/badge'
+
+# Share Configuration
+
+Used to configure the base address related to document sharing. The mobile editor uses this configuration when it needs to generate share links or trigger sharing behavior.
+
+## Default Configuration
+
+```js
+{
+  shareUrl: location.href || '',
+}
+```
+
+## Configuration Item
+
+### shareUrl
+
+**Description**: document share URL.
+
+**Type**: `String`
+
+**Default**: `location.href || ''`
+
+**Valid value**: a valid URL value.
+
+## Usage Example
+
+```js
+const options = {
+  shareUrl: 'https://mobile.example.com/docs/10001',
+}
+```
+
+If the business needs to assemble the share URL dynamically, it can also be calculated at the business layer based on the current document ID, user information, or route parameters before initialization.
+
+## Recommendations
+
+- If the document page itself is already the final access URL, the default value is usually sufficient.
+- If your business has an independent share page, read-only page, or public-facing page, it is recommended to pass that address explicitly rather than relying on the current page’s `location.href`.
+- If your business runs inside a WebView, it is recommended to prioritize a standard URL that can be opened in a browser rather than a private in-container route.
+
+## Key Differences from Desktop
+
+- Mobile is more commonly used in H5 pages or WebView pages, so share URLs should prioritize being externally openable. <Badge theme="warning">Different on Mobile</Badge>

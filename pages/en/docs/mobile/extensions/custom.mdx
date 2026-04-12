@@ -1,0 +1,57 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,custom extensions,Tiptap extensions,NodeView,Vue3
+description: This section explains how to append custom extensions in Umo Editor Mobile and outlines the boundaries and recommendations that matter in mobile-oriented secondary development.
+---
+
+import { Badge } from '/components/badge'
+
+# Custom Extensions
+
+Umo Editor Mobile is built on Tiptap, so the core approach to custom extensions remains consistent with Tiptap.
+
+You can write extensions in JavaScript, and you can also build Vue-based NodeViews for node extensions.
+
+## Recommended Reading
+
+- Official Tiptap extension guide: [Custom Extensions](https://tiptap.dev/docs/editor/guide/custom-extensions)
+- Tiptap NodeView (Vue): [Vue Node Views](https://tiptap.dev/docs/editor/guide/node-views/vue)
+- Tiptap NodeView (JavaScript): [JavaScript Node Views](https://tiptap.dev/docs/editor/guide/node-views/js)
+
+## Register a Custom Extension
+
+Assume you have already implemented a custom extension called `MyCustomExtension`. You can append it through `extensions`:
+
+```js
+const options = {
+  extensions: [MyCustomExtension],
+}
+```
+
+If you want to disable a built-in extension first and then replace it with your own implementation, you can combine it with `disableExtensions`:
+
+```js
+const options = {
+  disableExtensions: ['mention'],
+  extensions: [MyMentionExtension],
+}
+```
+
+## Mobile Development Recommendations
+
+- Prefer reusing native Tiptap extension capabilities to reduce conflicts with the existing mobile interaction system.
+- If the extension requires a custom node view, evaluate touch behavior such as tapping, scrolling, focus, and soft keyboard interaction first.
+- If the extension needs to expose business operation entry points, first consider whether it can be connected through [Slots](../slots) or existing toolbar entry points, rather than directly copying desktop interactions. <Badge theme="warning">Different on Mobile</Badge>
+- If the extension affects saving, preview, or document structure, validate `getHTML()`, `getJSON()`, and read-only rendering together.
+
+## Key Differences from Desktop
+
+- The way extensions are written is basically the same, but the UI carrier is different. <Badge theme="warning">Different on Mobile</Badge>
+- Mobile does not expose a public component system, so it is not recommended to rely on the documentation site’s shared component wrappers to carry extension UI. <Badge theme="danger">Not Supported</Badge>
+- Whether an extension is truly "usable" depends not only on its data-layer implementation, but also on whether it fits mobile interaction patterns. <Badge theme="primary">Mobile-Only</Badge>
+
+## Related Configuration
+
+- [Feature and Extension Configuration](../options/extensions)
+- [Methods](../methods)
+- [Slots](../slots)

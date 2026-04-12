@@ -1,0 +1,134 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,page configuration,page options,mobile layout,Vue3,Tiptap3
+description: This section introduces the page configuration items in Umo Editor Mobile, including layout, margins, background, watermark, and pagination markers, and highlights the differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Page Configuration
+
+Used to configure page layout, paper styling, and reading display behavior in Umo Editor Mobile.
+
+Compared with Umo Editor and Umo Editor Next, the mobile page configuration is more focused on "read-only mode + touch editing", and it prioritizes `web` layout by default.
+
+## Default Configuration
+
+```js
+{
+  page: {
+    layouts: ['web', 'page'],
+    defaultMargin: {
+      left: 3.18,
+      right: 3.18,
+      top: 2.54,
+      bottom: 2.54,
+    },
+    defaultOrientation: 'portrait',
+    defaultBackground: '#fff',
+    showBreakMarks: true,
+    showBookmark: false,
+    showLineNumber: false,
+    watermark: {
+      type: 'compact',
+      alpha: 0.2,
+      fontColor: '#000',
+      fontSize: 16,
+      fontFamily: 'SimSun',
+      fontWeight: 'normal',
+      text: '',
+    },
+  },
+}
+```
+
+## Configuration Items
+
+### page.layouts
+
+**Description**: available layout list. It can be set to paged layout `page` or web layout `web`. The initial layout is taken from the first item in the array, and can be changed dynamically through [setLayout](../methods#setlayout) or [setPage](../methods#setpage).
+
+**Type**: `Array`
+
+**Default**: `['web', 'page']`
+
+**Optional values**: `['web']`, `['page']`, `['web', 'page']`, `['page', 'web']`
+
+Mobile prioritizes web layout by default; during root component initialization, `layouts[0]` is used directly as the current layout. <Badge theme="warning">Different on Mobile</Badge>
+
+### page.defaultMargin
+
+**Description**: default page margin, in centimeters (`cm`). It can be changed dynamically through [setPage](../methods#setpage).
+
+**Type**: `Object`
+
+**Default**: `{ left: 3.18, right: 3.18, top: 2.54, bottom: 2.54 }`
+
+### page.defaultOrientation
+
+**Description**: default page orientation. It can be changed dynamically through [setPage](../methods#setpage).
+
+**Type**: `String`
+
+**Default**: `portrait`
+
+**Optional values**: `portrait`, `landscape`
+
+### page.defaultBackground
+
+**Description**: default page background color. It can be changed dynamically through [setPage](../methods#setpage).
+
+**Type**: `String`
+
+**Default**: `#fff`
+
+**Optional values**: any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value
+
+### page.showBreakMarks
+
+**Description**: whether to display page break markers. When enabled, it also affects pagination helper lines and invisible-character display.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+### page.showBookmark
+
+**Description**: whether to add display styling for bookmark nodes.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+<Badge theme="warning">Different on Mobile</Badge> On mobile, this currently only adds the `show-bookmark` style class to the editor container. It does not provide the complete bookmark management methods and panels available on desktop.
+
+### page.showLineNumber
+
+**Description**: whether to show line numbers. It can be toggled through the toolbar or [setPage](../methods#setpage).
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### page.watermark
+
+**Description**: default watermark configuration. It can be changed dynamically through [setWatermark](../methods#setwatermark) or [setPage](../methods#setpage).
+
+**Type**: `Object`
+
+**Configuration**:
+
+- `type`: `String`, watermark type, either `compact` or `spacious`
+- `alpha`: `Number`, opacity, recommended range `0` to `1`
+- `fontColor`: `String`, font color
+- `fontSize`: `Number`, font size in `px`
+- `fontFamily`: `String`, font family
+- `fontWeight`: `String`, font weight, one of `normal`, `bold`, `bolder`
+- `text`: `String`, watermark text
+
+## Key Differences from Desktop
+
+- `page.layouts` has a different default value: mobile defaults to `['web', 'page']`. <Badge theme="warning">Different on Mobile</Badge>
+- Zoom, fit-to-width, and gesture scaling belong to mobile internal view capabilities and are not exposed as top-level `page` configuration items. <Badge theme="primary">Mobile-Only</Badge>
+- `showToc` is not supported on mobile. <Badge theme="danger">Not Supported</Badge>
+- Bookmarks currently only have basic display-layer support and do not include the full bookmark methods and management capabilities available on desktop. <Badge theme="danger">Partially Unsupported</Badge>

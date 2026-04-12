@@ -1,0 +1,35 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,主题配置,theme配置,暗色模式,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的主题配置方式，包括浅色、深色与跟随系统模式，并标注与桌面端的差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 主题配置
+
+用于配置 Umo Editor Mobile 的主题模式，支持浅色、深色与跟随系统设置。
+
+## 默认配置
+
+```js
+{
+  theme: 'light',
+}
+```
+
+## 配置项说明
+
+### theme
+
+**说明**：默认主题模式。
+
+**类型**：`String`
+
+**默认值**：`light`
+
+**可选值**：`light`、`dark`、`auto`
+
+## 与桌面端的主要差异
+
+- `skin` <Badge theme="danger">不支持</Badge>：移动端没有桌面端的外观配置项，只支持 `theme` 配置项。

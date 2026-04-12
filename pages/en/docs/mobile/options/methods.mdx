@@ -1,0 +1,118 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,method configuration,callbacks,onSave,onFileUpload,onFileDelete
+description: This section introduces the callback method configuration in Umo Editor Mobile, including save, leave, rename, file upload, and file deletion, and highlights the differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Method Configuration
+
+Used to configure business callback methods in Umo Editor Mobile, including document save, leaving the page, rename, and file upload/deletion.
+
+## Default Methods
+
+```js
+{
+  async onLeave({ leaveSteps = 1 } = {}) {
+    window.history.go(-Math.max(1, Number(leaveSteps) || 1))
+  },
+  async onSave(content, page, document) {
+    throw new Error('Key "onSave": Please set the save method')
+  },
+  async onRename(title) {
+    throw new Error('Key "onRename": Please set the rename method')
+  },
+  async onFileUpload(file) {
+    if (!file) {
+      throw new Error('File not found')
+    }
+    throw new Error('Key "onFileUpload": Please set the upload method')
+  },
+  onFileDelete(id, url, type) {
+    console.error(
+      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
+    )
+  },
+}
+```
+
+## Configuration Items
+
+### onLeave
+
+**Description**: handles the logic for leaving the current page on mobile, such as going back to the previous page, closing the current WebView, or navigating to a business page.
+
+**Type**: `AsyncFunction`
+
+**Parameters**:
+
+- `reason`: the reason for leaving
+- `leaveSteps`: the recommended number of history steps to go back
+- `hasUnsavedChanges`: whether there are unsaved changes
+
+This is a very important callback in mobile document integration and is usually used together with unsaved-change confirmation and host-container back-navigation logic. <Badge theme="primary">Mobile-Only</Badge>
+
+### onSave
+
+**Description**: configures the document save method; it is called when the user saves manually or when auto-save is triggered.
+
+**Type**: `AsyncFunction`
+
+**Parameters**:
+
+- `content`: document content payload
+- `page`: page information
+- `document`: document information
+
+**Return value**:
+
+- may return a string as the success message
+- may return an object as the save result
+- may also throw an error, which will be handled by the component
+
+### onRename
+
+**Description**: handles document rename.
+
+**Type**: `AsyncFunction`
+
+**Parameters**:
+
+- `title`: the new document title
+
+This is typically triggered from the rename entry in the "More" panel. <Badge theme="primary">Mobile-Only</Badge>
+
+### onFileUpload
+
+**Description**: handles upload for attachments, images, audio, video, and similar resources.
+
+**Type**: `AsyncFunction`
+
+**Parameters**:
+
+- `file`: the `File` object to upload
+
+**Return value**:
+
+- `id`: resource ID
+- `url`: resource access URL
+- business code may also return additional fields such as `name`, `type`, and `size`
+
+### onFileDelete
+
+**Description**: handles attachment deletion.
+
+**Type**: `Function`
+
+**Parameters**:
+
+- `id`: resource ID
+- `url`: resource URL
+- `type`: resource type marker
+
+## Key Differences from Desktop
+
+- `onLeave` <Badge theme="primary">Mobile-Only</Badge>: desktop documentation usually does not treat page leaving as a core callback configuration item.
+- `onRename` <Badge theme="primary">Mobile-Only</Badge>: used together with the rename flow in the "More" panel.
+- Mobile save flow depends more heavily on `onSave` <Badge theme="primary">Mobile-Only</Badge>: auto-save, unsaved-change reminders, and leave guards are built in, and `onSave` is the core callback of the entire state machine.

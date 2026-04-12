@@ -1,0 +1,118 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,方法配置,回调配置,onSave,onFileUpload,onFileDelete
+description: 本节介绍 Umo Editor Mobile 的回调方法配置，包括保存、离开、重命名、文件上传与文件删除等，并标注与桌面端的差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 方法配置
+
+用于配置 Umo Editor Mobile 的业务回调方法，包括文档保存、离开页面、重命名以及文件上传删除等。
+
+## 默认方法
+
+```js
+{
+  async onLeave({ leaveSteps = 1 } = {}) {
+    window.history.go(-Math.max(1, Number(leaveSteps) || 1))
+  },
+  async onSave(content, page, document) {
+    throw new Error('Key "onSave": Please set the save method')
+  },
+  async onRename(title) {
+    throw new Error('Key "onRename": Please set the rename method')
+  },
+  async onFileUpload(file) {
+    if (!file) {
+      throw new Error('File not found')
+    }
+    throw new Error('Key "onFileUpload": Please set the upload method')
+  },
+  onFileDelete(id, url, type) {
+    console.error(
+      'The file has been deleted. Please configure the onFileDelete to completely delete the file from the server.',
+    )
+  },
+}
+```
+
+## 配置项说明
+
+### onLeave
+
+**说明**：处理移动端离开当前页面的逻辑，例如返回上一页、关闭当前 WebView、跳转业务页面等。
+
+**类型**：`AsyncFunction`
+
+**参数**：
+
+- `reason`：离开原因
+- `leaveSteps`：建议回退的历史步数
+- `hasUnsavedChanges`：当前是否存在未保存修改
+
+这是移动端文档接入时非常关键的回调，通常会与未保存确认和宿主容器返回逻辑一起使用。<Badge theme="primary">移动端特有</Badge>
+
+### onSave
+
+**说明**：配置文档保存方法；在用户手动保存或自动保存触发时调用。
+
+**类型**：`AsyncFunction`
+
+**参数**：
+
+- `content`：文档内容集合
+- `page`：页面信息
+- `document`：文档信息
+
+**返回值**：
+
+- 可返回字符串，作为成功提示文案
+- 可返回对象，作为保存结果
+- 也可抛出错误，由组件内部统一提示
+
+### onRename
+
+**说明**：处理文档重命名。
+
+**类型**：`AsyncFunction`
+
+**参数**：
+
+- `title`：新的文档标题
+
+当前通常由“更多”面板中的重命名入口触发。<Badge theme="primary">移动端特有</Badge>
+
+### onFileUpload
+
+**说明**：处理附件、图片、音视频等资源上传。
+
+**类型**：`AsyncFunction`
+
+**参数**：
+
+- `file`：待上传的 `File` 对象
+
+**返回值**：
+
+- `id`：资源 ID
+- `url`：资源访问地址
+- 业务也可额外返回 `name`、`type`、`size` 等字段
+
+### onFileDelete
+
+**说明**：处理附件删除。
+
+**类型**：`Function`
+
+**参数**：
+
+- `id`：资源 ID
+- `url`：资源地址
+- `type`：资源类型标记
+
+## 与桌面端的主要差异
+
+- `onLeave` <Badge theme="primary">移动端特有</Badge>：桌面端文档通常不把离开页面作为核心回调配置项。
+- `onRename` <Badge theme="primary">移动端特有</Badge>：用于配合“更多”面板中的重命名流程。
+- 保存链路更依赖 `onSave` <Badge theme="primary">移动端特有</Badge>：移动端内置自动保存、未保存提醒和返回守卫，`onSave` 是整套状态机的核心回调。

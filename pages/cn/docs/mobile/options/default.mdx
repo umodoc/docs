@@ -1,0 +1,153 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,默认配置,配置项,Vue3,Tiptap3,移动端编辑器
+description: 本节介绍 Umo Editor Mobile 当前源码中的默认配置，并标注其与 Umo Editor / Umo Editor Next 的差异，作为后续阅读各配置子页面的基线。
+---
+
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# 默认配置
+
+与 Umo Editor / Umo Editor Next 相比，移动端配置项更聚焦于触控阅读、编辑态切换、保存状态机和轻量化集成，不包含桌面端全部外观与工具栏配置。
+
+## 所有配置
+
+```js showLineNumbers
+const defaultOptions = {
+  editorKey: 'default',
+  locale: 'zh-CN',
+  theme: 'light',
+  debug: false,
+  dicts: {
+    fonts: [...],
+    colors: [...],
+    lineHeights: [...],
+    symbols: [...],
+    emojis: [...],
+    pageSizes: [...],
+  },
+  page: {
+    layouts: ['web', 'page'],
+    defaultMargin: {
+      left: 3.18,
+      right: 3.18,
+      top: 2.54,
+      bottom: 2.54,
+    },
+    defaultOrientation: 'portrait',
+    defaultBackground: '#fff',
+    showBreakMarks: true,
+    showLineNumber: false,
+    showBookmark: false,
+    watermark: {
+      type: 'compact',
+      alpha: 0.2,
+      fontColor: '#000',
+      fontSize: 16,
+      fontFamily: 'SimSun',
+      fontWeight: 'normal',
+      text: '',
+    },
+  },
+  document: {
+    title: '',
+    content: '',
+    placeholder: {
+      en_US: 'Please enter the document content...',
+      zh_CN: '请输入文档内容...',
+    },
+    structure: 'block+',
+    enableSpellcheck: true,
+    enableMarkdown: true,
+    enableBubbleMenu: true,
+    enableBlockMenu: true,
+    enableNodeId: false,
+    readOnly: false,
+    autofocus: false,
+    characterLimit: 0,
+    typographyRules: {},
+    editorProps: {},
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
+    autoSave: {
+      enabled: true,
+      interval: 300000,
+    },
+  },
+  echarts: {
+    mode: 1,
+    renderImage: false,
+    onCustomSettings() {
+      return null
+    },
+  },
+  templates: [],
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
+  shareUrl: location.href || '',
+  file: {
+    allowedMimeTypes: [],
+    maxSize: 1024 * 1024 * 100,
+  },
+  user: {},
+  users: [],
+  extensions: [],
+  disableExtensions: [],
+  translations: {
+    en_US: {},
+    zh_CN: {},
+  },
+  async onLeave({ leaveSteps = 1 } = {}) {
+    window.history.go(-Math.max(1, Number(leaveSteps) || 1))
+  },
+  async onSave() {
+    throw new Error('Key "onSave": Please set the save method')
+  },
+  async onRename() {
+    throw new Error('Key "onRename": Please set the rename method')
+  },
+  async onFileUpload(file) {
+    if (!file) {
+      throw new Error('File not found')
+    }
+    throw new Error('Key "onFileUpload": Please set the upload method')
+  },
+  onFileDelete() {
+    console.error('The file has been deleted...')
+  },
+}
+```
+
+## 配置说明
+
+- `editorKey`：编辑器实例标识，用于区分本地持久化状态。
+- `locale` / `theme` / `debug`：全局显示、主题与调试能力配置，详见[本地化语言配置](./locale)、[主题配置](./theme) 与 [调试配置](./debug)。
+- `dicts`：字典配置，详见[字典配置](./dicts)。
+- `page`：页面配置，详见[页面配置](./page)。
+- `document`：文档配置，详见[文档配置](./document)。
+- `echarts`：ECharts 图表配置，详见[ECharts 配置](./echarts)。
+- `templates`：模板配置，详见[文档模板配置](./templates)。
+- `cdnUrl` / `shareUrl`：资源地址与分享地址配置。
+- `file`：文件上传与预览配置，详见[文件上传配置](./file)。
+- `user` / `users`：用户信息配置，详见[用户配置](./user) 与 [相关用户配置](./users)。
+- `extensions` / `disableExtensions`：扩展增删配置，详见[功能及扩展配置](./extensions)。
+- `translations`：多语言覆盖配置，详见[本地化语言配置](./locale)。
+- `onLeave` / `onSave` / `onRename` / `onFileUpload` / `onFileDelete`：回调方法配置，详见[方法配置](./methods)。
+
+## 与桌面端的主要差异
+
+- `debug` <Badge theme="primary">移动端特有</Badge>：控制是否允许在“更多”面板中启用内置 DevTools。
+- `onLeave` <Badge theme="primary">移动端特有</Badge>：处理移动端返回、离开页面和未保存确认后的跳转逻辑。
+- `onRename` <Badge theme="primary">移动端特有</Badge>：处理“更多”面板中的文档重命名。
+- `page.layouts` 默认值为 `['web', 'page']` <Badge theme="warning">移动端不同</Badge>，默认优先进入 Web 布局；桌面端通常以分页视图优先。
+- `file.preview` <Badge theme="warning">移动端不同</Badge>：在移动端不支持通过 URL 实现第三方预览。
+
+## 移动端不支持的配置项
+
+- `skin` <Badge theme="danger">不支持</Badge>
+- `height` <Badge theme="danger">不支持</Badge>
+- `fullscreenZIndex` <Badge theme="danger">不支持</Badge>
+- `toolbar` <Badge theme="danger">不支持</Badge>
+- `webPages` <Badge theme="danger">不支持</Badge>
+- `diagrams` <Badge theme="danger">不支持</Badge>

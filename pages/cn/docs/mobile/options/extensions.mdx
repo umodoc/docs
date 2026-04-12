@@ -1,0 +1,75 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,扩展配置,extensions,disableExtensions,Tiptap
+description: 本节介绍 Umo Editor Mobile 的扩展配置方式，包括追加自定义扩展与禁用内置扩展。
+---
+
+import { Badge } from '/components/badge'
+
+# 功能及扩展配置
+
+Umo Editor Mobile 基于 Tiptap 构建，因此可以通过扩展机制来调整编辑器能力边界。
+
+## 默认配置
+
+```js
+{
+  extensions: [],
+  disableExtensions: [],
+}
+```
+
+## 配置项说明
+
+### extensions
+
+**说明**：用于追加自定义扩展。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+### disableExtensions
+
+**说明**：用于禁用内置扩展。
+
+**类型**：`Array`
+
+**默认值**：`[]`
+
+## 使用示例
+
+### 追加自定义扩展
+
+```js
+const options = {
+  extensions: [myExtension],
+}
+```
+
+### 禁用内置扩展
+
+```js
+const options = {
+  disableExtensions: [],
+}
+```
+
+### 先禁用再替换
+
+```js
+const options = {
+  disableExtensions: ['mention'],
+  extensions: [myMentionExtension],
+}
+```
+
+## 使用建议
+
+- 如果只是做能力裁剪，优先使用 `disableExtensions`。
+- 如果要做业务能力增强，再通过 `extensions` 追加自定义扩展。
+- 如果扩展会影响内容结构，请同时验证 HTML、JSON 和只读态渲染。
+
+## 与桌面端的主要差异
+
+- 同名扩展在移动端的 UI 入口可能与桌面端不同，是否“可见可用”还取决于移动端导航、弹层和底部工具区的交互承载。<Badge theme="warning">移动端不同</Badge> 

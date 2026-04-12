@@ -1,0 +1,72 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,file upload configuration,file options,mobile attachments,Vue3,Tiptap3
+description: This section introduces the file upload and deletion related configuration in Umo Editor Mobile, including file type limits, size limits, and the preview capability boundary that differs from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# File Upload Configuration
+
+Used to configure upload limits and attachment deletion callbacks in Umo Editor Mobile.
+
+Compared with Umo Editor and Umo Editor Next, mobile places more emphasis on "previewing or playing the uploaded resource inside the current container", and does not support the generic third-party URL-based preview approach described in the desktop documentation. <Badge theme="warning">Different on Mobile</Badge>
+
+## Default Configuration
+
+```js
+{
+  file: {
+    allowedMimeTypes: [],
+    maxSize: 1024 * 1024 * 100,
+  },
+}
+```
+
+## Configuration Items
+
+### file.allowedMimeTypes
+
+**Description**: the list of allowed MIME types for upload. An empty array means no type restriction.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+**Optional values**: valid [MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+
+**Additional notes**:
+
+- To allow an entire category of files, you can use values such as `image/*`, `audio/*`, and `video/*`.
+- Whether mobile file nodes, images, audio, or video uploads ultimately succeed also depends on the business implementation of `onFileUpload`.
+
+### file.maxSize
+
+**Description**: the maximum allowed upload size, in bytes (`B`).
+
+**Type**: `Number`
+
+**Default**: `1024 * 1024 * 100` (`100M`)
+
+### file.preview
+
+**Description**: file preview configuration.
+
+**Type**: `Array`
+
+**Default**: no built-in default value
+
+`file.preview` can still be configured, but the mobile default configuration does not include the desktop third-party document-preview URL templates. Preview fallback for document attachments must currently be handled by business code. Support for `file.preview`-based preview on mobile may be considered in the future. <Badge theme="warning">Different on Mobile</Badge>
+
+## Key Differences from Desktop
+
+- `file.preview` <Badge theme="warning">Different on Mobile</Badge>: mobile currently does not support the desktop-style third-party URL-based preview capability.
+
+## Related Business Callbacks
+
+File-related configuration ultimately works together with the following callbacks:
+
+- `onFileUpload(file)`: uploads a file and returns the server result
+- `onFileDelete(id, url, type)`: deletes a file or attachment resource
+
+For more details about callback contracts, see [Method Configuration](./methods).

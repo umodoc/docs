@@ -8,6 +8,7 @@ export default {
     title: 'Umo Editor',
   },
   editor: 'Umo Editor',
+  mobile: 'Umo Editor Mobile',
   '--business': {
     type: 'separator',
     title: 'Umo Editor Next',

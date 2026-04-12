@@ -1,0 +1,172 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,document configuration,document options,Vue3,Tiptap3,mobile editor
+description: This section introduces the document configuration items in Umo Editor Mobile, including title, content, placeholder, read-only mode, auto-save, and low-level editor settings, and highlights the differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Document Configuration
+
+Used to configure document title, content, editing behavior, and auto-save strategy in Umo Editor Mobile.
+
+Compared with Umo Editor and Umo Editor Next, the mobile document configuration puts more emphasis on switching between reading and editing, touch input, and lightweight integration. It does not include all collaboration-related fields available in the desktop or Next versions.
+
+## Default Configuration
+
+```js
+{
+  document: {
+    title: '',
+    content: '',
+    placeholder: {
+      en_US: 'Please enter the document content...',
+      zh_CN: '请输入文档内容...',
+    },
+    structure: 'block+',
+    enableSpellcheck: true,
+    enableMarkdown: true,
+    enableBubbleMenu: true,
+    enableNodeId: false,
+    readOnly: false,
+    characterLimit: 0,
+    typographyRules: {},
+    editorProps: {},
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
+    autoSave: {
+      enabled: true,
+      interval: 300000,
+    },
+  },
+}
+```
+
+## Configuration Items
+
+### document.title
+
+**Description**: document title. It can be updated dynamically through [setDocument](../methods#setdocument). The mobile top navigation and the rename capability in the "More" panel both revolve around this field.
+
+**Type**: `String`
+
+**Default**: `''`
+
+### document.content
+
+**Description**: initial document content. It can be an HTML string or a Tiptap-supported data structure. The content is transformed before being passed into Tiptap when the editor instance is created.
+
+**Type**: `String | Object`
+
+**Default**: `''`
+
+### document.placeholder
+
+**Description**: placeholder shown when the document content is empty.
+
+**Type**: `String | Object`
+
+**Supported locale keys**:
+
+- `zh_CN`
+- `en_US`
+
+### document.structure
+
+**Description**: forces document structure constraints. Its semantics follow the content structure rules of Tiptap / ProseMirror.
+
+**Type**: `String`
+
+**Default**: `block+`
+
+### document.enableSpellcheck
+
+**Description**: whether to enable browser spellcheck.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+### document.enableMarkdown
+
+**Description**: whether to enable Markdown input rules.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+### document.enableBubbleMenu
+
+**Description**: whether to enable the bubble menu.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+### document.enableNodeId
+
+**Description**: whether to generate unique identifiers for document nodes.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### document.readOnly
+
+**Description**: whether to open the document in read-only mode. Setting it to `true` makes it better suited for mobile reading, approval, and review scenarios.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### document.characterLimit
+
+**Description**: document character limit. A value of `0` means no limit.
+
+**Type**: `Number`
+
+**Default**: `0`
+
+### document.typographyRules
+
+**Description**: typography replacement rule configuration, passed to the Tiptap `Typography` extension.
+
+**Type**: `Object`
+
+**Default**: `{}`
+
+### document.editorProps
+
+**Description**: passes low-level ProseMirror `EditorProps`, such as custom DOM attributes or event handling.
+
+**Type**: `Object`
+
+**Default**: `{}`
+
+### document.parseOptions
+
+**Description**: configures ProseMirror document parsing behavior.
+
+**Type**: `Object`
+
+**Default**: `{ preserveWhitespace: 'full' }`
+
+### document.autoSave
+
+**Description**: auto-save configuration. When enabled, the save flow is triggered after content changes based on the configured interval.
+
+**Type**: `Object`
+
+**Default**: `{ enabled: true, interval: 300000 }`
+
+**Configuration**:
+
+- `enabled`: `Boolean`, whether auto-save is enabled
+- `interval`: `Number`, auto-save interval in milliseconds
+
+## Key Differences from Desktop
+
+- `autofocus` is not supported on mobile because auto focus in mobile browsers and WebViews is often limited by soft keyboard strategy, host container behavior, and user gesture requirements, which can cause autofocus to fail. <Badge theme="danger">Not Supported</Badge>
+- `enableBlockMenu` is not supported on mobile because mobile does not provide the desktop-style block menu capability. <Badge theme="danger">Not Supported</Badge>
+- `readOnly` has greater importance on mobile, because many interactions are built directly around switching between reading mode and editing mode. <Badge theme="primary">Mobile-Only</Badge>

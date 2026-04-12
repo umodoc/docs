@@ -1,0 +1,60 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,extensions,Tiptap,custom extensions,Vue3
+description: This section introduces the extension system in Umo Editor Mobile, including built-in extensions, custom extensions, and capability differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Introduction
+
+Umo Editor Mobile is built on [Tiptap](https://tiptap.dev/) and supports adjusting capability boundaries through built-in extensions, custom extensions, and extension disabling.
+
+Compared with Umo Editor and Umo Editor Next, the mobile extension system still follows the same Tiptap-based approach, but the final exposed UI and interaction entry points are more oriented toward touch-first scenarios.
+
+## Currently Supported Extension Patterns
+
+### Use Built-in Extensions
+
+Mobile includes a large number of commonly used built-in extensions, including but not limited to:
+
+- lists, task lists, indentation, alignment, line height, and letter spacing
+- images, audio, video, files, and links
+- tables, page breaks, table of contents, footnotes, text boxes, tags, and mentions
+- callouts, columns, code blocks, web embedding, and ECharts
+- utility-style extensions such as SearchReplace, OfficePaste, Selection, and NodeSelect
+
+For the full list, see [Built-in Extensions](./built-in).
+
+### Disable Built-in Extensions
+
+Built-in extensions can be disabled through `disableExtensions`.
+
+```js
+const options = {
+  disableExtensions: ['toc', 'mention', 'tag'],
+}
+```
+
+### Append Custom Extensions
+
+You can append business-specific custom extensions through `extensions`.
+
+```js
+const options = {
+  extensions: [myExtension],
+}
+```
+
+For more approaches, see [Custom Extensions](./custom).
+
+## Key Differences from Desktop
+
+- Different extension entry points <Badge theme="warning">Different on Mobile</Badge>: even if the underlying extension has the same name, mobile may trigger it through the bottom toolbar, navigation actions, or popup panels rather than the desktop toolbar.
+- Not all desktop extension capabilities are fully exposed <Badge theme="danger">Partially Unsupported</Badge>: some desktop productivity features may remain compatible at the data level, but their mobile UI and documentation entry points may not be fully available yet.
+- Mobile relies more heavily on the two mechanisms of "disable" + "append" to trim capability boundaries. <Badge theme="primary">Mobile-Only</Badge>
+
+## UI Notes
+
+- If you only need extension capabilities, focus on `extensions` and `disableExtensions`.
+- If deeper capability integration is required, it is recommended to also reference the `src/extensions` directory in the mobile source code.

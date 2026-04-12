@@ -200,6 +200,7 @@ const onFileUpload = async (file) => {
 
 - `id`：文件 id。
 - `url`：文件 url。
+- `type`：文件类型标记，用于区分文件、图片、音频、视频等资源类型。
 
 **示例**：
 
@@ -212,7 +213,7 @@ import axios from 'axios'
 import { useUmoEditor } from '@umoteam/editor'
 
 const options = {
-  onFileDelete(id, url) {
+  onFileDelete(id, url, type) {
     axios.delete(`/api/file/${id}`)
   },
 }
@@ -232,7 +233,7 @@ app.use(useUmoEditor, options)
 import { UmoEditor } from '@umoteam/editor'
 import axios from 'axios'
 
-const onFileDelete = (id, url) => {
+const onFileDelete = (id, url, type) => {
   axios.delete(`/api/file/${id}`);
 }
 </script>

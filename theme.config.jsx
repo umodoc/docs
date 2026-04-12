@@ -11,14 +11,14 @@ export default {
 			const router = useRouter();
 			if(router.locale === 'cn'){
 				return (
-					<a href="https://www.umodoc.com/business">
-					  🎉 Umo Editor Next 现已发布，增强了对在线协作、文档批注、历史版本管理、AI 创作、导入导出等功能的支持，了解更多 →
+					<a href="https://mobile.umodoc.com">
+					  🎉🎉🎉 移动端文档编辑器 Umo Editor Mobile 现已发布，了解更多 →
 					</a>
 				)
 			}
 			return (
-				<a href="https://www.umodoc.com/en/business">
-					🎉 Umo Editor Next has been released with enhanced support for online collaboration, document annotation, version history management, AI creation, import/export and more features. Learn more →
+				<a href="https://dev.umodoc.com/en/mobile">
+					🎉🎉🎉 Umo Editor Mobile has been released. Learn more →
 				</a>
 			)
     }

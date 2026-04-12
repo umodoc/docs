@@ -1,0 +1,58 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,Tiptap,Editor instance,useEditor,getEditor,Vue3
+description: This section explains how to get the underlying Tiptap Editor instance in Umo Editor Mobile and use it for more flexible low-level extensions.
+---
+
+# Tiptap Editor
+
+## Tiptap Instance
+
+Umo Editor Mobile is implemented on top of [Tiptap](https://tiptap.dev/) and exposes a set of public [methods](./methods). If you need more low-level state information or want to call native Tiptap APIs directly, you can first get the Tiptap editor instance through `getEditor()` or `useEditor()`.
+
+Official Tiptap documentation:
+
+- [https://tiptap.dev/docs/editor/getting-started/overview](https://tiptap.dev/docs/editor/getting-started/overview)
+
+### How to Get the Tiptap Editor Instance
+
+```vue
+<template>
+  <umo-editor ref="editorRef" v-bind="options" />
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const editorRef = ref(null)
+const tiptapEditor = ref({})
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+
+onMounted(() => {
+  tiptapEditor.value = editorRef.value.useEditor()
+  console.log(tiptapEditor.value)
+
+  // Or
+  // tiptapEditor.value = editorRef.value.getEditor()
+  // console.log(tiptapEditor.value)
+})
+</script>
+```
+
+## Related Methods
+
+- `useEditor()`: returns the underlying Tiptap Editor instance
+- `getEditor()`: returns the internal editor `ref`
+
+For more detailed method descriptions, see [Methods](./methods).
+
+## Recommendations
+
+- If you are only doing business integration, prefer the public methods and events already exposed by Umo Editor Mobile.
+- When calling the low-level instance directly, validate behavior across read-only mode, edit mode, the save flow, and bubble menu interactions to avoid breaking the component’s built-in state management.
+
+The configuration and methods exposed by the Tiptap editor make it possible to control the mobile editor more flexibly, while also enabling custom features that are closer to business scenarios.

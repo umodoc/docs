@@ -1,0 +1,99 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,内置扩展,Tiptap扩展,移动端扩展,Vue3
+description: 本节介绍 Umo Editor Mobile 当前内置的扩展范围，帮助开发者了解移动端默认包含的编辑能力。
+---
+
+import { Badge } from '/components/badge'
+
+# 内置扩展列表
+
+本页重点说明移动端默认内置了哪些扩展能力。
+
+与 Umo Editor / Umo Editor Next 相比，为了保持多端统一，移动端虽然保留了大量同源扩展，但是否在界面中完整暴露，还会受到移动端交互入口和 UI 能力边界影响。
+
+## 基础文本与排版
+
+- `StarterKit`
+- `Document`
+- `Placeholder`
+- `Bold`
+- `Subscript`
+- `Superscript`
+- `Typography`
+- `CharacterCount`
+- `TextStyleKit`
+- `WordWrap`
+- `Indent`
+- `TextAlign`
+- `NodeAlign`
+- `LetterSpacing`
+- `LineHeight`
+
+## 列表与结构
+
+- `ordered-list`
+- `bullet-list`
+- `task-list`
+- `TaskItem`
+- `Details`
+- `DetailsContent`
+- `DetailsSummary`
+- `PageBreak`
+- `horizontal-rule`
+- `hard-break`
+
+## 内容块与业务节点
+
+- `image`
+- `inlineImage`
+- `video`
+- `audio`
+- `file`
+- `code-block`
+- `math`
+- `tag`
+- `columns`
+- `callout`
+- `mention`
+- `date-time`
+- `option-box`
+- `text-box`
+- `web-page`
+- `footnote`
+- `toc`
+
+## 表格与页面能力
+
+- `Table`
+- `TableRow`
+- `TableCell`
+- `TableHeader`
+- `margin`
+- `TableOfContents`
+
+## 工具型扩展
+
+- `SearchReplace`
+- `Selection`
+- `NodeRange`
+- `NodeSelect`
+- `Dropcursor`
+- `OfficePaste`
+- `Echarts`
+
+## 条件启用的扩展
+
+- `UniqueID`：仅当 `document.enableNodeId` 为 `true` 时启用。
+
+## 说明
+
+- 可通过 `disableExtensions` 禁用内置扩展。
+- 可通过 `extensions` 追加自定义扩展。
+- 某些扩展虽然已内置，但移动端 UI 入口可能与桌面端不同，或暂未完整开放。 <Badge theme="warning">移动端不同</Badge>
+
+## 与桌面端的主要差异
+
+- 扩展名可对齐，但触发入口不一定一致。 <Badge theme="warning">移动端不同</Badge>
+- 并非所有桌面端生产力扩展都在移动端提供完整 UI。 <Badge theme="danger">部分不支持</Badge>
+- 移动端更强调“默认可用 + 可禁用 + 可追加”的组合式裁剪。 <Badge theme="primary">移动端特有</Badge>

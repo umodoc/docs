@@ -1,0 +1,60 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,本地化语言,locale配置,i18n,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的语言配置与翻译覆盖方式，并标注与 Umo Editor / Umo Editor Next 的差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 本地化语言配置
+
+用于配置 Umo Editor Mobile 的默认语言与自定义翻译信息。当前内置语言支持 `zh-CN` 与 `en-US`。
+
+## 默认配置
+
+```js
+{
+  locale: 'zh-CN',
+  translations: {
+    en_US: {},
+    zh_CN: {},
+  },
+}
+```
+
+## 配置项说明
+
+### locale
+
+**说明**：默认语言。
+
+**类型**：`String`
+
+**默认值**：`zh-CN`
+
+**可选值**：`zh-CN`、`en-US`
+
+**补充说明**：
+
+- 运行时会优先读取本地缓存中的语言设置。
+- 如果传入 `auto`，内部会根据浏览器语言自动归一为 `zh-CN` 或 `en-US`。
+
+### translations
+
+**说明**：自定义翻译覆盖对象。
+
+**类型**：`Object`
+
+**默认值**：`{ en_US: {}, zh_CN: {} }`
+
+**可选值**：
+
+- `translations.zh_CN`
+- `translations.en_US`
+
+传入的翻译内容会与内置语言包合并，可用于覆盖默认文案。
+
+## 使用建议
+
+- 如果业务只需要中文与英文，优先使用 `translations` 覆盖默认文案。
+- 如果业务页面存在多个实例，建议统一由业务层控制默认语言，避免因本地缓存造成体验不一致。

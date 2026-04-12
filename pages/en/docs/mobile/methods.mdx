@@ -1,0 +1,334 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,method list,instance methods,Vue3,Tiptap3
+description: This section introduces the instance methods currently exposed by Umo Editor Mobile and highlights the differences from the desktop method set, helping developers compare and integrate across platforms.
+---
+
+import { Badge } from '/components/badge'
+
+# Methods
+
+Mobile tries to reuse the method naming of Umo Editor and Umo Editor Next as much as possible, but it does not expose the full desktop capability set one-to-one.
+
+## Example
+
+```vue
+<template>
+  <umo-editor ref="editorRef" v-bind="options" />
+  <button @click="save">Save</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import UmoEditor from '@umoteam/editor-mobile'
+
+const editorRef = ref(null)
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+
+const save = async () => {
+  const result = await editorRef.value.saveContent(true)
+  console.log(result)
+}
+</script>
+```
+
+## Method Reference
+
+### getOptions
+
+**Description**: gets the current effective configuration object.
+
+**Parameters**: none
+
+**Return value**: `Object`
+
+### setOptions
+
+**Description**: merges and updates the configuration object.
+
+**Parameters**: `Object`
+
+**Return value**: none.
+
+### setLayout
+
+**Description**: sets the current layout, either page view or web view.
+
+**Parameters**: `'page'` or `'web'`
+
+**Return value**: none.
+
+### setWatermark
+
+**Description**: updates page watermark configuration.
+
+**Parameters**: `Object`
+
+- `type`: String, watermark type, one of `compact` or `spacious`.
+- `alpha`: Number, watermark opacity, valid range `0-1`.
+- `fontColor`: String, font color, any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+- `fontSize`: Number, font size in px.
+- `fontFamily`: Number, font family, any valid [CSS font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) value.
+- `fontWeight`: String, font weight, one of `normal`, `bold`, `bolder`.
+- `text`: String, watermark content. It is recommended not to exceed 30 characters.
+
+**Return value**: none.
+
+### setDocument
+
+**Description**: updates the `document` configuration.
+
+**Parameters**: `Object`
+
+- Common fields include `title`, `content`, `readOnly`, `placeholder`, and `autoSave`.
+- Please use the real field names from the corresponding `document.*` configuration, such as `enableBubbleMenu`, `enableBlockMenu`, `enableMarkdown`, and `enableSpellcheck`. <Badge theme="warning">Different on Mobile</Badge>
+
+**Return value**: none.
+
+### setContent
+
+**Description**: replaces the entire editor content.
+
+**Parameters**:
+
+- `content`: valid HTML or any other valid [Tiptap document format](https://tiptap.dev/docs/editor/guide/output).
+- `options`:
+  - `emitUpdate`: `true`, whether to emit update events.
+  - `focusPosition`: cursor focus position, one of `'start' | 'end' | 'all' | number | boolean | null`.
+  - `focusOptions`: `{ scrollIntoView: true }`.
+
+**Return value**: none.
+
+### insertContent
+
+**Description**: inserts content at the current selection position.
+
+**Parameters**:
+
+- `content`: valid HTML or any other valid [Tiptap document format](https://tiptap.dev/docs/editor/guide/output).
+- `options`:
+  - `updateSelection`: `true`, whether to update the selection.
+  - `focusPosition`: cursor focus position, one of `'start' | 'end' | 'all' | number | boolean | null`.
+  - `focusOptions`: `{ scrollIntoView: true }`.
+
+**Return value**: none.
+
+### setLocale
+
+**Description**: sets the current locale.
+
+**Parameters**: `zh-CN` or `en-US`.
+
+**Return value**: none
+
+The current locale switch takes effect by refreshing the page.
+
+### setTheme
+
+**Description**: sets the theme.
+
+**Parameters**: `light`, `dark`, or `auto`.
+
+**Return value**: none.
+
+### getPage
+
+**Description**: gets the current page configuration.
+
+**Parameters**: none.
+
+**Return value**: page configuration object.
+
+### setPage
+
+**Description**: updates the page configuration.
+
+**Parameters**: `Object`
+
+- `size`: page size object.
+- `orientation`: page orientation, one of `portrait` or `landscape`.
+- `background`: String, page background, any valid [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+- `layout`: String, page layout, must be one of the values in `options.page.layouts`.
+- `margin`: Object, page margin containing `top`, `right`, `bottom`, and `left`, in centimeters.
+
+**Return value**: none.
+
+### getContent
+
+**Description**: gets the content.
+
+**Parameters**: String, one of `html`, `json`, or `text`.
+
+**Return value**: `html`, `json`, or `text`.
+
+### getHTML
+
+**Description**: gets HTML content.
+
+**Parameters**: none.
+
+**Return value**: `html`.
+
+### getJSON
+
+**Description**: gets JSON content.
+
+**Parameters**: none.
+
+**Return value**: `JSON`.
+
+### getText
+
+**Description**: gets plain text content.
+
+**Parameters**: none.
+
+**Return value**: text.
+
+### saveContent
+
+**Description**: manually triggers a save.
+
+**Parameters**: `Boolean`, whether to show a toast/message.
+
+**Return value**: save result object or string, depending on the return value of `onSave`.
+
+### getEditor
+
+**Description**: gets the internal editor `ref`.
+
+**Parameters**: none.
+
+**Return value**: editor `ref`
+
+If you need to directly access the Tiptap Editor instance, `useEditor()` is usually the preferred method.
+
+### useEditor
+
+**Description**: gets the Tiptap Editor instance.
+
+**Parameters**: none.
+
+**Return value**: Tiptap Editor instance.
+
+### getTableOfContents
+
+**Description**: gets the table-of-contents data.
+
+**Parameters**: none.
+
+**Return value**: `editor.storage.tableOfContents.content`
+
+### getSelectionText
+
+**Description**: gets the currently selected text.
+
+**Parameters**: none.
+
+**Return value**: `String`
+
+### getSelectionNode
+
+**Description**: gets the currently selected node.
+
+**Parameters**: none.
+
+**Return value**: Tiptap Node.
+
+### setCurrentNodeSelection
+
+**Description**: selects the entire node where the current focus is located.
+
+**Parameters**: none.
+
+**Return value**: none.
+
+### deleteSelectionNode
+
+**Description**: deletes the currently selected node.
+
+**Parameters**: none.
+
+**Return value**: none
+
+### getLocale
+
+**Description**: gets the current language.
+
+**Parameters**: none.
+
+**Return value**: `zh-CN` or `en-US`.
+
+### getI18n
+
+**Description**: gets the [`vue-i18n`](https://vue-i18n.intlify.dev/guide/introduction.html) instance.
+
+**Parameters**: none.
+
+**Return value**: `vue-i18n`.
+
+### setReadOnly
+
+**Description**: sets read-only state.
+
+**Parameters**: Boolean, whether the editor should be read-only.
+
+**Return value**: none.
+
+### focus
+
+**Description**: focuses the editor.
+
+**Parameters**:
+
+- `position`: `'start' | 'end' | 'all' | number | boolean | null`
+
+**Return value**: none.
+
+### blur
+
+**Description**: blurs the editor.
+
+**Parameters**: none.
+
+**Return value**: none.
+
+### reset
+
+**Description**: clears editor-related local cache and refreshes the page.
+
+**Parameters**: `silent?: boolean`
+
+**Return value**: none
+
+### destroy
+
+**Description**: destroys the editor instance.
+
+**Parameters**: none
+
+**Return value**: none
+
+## Desktop Method Comparison
+
+The following methods exist in desktop documentation but are not currently exposed on mobile:
+
+- `setSkin` <Badge theme="danger">Not Supported</Badge>
+- `getContentExcerpt` <Badge theme="danger">Not Supported</Badge>
+- `getVanillaHTML` <Badge theme="danger">Not Supported</Badge>
+- `getImage` <Badge theme="danger">Not Supported</Badge>
+- `print` <Badge theme="danger">Not Supported</Badge>
+- `toggleFullscreen` <Badge theme="danger">Not Supported</Badge>
+- `getAllBookmarks` / `focusBookmark` / `setBookmark` / `deleteBookmark` <Badge theme="danger">Not Supported</Badge>
+- `openAside` / `closeAside` <Badge theme="danger">Not Supported</Badge>
+- `openAIChat` / `closeAIChat` <Badge theme="danger">Not Supported</Badge>
+- `startTypewriter` / `stopTypewriter` / `getTypewriterState` <Badge theme="danger">Not Supported</Badge>
+- `useAlert` / `useConfirm` / `useMessage` <Badge theme="danger">Not Supported</Badge>
+
+## More Methods
+
+Umo Editor Mobile is built on [Tiptap](https://tiptap.dev/), so more low-level capabilities can be accessed through the instance returned by `useEditor()`.

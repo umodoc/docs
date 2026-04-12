@@ -1,0 +1,60 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,扩展,extensions,Tiptap,自定义扩展,Vue3
+description: 本节介绍 Umo Editor Mobile 的扩展体系，包括内置扩展、自定义扩展与与桌面端的能力差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 基础介绍
+
+Umo Editor Mobile 基于 [Tiptap](https://tiptap.dev/) 构建，支持通过内置扩展、自定义扩展和禁用扩展机制来调整能力边界。
+
+与 Umo Editor / Umo Editor Next 相比，移动端扩展体系依然保持一致的 Tiptap 思路，但最终开放的 UI 与交互入口更偏向触控场景。
+
+## 当前支持的扩展方式
+
+### 使用内置扩展
+
+移动端内置了大量常用扩展，包括但不限于：
+
+- 列表、任务列表、缩进、对齐、行高、字间距
+- 图片、音频、视频、文件、链接
+- 表格、分页符、目录、脚注、文本框、标签、提及
+- Callout、列布局、代码块、网页嵌入、ECharts
+- SearchReplace、OfficePaste、Selection、NodeSelect 等工具型扩展
+
+完整清单见[内置扩展列表](./built-in)。
+
+### 禁用内置扩展
+
+可以通过 `disableExtensions` 禁用内置扩展。
+
+```js
+const options = {
+  disableExtensions: ['toc', 'mention', 'tag'],
+}
+```
+
+### 追加自定义扩展
+
+可以通过 `extensions` 追加业务自定义扩展。
+
+```js
+const options = {
+  extensions: [myExtension],
+}
+```
+
+更多方式见[编写自定义扩展](./custom)。
+
+## 与桌面端的主要差异
+
+- 扩展交互入口不同 <Badge theme="warning">移动端不同</Badge>：即使底层扩展同名，移动端也可能通过底部工具栏、导航按钮或弹层来触发，而不是桌面端工具栏。
+- 并非所有桌面端扩展能力都完全暴露 <Badge theme="danger">部分不支持</Badge>：部分桌面端生产力功能虽然在数据层可兼容，但移动端 UI 和文档入口可能未完全提供。
+- 移动端更依赖“可禁用 + 可追加”两套机制来裁剪功能边界。 <Badge theme="primary">移动端特有</Badge>
+
+## UI 相关说明
+
+- 如果您只是接入扩展能力，优先关注 `extensions` 与 `disableExtensions`。
+- 如果需要更深度的能力接入，建议同时参考移动端源码中的 `src/extensions` 目录。

@@ -1,0 +1,160 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,default configuration,options,Vue3,Tiptap3,mobile editor
+description: This section introduces the current default configuration in Umo Editor Mobile source code and highlights its differences from Umo Editor and Umo Editor Next, serving as the baseline for the configuration subpages that follow.
+---
+
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# Default Configuration
+
+Compared with Umo Editor and Umo Editor Next, the mobile configuration is more focused on touch-first reading, switching between read and edit modes, the save state machine, and lightweight integration. It does not include all desktop appearance and toolbar configuration items.
+
+## Full Configuration
+
+```js showLineNumbers
+const defaultOptions = {
+  editorKey: 'default',
+  locale: 'zh-CN',
+  theme: 'light',
+  debug: false,
+  dicts: {
+    fonts: [...],
+    colors: [...],
+    lineHeights: [...],
+    symbols: [...],
+    emojis: [...],
+    pageSizes: [...],
+  },
+  page: {
+    layouts: ['web', 'page'],
+    defaultMargin: {
+      left: 3.18,
+      right: 3.18,
+      top: 2.54,
+      bottom: 2.54,
+    },
+    defaultOrientation: 'portrait',
+    defaultBackground: '#fff',
+    showBreakMarks: true,
+    showLineNumber: false,
+    showBookmark: false,
+    watermark: {
+      type: 'compact',
+      alpha: 0.2,
+      fontColor: '#000',
+      fontSize: 16,
+      fontFamily: 'SimSun',
+      fontWeight: 'normal',
+      text: '',
+    },
+  },
+  document: {
+    title: '',
+    content: '',
+    placeholder: {
+      en_US: 'Please enter the document content...',
+      zh_CN: '请输入文档内容...',
+    },
+    structure: 'block+',
+    enableSpellcheck: true,
+    enableMarkdown: true,
+    enableBubbleMenu: true,
+    enableBlockMenu: true,
+    enableNodeId: false,
+    readOnly: false,
+    autofocus: false,
+    characterLimit: 0,
+    typographyRules: {},
+    editorProps: {},
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
+    autoSave: {
+      enabled: true,
+      interval: 300000,
+    },
+  },
+  echarts: {
+    mode: 1,
+    renderImage: false,
+    onCustomSettings() {
+      return null
+    },
+  },
+  templates: [],
+  cdnUrl: 'https://unpkg.com/@umoteam/editor-external@latest',
+  shareUrl: location.href || '',
+  file: {
+    allowedMimeTypes: [],
+    maxSize: 1024 * 1024 * 100,
+  },
+  user: {},
+  users: [],
+  extensions: [],
+  disableExtensions: [],
+  translations: {
+    en_US: {},
+    zh_CN: {},
+  },
+  async onLeave({ leaveSteps = 1 } = {}) {
+    window.history.go(-Math.max(1, Number(leaveSteps) || 1))
+  },
+  async onSave() {
+    throw new Error('Key "onSave": Please set the save method')
+  },
+  async onRename() {
+    throw new Error('Key "onRename": Please set the rename method')
+  },
+  async onFileUpload(file) {
+    if (!file) {
+      throw new Error('File not found')
+    }
+    throw new Error('Key "onFileUpload": Please set the upload method')
+  },
+  onFileDelete() {
+    console.error('The file has been deleted...')
+  },
+}
+```
+
+## Configuration Overview
+
+- `editorKey`: editor instance identifier, used to distinguish local persisted state.
+- `locale` / `theme` / `debug`: global display, theme, and debugging capability configuration. See [Localization Configuration](./locale), [Theme Configuration](./theme), and [Debug Configuration](./debug).
+- `dicts`: dictionary configuration. See [Dictionary Configuration](./dicts).
+- `page`: page configuration. See [Page Configuration](./page).
+- `document`: document configuration. See [Document Configuration](./document).
+- `echarts`: ECharts configuration. See [ECharts Configuration](./echarts).
+- `templates`: template configuration. See [Document Template Configuration](./templates).
+- `cdnUrl` / `shareUrl`: resource base URL and share URL configuration.
+- `file`: file upload and preview configuration. See [File Upload Configuration](./file).
+- `user` / `users`: user information configuration. See [User Configuration](./user) and [Related Users Configuration](./users).
+- `extensions` / `disableExtensions`: extension add/remove configuration. See [Feature and Extension Configuration](./extensions).
+- `translations`: localization override configuration. See [Localization Configuration](./locale).
+- `onLeave` / `onSave` / `onRename` / `onFileUpload` / `onFileDelete`: callback method configuration. See [Method Configuration](./methods).
+
+## Key Differences from Desktop
+
+- `debug` <Badge theme="primary">Mobile-Only</Badge>: controls whether the built-in DevTools entry is available in the "More" panel.
+- `onLeave` <Badge theme="primary">Mobile-Only</Badge>: handles mobile back navigation, page leaving, and navigation behavior after unsaved-change confirmation.
+- `onRename` <Badge theme="primary">Mobile-Only</Badge>: handles document rename from the "More" panel.
+- `page.layouts` defaults to `['web', 'page']` <Badge theme="warning">Different on Mobile</Badge>, which means mobile enters web layout by default; desktop usually prioritizes paged view.
+- `file.preview` <Badge theme="warning">Different on Mobile</Badge>: mobile does not support third-party preview through URL templates.
+
+## Configuration Items Not Supported on Mobile
+
+- `skin` <Badge theme="danger">Not Supported</Badge>
+- `height` <Badge theme="danger">Not Supported</Badge>
+- `fullscreenZIndex` <Badge theme="danger">Not Supported</Badge>
+- `toolbar` <Badge theme="danger">Not Supported</Badge>
+- `webPages` <Badge theme="danger">Not Supported</Badge>
+- `diagrams` <Badge theme="danger">Not Supported</Badge>
+
+<Callout type="warning">
+  The mobile configuration documentation is intentionally focused on what is
+  actually supported in the current mobile product. For desktop-only items,
+  please refer to the desktop documentation instead of assuming the same support
+  boundary on mobile.
+</Callout>

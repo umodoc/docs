@@ -1,0 +1,92 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,debug配置,DevTools,eruda,移动端调试,Vue3
+description: 本节介绍 Umo Editor Mobile 的 debug 配置，用于控制是否在移动端“更多”面板中开放内置 DevTools 调试能力。
+---
+
+import { Badge } from '/components/badge'
+
+# 调试配置
+
+用于配置 Umo Editor Mobile 的调试能力开关，方便开发者在移动端调试时使用。该配置主要影响移动端“更多”面板中是否展示 DevTools 调试入口，以及运行时是否允许开启内置调试工具。<Badge theme="primary">移动端特有</Badge>
+
+## 界面截图
+
+| 1 | 2 | 3 |
+| --- | --- | --- |
+| ![Umo Editor Mobile Debug](https://s2.umodoc.com/mobile/21.png) | ![Umo Editor Mobile Debug）](https://s2.umodoc.com/mobile/22.png) | ![Umo Editor Mobile Debug](https://s2.umodoc.com/mobile/23.png) |
+
+## 默认配置
+
+```js
+{
+  debug: false,
+}
+```
+
+## 配置项说明
+
+### debug
+
+**说明**：是否允许在移动端“更多”面板中启用内置 DevTools。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：
+
+- `true`：显示调试入口，并允许用户在运行时开启或关闭 DevTools
+- `false`：隐藏调试入口，且强制关闭已启用的 DevTools
+
+## 运行机制
+
+当 `debug` 为 `true` 时，移动端“更多”面板会显示一个调试项，用户可以在运行时手动切换 DevTools 开关。
+
+调试状态会按 `editorKey` 维度持久化到本地缓存中，因此不同编辑器实例可以拥有各自独立的调试开关状态。
+
+如果后续将 `debug` 改回 `false`：
+
+- “更多”面板中的调试入口会被移除
+- 已启用的 DevTools 会被立即关闭
+- 本地缓存中的调试状态也会被重置为关闭
+
+## 使用示例
+
+### 全局配置
+
+```js
+const options = {
+  debug: true,
+}
+```
+
+### SFC 配置
+
+```vue
+<template>
+  <umo-editor :debug="true" v-bind="options" />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const options = ref({
+  async onSave() {
+    return '保存成功'
+  },
+})
+</script>
+```
+
+## 使用建议
+
+- 在开发、联调、测试环境中，建议按需开启 `debug`，便于排查 WebView、资源加载、保存链路和运行时错误。
+- 在线上正式环境中，通常建议保持 `debug: false`，避免向最终用户暴露调试入口。
+- 如果业务有多实例或多文档页，建议配合 `editorKey` 使用，以区分不同实例的本地调试状态。
+
+## 与桌面端的主要差异
+
+- `debug` <Badge theme="primary">移动端特有</Badge>：用于控制“更多”面板中的 DevTools 开关入口。
+- 调试工具承载方式不同 <Badge theme="warning">移动端不同</Badge>：移动端依赖内置的运行时调试工具，而不是桌面端浏览器或独立开发环境中的常规调试方式。
+- 调试状态会本地持久化 <Badge theme="warning">移动端不同</Badge>：当前以 `umo-editor-mobile:${editorKey}:debug` 的形式保存在本地。

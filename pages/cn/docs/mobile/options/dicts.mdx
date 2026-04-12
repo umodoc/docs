@@ -1,0 +1,417 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,字典配置,dicts,字体,颜色,表情,页面尺寸
+description: 本节介绍 Umo Editor Mobile 的字典配置，包括字体、颜色、行高、符号、表情与页面尺寸等基础数据。
+---
+
+import { Badge } from '/components/badge'
+
+# 字典配置
+
+用于配置编辑器中的基础字典数据，例如字体、颜色、行高、符号、表情和页面尺寸。
+
+这些字典会被移动端工具栏、插入面板或页面设置面板消费，是编辑器基础交互的重要组成部分。
+
+## 默认配置
+
+```js
+{
+  dicts: {
+    fonts: [
+      {
+        label: { en_US: 'Default Font', zh_CN: '默认字体' },
+        value: null,
+      },
+      {
+        label: { en_US: 'Songti', zh_CN: '宋体' },
+        value: 'SimSun',
+      },
+      {
+        label: { en_US: 'Heiti', zh_CN: '黑体' },
+        value: 'SimHei',
+      },
+      {
+        label: { en_US: 'Kaiti', zh_CN: '楷体' },
+        value: 'KaiTi',
+      },
+      {
+        label: {
+          en_US: 'Kaiti GB2312',
+          zh_CN: '楷体_GB2312',
+        },
+        value: 'KaiTi_GB2312',
+      },
+      {
+        label: { en_US: 'Fangsong', zh_CN: '仿宋' },
+        value: 'FangSong',
+      },
+      {
+        label: {
+          en_US: 'Fangsong GB2312',
+          zh_CN: '仿宋_GB2312',
+        },
+        value: 'FangSong_GB2312',
+      },
+      {
+        label: { en_US: 'STSong', zh_CN: '华文宋体' },
+        value: 'STSong',
+      },
+      {
+        label: { en_US: 'STFangsong', zh_CN: '华文仿宋' },
+        value: 'STFangsong',
+      },
+      {
+        label: {
+          en_US: 'FZ Fangsong Simplified',
+          zh_CN: '方正仿宋简体',
+        },
+        value: 'FZFangSong-Z02S',
+      },
+      {
+        label: {
+          en_US: 'FZ Xiaobiao Song',
+          zh_CN: '方正小标宋',
+        },
+        value: 'FZXiaoBiaoSong-B05S',
+      },
+      {
+        label: {
+          en_US: 'Microsoft Yahei',
+          zh_CN: '微软雅黑',
+        },
+        value: 'Microsoft Yahei',
+      },
+      { label: 'Arial', value: 'Arial' },
+      { label: 'Times New Roman', value: 'Times New Roman' },
+      { label: 'Verdana', value: 'Verdana' },
+      { label: 'Helvetica', value: 'Helvetica' },
+      { label: 'Calibri', value: 'Calibri' },
+      { label: 'Cambria', value: 'Cambria' },
+      { label: 'Tahoma', value: 'Tahoma' },
+      { label: 'Georgia', value: 'Georgia' },
+      { label: 'Comic Sans MS', value: 'Comic Sans MS' },
+      { label: 'Impact', value: 'Impact' },
+    ],
+    colors: [
+      '#FFF',
+      '#000',
+      '#4A5366',
+      '#3B74EC',
+      '#45A2EF',
+      '#529867',
+      '#CD4A3F',
+      '#EA8D40',
+      '#EEC543',
+      '#8E45D0',
+      '#F2F2F2',
+      '#7F7F7F',
+      '#F4F5F7',
+      '#CBDCFC',
+      '#E8F6FE',
+      '#EDFAF2',
+      '#FCEAE9',
+      '#FDF3EC',
+      '#FEF9E5',
+      '#FAECFE',
+      '#EEE',
+      '#595959',
+      '#C6CAD2',
+      '#CEEBFD',
+      '#CBDCFC',
+      '#CBE9D7',
+      '#F7CBC9',
+      '#FADDC7',
+      '#FDEEB5',
+      '#EBCAFC',
+      '#BFBFBF',
+      '#3F3F3F',
+      '#828B9D',
+      '#A0BEFA',
+      '#A7DCFC',
+      '#A6D5B8',
+      '#F2A19C',
+      '#F5BC8C',
+      '#FBE281',
+      '#CB94F9',
+      '#A5A5A5',
+      '#262626',
+      '#363B44',
+      '#2452B2',
+      '#3473A1',
+      '#417A53',
+      '#922B22',
+      '#AD642A',
+      '#9E8329',
+      '#57297D',
+      '#939393',
+      '#0D0D0D',
+      '#25272E',
+      '#15316A',
+      '#1C415A',
+      '#284D34',
+      '#511712',
+      '#573213',
+      '#635217',
+      '#36194E',
+    ],
+    lineHeights: [
+      {
+        label: { en_US: 'Single', zh_CN: '单倍行距' },
+        value: 1,
+      },
+      {
+        label: {
+          en_US: '1.5 Line Spacing',
+          zh_CN: '1.5 倍行距',
+        },
+        value: 1.5,
+      },
+      {
+        label: {
+          en_US: '1.75 Line Spacing',
+          zh_CN: '1.75 倍行距',
+        },
+        value: 1.75,
+        default: true,
+      },
+      {
+        label: { en_US: 'Double', zh_CN: '2 倍行距' },
+        value: 2,
+      },
+      {
+        label: {
+          en_US: '2.5 Line Spacing',
+          zh_CN: '2.5 倍行距',
+        },
+        value: 2.5,
+      },
+      {
+        label: { en_US: 'Triple', zh_CN: '3 倍行距' },
+        value: 3,
+      },
+    ],
+    symbols: [
+      {
+        label: {
+          en_US: 'Plain Text',
+          zh_CN: '普通文本',
+        },
+        items: '‹›«»‘’“”‚„¡¿‥…‡‰‱‼⁈⁉⁇©®™§¶⁋',
+      },
+      {
+        label: {
+          en_US: 'Currency Symbols',
+          zh_CN: '货币符号',
+        },
+        items: '$€¥£¢₠₡₢₣₤¤₿₥₦₧₨₩₪₫₭₮₯₰₱₲₳₴₵₶₷₸₹₺₻₼₽',
+      },
+      {
+        label: {
+          en_US: 'Mathematical Symbols',
+          zh_CN: '数学符号',
+        },
+        items: '<>≤≥–—¯‾°−±÷⁄×ƒ∫∑∞√∼≅≈≠≡∈∉∋∏∧∨¬∩∪∂∀∃∅∇∗∝∠¼½¾',
+      },
+      {
+        label: { en_US: 'Arrows', zh_CN: '箭头' },
+        items: '←→↑↓⇐⇒⇑⇓⇠⇢⇡⇣⇤⇥⤒⤓↨',
+      },
+      {
+        label: {
+          en_US: 'Latin Script',
+          zh_CN: '拉丁语',
+        },
+        items:
+          'ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſ',
+      },
+    ],
+    emojis: [
+      {
+        label: {
+          en_US: 'Emotions & People',
+          zh_CN: '表情与角色',
+        },
+        items:
+          '😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 😉 😊 😇 🥰 😍 🤩 😘 😗 😚 😙 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🤫 🤔 🤐 🤨 😐 😑 😶 😶‍ 😏 😒 🙄 😬 😮‍ 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 😵‍💫 🤯 🤠 🥳 😎 🤓 🧐 😕 😟 🙁 ☹️ 😮 😯 😲 😳 🥺 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👹 👺 👻 👽 👾 🤖 👋 🤚 🖐️ ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻',
+      },
+      {
+        label: {
+          en_US: 'Animals & Nature',
+          zh_CN: '动物与自然',
+        },
+        items:
+          '🐵 🐒 🦍 🦧 🐶 🐕 🦮 🐕‍🦺 🐩 🐺 🦊 🦝 🐱 🐈 🐈‍⬛ 🦁 🐯 🐅 🐆 🐴 🐎 🦄 🦓 🦌 🐮 🐂 🐃 🐄 🐷 🐖 🐗 🐽 🐏 🐑 🐐 🐪 🐫 🦙 🦒 🐘 🦏 🦛 🐭 🐁 🐀 🐹 🐰 🐇 🐿️ 🦔 🦇 🐻 🐻‍❄️ 🐨 🐼 🦥 🦦 🦨 🦘 🦡 🐾 🦃 🐔 🐓 🐣 🐤 🐥 🐦 🐧 🕊️ 🦅 🦆 🦢 🦉 🦩 🦚 🦜 🐸 🐊 🐢 🦎 🐍 🐲 🐉 🦕 🦖 🐳 🐋 🐬 🦭 🐟 🐠 🐡 🦈 🐙 🐚 🐌 🦋 🐛 🐜 🐝 🐞 🦗 🕷️ 🕸️ 🦂 🦟 🦠 💐 🌸 💮 🏵️ 🌹 🥀 🌺 🌻 🌼 🌷 🌱 🌲 🌳 🌴 🌵 🌾 🌿 ☘️ 🍀 🍁 🍂 🍃 🌒 🌓 🌔 🌕 🌖 🌗 🌘 🌙 🌚 🌛 🌜 ☀️ 🌝 🌞 🪐 🌟 🌠 🌌 ☁️ ⛅ ⛈️ 🌤️ 🌥️ 🌦️ 🌧️ 🌨️ 🌩️ 🌪️ 🌫️ 🌬️ 🌀 🌈 🌂 ☂️ ☔ ⛱️ ⚡ ❄️ ☃️ ⛄ ☄️ 🔥 💧 🌊',
+      },
+      {
+        label: {
+          en_US: 'Food & Drink',
+          zh_CN: '食物与食品',
+        },
+        items:
+          '🍇 🍉 🍊 🍋 🍌 🍍 🥭 🍎 🍏 🍐 🍑 🍒 🍓 🥝 🍅 🥥 🥑 🍆 🥔 🥕 🌽 🌶️ 🥬 🥦 🧄 🧅 🍄 🥜 🌰 🍞 🥐 🥖 🥨 🥯 🥞 🧇 🧀 🍖 🍗 🥩 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🥙 🧆 🥚 🍳 🥘 🍲 🥣 🥗 🍿 🧈 🧂 🥫 🍱 🍘 🍙 🍚 🍛 🍜 🍝 🍠 🍢 🍣 🍤 🍥 🥮 🍡 🥟 🥠 🥡 🦀 🦞 🦐 🦑 🦪 🍦 🍧 🍨 🍩 🍪 🎂 🍰 🧁 🥧 🍫 🍬 🍭 🍮 🍯 🍼 🥛 ☕ 🍵 🍶 🍾 🍷 🍸 🍹 🍺 🍻 🥂 🥃 🥤 🧃 🧉 🧊 🥢 🍽️ 🍴 🥄 🔪 🏺',
+      },
+      {
+        label: { en_US: 'Activities', zh_CN: '活动' },
+        items:
+          '🧧 🎁 🎄 🧨 ✨ 🎈 🎉 🏮 🎗️ 🎟️ 🎫 🎖️ 🏆 🏅 🥇 🥈 🥉 ⚽ ⚾ 🥎 🏀 🏐 🏈 🏉 🎾 🥏 🎳 🏏 🏑 🏒 🥍 🏓 🏸 🥊 🥋 🥅 ⛳ ⛸️ 🎣 🤿 🎽 🎿 🛷 🥌 🎯 🪀 🪁 🎱 🔮 🧿 🎮 🕹️ 🎰 🎲 🧩 🧸 ♟️ 🃏 🀄 🎴 🎭 🖼️ 🎨 🧵 🧶',
+      },
+      {
+        label: {
+          en_US: 'Travel & Places',
+          zh_CN: '旅行与景点',
+        },
+        items:
+          '🚈 🚉 🚊 🚝 🚞 🚋 🚌 🚍 🚎 🚐 🚑 🚒 🚓 🚔 🚕 🚖 🚗 🚘 🚙 🚚 🚛 🚜 🏎️ 🏍️ 🛵 🦽 🦼 🛺 🚲 🛴 🛹 🚏 🛣️ 🛤️ 🛢️ ⛽ 🚨 🚥 🚦 🛑 🚧 ⚓ ⛵ 🛶 🚤 🛳️ ⛴️ 🛥️ 🚢 ✈️ 🛩️ 🛫 🛬 🪂 💺 🚁 🚟 🚠 🚡 🛰️ 🚀 🛸 🛎️ 🧳 🧭 ⌚ ⏰ ⏱️ ⏲️ 🕰️ 🕛 🕧 🕐 🕜 🕑 🕝 🕒 🕞 🕓 🕟 🕔 🕠 🕕 🕡 🕖 🕢 🕗 🕣 🕘 🕤 🕙 🕥 🕚 🕦',
+      },
+      {
+        label: { en_US: 'Objects', zh_CN: '物品' },
+        items:
+          '📔 📕 📖 📗 📘 📙 📚 📒 📃 📜 📄 📰 🗞️ 📑 🔖 🏷️ 💰 🔍 🔎 💴 💵 💶 💷 💸 💳 🧾 💹 ✉️ 📧 📨 📩 📤 📥 📦 📫 📪 📬 📭 📮 🗳️ ✏️ ✒️ 🖋️ 🖊️ 🖌️ 🖍️ 📝 💼 📁 📂 🗂️ 📅 📆 🗒️ 🗓️ 📇 📈 📉 📊 📋 📌 📍 📎 🖇️ 📏 📐 ✂️ 🗃️ 🗄️ 🗑️ 🔒 🔓 🔏 🔐 🔑 🗝️ 🔨 🪓 ⛏️ ⚒️ 🛠️ 🗡️ ⚔️ 🔫 🏹 🛡️ 🔧 🔩 ⚙️ 🗜️ ⚖️ 🦯 🔗 ⛓️ 🧰 🧲 ⚗️ 🧪 🧫 🧬 🔬 🔭 📡 💉 🩸 💊 🩹 🩺 🚪 🛏️ 🛋️ 🪑 🚽 🚿 🛁 🪒 🧴 🧷 🧹 🧺 🧻 🧼 🧽 🧯 🛒 🚬 ⚰️ ⚱️ 💎 🔇 🔈 🔉 🔊 🔔 🔕 🔋 🔌 💻 🖥️ 🖨️ ⌨️ 🖱️ 🖲️ 📷 🧱',
+      },
+      {
+        label: { en_US: 'Symbols', zh_CN: '符号' },
+        items:
+          '💡 ✅ ☑️ ✔️ ❌ ❎ ❓ ❗ ❔ ❕ ⌛ ⏳ 💰 🆒 🆕 🆖 🅾️ 🆗 🆘 🈲 🉑 🈸 ⛔ 🚫 📵 ✳️ ✴️ ❇️ 🔟 🔠 🔡 🔢 🔣 🔤 🅰️ 🆎 🅱️ 🆑 🆒 🆓 ℹ️ 🆔 🆕 🆖 🅾️ 🆗 🅿️ 🆘 🆙 🆚 🈁 🈂️ 🔴 🟠 🟡 🟢 🔵 🟣 🟤 ⚫ ⚪ 🟥 🟧 🟨 🟩 🟦 🟪 🟫 🔶 🔷 🔸 🔹 🔺 🔻 💠 🔘 🔳 🔲 💌 💘 💝 💖 💗 💓 💞 💕 💟 ❣️ 💔 🤍 💯 💢 💥 💬 💤 ➰ ➿ 🔅 📴 ➡️ 🔃 🔄 🔙 🔚 🔛 🔝 🔀 🔁 🔂',
+      },
+      {
+        label: { en_US: 'Flags', zh_CN: '旗帜' },
+        items: '🏁 🚩 🏴 🏳️ 🏳️‍🌈‍',
+      },
+    ],
+    pageSizes: [
+      { label: 'A4', width: 21.0, height: 29.7, default: true },
+      { label: 'A3', width: 29.7, height: 42.0 },
+      { label: 'A5', width: 14.8, height: 21.0 },
+      { label: 'B5', width: 17.6, height: 25.0 },
+      {
+        label: {
+          en_US: 'No. 5 Envelope',
+          zh_CN: '5号信封',
+        },
+        width: 10.9,
+        height: 12.9,
+      },
+      {
+        label: {
+          en_US: 'No. 6 Envelope',
+          zh_CN: '6号信封',
+        },
+        width: 11.9,
+        height: 22.9,
+      },
+      {
+        label: {
+          en_US: 'No. 7 Envelope',
+          zh_CN: '7号信封',
+        },
+        width: 16.1,
+        height: 22.8,
+      },
+      {
+        label: {
+          en_US: 'No. 9 Envelope',
+          zh_CN: '9号信封',
+        },
+        width: 22.8,
+        height: 32.3,
+      },
+      {
+        label: {
+          en_US: 'Legal Paper',
+          zh_CN: '法律用纸',
+        },
+        width: 21.5,
+        height: 33.5,
+      },
+      {
+        label: {
+          en_US: 'Letter Paper',
+          zh_CN: '信纸',
+        },
+        width: 21.5,
+        height: 27.9,
+      },
+    ],
+  },
+}
+```
+
+## 配置项说明
+
+### dicts.fonts
+
+**说明**：字体列表。
+
+**类型**：`Array`
+
+每项通常包含：
+
+- `label`：显示名称，支持字符串或多语言对象
+- `value`：字体值
+- `default`：是否为默认值
+
+### dicts.colors
+
+**说明**：颜色列表。
+
+**类型**：`Array`
+
+每项通常为颜色字符串，例如 `#FFF`、`#000`。
+
+### dicts.lineHeights
+
+**说明**：行高列表。
+
+**类型**：`Array`
+
+每项通常包含：
+
+- `label`：显示名称
+- `value`：行高值
+- `default`：是否为默认值
+
+### dicts.symbols
+
+**说明**：符号分组列表。
+
+**类型**：`Array`
+
+每项通常包含：
+
+- `label`：分组名称
+- `items`：符号字符串
+
+### dicts.emojis
+
+**说明**：表情分组列表。
+
+**类型**：`Array`
+
+每项通常包含：
+
+- `label`：分组名称
+- `items`：表情字符串
+
+### dicts.pageSizes
+
+**说明**：页面尺寸列表。
+
+**类型**：`Array`
+
+每项通常包含：
+
+- `label`：纸张名称
+- `width`：宽度
+- `height`：高度
+- `default`：是否为默认值
+
+## 使用建议
+
+- 如果只是增补少量业务数据，建议在默认字典基础上追加，而不是完全替换。
+- `label` 支持多语言对象，适合在中英文场景中统一维护字典显示名。
+- 如果业务不需要某类字典入口，可以结合移动端工具栏能力一起裁剪，避免在触控界面中暴露过多选项。
+
+## 与桌面端的主要差异
+
+- 移动端字典结构与桌面端一致，但部分配置项不会被使用。
+- 即使字典项完整存在，移动端也不一定会像桌面端那样在界面中完整展开全部入口，最终展示仍受移动端工具栏与面板交互限制。<Badge theme="warning">移动端不同</Badge> 

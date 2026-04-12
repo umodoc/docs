@@ -1,0 +1,172 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,文档配置,document配置,Vue3,Tiptap3,移动端编辑器
+description: 本节介绍 Umo Editor Mobile 的文档配置项，包括标题、内容、占位、只读、自动保存与编辑器底层配置，并标注与桌面端的差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 文档配置
+
+用于配置 Umo Editor Mobile 的文档标题、内容、编辑行为与自动保存策略。
+
+与 Umo Editor / Umo Editor Next 相比，移动端文档配置更强调阅读态切换、触控输入和轻量化集成，不包含桌面端或 Next 版本中的全部协作字段。
+
+## 默认配置
+
+```js
+{
+  document: {
+    title: '',
+    content: '',
+    placeholder: {
+      en_US: 'Please enter the document content...',
+      zh_CN: '请输入文档内容...',
+    },
+    structure: 'block+',
+    enableSpellcheck: true,
+    enableMarkdown: true,
+    enableBubbleMenu: true,
+    enableNodeId: false,
+    readOnly: false,
+    characterLimit: 0,
+    typographyRules: {},
+    editorProps: {},
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
+    autoSave: {
+      enabled: true,
+      interval: 300000,
+    },
+  },
+}
+```
+
+## 配置项说明
+
+### document.title
+
+**说明**：文档标题，可通过 [setDocument 方法](../methods#setdocument) 动态更新；移动端顶部导航与“更多”面板中的重命名能力都会围绕该字段工作。
+
+**类型**：`String`
+
+**默认值**：`''`
+
+### document.content
+
+**说明**：初始文档内容，可为 HTML 字符串或 Tiptap 支持的数据结构；创建编辑器实例时会先经过内容转换后再传入 Tiptap。
+
+**类型**：`String | Object`
+
+**默认值**：`''`
+
+### document.placeholder
+
+**说明**：文档内容为空时的占位符。
+
+**类型**：`String | Object`
+
+**支持的多语言键**：
+
+- `zh_CN`
+- `en_US`
+
+### document.structure
+
+**说明**：强制约束文档结构，语义与 Tiptap / ProseMirror 的内容结构规则一致。
+
+**类型**：`String`
+
+**默认值**：`block+`
+
+### document.enableSpellcheck
+
+**说明**：是否启用浏览器拼写检查。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.enableMarkdown
+
+**说明**：是否启用 Markdown 输入规则。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.enableBubbleMenu
+
+**说明**：是否启用气泡菜单。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### document.enableNodeId
+
+**说明**：是否为文档节点生成唯一标识。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### document.readOnly
+
+**说明**：是否以只读模式打开文档；设置为 `true` 时更适合移动端阅读、审批等场景。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### document.characterLimit
+
+**说明**：文档字数限制；为 `0` 时表示不限制。
+
+**类型**：`Number`
+
+**默认值**：`0`
+
+### document.typographyRules
+
+**说明**：排版替换规则配置，传递给 Tiptap `Typography` 扩展。
+
+**类型**：`Object`
+
+**默认值**：`{}`
+
+### document.editorProps
+
+**说明**：向 ProseMirror `EditorProps` 传递底层配置，例如自定义 DOM 属性或事件处理。
+
+**类型**：`Object`
+
+**默认值**：`{}`
+
+### document.parseOptions
+
+**说明**：配置 ProseMirror 文档解析行为。
+
+**类型**：`Object`
+
+**默认值**：`{ preserveWhitespace: 'full' }`
+
+### document.autoSave
+
+**说明**：自动保存配置；启用后会在内容变更后按间隔时间触发保存流程。
+
+**类型**：`Object`
+
+**默认值**：`{ enabled: true, interval: 300000 }`
+
+**配置项**：
+
+- `enabled`：`Boolean`，是否启用自动保存
+- `interval`：`Number`，自动保存间隔，单位毫秒
+
+## 与桌面端的主要差异
+
+- `autofocus` 在移动端浏览器和 WebView 中，自动聚焦通常还会受到软键盘策略、宿主容器和用户手势限制，导致自动聚焦失败，故移动端不支持自动聚焦。<Badge theme="danger">不支持</Badge>
+- `enableBlockMenu` 移动端不提供桌面端的块菜单功能。<Badge theme="danger">不支持</Badge>
+- `readOnly` 在移动端的重要性更高，很多交互会直接围绕“阅读态 / 编辑态”切换展开。 <Badge theme="primary">移动端特有</Badge>

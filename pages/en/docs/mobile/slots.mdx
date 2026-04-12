@@ -1,0 +1,72 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,slots,Vue3,Tiptap3,mobile editor
+description: This section introduces the slots currently supported by Umo Editor Mobile and highlights the differences from Umo Editor and Umo Editor Next, helping developers extend the UI.
+---
+
+import { Badge } from '/components/badge'
+
+# Slots
+
+Umo Editor Mobile currently exposes only a small number of high-value slots, allowing business actions and custom menu content to be added without breaking the overall mobile interaction structure.
+
+Compared with Umo Editor and Umo Editor Next, mobile does not provide `toolbar_*` slots.
+
+## Currently Supported Slots
+
+### navbar_edit_actions
+
+**Description**: append custom actions to the right side of the navigation bar in edit mode.
+
+**Slot props**: none
+
+### navbar_view_actions
+
+**Description**: append custom actions to the right side of the navigation bar in read-only mode.
+
+**Slot props**: none
+
+### bubble_menu
+
+**Description**: append custom menu items to the end of the bubble menu.
+
+**Slot props**:
+
+- `node-type`: the currently selected node type
+- `node-attrs`: the currently selected node attributes
+
+## Usage Example
+
+```vue
+<template>
+  <umo-editor v-bind="options">
+    <template #navbar_edit_actions>
+      <button type="button">Help</button>
+    </template>
+
+    <template #navbar_view_actions>
+      <button type="button">Help</button>
+    </template>
+
+    <template #bubble_menu="props">
+      <button type="button">Node type: {{ props['node-type'] }}</button>
+    </template>
+  </umo-editor>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+</script>
+```
+
+## Key Differences from Desktop
+
+- `toolbar_base_*` <Badge theme="danger">Not Supported</Badge>
+- Mobile exposes fewer slots <Badge theme="warning">Different on Mobile</Badge>: currently only 3 slots are available across the navigation bar and bubble menu.
+- Navigation bar slots better fit common mobile business integration habits <Badge theme="primary">Mobile-Only</Badge>, making them suitable for adding help buttons and business actions.

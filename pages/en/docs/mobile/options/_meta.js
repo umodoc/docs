@@ -1,0 +1,18 @@
+export default {
+  default: 'Default Configuration',
+  debug: 'Debug Configuration',
+  dicts: 'Dictionary Configuration',
+  page: 'Page Configuration',
+  document: 'Document Configuration',
+  echarts: 'ECharts Configuration',
+  templates: 'Document Template Configuration',
+  cdn: 'CDN Configuration',
+  share: 'Share Configuration',
+  user: 'User Configuration',
+  users: 'Related Users Configuration',
+  file: 'File Upload Configuration',
+  extensions: 'Feature and Extension Configuration',
+  locale: 'Localization Configuration',
+  theme: 'Theme Configuration',
+  methods: 'Method Configuration',
+}

@@ -1,0 +1,157 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,event list,Vue3,Tiptap3,mobile editor
+description: This section introduces the list of events currently supported by Umo Editor Mobile and highlights the differences from desktop, making cross-platform integration easier for developers.
+---
+
+import { Badge } from '/components/badge'
+
+# Events
+
+Compared with Umo Editor and Umo Editor Next, the mobile version focuses more on page state, read/edit mode switching, and panel visibility state. It does not expose the full desktop event set.
+
+## Example
+
+```vue
+<template>
+  <umo-editor
+    v-bind="options"
+    @before-create="onBeforeCreate"
+    @created="onCreated"
+    @changed="onChanged"
+    @changed:selection="onChangedSelection"
+    @changed:transaction="onChangedTransaction"
+    @changed:page-layout="onChangedPageLayout"
+    @changed:page-size="onChangedPageSize"
+    @changed:page-orientation="onChangedPageOrientation"
+    @changed:page-margin="onChangedPageMargin"
+    @changed:page-background="onChangedPageBackground"
+    @changed:page-watermark="onChangedPageWatermark"
+    @changed:locale="onChangedLocale"
+    @changed:theme="onChangedTheme"
+    @changed:edit-mode="onChangedEditMode"
+    @changed:search-visible="onChangedSearchVisible"
+    @changed:toc-visible="onChangedTocVisible"
+    @changed:more-visible="onChangedMoreVisible"
+    @focus="onFocus"
+    @blur="onBlur"
+    @saved="onSaved"
+    @destroy="onDestroy"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import UmoEditor from '@umoteam/editor-mobile'
+
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+
+const onBeforeCreate = (editor) => {
+  console.log('beforeCreate', editor)
+}
+const onCreated = (editor) => {
+  console.log('created', editor)
+}
+const onChanged = () => {
+  console.log('changed')
+}
+const onChangedSelection = (payload) => {
+  console.log('changed:selection', payload)
+}
+const onChangedTransaction = (payload) => {
+  console.log('changed:transaction', payload)
+}
+const onChangedPageLayout = (layout) => {
+  console.log('changed:pageLayout', layout)
+}
+const onChangedPageSize = (size) => {
+  console.log('changed:pageSize', size)
+}
+const onChangedPageOrientation = (orientation) => {
+  console.log('changed:pageOrientation', orientation)
+}
+const onChangedPageMargin = (margin) => {
+  console.log('changed:pageMargin', margin)
+}
+const onChangedPageBackground = (background) => {
+  console.log('changed:pageBackground', background)
+}
+const onChangedPageWatermark = (watermark) => {
+  console.log('changed:pageWatermark', watermark)
+}
+const onChangedLocale = (locale) => {
+  console.log('changed:locale', locale)
+}
+const onChangedTheme = (theme) => {
+  console.log('changed:theme', theme)
+}
+const onChangedEditMode = (value) => {
+  console.log('changed:editMode', value)
+}
+const onChangedSearchVisible = (value) => {
+  console.log('changed:searchVisible', value)
+}
+const onChangedTocVisible = (value) => {
+  console.log('changed:tocVisible', value)
+}
+const onChangedMoreVisible = (value) => {
+  console.log('changed:moreVisible', value)
+}
+const onFocus = () => {
+  console.log('focus')
+}
+const onBlur = () => {
+  console.log('blur')
+}
+const onSaved = () => {
+  console.log('saved')
+}
+const onDestroy = () => {
+  console.log('destroy')
+}
+</script>
+```
+
+## Event Reference
+
+| Event Name | Trigger / Description | Parameters |
+| --- | --- | --- |
+| `beforeCreate` | Triggered after the editor instance is created and before `created`. The editor instance is emitted directly as the current argument. | `editor` |
+| `created` | Triggered when the editor is ready. | `editor` |
+| `changed` | Triggered when editor content is updated. | - |
+| `changed:selection` | Triggered when the selection changes. | `payload`, which is the original payload from Tiptap `selectionUpdate` |
+| `changed:transaction` | Triggered when the transaction changes. | `payload`, which is the original payload from Tiptap `transaction` |
+| `changed:pageLayout` | Triggered when the page layout changes. | `layout` |
+| `changed:pageSize` | Triggered when the page size changes. | `size` |
+| `changed:pageOrientation` | Triggered when the page orientation changes. | `orientation` |
+| `changed:pageMargin` | Triggered when the page margin changes. | `margin` |
+| `changed:pageBackground` | Triggered when the page background changes. | `background` |
+| `changed:pageWatermark` | Triggered when the page watermark changes. | `watermark` |
+| `changed:locale` | Triggered when the locale changes. Currently it only returns the new locale value. <Badge theme="warning">Different on Mobile</Badge> | `locale` |
+| `changed:theme` | Triggered when the theme changes. | `theme` |
+| `changed:editMode` | Triggered when switching between read-only mode and edit mode. <Badge theme="primary">Mobile-Only</Badge> | `boolean` |
+| `changed:searchVisible` | Triggered when the search panel visibility changes. <Badge theme="primary">Mobile-Only</Badge> | `boolean` |
+| `changed:tocVisible` | Triggered when the table-of-contents panel visibility changes. <Badge theme="primary">Mobile-Only</Badge> | `boolean` |
+| `changed:moreVisible` | Triggered when the more panel visibility changes. <Badge theme="primary">Mobile-Only</Badge> | `boolean` |
+| `focus` | Triggered when the editor gains focus. | - |
+| `blur` | Triggered when the editor loses focus. | - |
+| `saved` | Triggered after save succeeds. | - |
+| `destroy` | Triggered before the component is destroyed. | - |
+
+## Desktop Event Comparison
+
+The following events exist in desktop documentation but are not currently exposed on mobile:
+
+- `changed:menu` <Badge theme="danger">Not Supported</Badge>
+- `changed:toolbar` <Badge theme="danger">Not Supported</Badge>
+- `changed:pageZoom` <Badge theme="danger">Not Supported</Badge>
+- `changed:pageShowToc` <Badge theme="danger">Not Supported</Badge>
+- `changed:pagePreview` <Badge theme="danger">Not Supported</Badge>
+- `paste` <Badge theme="danger">Not Supported</Badge>
+- `drop` <Badge theme="danger">Not Supported</Badge>
+- `delete` <Badge theme="danger">Not Supported</Badge>
+- `print` <Badge theme="danger">Not Supported</Badge>

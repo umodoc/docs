@@ -1,0 +1,157 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,事件列表,Vue3,Tiptap3,移动端编辑器
+description: 本节介绍 Umo Editor Mobile 当前支持的事件列表，并标注其与桌面端的差异，便于开发者进行多端对照接入。
+---
+
+import { Badge } from '/components/badge'
+
+# 事件列表
+
+与 Umo Editor / Umo Editor Next 相比，移动端更关注页面状态、阅读态/编辑态切换和面板显示状态，不提供桌面端的全部事件集合。
+
+## 示例
+
+```vue
+<template>
+  <umo-editor
+    v-bind="options"
+    @before-create="onBeforeCreate"
+    @created="onCreated"
+    @changed="onChanged"
+    @changed:selection="onChangedSelection"
+    @changed:transaction="onChangedTransaction"
+    @changed:page-layout="onChangedPageLayout"
+    @changed:page-size="onChangedPageSize"
+    @changed:page-orientation="onChangedPageOrientation"
+    @changed:page-margin="onChangedPageMargin"
+    @changed:page-background="onChangedPageBackground"
+    @changed:page-watermark="onChangedPageWatermark"
+    @changed:locale="onChangedLocale"
+    @changed:theme="onChangedTheme"
+    @changed:edit-mode="onChangedEditMode"
+    @changed:search-visible="onChangedSearchVisible"
+    @changed:toc-visible="onChangedTocVisible"
+    @changed:more-visible="onChangedMoreVisible"
+    @focus="onFocus"
+    @blur="onBlur"
+    @saved="onSaved"
+    @destroy="onDestroy"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import UmoEditor from '@umoteam/editor-mobile'
+
+const options = ref({
+  async onSave() {
+    return '保存成功'
+  },
+})
+
+const onBeforeCreate = (editor) => {
+  console.log('beforeCreate', editor)
+}
+const onCreated = (editor) => {
+  console.log('created', editor)
+}
+const onChanged = () => {
+  console.log('changed')
+}
+const onChangedSelection = (payload) => {
+  console.log('changed:selection', payload)
+}
+const onChangedTransaction = (payload) => {
+  console.log('changed:transaction', payload)
+}
+const onChangedPageLayout = (layout) => {
+  console.log('changed:pageLayout', layout)
+}
+const onChangedPageSize = (size) => {
+  console.log('changed:pageSize', size)
+}
+const onChangedPageOrientation = (orientation) => {
+  console.log('changed:pageOrientation', orientation)
+}
+const onChangedPageMargin = (margin) => {
+  console.log('changed:pageMargin', margin)
+}
+const onChangedPageBackground = (background) => {
+  console.log('changed:pageBackground', background)
+}
+const onChangedPageWatermark = (watermark) => {
+  console.log('changed:pageWatermark', watermark)
+}
+const onChangedLocale = (locale) => {
+  console.log('changed:locale', locale)
+}
+const onChangedTheme = (theme) => {
+  console.log('changed:theme', theme)
+}
+const onChangedEditMode = (value) => {
+  console.log('changed:editMode', value)
+}
+const onChangedSearchVisible = (value) => {
+  console.log('changed:searchVisible', value)
+}
+const onChangedTocVisible = (value) => {
+  console.log('changed:tocVisible', value)
+}
+const onChangedMoreVisible = (value) => {
+  console.log('changed:moreVisible', value)
+}
+const onFocus = () => {
+  console.log('focus')
+}
+const onBlur = () => {
+  console.log('blur')
+}
+const onSaved = () => {
+  console.log('saved')
+}
+const onDestroy = () => {
+  console.log('destroy')
+}
+</script>
+```
+
+## 事件说明
+
+| 事件名称 | 触发时机 / 说明 | 可用参数 |
+| --- | --- | --- |
+| `beforeCreate` | 编辑器实例创建完成后、`created` 之前触发。当前会直接把编辑器实例作为参数抛出。 | `editor` |
+| `created` | 编辑器准备完成后触发。 | `editor` |
+| `changed` | 编辑器内容更新时触发。 | - |
+| `changed:selection` | 选区变化时触发。 | `payload`，即 Tiptap `selectionUpdate` 的原始参数 |
+| `changed:transaction` | 事务变化时触发。 | `payload`，即 Tiptap `transaction` 的原始参数 |
+| `changed:pageLayout` | 页面布局切换时触发。 | `layout` |
+| `changed:pageSize` | 页面尺寸变化时触发。 | `size` |
+| `changed:pageOrientation` | 页面方向变化时触发。 | `orientation` |
+| `changed:pageMargin` | 页面边距变化时触发。 | `margin` |
+| `changed:pageBackground` | 页面背景变化时触发。 | `background` |
+| `changed:pageWatermark` | 页面水印变化时触发。 | `watermark` |
+| `changed:locale` | 语言切换时触发。当前仅返回新语言值。<Badge theme="warning">移动端不同</Badge> | `locale` |
+| `changed:theme` | 主题切换时触发。 | `theme` |
+| `changed:editMode` | 阅读态与编辑态切换时触发。 <Badge theme="primary">移动端特有</Badge> | `boolean` |
+| `changed:searchVisible` | 搜索面板显示状态变化时触发。 <Badge theme="primary">移动端特有</Badge> | `boolean` |
+| `changed:tocVisible` | 目录面板显示状态变化时触发。 <Badge theme="primary">移动端特有</Badge> | `boolean` |
+| `changed:moreVisible` | 更多面板显示状态变化时触发。 <Badge theme="primary">移动端特有</Badge> | `boolean` |
+| `focus` | 编辑器获得焦点时触发。 | - |
+| `blur` | 编辑器失去焦点时触发。 | - |
+| `saved` | 保存成功后触发。 | - |
+| `destroy` | 组件销毁前触发。 | - |
+
+## 桌面端事件对比
+
+以下事件在桌面端文档中存在，但移动端当前未对外暴露：
+
+- `changed:menu` <Badge theme="danger">不支持</Badge>
+- `changed:toolbar` <Badge theme="danger">不支持</Badge>
+- `changed:pageZoom` <Badge theme="danger">不支持</Badge>
+- `changed:pageShowToc` <Badge theme="danger">不支持</Badge>
+- `changed:pagePreview` <Badge theme="danger">不支持</Badge>
+- `paste` <Badge theme="danger">不支持</Badge>
+- `drop` <Badge theme="danger">不支持</Badge>
+- `delete` <Badge theme="danger">不支持</Badge>
+- `print` <Badge theme="danger">不支持</Badge>

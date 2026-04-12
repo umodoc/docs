@@ -1,0 +1,134 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,页面配置,page配置,移动端布局,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的页面配置项，包括布局、页边距、背景、水印与分页标记等，并标注与桌面端的差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 页面配置
+
+用于配置 Umo Editor Mobile 的页面布局、纸张样式与阅读展示行为。
+
+与 Umo Editor / Umo Editor Next 相比，移动端的页面配置更偏向“阅读态 + 触控编辑”的场景，默认优先使用 `web` 布局。
+
+## 默认配置
+
+```js
+{
+  page: {
+    layouts: ['web', 'page'],
+    defaultMargin: {
+      left: 3.18,
+      right: 3.18,
+      top: 2.54,
+      bottom: 2.54,
+    },
+    defaultOrientation: 'portrait',
+    defaultBackground: '#fff',
+    showBreakMarks: true,
+    showBookmark: false,
+    showLineNumber: false,
+    watermark: {
+      type: 'compact',
+      alpha: 0.2,
+      fontColor: '#000',
+      fontSize: 16,
+      fontFamily: 'SimSun',
+      fontWeight: 'normal',
+      text: '',
+    },
+  },
+}
+```
+
+## 配置项说明
+
+### page.layouts
+
+**说明**：可选布局列表，可设为分页布局 `page` 或 Web 布局 `web`。初始布局取数组第 1 项，可通过 [setLayout 方法](../methods#setlayout) 或 [setPage 方法](../methods#setpage) 动态切换。
+
+**类型**：`Array`
+
+**默认值**：`['web', 'page']`
+
+**可选值**：`['web']`、`['page']`、`['web', 'page']`、`['page', 'web']`
+
+移动端默认优先 Web 布局；根组件初始化时会直接取 `layouts[0]` 作为当前布局。<Badge theme="warning">移动端不同</Badge>
+
+### page.defaultMargin
+
+**说明**：默认页边距，单位为厘米（cm），可通过 [setPage 方法](../methods#setpage) 动态修改。
+
+**类型**：`Object`
+
+**默认值**：`{ left: 3.18, right: 3.18, top: 2.54, bottom: 2.54 }`
+
+### page.defaultOrientation
+
+**说明**：默认页面方向，可通过 [setPage 方法](../methods#setpage) 动态修改。
+
+**类型**：`String`
+
+**默认值**：`portrait`
+
+**可选值**：`portrait`、`landscape`
+
+### page.defaultBackground
+
+**说明**：默认页面背景色，可通过 [setPage 方法](../methods#setpage) 动态修改。
+
+**类型**：`String`
+
+**默认值**：`#fff`
+
+**可选值**：合法的 [CSS 颜色](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value) 值
+
+### page.showBreakMarks
+
+**说明**：是否显示分页标记。启用后会同步影响分页辅助线及不可见字符展示。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### page.showBookmark
+
+**说明**：是否为书签节点附加展示样式。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+<Badge theme="warning">移动端不同</Badge> 当前移动端仅在编辑器容器上追加 `show-bookmark` 样式类，不提供桌面端那套完整书签管理方法与面板。
+
+### page.showLineNumber
+
+**说明**：是否显示行号，可通过工具栏或 [setPage 方法](../methods#setpage) 动态切换。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### page.watermark
+
+**说明**：默认水印配置，可通过 [setWatermark 方法](../methods#setwatermark) 或 [setPage 方法](../methods#setpage) 动态修改。
+
+**类型**：`Object`
+
+**配置项**：
+
+- `type`：`String`，水印类型，可选值为 `compact`、`spacious`
+- `alpha`：`Number`，透明度，范围建议为 `0` 到 `1`
+- `fontColor`：`String`，字体颜色
+- `fontSize`：`Number`，字体大小，单位 `px`
+- `fontFamily`：`String`，字体族
+- `fontWeight`：`String`，字体粗细，可选值为 `normal`、`bold`、`bolder`
+- `text`：`String`，水印文本
+
+## 与桌面端的主要差异
+
+- `page.layouts` 默认值不同：移动端默认为 `['web', 'page']`。 <Badge theme="warning">移动端不同</Badge>
+- 页面缩放、适应宽度、手势缩放属于移动端内部视图能力，不作为顶层 `page` 配置项暴露。 <Badge theme="primary">移动端特有</Badge>
+- `showToc` 移动端不支持。 <Badge theme="danger">不支持</Badge>
+- 书签目前只有基础显示层支持，没有桌面端的书签方法与管理能力。 <Badge theme="danger">部分不支持</Badge>

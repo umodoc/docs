@@ -1,0 +1,92 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,debug configuration,DevTools,eruda,mobile debugging,Vue3
+description: This section introduces the debug configuration in Umo Editor Mobile, which controls whether the built-in DevTools debugging entry is exposed in the mobile "More" panel.
+---
+
+import { Badge } from '/components/badge'
+
+# Debug Configuration
+
+Used to control the debugging capability switch in Umo Editor Mobile, making it easier for developers to debug on mobile devices. This configuration mainly affects whether a DevTools entry is shown in the mobile "More" panel and whether the built-in debugging tool can be enabled at runtime. <Badge theme="primary">Mobile-Only</Badge>
+
+## Screenshots
+
+| 1 | 2 | 3 |
+| --- | --- | --- |
+| ![Umo Editor Mobile Debug](https://s2.umodoc.com/mobile/21.png) | ![Umo Editor Mobile Debug）](https://s2.umodoc.com/mobile/22.png) | ![Umo Editor Mobile Debug](https://s2.umodoc.com/mobile/23.png) |
+
+## Default Configuration
+
+```js
+{
+  debug: false,
+}
+```
+
+## Configuration Item
+
+### debug
+
+**Description**: whether to allow the built-in DevTools to be enabled from the mobile "More" panel.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+**Optional values**:
+
+- `true`: show the debug entry and allow users to enable or disable DevTools at runtime
+- `false`: hide the debug entry and forcibly disable already-enabled DevTools
+
+## Runtime Behavior
+
+When `debug` is `true`, the mobile "More" panel displays a debugging item, and the user can toggle DevTools at runtime.
+
+The debug state is persisted locally by `editorKey`, so different editor instances can maintain independent debug switch states.
+
+If `debug` is later switched back to `false`:
+
+- the debug entry is removed from the "More" panel
+- any enabled DevTools instance is closed immediately
+- the locally persisted debug state is also reset to disabled
+
+## Usage Examples
+
+### Global Configuration
+
+```js
+const options = {
+  debug: true,
+}
+```
+
+### SFC Example
+
+```vue
+<template>
+  <umo-editor :debug="true" v-bind="options" />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const options = ref({
+  async onSave() {
+    return 'Saved successfully'
+  },
+})
+</script>
+```
+
+## Recommendations
+
+- In development, integration, and testing environments, enable `debug` as needed to troubleshoot WebView behavior, resource loading, save flows, and runtime errors.
+- In production, it is usually recommended to keep `debug: false` to avoid exposing debugging entry points to end users.
+- If your business has multiple editor instances or multiple document pages, use it together with `editorKey` so each instance maintains its own local debug state.
+
+## Key Differences from Desktop
+
+- `debug` <Badge theme="primary">Mobile-Only</Badge>: controls the DevTools entry in the mobile "More" panel.
+- The debugging tool is carried differently <Badge theme="warning">Different on Mobile</Badge>: mobile relies on a built-in runtime debugging tool rather than normal desktop browser or standalone development-environment debugging workflows.
+- The debug state is persisted locally <Badge theme="warning">Different on Mobile</Badge>: it is currently stored as `umo-editor-mobile:${editorKey}:debug`.

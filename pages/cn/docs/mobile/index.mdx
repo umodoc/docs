@@ -1,0 +1,200 @@
+---
+title: 基本介绍
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,移动端文档编辑器,移动端富文本编辑器,Tiptap3,Vue3,H5 编辑器,WebView 编辑器
+description: Umo Editor Mobile 是基于 Vue3 和 Tiptap3 构建的移动端文档编辑器，面向触控场景提供预览、编辑、保存一体化能力，并在配置语义、事件与方法命名上尽可能与 Umo Editor 保持一致。
+---
+
+import { Badge } from '/components/badge'
+
+# Umo Editor Mobile
+
+Umo Editor Mobile 是基于 Vue3 和 Tiptap3 构建的移动端文档编辑器，支持“预览 + 编辑 + 保存”完整链路，可直接作为业务系统中的独立编辑器落地。
+
+它不是对 Umo Editor 的简单修改或补充，而是完全从头重构的，面向触控场景重新设计的完整产品，具备保存状态机、自动保存、回退守卫、历史记录、国际化、主题与扩展能力，并在配置、事件、方法命名上尽可能与 [Umo Editor](https://github.com/umodoc/editor) 保持一致，帮助团队以更低成本实现多端统一。
+
+如果您计划同时接入桌面端与移动端，建议优先在业务层抽象一层统一的编辑器适配层，以便复用文档模型、配置语义和保存链路，降低后续维护成本。
+
+- 官网：[https://mobile.umodoc.com](https://mobile.umodoc.com)
+- 移动端示例：[https://em.umodoc.com](https://em.umodoc.com)
+- 开发文档：[https://dev.umodoc.com/cn/docs/mobile](https://dev.umodoc.com/cn/docs/mobile)
+
+## 部分截图
+
+| 1 | 2 | 3 |
+| --- | --- | --- |
+| **页面视图**<br />![页面视图](https://s2.umodoc.com/mobile/1.png) | **Web 视图（适应屏幕）**<br />![Web 视图（适应屏幕）](https://s2.umodoc.com/mobile/2.png) | **查找和替换**<br />![查找和替换](https://s2.umodoc.com/mobile/3.png) |
+| **文档大纲**<br />![文档大纲](https://s2.umodoc.com/mobile/4.png) | **更多操作**<br />![更多操作](https://s2.umodoc.com/mobile/5.png) | **编辑模式**<br />![编辑模式](https://s2.umodoc.com/mobile/6.png) |
+| **插入内容**<br />![插入内容](https://s2.umodoc.com/mobile/7.png) | **文字格式**<br />![文字格式](https://s2.umodoc.com/mobile/8.png) | **段落样式**<br />![段落样式](https://s2.umodoc.com/mobile/9.png) |
+| **上传图片/视频/其他文件**<br />![上传图片/视频/其他文件](https://s2.umodoc.com/mobile/10.png) | **表格编辑**<br />![表格编辑](https://s2.umodoc.com/mobile/11.png) | **页面设置**<br />![页面设置](https://s2.umodoc.com/mobile/12.png) |
+| **提及他人**<br />![提及他人](https://s2.umodoc.com/mobile/13.png) | **切换主题**<br />![切换主题](https://s2.umodoc.com/mobile/14.png) | **切换语言**<br />![切换语言](https://s2.umodoc.com/mobile/15.png) |
+| **分享给他人**<br />![分享给他人](https://s2.umodoc.com/mobile/16.png) |  |  |
+
+## 为什么选择 Umo Editor Mobile
+
+- **预览能力完整**：完整支持 Umo Editor 文档在移动端的稳定预览，适合“读写同源”场景。
+- **编辑覆盖广泛**：支持绝大部分类型节点的直接编辑，满足移动端主流程编辑需求。
+- **迁移成本低**：配置结构、回调约定、API 语义尽量与桌面端统一，便于多端复用。
+- **独立可落地**：具备保存链路、回退守卫、自动保存、历史记录、国际化、主题、扩展等独立能力。
+- **读文档体验稳定**：同源文档在移动端可直接预览，目录、查找、缩放、切换视图等能力完整，阅读路径清晰。
+- **处理任务效率高**：支持“先看再改、边看边改、随时保存”，适合审批、巡检、会议纪要、现场记录等高频场景。
+- **上手门槛低**：交互针对触控设备设计，导航、工具区、弹层逻辑直观，用户可快速使用。
+- **接入成本低**：配置项、事件语义、方法命名与桌面端尽量统一，便于已有系统和组件复用。
+- **可扩展边界清晰**：支持接入和禁用扩展、插槽、翻译覆盖，能够按业务快速裁剪能力。
+- **工程集成友好**：支持 H5、WebView、Hybrid、低代码容器嵌入，适合企业内多端统一接入。
+- **可维护性强**：配置结构稳定、能力分层明确，后续版本升级与多项目复用更可控。
+
+## 与 Umo Editor 的关系
+
+- 同源文档模型，保障跨端一致性。
+- 配置语义和方法命名尽可能统一，降低学习与迁移成本。
+- 桌面端偏“复杂生产力”；移动端偏“触控效率与随时可编辑”。
+
+## 文档导航
+
+- 如果您第一次接入，请先阅读[快速开始](./mobile/getting-started)。
+- 如果您关注能力边界，请阅读[核心特性](./mobile/features)与[开发计划](./mobile/roadmap)。
+- 如果您准备对接业务，请重点阅读[配置项](./mobile/options)、[事件列表](./mobile/events)、[方法列表](./mobile/methods)。
+- 如果您需要二次开发，请继续阅读[插槽列表](./mobile/slots)与[自定义扩展](./mobile/extensions)。
+
+## 关键结论
+
+1. **移动端完全支持 Umo Editor 文档预览**：对同源文档结构可直接渲染，阅读体验与桌面端保持高度一致。
+2. **核心配置语义对齐**：移动端配置项尽可能与 Umo Editor 保持一致。
+3. **移动端是独立编辑器，不是简单补充**：有自己的交互体系、面板体系、保存状态机、离开策略与对外 API。
+4. **建议优先采用“统一适配层”接入**：在业务侧封装一层跨端 EditorAdapter，可显著降低后续升级和多端维护成本。
+
+## 可单独作为预览使用
+
+Umo Editor Mobile 不仅可用于“预览 + 编辑”，也可以**单独作为移动端文档预览组件**使用。
+
+- 通过 `document.readOnly: true` 可直接进入只读模式，用户可浏览文档但不能修改内容。
+- 在只读模式下依然可使用目录、查找、视图切换、缩放等阅读能力，满足移动端“纯阅读/审批查看”场景。
+- 对于只需要渲染同源文档的系统，可将其作为独立预览能力接入，无需引入完整编辑流程。
+- 若后续需要开放编辑，只需按配置开启编辑能力，无需替换文档渲染方案。
+
+## 设计理念
+
+- **独立优先，不做附属**：移动端默认按独立编辑器设计，具备完整编辑、保存、回退与状态管理能力，可脱离桌面端单独落地。
+- **跨端一致，降低心智负担**：在配置语义、方法命名、事件设计上尽量与 Umo Editor 对齐，减少团队学习成本与迁移摩擦。
+- **触控效率优先**：围绕移动设备交互习惯优化导航、工具面板、弹层与回退行为，确保高频操作可快速完成。
+- **可扩展可演进**：通过扩展机制、插槽能力与对外 API，满足业务定制，同时保障后续版本迭代的可维护性。
+
+## 核心特性
+
+### 文档预览与编辑一体
+
+- 分页视图 / 网页视图切换。
+- 目录、查找、更多面板等移动端入口齐备。
+
+### 数据与状态能力
+
+- 未保存变更检测、保存状态、自动保存。
+- 历史记录追踪（撤销/重做，含页面参数变更）。
+- 保存链路并发合并（single-flight），避免自动保存与手动保存竞态造成状态误判。
+- 保存失败支持可恢复动作：立即重试、复制内容、稍后自动重试（离开确认场景）。
+
+### 国际化与主题
+
+- 内置 `zh-CN / en-US`。
+- 支持 `translations` 覆盖翻译。
+- 支持 `light / dark / auto` 主题策略。
+- 常用交互语义文案完善（含可访问性标签所需文案），便于多语言一致输出。
+
+### 开发工具支持
+
+- 提供内置开发工具入口（DevTools），便于移动端联调与问题排查。
+- 支持通过 `debug` 配置控制是否展示开发工具开启入口。
+
+### 可定制扩展
+
+- 导航插槽：`navbar_edit_actions` / `navbar_view_actions`。
+- 可增减扩展：`extensions`、`disableExtensions`。
+- 对外方法与事件完善，便于业务集成。
+- 适合二次开发：配置项结构清晰、扩展边界明确、方法与事件可组合，便于按业务快速裁剪与增强。
+
+### 可访问性增强
+
+- 接入无障碍语义与键盘可达能力。
+- 支持键盘导航，提升读屏与非触屏场景可用性。
+- 高频操作按钮热区与焦点可视反馈已增强，兼顾老年用户与特殊场景。
+
+## 适用场景
+
+- **移动端独立编辑器场景**：移动 OA、移动知识库、移动记录系统中直接作为主编辑器使用，不依赖桌面端配套。
+- **文档预览与轻重编辑一体场景**：先预览后编辑、先审批后补充、现场采集后结构化整理。
+- **企业流程场景**：审批流、巡检、会议纪要、项目日志、移动端签批与补录。
+- **嵌入式应用场景**：H5、WebView、Hybrid、低代码容器中统一接入文档能力。
+- **多端协同场景**：与桌面端共享文档模型与配置语义，实现“桌面深度编辑 + 移动随时处理”。
+
+## 官网与在线体验
+
+- 官网：https://mobile.umodoc.com
+- 在线示例：https://em.umodoc.com
+- 建议优先使用手机体验，触控交互与真实业务场景更一致；浏览器端更适合功能预览。
+
+## 商业授权与版本说明
+
+Umo Editor Mobile 提供三种商业版本，覆盖从试点验证到规模化落地的不同阶段：
+
+- **基础版**：适合个人、小团队和项目试点，低门槛快速接入。
+- **源码版**：适合企业正式商用，支持深度集成与二次开发。
+- **OEM 版**：适合品牌化交付和深度定制，支持复杂业务场景。
+
+更多信息可访问官网价格页或直接联系我们获取方案建议。
+
+## 购买前常见问题
+
+- **是否需要签署合同？** 需要，支持企业法务评审与条款沟通。
+- **是否支持开票？** 支持，可按企业要求开具发票。
+- **交付周期多久？** 标准版本确认采购后可快速交付，定制需求按评估排期执行。
+- **是否提供部署与技术支持？** 提供，具体范围随版本方案确认。
+- **后续升级如何保障？** 按版本策略提供升级与维护支持，保障稳定演进。
+
+如需采购咨询，可通过以下方式联系：
+
+- 邮箱：contact@umodoc.com
+- 微信：umodoc
+
+## 环境支持
+
+- **Node.js** >= 18
+- **Vue** >= 3
+- **Tiptap** >= 3
+
+## 文档标记说明
+
+为了方便已使用 Umo Editor / Umo Editor Next 的开发者更平滑的使用 Umo Editor Mobile，后续文档中会采用以下标记来标注移动端与桌面端的差异。
+
+- 未加标记：表示移动端与桌面端语义基本一致，或本文仅介绍移动端能力。
+- <Badge theme="warning">移动端不同</Badge>：表示能力存在差异，开发时应重点比对。
+- <Badge theme="danger">不支持</Badge>：表示桌面端有而移动端当前不支持，或移动端已删除该能力。
+- <Badge theme="primary">移动端特有</Badge>：表示该能力主要为触控场景设计，桌面端没有同名实现或交互明显不同。
+
+## 与桌面端差异速览
+
+Umo Editor Moble 的配置项、事件和实例方法命名尽可能与桌面端保持一致，便于业务代码复用。
+
+- <Badge theme="primary">移动端特有</Badge> 交互以导航栏、底部 TabBar、底部 Toolbar、弹层面板、手势缩放和回退守卫为主，不沿用桌面端顶部工具栏和右侧面板的交互结构。
+- <Badge theme="warning">移动端不同</Badge> 页面在只读态和编辑态之间切换更明确，阅读优先，适合“先看后改”和碎片化输入场景。
+- <Badge theme="warning">移动端不同</Badge> 语言切换当前通过刷新页面生效，内置语言仅提供 `zh-CN` 与 `en-US`。
+- <Badge theme="warning">移动端不同</Badge> 公开插槽目前只有 `navbar_edit_actions`、`navbar_view_actions`、`bubble_menu` 三个。
+- <Badge theme="danger">不支持</Badge> 本文档后续会逐页标注桌面端存在但移动端未提供的配置、事件、方法与功能项，便于开发者做多端比对。
+
+## Umo Team 出品
+
+- [Umo Editor](https://dev.umodoc.com/cn/docs/editor): 基于 Vue3 和 Tiptap3 的本土化开源文档编辑器，专为国人用户设计。
+- [Umo Viewer](https://dev.umodoc.com/cn/docs/viewer): 开源轻量级的 Umo Editor 文档查看器。
+- [Umo Editor Mobile](https://mobile.umodoc.com): 面向企业业务场景的移动端文档编辑器，支持独立接入，也可与 Umo Editor/Umo Editor Next 协同。
+- [Umo Editor Next](https://dev.umodoc.com/cn/docs/next): Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增加或者增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+- [Umo Editor Server](https://dev.umodoc.com/cn/docs/server): 为增强 Umo Editor 功能，如多用户在线协作编辑、文档批注(评论)、文档导入导出等功能而开发的配套服务器端软件。
+- [Umo Office Viewer](https://dev.umodoc.com/cn/docs/office-viewer): Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 页面中查看包括 WPS 文档在内的 40 余种主流的办公文档。
+- [Umo Office Convert](https://dev.umodoc.com/cn/docs/office-convert): 将 Office、WPS 等 40 余种办公文档转换为可在线查看的文档格式，可与 Umo Office Viewer 结合使用实现办公文档的在线预览。
+
+## 定制开发
+
+如果您需要定制化开发，请联系我们，我们可以提供付费的定制化解决方案和商业支持。详细信息请访问[定制开发](https://www.umodoc.com/customization)。
+
+## 许可协议
+
+见 [LICENSE](LICENSE) 或访问：https://dev.umodoc.com/cn/docs/license

@@ -1,0 +1,130 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,ECharts configuration,charts,echarts,Vue3,Tiptap3
+description: This section introduces the ECharts configuration in Umo Editor Mobile, including mode, image rendering, and custom chart configuration methods.
+---
+
+import { Tabs } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# ECharts Configuration
+
+Used to configure the default display behavior when inserting charts. If you need to customize ECharts chart settings, you can do so through the `echarts` option.
+
+## Default Configuration
+
+```js
+{
+  echarts: {
+    mode: 1,
+    renderImage: false,
+    onCustomSettings() {
+      return null
+    },
+  },
+}
+```
+
+## Configuration Items
+
+### echarts.mode
+
+**Description**: the mode opened by default when configuring a chart.
+
+**Type**: `Number`
+
+**Default**: `1`
+
+**Optional values**:
+
+- `0`: directly use ECharts Options JSON source mode
+- `1`: visual mode
+
+### echarts.renderImage
+
+**Description**: whether to render a chart image at the same time.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+**Optional values**:
+
+- `true`: generate image
+- `false`: do not generate image
+
+### echarts.onCustomSettings
+
+**Description**: custom ECharts chart configuration method.
+
+**Type**: `Function`
+
+**Parameters**:
+
+- `data`: `Array`, chart data
+- `config`: `Object`, the user's current chart configuration
+
+**Return value**: `Object`, returns the ECharts `option` configuration object.
+
+## Usage Examples
+
+<Tabs items={['Global Configuration', 'SFC Configuration']}>
+<Tabs.Tab>
+```js
+const options = {
+  echarts: {
+    onCustomSettings(data, config) {
+      return {
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true,
+          },
+        ],
+      }
+    },
+  },
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor :echarts="{ onCustomSettings }" />
+</template>
+
+<script setup>
+const onCustomSettings = (data, config) => {
+  return {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+      },
+    ],
+  }
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+## Key Differences from Desktop
+
+- The structure of the `echarts` configuration is consistent with desktop, but mobile only renders charts and does not support editing them, so some configuration items are not actually used.

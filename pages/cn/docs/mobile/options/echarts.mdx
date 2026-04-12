@@ -1,0 +1,130 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,ECharts配置,图表,echarts,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的 ECharts 配置，包括模式、图片渲染以及自定义图表配置方法。
+---
+
+import { Tabs } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# ECharts 配置
+
+用于配置插入图表时的默认显示行为。如果您需要自定义 ECharts 图表配置，可以通过 `echarts` 选项进行设置。
+
+## 默认配置
+
+```js
+{
+  echarts: {
+    mode: 1,
+    renderImage: false,
+    onCustomSettings() {
+      return null
+    },
+  },
+}
+```
+
+## 配置项说明
+
+### echarts.mode
+
+**说明**：图表设置时默认打开的模式。
+
+**类型**：`Number`
+
+**默认值**：`1`
+
+**可选值**：
+
+- `0`：直接使用 ECharts Options JSON 源码模式
+- `1`：可视化模式
+
+### echarts.renderImage
+
+**说明**：是否同时渲染图表图片。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+**可选值**：
+
+- `true`：生成图片
+- `false`：不生成图片
+
+### echarts.onCustomSettings
+
+**说明**：自定义 ECharts 图表配置方法。
+
+**类型**：`Function`
+
+**参数**：
+
+- `data`：`Array`，图表数据
+- `config`：`Object`，用户当前图表配置
+
+**返回值**：`Object`，返回 ECharts 的 `option` 配置对象。
+
+## 使用示例
+
+<Tabs items={['全局配置', 'SFC 配置']}>
+<Tabs.Tab>
+```js
+const options = {
+  echarts: {
+    onCustomSettings(data, config) {
+      return {
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true,
+          },
+        ],
+      }
+    },
+  },
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```vue
+<template>
+  <umo-editor :echarts="{ onCustomSettings }" />
+</template>
+
+<script setup>
+const onCustomSettings = (data, config) => {
+  return {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+      },
+    ],
+  }
+}
+</script>
+```
+</Tabs.Tab>
+</Tabs>
+
+## 与桌面端的主要差异
+
+- `echarts` 的配置项结构与桌面端一致，但是移动端只渲染图表，不支持修改，故部分配置项不会被使用。

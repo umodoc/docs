@@ -1,0 +1,36 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,多语言支持,locale,i18n,translations,Vue3
+description: 本节介绍 Umo Editor Mobile 当前支持的语言范围、扩展方式与相关限制，并说明其与桌面端的差异。
+---
+
+import { Badge } from '/components/badge'
+
+# 多语言支持
+
+Umo Editor Mobile 内置了对简体中文和英语的支持。如果需要支持更多语言，需要您自行扩展并重新编译代码。
+
+## 官方支持语言列表
+
+- 简体中文 `zh-CN`
+- 英文 `en-US`
+
+当前语言包位于移动端源码的 `src/locales/zh-CN.json` 与 `src/locales/en-US.json`。
+
+## 如何使用语言配置
+
+- 顶层语言配置：见[本地化语言配置](./options/locale)
+- 运行时切换语言：见[方法列表](./methods#setlocale)
+- 语言切换事件：见[事件列表](./events)
+
+## 当前能力边界
+
+- 运行时语言切换当前仅支持 `zh-CN` 与 `en-US`。
+- 可通过 `translations` 覆盖默认文案。
+- 可通过 `locale: 'auto'` 根据浏览器语言自动选择中文或英文。
+
+## 如何扩展语言
+
+如果您需要支持更多语言，可以参考 `zh-CN` 与 `en-US` 的语言包结构，在移动端源码中新增对应语言文件，并修改 i18n 初始化逻辑后重新编译。
+
+如果只是调整现有语言中的少量文案，通常更推荐通过 `translations` 做覆盖，而不是直接改动内置语言文件。

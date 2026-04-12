@@ -1,0 +1,75 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,extension configuration,extensions,disableExtensions,Tiptap
+description: This section introduces the extension configuration in Umo Editor Mobile, including appending custom extensions and disabling built-in ones.
+---
+
+import { Badge } from '/components/badge'
+
+# Feature and Extension Configuration
+
+Umo Editor Mobile is built on Tiptap, so its capability boundaries can be adjusted through the extension mechanism.
+
+## Default Configuration
+
+```js
+{
+  extensions: [],
+  disableExtensions: [],
+}
+```
+
+## Configuration Items
+
+### extensions
+
+**Description**: used to append custom extensions.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+### disableExtensions
+
+**Description**: used to disable built-in extensions.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+## Usage Examples
+
+### Append Custom Extensions
+
+```js
+const options = {
+  extensions: [myExtension],
+}
+```
+
+### Disable Built-in Extensions
+
+```js
+const options = {
+  disableExtensions: [],
+}
+```
+
+### Disable First, Then Replace
+
+```js
+const options = {
+  disableExtensions: ['mention'],
+  extensions: [myMentionExtension],
+}
+```
+
+## Recommendations
+
+- If you only need capability trimming, prefer `disableExtensions`.
+- If you need business capability enhancements, then append custom extensions through `extensions`.
+- If an extension affects content structure, validate HTML, JSON, and read-only rendering together.
+
+## Key Differences from Desktop
+
+- The UI entry point for the same extension name may differ on mobile, and whether it is actually visible and usable still depends on mobile navigation, popup panels, and the bottom toolbar. <Badge theme="warning">Different on Mobile</Badge>

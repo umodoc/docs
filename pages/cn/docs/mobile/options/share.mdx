@@ -1,0 +1,51 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,分享配置,shareUrl,Vue3,Tiptap3
+description: 本节介绍 Umo Editor Mobile 的分享配置，用于设置文档分享链接及其在移动端中的使用边界。
+---
+
+import { Badge } from '/components/badge'
+
+# 分享配置
+
+用于配置文档分享相关的基础地址。移动端编辑器内部会在需要生成分享链接或触发分享能力时使用该配置。
+
+## 默认配置
+
+```js
+{
+  shareUrl: location.href || '',
+}
+```
+
+## 配置项说明
+
+### shareUrl
+
+**说明**：文档分享地址。
+
+**类型**：`String`
+
+**默认值**：`location.href || ''`
+
+**配置项**：合法的 URL 值。
+
+## 使用示例
+
+```js
+const options = {
+  shareUrl: 'https://mobile.example.com/docs/10001',
+}
+```
+
+如果业务需要动态拼装分享地址，也可以在初始化前由业务层根据当前文档 ID、用户信息或路由参数计算后传入。
+
+## 使用建议
+
+- 如果文档页面本身就是最终访问地址，通常可以直接使用默认值。
+- 如果业务存在独立的分享页、只读页或公开访问页，建议显式传入该地址，而不是依赖当前页面 `location.href`。
+- 如果业务运行在 WebView 中，建议优先使用可在浏览器中访问的标准 URL，而不是容器内私有路由。
+
+## 与桌面端的主要差异
+
+- 移动端更常见的使用场景是 H5 页面或 WebView 页面，因此分享地址应优先考虑“外部可打开”这一要求。<Badge theme="warning">移动端不同</Badge> 
