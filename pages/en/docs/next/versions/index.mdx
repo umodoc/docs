@@ -19,8 +19,8 @@ You can think of it as: adding “named milestones + restorable time points” t
 
 Version history relies on collaboration. Make sure you have:
 
-- Collaboration enabled: [Collaboration](../collaboration)
-- Server deployed and configured: [Umo Editor Server](../../server)
+- Collaboration enabled: [Collaboration](./collaboration)
+- Server deployed and configured: [Umo Editor Server](../server)
 
 ## What you can do
 
@@ -31,13 +31,46 @@ Version history relies on collaboration. Make sure you have:
 - View version metadata (creator, created time, etc.)
 - Mark important versions (mark key versions as “Important” for quick scanning)
 
+## Use Cases
+
+- Milestones: save versions at kickoff, approvals, acceptance, and release checkpoints
+- Approval workflows: save a “submitted for approval” version and a “approved” version
+- External delivery: freeze the delivery state as a version for later audit and review
+- Rollback rescue: restore a stable version after accidental edits or conflicts
+- Release comparison: compare two milestone versions to locate changes quickly
+- Alternative proposals: save multiple proposal versions for review and selection
+- Long-running docs: periodically freeze versions so you can always find “what it was then”
+- Compliance archiving: save an “archive version” before external publishing
+- Weekly progress tracking: create a version every week to form an evolution timeline
+- Risk control before big refactors: create a version before large rewrites or redesigns
+
+## Works Well With
+
+### Collaboration
+
+- Version history relies on collaboration—treat versions as your “milestone tool” in the collaboration workflow: [Collaboration](./collaboration)
+- With server storage, versions can be associated with business workflow checkpoints: [Umo Editor Server](../server)
+
+### Track Changes
+
+- Track Changes is for day-to-day review; versions are for milestone snapshots. Finalize first, then save an acceptance version: [Track Changes](./revision)
+- If you need to preserve review traces, save a version before finalizing as a record
+
+### Comments
+
+- Keep comments as part of your milestone review record (optionally include/exclude them): [Comments](./comments)
+
+### Export
+
+- Export PDFs/Word files at milestone versions for archiving and delivery: [Export](./export)
+
 ## How to use it
 
 Version history is mainly used through:
 
-- Configuration: enable/tune it via `options.versions` (see [Configuration](./options))
-- Methods: call exposed methods to manage versions from outside the editor (see [Configuration & Methods](./options))
-- UI: use the built-in “Version History” panel to create/preview/compare/restore (see [Getting Started](./getting-started))
+- Configuration: enable/tune it via `options.versions` (see [Configuration](./versions/options))
+- Methods: call exposed methods to manage versions from outside the editor (see [Configuration & Methods](./versions/options))
+- UI: use the built-in “Version History” panel to create/preview/compare/restore (see [Getting Started](./versions/getting-started))
 
 ## What is an “Important” version
 

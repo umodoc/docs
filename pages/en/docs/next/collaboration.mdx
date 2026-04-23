@@ -30,6 +30,41 @@ Collaborative editing requires server-side support from [Umo Editor Server](../s
 - Support for document comment collaboration, where users can comment on documents with real-time synchronization to the server;
 - Umo Editor Server supports 100,000+ users editing simultaneously, enabling efficient multi-user collaboration with cluster deployment support.
 
+## Use Cases
+
+- Co-author meeting notes: the host outlines the structure, attendees fill in key points
+- PRD/spec reviews: edit while discussing to reduce copy/paste across versions
+- Contract/policy drafting: multiple roles edit in parallel and converge in a single source of truth
+- Papers and reports: divide sections and keep formatting and TOC consistent
+- Marketing copy: iterate wording and layout together and publish faster
+- Pre-sales proposals: sales, product, and delivery teams contribute sections and assets
+- Training materials: instructors and TAs refine examples and exercises collaboratively
+- Distributed weekly reports: remote teams update progress and risks in real time
+- Support/knowledge base: keep FAQ up to date and reduce edit conflicts
+- Policy updates: continuously iterate the same document with an auditable collaboration trail
+
+## Works Well With
+
+### Comments
+
+- Collaboration is for co-editing; comments are for discussion and decisions: [Comments](./comments)
+- Use @mentions to route questions to the right owner and track resolution
+
+### Track Changes
+
+- Enable Track Changes during collaboration to review “who changed what”, then accept/reject to finalize: [Track Changes](./revision)
+- Filter by author during review to converge by role
+
+### Version History
+
+- Use versions for milestones while collaboration covers day-to-day editing: [Version History](./versions)
+- Create versions for approvals/releases to make rollback and comparison easy
+
+### AI
+
+- Use AI to polish/rewrite/expand a section and write the result back into the shared doc: [AI](./ai)
+- Use comments to discuss AI suggestions, then apply the final edits in the document
+
 ## Default Configuration
 
 ```js

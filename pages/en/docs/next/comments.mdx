@@ -27,6 +27,40 @@ The document comment feature allows users to add comments within a document, and
 - Support for replying to comments within comment threads;
 - Support for adding custom data to comments.
 
+## Use Cases
+
+- Reviews and acceptance: propose changes on a paragraph and track whether it’s addressed
+- Collaborative writing: discuss without inserting explanatory text into the body
+- Contract/policy review: raise questions and risks clause by clause
+- Document QA: flag structure issues in TOC, tables, images, footnotes, and more
+- Teaching and coaching: leave point-by-point feedback with full traceability
+- Requirements review log: keep decisions in threads for later audit
+- Compliance checks: review sensitive wording, disclaimers, and legal statements
+- Support/knowledge base maintenance: tag outdated content and assign an owner
+- Meeting minutes confirmation: @mention owners to confirm key actions and responsibilities
+- AI draft review: mark issues in AI-generated paragraphs and request revisions
+
+## Works Well With
+
+### Collaboration
+
+- Keep discussion and editing decoupled while multiple people work in parallel: [Collaborative Editing](./collaboration)
+- Threads sync across collaborators to avoid “only visible on one client” silos
+
+### Track Changes
+
+- Use comments for discussion and decisions, and Track Changes for the actual edits and finalization: [Track Changes](./revision)
+- Converge by resolving comment threads first, then accept/reject changes to finalize
+
+### Version History
+
+- Create versions at key milestones and keep comments as part of the review record: [Version History](./versions)
+- Use comment context to understand “why it changed” when comparing versions
+
+### AI
+
+- Generate a draft with AI, review it in comment threads, then apply the final edits via AI or manually: [AI](./ai)
+
 ## Core Concepts
 
 **Thread**: In the document commenting feature, a thread represents a group of comment messages associated with a specific position in the document. A thread may contain multiple comments along with metadata such as creation time and ID. A thread is bound to a specific range in the document. Each individual comment is part of a thread.

@@ -82,13 +82,13 @@ After the above steps, you have successfully started Umo Editor Server. Visit ht
 ## Development Notes
 
 - For scenarios such as multi-user collaborative editing, document comments, and document version history, Umo Editor Server provides detailed configuration and hook methods. By default, SQLite is used to store data (you can switch to MySQL/PostgreSQL/MongoDB/S3/MinIO via `COLLAB_DB_URL`). You can integrate or communicate with existing business systems through `database`, `redis`, `sqlite`, `webhook`, etc. For details, see the code comments.
-- You can deploy Umo Editor Server as a separate service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication Instructions](./auth)). If needed, please implement it yourself.
+- You can deploy Umo Editor Server as a separate service and integrate or communicate with other business systems through gateways, databases, HTTP requests, etc. Umo Editor Server currently does not include authentication implementation (but provides implementation ideas and sample code, see [Authentication Instructions](./server/auth)). If needed, please implement it yourself.
 - If you need secondary development, the source code provides a large number of detailed comments that should be very helpful to you.
 
 ## Deployment Notes
 
 - In an environment that supports `nodejs`, you can directly run the project using `npm run production`. This command provides the ability to use the `[pm2](https://pm2.io/)` daemon and record logs.
-- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed. For details, see [Docker Deployment](./docker).
+- You can also deploy the project directly to a `docker` container. You can modify the `Dockerfile` as needed. For details, see [Docker Deployment](./server/docker).
 
 ## Products from Umo Team
 

@@ -81,13 +81,13 @@ npm run dev
 ## 开发说明
 
 - 对于多人协作编辑、文档批注(评论)、文档历史版本管理等场景，Umo Editor Server 提供了详尽的配置和钩子方法，默认采用 SQLite 存储数据（通过 `COLLAB_DB_URL` 可切换为 MySQL/PostgreSQL/MongoDB/S3/MinIO 等），您也可以通过 `database`、`redis`、`sqlite`、`webhook` 等扩展和现有业务系统对接或通信，详细说明见代码注释；
-- 您可以将 Umo Editor Server 单独作为一个服务进行部署，通过网关、数据库、HTTP 请求等实现和其他业务系统的对接或通信。Umo Editor Server 目前不包含鉴权的实现（但提供了实现思路和示例代码，见[鉴权说明](./auth)），如果有需要，请自行实现；
+- 您可以将 Umo Editor Server 单独作为一个服务进行部署，通过网关、数据库、HTTP 请求等实现和其他业务系统的对接或通信。Umo Editor Server 目前不包含鉴权的实现（但提供了实现思路和示例代码，见[鉴权说明](./server/auth)），如果有需要，请自行实现；
 - 如果需要二次开发，源代码中提供了大量详尽的注释应该会对您非常有帮助。
 
 ## 部署说明
 
 - 在支持 `nodejs` 的环境中，您可以直接使用 `npm run production` 运行项目，此命令提供了通过 [pm2](https://pm2.io/) 守护进程的能力和记录日志的能力。
-- 也可以直接将项目部署到 `docker` 容器中，您可以根据实际需要修改 `Dockerfile`，见[docker 部署](./docker)。
+- 也可以直接将项目部署到 `docker` 容器中，您可以根据实际需要修改 `Dockerfile`，见[docker 部署](./server/docker)。
 
 ## Umo Team 出品
 

@@ -34,9 +34,26 @@ The core integration idea is:
 
 ## Capabilities
 
-- [AI Document Assistant (Assistant)](./assistant): a floating entry focused on editing output for the current selection / near the cursor, with one-click replace/insert.
-- [AI Chat Assistant (Chat)](./chat): a sidebar chat entry with history and optional attachments, suitable for multi-turn Q&A, task clarification, and information organization.
-- [AI Suggestions (Suggestion)](./suggestion): auto-proposes candidate text while typing; accept with Tab/Enter (autocomplete/continuation), switch suggestions with arrow keys.
+- [AI Document Assistant (Assistant)](./ai/assistant): a floating entry focused on editing output for the current selection / near the cursor, with one-click replace/insert.
+- [AI Chat Assistant (Chat)](./ai/chat): a sidebar chat entry with history and optional attachments, suitable for multi-turn Q&A, task clarification, and information organization.
+- [AI Suggestions (Suggestion)](./ai/suggestion): auto-proposes candidate text while typing; accept with Tab/Enter (autocomplete/continuation), switch suggestions with arrow keys.
+
+## Use Cases
+
+- First drafts: turn outlines into full content for proposals, reports, policies, and emails
+- Smart rewriting: polish, expand, shorten, proofread, and translate daily writing
+- Structured output: turn requirements/meeting notes into lists, tables, and sections
+- Research and Q&A: clarify requirements in chat, extract conclusions, and write back usable paragraphs
+- Technical writing: generate code snippets, Mermaid diagrams, and LaTeX formulas and insert them into the document
+- Real-time completion: use suggestions while typing to improve speed and flow
+
+## Works Well With
+
+- Markdown: AI output is rendered as Markdown by default, which is great for structured content and import/export workflows: [Markdown](./markdown)
+- Track Changes: enable Track Changes for AI write-back to make review and finalization safer: [Track Changes](./revision)
+- Comments: review AI-generated content in threads and write the final decisions back to the document: [Comments](./comments)
+- Version History: create a version before/after major rewrites for easy rollback and comparison: [Version History](./versions)
+- Toolbar/Page Aside: Chat typically lives in the aside; Assistant is a floating entry in the editor area: [Toolbar](./toolbar), [Page Aside](./aside)
 
 ## Key Features
 

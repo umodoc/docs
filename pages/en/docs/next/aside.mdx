@@ -10,6 +10,21 @@ The page aside (or sidebar) is a configurable slot that allows you to add custom
 
 [AI Chat Assistant](./chat) is implemented through the page aside, see [AI Chat Assistant](./chat#effect-screenshot) for details.
 
+## Use Cases
+
+- Host high-value business panels (custom workflows, dashboards, etc.)
+- Provide navigation and structure panels (TOC, chapter list, templates, versions)
+- Run approval/publish/archive workflows (forms + progress + actions)
+- Expose cross-document tools (full-text search, references, glossary, knowledge Q&A)
+- Compose multiple plugins by injecting multiple sidebar groups via `extensions`
+
+## Works Well With
+
+- Toolbar: the toolbar triggers actions, the aside hosts complex UI and state
+- AI: long-running interactions like Chat/Assistant fit naturally in the aside: [AI](./ai)
+- Comments and Track Changes: unify review streams in a single panel: [Comments](./comments), [Track Changes](./revision)
+- Version History: host version lists, preview, and compare entry points: [Version History](./versions)
+
 ## Demo Video
 
 <video src="https://s1.umodoc.com/videos/aside.mp4" controls="true"></video>

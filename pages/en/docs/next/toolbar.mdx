@@ -8,6 +8,22 @@ description: Umo Editor is a localized open-source document editor based on Vue3
 
 Through toolbar extensions, you can add custom menu groups to the toolbar for personalized configuration. You can also integrate with the [page aside](../aside) to add custom content or manually control the toolbar's visibility.
 
+## Use Cases
+
+- Group toolbar actions by business domain (office tools / review / AI, etc.)
+- Role-based toolbars: show different entries for editors, reviewers, and read-only users
+- Promote high-frequency actions into first-level entry points (export, tables, asset library)
+- Inject enterprise-specific buttons via slots (approve, archive, publish, sync to external systems)
+- Reuse one editor across products with different `menus` configurations
+
+## Works Well With
+
+- Page Aside: the toolbar triggers actions, the aside hosts complex UI and workflows: [Page Aside](../aside)
+- AI: surface Assistant/Chat entry points and keep full interactions in the aside: [AI](./ai)
+- Import/Export: put common import/export actions into dedicated groups: [Import](./import), [Export](./export)
+- Track Changes and Comments: give reviewers clear one-click review entry points: [Track Changes](./revision), [Comments](./comments)
+- Content Locking and Templates: make lock/unlock/apply template actions easy to reach: [Content Locking](./locked), [Template Management](./template)
+
 ## Default Configuration
 
 ```js
