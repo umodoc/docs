@@ -256,7 +256,7 @@ For more information, see: [Umo Viewer Documentation](../viewer).
 
 ## 🎉 Version 7.0.0 <Badge>June 21, 2025</Badge>
 
-1. [Umo Editor Next 7.0.0](../next/changelog.mdx) official release is now available 🎉🎉🎉. For details, see: [Introduction to Umo Editor Next](../next).
+1. [Umo Editor Next 7.0.0](../next/changelog) official release is now available 🎉🎉🎉. For details, see: [Introduction to Umo Editor Next](../next).
 2. Added selection effect detection for modal displays: when the AI assistant's focus is on the modal input box, the selection effect remains visible.
 3. After the AI assistant replaces text, the replaced text is automatically highlighted.
 4. Fixed an issue where styles were lost when the modal was referenced via a component.
@@ -310,7 +310,7 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 5. Fixed the issue where when printing documents, an extra empty page would be added when the page was not full;
 6. Added throttling and debouncing methods for some frequent operations, improving response efficiency;
 7. Fixed the issue where the page margin markers were displayed abnormally in dark mode, submitted by @Mikasa33 in [(#241)](https://github.com/umodoc/editor/pull/241);
-8. Adjusted AI assistant configuration items, see [AI Document Assistant](./options/ai);
+8. Adjusted AI assistant configuration items;
 9. Changed outline nodes to display in a tree structure;
 10. Replaced the original CodeBlock extension with a new CodeBlock extension;
 11. Fixed the issue where the image preview order was incorrect when the image node ID was `null`;
@@ -520,7 +520,7 @@ Fix the issue of custom methods being called by default when importing Word docu
 
 ## 🎉 Version 3.0.0 <Badge>August 5, 2024</Badge>
 
-1. **[Major Update]** Added AI document assistant, see [AI document assistant](./ai);
+1. **[Major Update]** Added AI document assistant;
 2. **[Major Update]** Added toolbar and bubble menu slots to enable more customization through slots, see [Slot List](./slots);
 3. **[Major Update]** Opened some UI components, see [Component List](./components);
 4. **[Important Note]** As of v3.0, installation via direct browser inclusion is no longer supported;
@@ -572,12 +572,12 @@ Add support for dark mode, see https://www.umodoc.com/en/demo?theme=dark 。
 
 ## 🎉 Version 2.0.0-beta.1 <Badge>June 24, 2024</Badge>
 
-1. Added i18n support, currently supporting Simplified Chinese and English, see [`locales`](./options/locales);
+1. Added i18n support, currently supporting Simplified Chinese and English, see [`locales`](./locales);
 2. Adjustments and restructuring of directories, files, and code in the code repository;
 3. Provided development documentation and online examples in both Chinese and English;
 4. Some API changes have occurred, the main changes are as follows:
    - Modified the default value of `page.defaultOrientation` to `portrait`, with options being `portrait` and `landscape`, see [Page Configuration](./options/page#pagedefaultorientation);
-   - Added `locale` and `translations` configurations, see [Custom Localization Configuration](./options/locales);
+   - Added `locale` and `translations` configurations, see [Custom Localization Configuration](./locales);
    - Added methods `setLocale`, `getLocale`, and `getI18n`, see [Methods](./methods#getlocale);
    - Added the `changed:locale` event, see [Events](./events).
    - The `label` item in configuration now supports both `String` and `Object` types, with the `Object` type mainly used for configuring multilingual information, see [Default Configuration](./options/default);

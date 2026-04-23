@@ -310,7 +310,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 5. 修复打印文档时，页面不足一页时会多余出一个空页面的问题；
 6. 对于一些频繁的操作添加防抖节流方法，提高响应效率；
 7. 深色主题下页边距标记颜色异常，由 @Mikasa33 在 [(#241)](https://github.com/umodoc/editor/pull/241) 提交；
-8. 调整 AI 助手配置项，见[AI 文档助手](./options/ai)
+8. 调整 AI 助手配置项；
 9. 大纲节点改为树形结构展示；
 10. 替换原 CodeBlock 扩展，启用新的 CodeBlock 扩展；
 11. 修复当图片节点 id 为 `null` 时，图片预览顺序不正确的问题；
@@ -513,7 +513,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 
 ## 🎉 v3.0.0<Badge>2024-08-05</Badge>
 
-1. **[重磅更新]** 添加 AI 文档助手，详见[AI 文档助手](./ai)；
+1. **[重磅更新]** 添加 AI 文档助手；
 2. **[重磅更新]** 添加工具栏和气泡菜单插槽，可以通过插槽实现更多自定义功能，详见[插槽列表](./slots)；
 3. **[重磅更新]** 开放了部分 UI 组件，详见[组件列表](./components)；
 4. **[重要提醒]** 从 v3.0 起不再支持通过浏览器直接引入的方式安装；
@@ -565,12 +565,12 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 
 ## 🎉 v2.0.0-beta.1<Badge>2024-06-24</Badge>
 
-1. 添加多语言支持，目前已支持简体中文和 English，见[`locales`](./options/locales)；
+1. 添加多语言支持，目前已支持简体中文和 English，见[`locales`](./locales)；
 2. 代码仓库中的目录、文件、代码结构调整和重构；
 3. 提供中英文开发文档和在线示例；
 4. 部分 API 发生变化，主要变更如下：
    - 修改 `page.defaultOrientation` 默认值为 `portrait`，可选值为 `portrait` 和 `landscape`，见[页面配置](./options/page#pagedefaultorientation)；
-   - 新增 `locale` 和 `translations` 配置，见[自定义本地化语言配置](./options/locales)；
+   - 新增 `locale` 和 `translations` 配置，见[自定义本地化语言配置](./locales)；
    - 新增 `setLocale` 、`getLocale` 和 `getI18n` 方法，见[方法列表](./methods#getlocale)；
    - 新增 `changed:locale` 事件，见[事件列表](./events)。
    - 配置项中的 `label` 项支持 `String` 和 `Object` 两种类型，`Object` 类型用主要用于配置多语言信息，见[默认配置](./options/default)；
@@ -622,7 +622,7 @@ Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://gith
 3. 优化页面大纲，按大纲层级缩进显示；
 4. 修复插入链接弹框不显示标题的 Bug；
 5. 修复分割线气泡菜单显示错误的 Bug；
-6. 修改[`cdnUrl`](../options/cdn)的默认值；
+6. 修改[`cdnUrl`](./options/cdn)的默认值；
 7. 优化细节。
 
 ## 🚀 v1.1.2<Badge>2024-05-22</Badge>

@@ -6,7 +6,7 @@ description: Umo Editor is a localized open-source document editor based on Vue3
 
 # Toolbar Extensions
 
-Through toolbar extensions, you can add custom menu groups to the toolbar for personalized configuration. You can also integrate with the [page aside](../aside) to add custom content or manually control the toolbar's visibility.
+Through toolbar extensions, you can add custom menu groups to the toolbar for personalized configuration. You can also integrate with the [page aside](./aside) to add custom content or manually control the toolbar's visibility.
 
 ## Use Cases
 
@@ -18,7 +18,7 @@ Through toolbar extensions, you can add custom menu groups to the toolbar for pe
 
 ## Works Well With
 
-- Page Aside: the toolbar triggers actions, the aside hosts complex UI and workflows: [Page Aside](../aside)
+- Page Aside: the toolbar triggers actions, the aside hosts complex UI and workflows: [Page Aside](./aside)
 - AI: surface Assistant/Chat entry points and keep full interactions in the aside: [AI](./ai)
 - Import/Export: put common import/export actions into dedicated groups: [Import](./import), [Export](./export)
 - Track Changes and Comments: give reviewers clear one-click review entry points: [Track Changes](./revision), [Comments](./comments)
@@ -75,7 +75,7 @@ Each item in the array represents a group.
 
 The slot setting is the same as the standard toolbar slot format, the identifier is `#toolbar_{key}` and is processed based on the `key` value in the extension configuration item.
 
-Other toolbar slot configurations see [Slot List](../slots).。
+Other toolbar slot configurations see [Slot List](../editor/slots).
 
 **Example**
 
