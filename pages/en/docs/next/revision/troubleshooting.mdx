@@ -1,0 +1,42 @@
+---
+title: Troubleshooting
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor Next is an enhanced edition of the open-source Umo Editor. It adds stronger collaboration, comments, version history, AI workflows, import/export, and table capabilities, with more flexible toolbars and side panels.
+---
+
+# Troubleshooting
+
+## I can’t see any revision records in the review panel
+
+Most commonly, you’re in `final` or `original` mode, where revision records are hidden. Switch to:
+
+- `final-markup` or `original-markup`
+
+to show the revision stream.
+
+## Accept/Reject doesn’t work
+
+Check:
+
+- `revision.allowAcceptReject` is `true`
+- the document is not read-only (`document.readOnly !== true`)
+- the editor is currently editable (some modes may force read-only)
+
+## Authors are missing or incorrect
+
+Make sure each client sets:
+
+- `options.user.id`
+- `options.user.name`
+
+## Export still contains revision marks
+
+- Revision marks are part of the document content, so exports (HTML/JSON/DOCX, etc.) can include them.
+- `final` / `original` are view-only modes and won’t remove marks.
+
+Finalize before exporting if you need a clean output:
+
+```js
+editorRef.value.acceptAllRevisions()
+```

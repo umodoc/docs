@@ -1,0 +1,62 @@
+---
+title: Core Concepts
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor Next is an enhanced edition of the open-source Umo Editor. It adds stronger collaboration, comments, version history, AI workflows, import/export, and table capabilities, with more flexible toolbars and side panels.
+---
+
+# Core Concepts
+
+## Two forms of tracking
+
+Umo Editor Next represents Track Changes in two ways:
+
+- **Text tracking**: change marks applied to text ranges (`insertion` / `deletion`)
+- **Node tracking**: change attributes stored on certain node types to represent inserting/removing the node itself
+
+### insertion / deletion (text tracking)
+
+- `insertion`: the content is newly added.
+- `deletion`: the content is removed, but preserved as a reviewable change until finalized.
+
+## Trackable scope (node tracking)
+
+Track Changes has two layers:
+
+- **Text tracking** applies to most content that ultimately becomes text in the document (paragraphs, headings, list items, table cells, footnote content, etc.).
+- **Node tracking** focuses on “the node itself was inserted/removed”, which is especially useful for non-text media or structural blocks.
+
+Node tracking is enabled for these common node types:
+
+- callout, details
+- image / inlineImage
+- video / audio
+- file, iframe, icon
+- mention
+- blockMath / inlineMath
+- pageBreak, toc
+- table
+- textBox, optionBox
+- footnotes / footnote / footnoteReference
+- echarts
+
+Some elements are intentionally not tracked as “node changes” (usually because they’re layout/control primitives or are not nodes at all), for example:
+
+- columns (`columnContainer/column`)
+- datetime
+- hardBreak / horizontalRule
+- bookmark (a mark, not a node)
+- locked (implemented as marks/node attributes for editing protection)
+
+> Even when node tracking is not applied, text inside those structures may still be tracked as text changes.
+
+## Markup modes (view only)
+
+Markup modes affect how changes are displayed. They do not remove change marks from the document.
+
+- `final-markup`: final content + show marks
+- `final`: final content (hide deletions; insertions look normal)
+- `original-markup`: original content + show marks (insertions/deletions are presented from the “original” perspective)
+- `original`: original content (hide insertions; deletions look normal)
+
+To permanently finalize the content, you must accept/reject changes.

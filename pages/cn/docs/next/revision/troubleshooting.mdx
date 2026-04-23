@@ -1,0 +1,39 @@
+---
+title: 排障指南
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+---
+
+# 排障指南
+
+## 1. 为什么审阅面板看不到修订记录？
+
+常见原因是标记视图处于 `final` 或 `original`，此时修订记录列表会隐藏。切换到：
+
+- `final-markup` 或 `original-markup`
+
+即可显示修订记录列表。
+
+## 2. 为什么无法接受/拒绝修订？
+
+检查以下配置与状态：
+
+- `revision.allowAcceptReject` 是否为 `true`
+- 文档是否处于只读（`document.readOnly === true`）
+- 编辑器是否可编辑（例如协作/演示模式导致不可编辑）
+
+## 3. 为什么修订人为空？
+
+请确保为每个客户端设置了 `options.user.id` 与 `options.user.name`。
+
+## 4. 为什么导出后仍然带着修订标记？
+
+- 修订标记属于正文内容的一部分：默认保存/导出（HTML、JSON、DOCX 等）会携带修订标记。
+- `final` / `original` 仅是“显示隐藏”，不会自动移除修订标记。
+
+如果你要导出“真正的最终稿”（不包含修订标记），建议导出前先完成定稿：
+
+```js
+editorRef.value.acceptAllRevisions()
+```

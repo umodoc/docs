@@ -1,0 +1,60 @@
+---
+title: 核心概念
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+---
+
+# 核心概念
+
+## 修订标记的两种形态
+
+Umo Editor Next 的修订标记分为两类：
+
+- **文本修订**：以 mark 的形式附着在文本范围上（插入/删除）。
+- **节点修订**：追踪“节点本身”的插入/删除，会在节点 attrs 上写入 `data-track-change-type` 等属性。
+
+### insertion / deletion（文本修订）
+
+- `insertion`（新增）：表示这段内容是“新插入”的。
+- `deletion`（删除）：表示这段内容已被删除，但会保留在文档里作为可审阅对象。
+
+## 可追踪范围（节点修订）
+
+修订追踪分为“文本修订”和“节点修订”两部分：
+
+- **文本修订**覆盖面最广：绝大多数包含文本内容的节点（例如段落、标题、列表、表格单元格、脚注正文等）在发生插入/删除时都会生成 `insertion/deletion` 标记。
+- **节点修订**用于追踪“节点本身”的插入/删除（更适合非纯文本内容或结构节点）。
+
+当前版本对以下常见节点提供节点修订（插入/删除会作为一条修订记录展示，并支持接受/拒绝）：
+
+- callout、details
+- image / inlineImage
+- video / audio
+- file、iframe、icon
+- mention
+- blockMath / inlineMath
+- pageBreak、toc
+- table
+- textBox、optionBox
+- footnotes / footnote / footnoteReference
+- echarts
+
+对于少部分不适合做“节点修订”的节点（通常是结构过于复杂、更多属于编辑控制/布局能力，或本身不是节点类型），当前不会生成节点修订记录，例如：
+
+- columns（分栏：`columnContainer/column`）
+- datetime（日期时间）
+- hardBreak / horizontalRule（硬换行 / 分割线）
+- bookmark（书签：mark，不是节点）
+- locked（内容锁定：通过 mark/节点属性实现的编辑保护，不属于节点类型本身的插入/删除）
+
+## 四种标记视图（Markup Mode）
+
+标记视图仅影响“显示方式”，不会自动移除修订标记：
+
+- `final-markup`：最终稿 + 显示修订标记
+- `final`：最终稿（隐藏删除，插入显示为正常文本）
+- `original-markup`：原稿 + 显示修订标记（插入/删除含义与最终稿相反地呈现）
+- `original`：原稿（隐藏插入，删除显示为正常文本）
+
+如果你希望内容真正定稿（不再携带修订标记），需要执行“接受/拒绝修订”。

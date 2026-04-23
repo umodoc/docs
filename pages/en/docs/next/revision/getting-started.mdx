@@ -1,0 +1,61 @@
+---
+title: Getting Started
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor Next is an enhanced edition of the open-source Umo Editor. It adds stronger collaboration, comments, version history, AI workflows, import/export, and table capabilities, with more flexible toolbars and side panels.
+---
+
+# Getting Started
+
+Shortest path: enable Track Changes → make edits → review → accept/reject → export a clean final document.
+
+## 1. Enable revision options
+
+There are two layers of switches:
+
+- `revision.enabled`: registers the Track Changes capability (without it, nothing works)
+- `revision.defaultEnabled`: whether “track changes” starts enabled by default
+
+```js
+const options = {
+  user: { id: 'u1', name: 'Alex' },
+  revision: {
+    enabled: true,
+    defaultEnabled: true,
+    defaultMarkupMode: 'final-markup',
+  },
+}
+```
+
+## 2. Generate change marks
+
+When tracking is enabled:
+
+- typing creates `insertion` marks
+- deleting content creates `deletion` marks
+
+> View modes only affect rendering, not the underlying content. See: [Core Concepts](./concepts).
+
+## 3. Open the review panel
+
+In the toolbar “Review” group, open Track Changes to:
+
+- browse change records
+- click to locate changes in the document
+- navigate previous/next change
+
+## 4. Accept / reject to finalize
+
+Finalization can be:
+
+- per change
+- all at once
+
+```js
+editorRef.value.setRevisionMarkupMode('final-markup')
+editorRef.value.acceptAllRevisions()
+```
+
+## 5. Export a clean final copy
+
+If you need a “final” export without revision marks, finalize first (accept/reject), then export. See: [Export](../export).

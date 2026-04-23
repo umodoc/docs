@@ -1,0 +1,76 @@
+---
+title: Methods
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor Next is an enhanced edition of the open-source Umo Editor. It adds stronger collaboration, comments, version history, AI workflows, import/export, and table capabilities, with more flexible toolbars and side panels.
+---
+
+# Methods
+
+For general method usage, see: [Methods (Next)](../methods) and [Methods (Editor)](../../editor/methods).
+
+## Revision methods
+
+### getRevisionState
+
+**Description**: Get current revision state (enabled, panel visibility, author filter, markup mode, etc.).
+
+**Parameters**: None
+
+**Returns**: `Object`
+
+### setRevisionMarkupMode
+
+**Description**: Set the markup mode.
+
+**Parameters**:
+
+- `mode`: `'final-markup' | 'final' | 'original-markup' | 'original'`
+
+**Returns**: `Boolean`
+
+### setRevisionUsers
+
+**Description**: Set the author filter for the revision stream.
+
+**Parameters**:
+
+- `users`: `String[]`, default `['all']`
+
+**Returns**: `Boolean`
+
+### getRevisions
+
+**Description**: Get revision records in the current document (filtered by `setRevisionUsers`).
+
+**Parameters**: None
+
+**Returns**: `Array`
+
+**Common fields**:
+
+- `id` / `revisionId`: revision id (used for accept/reject)
+- `from` / `to`: document range
+- `type`: `'insertion' | 'deletion'`
+- `userId` / `userName`: author info
+- `date`: timestamp string (minute granularity)
+- `isNodeChange`: whether this record represents a node-level change
+- `nodeType`: node type (present for node changes)
+
+### acceptRevision / rejectRevision
+
+**Description**: Accept/reject a specific revision by id.
+
+**Parameters**:
+
+- `id`: revision id from `getRevisions()` (`id` or `revisionId`)
+
+**Returns**: `Boolean`
+
+### acceptAllRevisions / rejectAllRevisions
+
+**Description**: Accept/reject all revisions in the document.
+
+**Parameters**: None
+
+**Returns**: `Boolean`

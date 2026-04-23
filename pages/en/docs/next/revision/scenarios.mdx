@@ -1,0 +1,78 @@
+---
+title: Use Cases
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor Next is an enhanced edition of the open-source Umo Editor. It adds stronger collaboration, comments, version history, AI workflows, import/export, and table capabilities, with more flexible toolbars and side panels.
+---
+
+# Use Cases
+
+This page maps Track Changes to common workflows, and shows how it plays well with other features.
+
+## Use case 1: Review → finalize (solo or team)
+
+Best for documents that require an audit-ready review process (contracts, policies, specs).
+
+Suggested flow:
+
+1. Enable tracking (`revision.defaultEnabled: true` or toggle it in the panel)
+2. Review in `final-markup` (final view with marks visible)
+3. Accept/reject changes (per-change or all) to finalize
+4. Export/share the finalized version
+
+## Use case 2: Collaborative review (with comments)
+
+Track Changes records what changed; Comments capture why it changed.
+
+Recommended approach:
+
+- Use Track Changes for edits and accountability (filter by author when reviewing)
+- Use Comments threads to discuss and resolve decisions
+- Use the Review panel as a unified “review stream” (changes + comments) to finish review in one place
+
+## Use case 3: Milestones + fine-grained review (with version history)
+
+For collaboration projects with approvals and checkpoints:
+
+- Versions are your named milestones (snapshots you can revert to)
+- Revisions are the day-to-day review layer between milestones
+
+Suggested flow:
+
+1. Create a version at the start of a milestone
+2. Track changes during the milestone, review and finalize
+3. Create a “milestone accepted” version after finalization
+
+## Use case 4: Templates + protection (with content locking)
+
+For “template author → form filler” workflows:
+
+- Locking protects the template structure
+- Track Changes records maintenance edits and helps you finalize before publishing
+
+## Use case 5: AI draft → human edit (with AI features)
+
+When AI generates a first draft and a human team must refine it:
+
+- generate a draft with AI
+- enable Track Changes for human edits to keep review transparent
+- accept/reject to finalize before exporting
+
+## Working with other features
+
+### Collaboration
+
+- In collaboration mode, revision marks sync to all connected users.
+- Set `options.user` on each client to keep authorship accurate.
+
+### Comments
+
+Use Comments for discussion and decisions, then apply the actual edits under Track Changes and finalize via accept/reject.
+
+### Version History
+
+Use versions for milestones; use Track Changes for review between milestones.
+
+### Export
+
+If you need a clean final export (no revision marks), finalize first (accept/reject) and then export.
