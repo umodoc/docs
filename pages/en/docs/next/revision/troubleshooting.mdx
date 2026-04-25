@@ -15,6 +15,14 @@ Most commonly, you’re in `final` or `original` mode, where revision records ar
 
 to show the revision stream.
 
+## Edits don’t generate new revisions
+
+Check these first:
+
+- `revision.enabled` is `true` (without it, revision is not registered)
+- tracking is currently turned on (can be toggled in the Review toolbar group)
+- `revision.defaultEnabled` only controls the initial state and can be turned off later
+
 ## Accept/Reject doesn’t work
 
 Check:

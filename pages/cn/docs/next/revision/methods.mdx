@@ -37,6 +37,8 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 
 - `users`：`Array<string>`，默认 `['all']`
 
+> 提示：传入空数组 `[]` 会导致修订全部被过滤隐藏；如需恢复“不过滤”，请传 `['all']`。
+
 **返回值**：`Boolean`
 
 ### getRevisions
@@ -53,7 +55,7 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 - `from` / `to`：文档位置范围
 - `type`：`'insertion' | 'deletion'`
 - `userId` / `userName`：修订人信息
-- `date`：时间戳字符串（分钟粒度）
+- `date`：时间戳（分钟粒度）
 - `isNodeChange`：是否为节点级修订
 - `nodeType`：节点类型（仅节点级修订时可能出现）
 

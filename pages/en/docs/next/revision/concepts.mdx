@@ -12,7 +12,7 @@ description: Umo Editor Next is an enhanced edition of the open-source Umo Edito
 Umo Editor Next represents Track Changes in two ways:
 
 - **Text tracking**: change marks applied to text ranges (`insertion` / `deletion`)
-- **Node tracking**: change attributes stored on certain node types to represent inserting/removing the node itself
+- **Node tracking**: change attributes (for example `data-revision-type`, `data-revision-id`) stored on certain node types to represent inserting/removing the node itself
 
 ### insertion / deletion (text tracking)
 
@@ -26,27 +26,25 @@ Track Changes has two layers:
 - **Text tracking** applies to most content that ultimately becomes text in the document (paragraphs, headings, list items, table cells, footnote content, etc.).
 - **Node tracking** focuses on “the node itself was inserted/removed”, which is especially useful for non-text media or structural blocks.
 
-Node tracking is enabled for these common node types:
+Whether node tracking applies depends on the node meeting the “node-level revision target” condition (it has the revision attrs contract and is an atom/leaf non-text node). When applicable, inserting/removing the node is shown as a revision record and can be accepted/rejected.
 
-- callout, details
+Common trackable node examples:
+
 - image / inlineImage
 - video / audio
-- file, iframe, icon
+- file / iframe
 - mention
 - blockMath / inlineMath
-- pageBreak, toc
-- table
-- textBox, optionBox
-- footnotes / footnote / footnoteReference
+- pageBreak / toc
+- datetime
 - echarts
 
-Some elements are intentionally not tracked as “node changes” (usually because they’re layout/control primitives or are not nodes at all), for example:
+These capabilities are typically not represented as node-change records:
 
 - columns (`columnContainer/column`)
-- datetime
-- hardBreak / horizontalRule
+- hardBreak / horizontalRule (more like text editing controls)
 - bookmark (a mark, not a node)
-- locked (implemented as marks/node attributes for editing protection)
+- locked (editing protection, not equivalent to node insertion/removal)
 
 > Even when node tracking is not applied, text inside those structures may still be tracked as text changes.
 

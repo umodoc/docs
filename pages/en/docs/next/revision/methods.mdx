@@ -37,6 +37,8 @@ For general method usage, see: [Methods (Next)](../methods) and [Methods (Editor
 
 - `users`: `String[]`, default `['all']`
 
+> Note: Passing an empty array `[]` hides all revision records. Use `['all']` to clear filtering.
+
 **Returns**: `Boolean`
 
 ### getRevisions
@@ -53,7 +55,7 @@ For general method usage, see: [Methods (Next)](../methods) and [Methods (Editor
 - `from` / `to`: document range
 - `type`: `'insertion' | 'deletion'`
 - `userId` / `userName`: author info
-- `date`: timestamp string (minute granularity)
+- `date`: timestamp (minute granularity)
 - `isNodeChange`: whether this record represents a node-level change
 - `nodeType`: node type (present for node changes)
 

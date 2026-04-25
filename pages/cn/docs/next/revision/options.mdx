@@ -35,11 +35,13 @@ const defaultOptions = {
 
 **说明**：初始化时是否默认开启“记录修订”。开启后，用户输入/删除会自动生成修订标记。
 
+> 注意：`defaultEnabled` 仅在 `revision.enabled = true` 时生效；若未启用 revision 扩展，即使 `defaultEnabled = true` 也不会记录修订。
+
 **生成的修订标记**（开启“记录修订”后自动产生）：
 
 - `insertion`（新增）：表示这段内容是“新插入”的。通常以绿色下划线/高亮展示；在 `final` 视图中会显示为普通文本，在 `original` 视图中会被隐藏。
 - `deletion`（删除）：表示这段内容已被删除，但会保留在文档里作为可审阅对象。通常以红色删除线/高亮展示；在 `final` 视图中会被隐藏，在 `original` 视图中会显示为普通文本。
-- 节点修订（部分节点类型）：当插入/删除的是图片、音视频、文本框等“可追踪节点”时，节点本身会写入 `data-track-change-type`、`data-track-id`、`data-op-user-*`、`data-op-date` 等属性，并在审阅面板中作为一条修订记录展示与处理。
+- 节点修订（部分节点类型）：当插入/删除的是图片、音视频、文本框等“可追踪节点”时，节点本身会写入 `data-revision-type`、`data-revision-id`、`data-revision-user-*`、`data-revision-date` 等属性，并在审阅面板中作为一条修订记录展示与处理。
 
 > 上述“标记视图”（`final-markup/final/original-markup/original`）只影响显示方式，不会自动移除修订标记；定稿请使用“接受/拒绝修订”。
 

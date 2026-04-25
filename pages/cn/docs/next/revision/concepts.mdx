@@ -12,7 +12,7 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 Umo Editor Next 的修订标记分为两类：
 
 - **文本修订**：以 mark 的形式附着在文本范围上（插入/删除）。
-- **节点修订**：追踪“节点本身”的插入/删除，会在节点 attrs 上写入 `data-track-change-type` 等属性。
+- **节点修订**：追踪“节点本身”的插入/删除，会在节点 attrs 上写入 `data-revision-type`、`data-revision-id` 等属性。
 
 ### insertion / deletion（文本修订）
 
@@ -26,27 +26,25 @@ Umo Editor Next 的修订标记分为两类：
 - **文本修订**覆盖面最广：绝大多数包含文本内容的节点（例如段落、标题、列表、表格单元格、脚注正文等）在发生插入/删除时都会生成 `insertion/deletion` 标记。
 - **节点修订**用于追踪“节点本身”的插入/删除（更适合非纯文本内容或结构节点）。
 
-当前版本对以下常见节点提供节点修订（插入/删除会作为一条修订记录展示，并支持接受/拒绝）：
+节点修订是否生效取决于节点是否满足“节点修订目标”条件（具备修订 attrs 契约，且为 atom/leaf 非文本节点）。满足条件时，节点插入/删除会作为一条修订记录展示，并支持接受/拒绝。
 
-- callout、details
+当前常见可追踪节点（示例）：
+
 - image / inlineImage
 - video / audio
-- file、iframe、icon
+- file / iframe
 - mention
 - blockMath / inlineMath
-- pageBreak、toc
-- table
-- textBox、optionBox
-- footnotes / footnote / footnoteReference
+- pageBreak / toc
+- datetime
 - echarts
 
-对于少部分不适合做“节点修订”的节点（通常是结构过于复杂、更多属于编辑控制/布局能力，或本身不是节点类型），当前不会生成节点修订记录，例如：
+以下能力通常不作为“节点修订记录”来源：
 
-- columns（分栏：`columnContainer/column`）
-- datetime（日期时间）
-- hardBreak / horizontalRule（硬换行 / 分割线）
-- bookmark（书签：mark，不是节点）
-- locked（内容锁定：通过 mark/节点属性实现的编辑保护，不属于节点类型本身的插入/删除）
+- columns（分栏容器结构）
+- hardBreak / horizontalRule（更偏文本编辑控制）
+- bookmark（书签是 mark，不是节点）
+- locked（内容锁定是编辑保护能力，不等价于节点插入/删除）
 
 ## 四种标记视图（Markup Mode）
 

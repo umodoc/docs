@@ -35,11 +35,13 @@ const defaultOptions = {
 
 **Description**: Whether tracking is enabled by default on initialization. When enabled, typing/deleting automatically generates revision marks.
 
+> Note: `defaultEnabled` only takes effect when `revision.enabled = true`. If the revision extension is not enabled, `defaultEnabled = true` will not start tracking.
+
 **What marks are generated**
 
 - `insertion`: newly added content. Usually shown with green underline/highlight; appears as normal text in `final`, and is hidden in `original`.
 - `deletion`: removed content kept as a reviewable change. Usually shown with red strike-through/highlight; hidden in `final`, and shown as normal text in `original`.
-- Node changes (some node types): inserting/removing trackable nodes writes attributes like `data-track-change-type`, `data-track-id`, `data-op-user-*`, and `data-op-date` and shows them as change records in the review panel.
+- Node changes (some node types): inserting/removing trackable nodes writes attributes like `data-revision-type`, `data-revision-id`, `data-revision-user-*`, and `data-revision-date` and shows them as change records in the review panel.
 
 > Markup modes only change rendering; they do not remove marks. To permanently finalize, accept/reject changes.
 
