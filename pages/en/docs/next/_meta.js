@@ -10,7 +10,7 @@ export default {
   aside: 'Page Aside',
   collaboration: 'Collaborative',
   comments: 'Comments',
-  revision: 'Track Changes',
+  revision: 'Track Changes (BETA)',
   versions: 'Version History',
   annotation: 'Annotation',
   import: 'Import',
