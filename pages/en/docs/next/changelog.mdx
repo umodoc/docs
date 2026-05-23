@@ -8,6 +8,26 @@ import { Callout } from 'nextra/components'
 
 # Changelog
 
+## 🎉 v11.0.0
+
+1. Added document revision support. For details, see: [Document Revision](./revision);
+2. Added AI SKILL (skill system) and AI AGENTS (intelligent agent framework), providing developers with more flexible and extensible AI development capabilities, including custom skill integration and multi-agent collaboration scenarios;
+3. Fixed an issue in collaboration mode where document content could be appended repeatedly due to the `TrailingNode` extension;
+4. Added automatic Markdown heading completion logic for AI-inserted content;
+5. Removed the unsaved-changes interception that still appeared when leaving the page in collaboration mode;
+6. When content is selected in the document, inserting a callout now wraps the selected content and improves callout styling;
+7. Fixed the placeholder cursor offset issue in documents;
+8. Fixed an issue in collaboration mode where content could be appended repeatedly when the document was empty;
+9. Fixed an issue where callout nodes were difficult to focus;
+10. Optimized the editor content saving mechanism to prevent data loss;
+11. Added placeholders and user prompts when pasted Office content contains images;
+12. Fixed incorrect slot passing in toolbar mode;
+13. Fixed an issue where pasted content could be duplicated;
+14. Corrected the calculation method for the optimal page width;
+15. Fixed issues with toolbar slot mode and component ordering;
+16. Fixed an error where mention extensions could not be found during Word export;
+17. Minor optimizations and adjustments.
+
 ## 🚀 v10.3.0
 
 1. Synced changes from Umo Editor v10.0.7 and v10.1.0. For details, see: [Umo Editor Changelog](../editor/changelog);
