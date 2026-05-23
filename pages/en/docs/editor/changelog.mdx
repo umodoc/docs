@@ -11,6 +11,23 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next/changelog
 
+## 🚀 v10.2.0 <Badge>May 23, 2026</Badge>
+
+1. Fixed an issue where the toolbar menu state was not immediately reset correctly when switching the editor to read-only mode;
+2. Fixed incorrect slot prop passing in toolbar mode;
+3. Fixed the page optimal width calculation method;
+4. Fixed an issue where pasted content could be duplicated, @jiangshan1xiao [(#447)](https://github.com/umodoc/editor/issues/447); @lylezhan [(#440)](https://github.com/umodoc/editor/issues/440);
+5. When Office-pasted content includes images, added placeholders and user hints;
+6. Fixed an issue where indentation styles in document content could be cleared;
+7. Fixed an issue where the page could be closed unexpectedly when the document had unsaved changes;
+8. Optimized the editor content saving mechanism to prevent data loss;
+9. Fixed an issue where the callout component was hard to focus, and improved styles;
+10. When there is selected content, inserting a highlight block now wraps the selection;
+11. Fixed an issue where the cursor offset was incorrect in placeholders;
+12. Fixed unexpected line breaks in list items, @hzy-GitH [(#448)](https://github.com/umodoc/editor/issues/448);
+13. The image extension now supports reading width/height from `style`, @wuyuejiang482 [(#445)](https://github.com/umodoc/editor/issues/445);
+14. Other minor tweaks and optimizations.
+
 ## 🚀 v10.1.0 <Badge>April 18, 2026</Badge>
 
 1. Added an error notice when the save callback returns no value;

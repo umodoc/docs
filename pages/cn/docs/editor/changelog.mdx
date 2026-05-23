@@ -11,12 +11,29 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next 的更新日志请访问：https://dev.umodoc.com/cn/docs/next/changelog
 
+## 🚀 v10.2.0 <Badge>2026-05-23</Badge>
+
+1. 修复工具栏菜单状态在编辑器只读切换时未立即正确重置的问题；
+2. 修正工具栏模式插槽传递错误；
+3. 修正页面最佳宽度计算方法；
+4. 修复粘贴内容会重复的问题 @jiangshan1xiao [(#447)](https://github.com/umodoc/editor/issues/447)； @lylezhan [(#440)](https://github.com/umodoc/editor/issues/440)；
+5. Office 粘贴的内容中包含图片时，添加占位符并添加用户提示；
+6. 修复文档内容中的缩进样式被清除的问题；
+7. 修复编辑器内容未保存时意外关闭页面的问题；
+8. 优化编辑器内容保存机制，防止数据丢失；
+9. 修复 callout 组件不容易聚焦的问题，并优化样式；
+10. 当文档有选中内容时，插入高亮块时高亮块包裹选中内容；
+11. 修复文档占位符光标偏移的问题；
+12. 修复列表项中换行不符合预期的问题 @hzy-GitH [(#448)](https://github.com/umodoc/editor/issues/448)；
+13. 图片扩展支持从style中识别宽高 @wuyuejiang482 [(#445)](https://github.com/umodoc/editor/issues/445)；
+14. 其他细节调整与优化。
+
 ## 🚀 v10.1.0 <Badge>2026-04-18</Badge>
 
 1. 增加保存方法回调没有返回值的错误提示；
 2. 新增项目技能文档和 AI 辅助文档，帮助 AI 更好的理解本项目，辅助用户完成开发；
 3. 添加字体下载与自动启用功能等，详见 [字典配置](./options/dicts#fonts)； 
-4. 为标题-正文结构添加标题占位符支持，同时将 TrailingNode 扩展强制设为段落节点。
+4. 为标题-正文结构添加标题占位符支持，同时将 TrailingNode 扩展强制设为段落节点;
 
 ## 🚀 v10.0.7 <Badge>2026-04-12</Badge>
 
