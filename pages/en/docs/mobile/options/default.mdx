@@ -51,6 +51,7 @@ const defaultOptions = {
     },
   },
   document: {
+    id: '',
     title: '',
     content: '',
     placeholder: {
@@ -90,8 +91,17 @@ const defaultOptions = {
     allowedMimeTypes: [],
     maxSize: 1024 * 1024 * 100,
   },
+  server: {
+    host: '',
+    ssl: false,
+    token: '',
+  },
   user: {},
   users: [],
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
   extensions: [],
   disableExtensions: [],
   translations: {
@@ -130,10 +140,22 @@ const defaultOptions = {
 - `templates`: template configuration. See [Document Template Configuration](./templates).
 - `cdnUrl` / `shareUrl`: resource base URL and share URL configuration.
 - `file`: file upload and preview configuration. See [File Upload Configuration](./file).
+- `server`: collaboration service connection configuration. See [Server Configuration](./server).
 - `user` / `users`: user information configuration. See [User Configuration](./user) and [Related Users Configuration](./users).
+- `collaboration`: online collaboration configuration. See [Online Collaboration](./collaboration).
 - `extensions` / `disableExtensions`: extension add/remove configuration. See [Feature and Extension Configuration](./extensions).
 - `translations`: localization override configuration. See [Localization Configuration](./locale).
 - `onLeave` / `onSave` / `onRename` / `onFileUpload` / `onFileDelete`: callback method configuration. See [Method Configuration](./methods).
+
+## Additional Notes for Collaboration Mode
+
+- `document.id`: required in collaboration scenarios. It uniquely identifies the current document and participates in generating the internal collaboration document name.
+- `server`: provides the collaboration server address, protocol, and authentication token.
+- `collaboration.enabled`: enables the basic online collaboration capability when set to `true`.
+- `collaboration.provider`: appends custom configuration to the underlying collaboration provider, for example `parameters`.
+- `document.content`: no longer acts as the content source in collaboration mode. The content is driven by the server-synced collaboration document instead.
+- `document.autoSave`: does not drive the local auto-save state machine in collaboration mode.
+- `onSave`: is still available in collaboration mode and can be used for manual snapshot saves or explicit persistence on the business side.
 
 ## Key Differences from Desktop
 

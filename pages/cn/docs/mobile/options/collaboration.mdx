@@ -1,0 +1,166 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,在线协作,多人协作编辑,移动端协作编辑,协同办公
+description: 本节介绍 Umo Editor Mobile 当前支持的基础在线协作能力，包括配置方式、适用场景、能力边界与实例方法，并说明与 Umo Editor Next 协作体系的关系。
+---
+
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# 在线协作
+
+Umo Editor Mobile 支持 **基础的多人在线协作编辑** 能力，可以与 `Umo Editor Next`、桌面 Web 端或其他移动端实例共同编辑同一份文档。配置项和 `Umo Editor Next` 保持一致。
+
+协作模式下，文档内容通过 WebSocket 实时同步到服务端，移动端更适合作为“随时查看、随手补充、快速确认”的协作入口。
+
+## 特点及优势
+
+- 支持与 `Umo Editor Next` 共享同一协作文档，适合“桌面深度编辑 + 移动随时处理”的多端协同场景。
+- 基于 WebSocket 实时同步文档内容，多个用户可同时修改同一份文档。
+- 内置离线缓存能力，网络恢复后可继续参与同步。
+- 保留移动端独立交互体系，协作状态和协作用户通过工具栏面板查看，不干扰正文阅读。
+- 支持协作光标与选区展示，便于识别其他协作者正在编辑的位置。
+
+## 适用场景
+
+- 会议纪要移动补充：参会人可在手机端直接补充讨论结论与待办项。
+- 外勤/现场记录：现场人员边走边改，桌面端同事同步整理格式与结构。
+- 审批流补录：审批人在移动端查看文档并补充少量说明，无需切换到桌面端。
+- 多端联合作业：桌面端负责复杂排版，移动端负责快速修正、补充和确认。
+
+## 默认配置
+
+```js
+const defaultOptions = {
+  document: {
+    id: '', // 协作场景下必填，用于唯一标识文档
+  },
+  server: {
+    host: '',
+    ssl: false,
+    token: '',
+  },
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
+}
+```
+
+## 配置说明
+
+### document.id
+
+**说明**：协作文档唯一标识。移动端会基于该值生成协作文档名 `document-${document.id}`。
+
+**类型**：`String`
+
+**是否必填**：协作模式下必填。
+
+### server
+
+**说明**：协作服务的基础连接信息，详细字段说明请参考[服务配置](./server)。
+
+**类型**：`Object`
+
+### collaboration.enabled
+
+**说明**：是否启用在线协作。
+
+**类型**：`Boolean`
+
+### collaboration.provider
+
+**说明**：协作服务提供者配置。移动端底层使用 `HocuspocusProvider`，并在内部自动补齐文档名、连接地址与当前用户参数。
+
+**类型**：`Object`
+
+## 保存语义说明
+
+与 `Umo Editor Next` 不同，移动端在协作模式下仍然保留 `saveContent()` / `onSave()` 入口，可用于业务侧执行“手动保存快照”或“显式入库”操作。
+
+但需要注意：
+
+- 协作模式下，不再使用本地未保存变更检测。
+- 协作模式下，不再触发基于 `document.autoSave` 的自动保存状态机。
+- `document.content` 不再作为协作模式下的正文来源，正文内容以协作文档为准。
+
+## 方法列表
+
+方法的基础使用方式请参考：[方法列表](./methods)。
+
+### getCollaboration
+
+**说明**：获取当前协作运行时信息。
+
+**参数**：无
+
+**返回值**：`Object | undefined`
+
+返回对象包含：
+
+- `enabled`：是否启用协作
+- `connect`：是否已与协作服务端建立连接
+- `synced`：是否已完成首次同步
+- `users`：当前协作用户列表
+- `provider`：当前协作服务提供者实例
+
+### getCollaborationUsers
+
+**说明**：获取当前协作用户列表。
+
+**参数**：无
+
+**返回值**：`Array`
+
+### getCollaborationProvider
+
+**说明**：获取当前协作服务提供者实例。
+
+**参数**：无
+
+**返回值**：`Object | undefined`
+
+### isCollaborationEnabled
+
+**说明**：判断当前是否启用了协作模式。
+
+**参数**：无
+
+**返回值**：`Boolean`
+
+### isCollaborationConnected
+
+**说明**：判断当前是否已连接到协作服务端。
+
+**参数**：无
+
+**返回值**：`Boolean`
+
+## 示例
+
+```js
+const options = {
+  document: {
+    id: '1',
+  },
+  server: {
+    host: '127.0.0.1:1235',
+    ssl: false,
+    token: 'Bearer 123456',
+  },
+  user: {
+    id: 'mobile-user-1',
+    name: '移动端用户',
+    color: 'var(--umo-primary-color)',
+  },
+  collaboration: {
+    enabled: true,
+    provider: {
+      parameters: {
+        tenantId: 'demo',
+      },
+    },
+  },
+}
+```

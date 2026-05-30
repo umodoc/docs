@@ -1,0 +1,52 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,server configuration,online collaboration,WebSocket,collaboration
+description: This section introduces the server configuration of Umo Editor Mobile, which is used to connect to the collaboration server in online collaboration scenarios, including host, ssl, and token.
+---
+
+# Server Configuration
+
+Umo Editor Mobile uses [Umo Editor Server](../../server) as the default backend service. You can deploy the server yourself and implement the related services of Umo Editor Server as needed, or directly use the services provided by Umo Editor Server.
+
+The recommended approach is to proxy Umo Editor Server through a gateway or another backend program, and intercept or process requests at that layer to improve the security and robustness of Umo Editor Server.
+
+Umo Editor Server is used to enhance the capabilities of Umo Editor Mobile. To ensure these enhanced capabilities work properly, the following configuration items must be set correctly.
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  // Server-related configuration, introduced in v7.1.0
+  server: {
+    host: '',
+    ssl: false,
+    token: '',
+  },
+}
+```
+
+## Configuration Items
+
+### server.host
+
+**Description**: server host address. During local development, if you use the services provided by Umo Editor Server, it can be configured as: `http://127.0.0.1:1235`.
+
+**Type**: `String`
+
+**Required**: `true`
+
+### server.ssl
+
+**Description**: whether to use the HTTPS protocol.
+
+**Type**: `String`
+
+**Default**: `false`
+
+### server.token
+
+**Description**: access token. For common HTTP requests, this value is added to the request header as `Authorization: {token}` by default. For WebSocket requests, an encrypted `token` parameter is appended to the URL.
+
+**Type**: `String`
+
+**Default**: `''`

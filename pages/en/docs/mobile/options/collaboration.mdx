@@ -1,0 +1,165 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,online collaboration,real-time collaboration,mobile collaborative editing,collaboration
+description: This section introduces the basic online collaboration capabilities currently supported by Umo Editor Mobile, including configuration, applicable scenarios, capability boundaries, and instance methods, and explains its relationship with the collaboration system of Umo Editor Next.
+---
+
+import { Badge } from '/components/badge'
+
+# Online Collaboration
+
+Umo Editor Mobile supports **basic multi-user online collaborative editing** and can edit the same document together with `Umo Editor Next`, desktop web clients, or other mobile instances. The configuration semantics stay aligned with `Umo Editor Next`.
+
+In collaboration mode, document content is synchronized to the server in real time through WebSocket. Mobile is better suited as a collaboration entry point for "view anytime, add quickly, confirm on the go".
+
+## Features and Advantages
+
+- Supports sharing the same collaborative document with `Umo Editor Next`, which fits multi-end collaboration scenarios like "deep editing on desktop + quick handling on mobile".
+- Synchronizes document content in real time through WebSocket, allowing multiple users to edit the same document at the same time.
+- Includes offline cache support so syncing can continue after the network is restored.
+- Preserves the mobile-specific interaction system. Collaboration status and active users are shown in the toolbar panel without interfering with document reading.
+- Supports collaborative cursors and selections, making it easier to identify where other collaborators are editing.
+
+## Applicable Scenarios
+
+- Mobile meeting note updates: participants can add conclusions and action items directly from their phones.
+- Field and on-site records: on-site staff update content while desktop teammates organize structure and formatting at the same time.
+- Workflow follow-up: approvers can review the document on mobile and add a small amount of explanation without switching to desktop.
+- Multi-end cooperation: desktop handles complex layout while mobile handles quick corrections, additions, and confirmations.
+
+## Default Configuration
+
+```js
+const defaultOptions = {
+  document: {
+    id: '', // Required in collaboration scenarios. Used to uniquely identify the document.
+  },
+  server: {
+    host: '',
+    ssl: false,
+    token: '',
+  },
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
+}
+```
+
+## Configuration Items
+
+### document.id
+
+**Description**: unique identifier of the collaborative document. Mobile uses this value to generate the collaboration document name `document-${document.id}`.
+
+**Type**: `String`
+
+**Required**: required in collaboration mode.
+
+### server
+
+**Description**: basic connection information for the collaboration service. For detailed field descriptions, see [Server Configuration](./server).
+
+**Type**: `Object`
+
+### collaboration.enabled
+
+**Description**: whether to enable online collaboration.
+
+**Type**: `Boolean`
+
+### collaboration.provider
+
+**Description**: collaboration provider configuration. Mobile uses `HocuspocusProvider` internally and automatically fills in the document name, connection address, and current user parameters.
+
+**Type**: `Object`
+
+## Save Semantics
+
+Unlike `Umo Editor Next`, mobile still keeps the `saveContent()` / `onSave()` entry points in collaboration mode. They can be used for business-side manual snapshot saves or explicit persistence.
+
+Please note:
+
+- In collaboration mode, local unsaved-change detection is no longer used.
+- In collaboration mode, the auto-save state machine driven by `document.autoSave` is no longer triggered.
+- `document.content` is no longer the content source in collaboration mode. The actual content is driven by the collaborative document.
+
+## Methods
+
+For the general usage of instance methods, see [Methods](../methods).
+
+### getCollaboration
+
+**Description**: gets the current collaboration runtime information.
+
+**Parameters**: none
+
+**Return value**: `Object | undefined`
+
+The returned object includes:
+
+- `enabled`: whether collaboration is enabled
+- `connect`: whether the editor is connected to the collaboration service
+- `synced`: whether the first synchronization has completed
+- `users`: the current collaboration user list
+- `provider`: the current collaboration provider instance
+
+### getCollaborationUsers
+
+**Description**: gets the current collaboration user list.
+
+**Parameters**: none
+
+**Return value**: `Array`
+
+### getCollaborationProvider
+
+**Description**: gets the current collaboration provider instance.
+
+**Parameters**: none
+
+**Return value**: `Object | undefined`
+
+### isCollaborationEnabled
+
+**Description**: checks whether collaboration mode is enabled.
+
+**Parameters**: none
+
+**Return value**: `Boolean`
+
+### isCollaborationConnected
+
+**Description**: checks whether the editor is connected to the collaboration service.
+
+**Parameters**: none
+
+**Return value**: `Boolean`
+
+## Example
+
+```js
+const options = {
+  document: {
+    id: '1',
+  },
+  server: {
+    host: '127.0.0.1:1235',
+    ssl: false,
+    token: 'Bearer 123456',
+  },
+  user: {
+    id: 'mobile-user-1',
+    name: 'Mobile User',
+    color: 'var(--umo-primary-color)',
+  },
+  collaboration: {
+    enabled: true,
+    provider: {
+      parameters: {
+        tenantId: 'demo',
+      },
+    },
+  },
+}
+```

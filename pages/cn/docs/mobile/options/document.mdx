@@ -8,15 +8,16 @@ import { Badge } from '/components/badge'
 
 # 文档配置
 
-用于配置 Umo Editor Mobile 的文档标题、内容、编辑行为与自动保存策略。
+用于配置 Umo Editor Mobile 的文档标识、标题、内容、编辑行为与自动保存策略。
 
-与 Umo Editor / Umo Editor Next 相比，移动端文档配置更强调阅读态切换、触控输入和轻量化集成，不包含桌面端或 Next 版本中的全部协作字段。
+与 Umo Editor / Umo Editor Next 相比，移动端文档配置更强调阅读态切换、触控输入和轻量化集成，仅保留基础协作所需的 `document.id`。
 
 ## 默认配置
 
 ```js
 {
   document: {
+    id: '',
     title: '',
     content: '',
     placeholder: {
@@ -45,6 +46,14 @@ import { Badge } from '/components/badge'
 
 ## 配置项说明
 
+### document.id
+
+**说明**：文档唯一标识。在在线协作模式下，该字段用于唯一定位当前协作文档。
+
+**类型**：`String`
+
+**默认值**：`''`
+
 ### document.title
 
 **说明**：文档标题，可通过 [setDocument 方法](../methods#setdocument) 动态更新；移动端顶部导航与“更多”面板中的重命名能力都会围绕该字段工作。
@@ -56,6 +65,8 @@ import { Badge } from '/components/badge'
 ### document.content
 
 **说明**：初始文档内容，可为 HTML 字符串或 Tiptap 支持的数据结构；创建编辑器实例时会先经过内容转换后再传入 Tiptap。
+
+在在线协作模式下，该字段不再作为正文来源，正文内容以协作服务同步的 Yjs 文档为准。<Badge theme="warning">协作模式不同</Badge>
 
 **类型**：`String | Object`
 
@@ -156,6 +167,8 @@ import { Badge } from '/components/badge'
 
 **说明**：自动保存配置；启用后会在内容变更后按间隔时间触发保存流程。
 
+在线协作模式下，移动端不会使用本地自动保存状态机，因此该配置不会驱动自动保存。<Badge theme="warning">协作模式不同</Badge>
+
 **类型**：`Object`
 
 **默认值**：`{ enabled: true, interval: 300000 }`
@@ -167,6 +180,7 @@ import { Badge } from '/components/badge'
 
 ## 与桌面端的主要差异
 
+- `id` 在移动端已用于基础协作链路，用来标识协作文档。<Badge theme="primary">协作相关</Badge>
 - `autofocus` 在移动端浏览器和 WebView 中，自动聚焦通常还会受到软键盘策略、宿主容器和用户手势限制，导致自动聚焦失败，故移动端不支持自动聚焦。<Badge theme="danger">不支持</Badge>
 - `enableBlockMenu` 移动端不提供桌面端的块菜单功能。<Badge theme="danger">不支持</Badge>
 - `readOnly` 在移动端的重要性更高，很多交互会直接围绕“阅读态 / 编辑态”切换展开。 <Badge theme="primary">移动端特有</Badge>

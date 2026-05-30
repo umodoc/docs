@@ -15,4 +15,6 @@ export default {
   locale: '本地化语言配置',
   theme: '主题配置',
   methods: '方法配置',
+  server: '服务配置',
+  collaboration: '在线协作',
 }

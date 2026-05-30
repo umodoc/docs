@@ -8,15 +8,16 @@ import { Badge } from '/components/badge'
 
 # Document Configuration
 
-Used to configure document title, content, editing behavior, and auto-save strategy in Umo Editor Mobile.
+Used to configure the document identifier, title, content, editing behavior, and auto-save strategy in Umo Editor Mobile.
 
-Compared with Umo Editor and Umo Editor Next, the mobile document configuration puts more emphasis on switching between reading and editing, touch input, and lightweight integration. It does not include all collaboration-related fields available in the desktop or Next versions.
+Compared with Umo Editor and Umo Editor Next, the mobile document configuration puts more emphasis on switching between reading and editing, touch input, and lightweight integration. It keeps only the `document.id` field required for basic collaboration.
 
 ## Default Configuration
 
 ```js
 {
   document: {
+    id: '',
     title: '',
     content: '',
     placeholder: {
@@ -45,6 +46,14 @@ Compared with Umo Editor and Umo Editor Next, the mobile document configuration 
 
 ## Configuration Items
 
+### document.id
+
+**Description**: unique document identifier. In online collaboration mode, this field is used to uniquely locate the current collaborative document.
+
+**Type**: `String`
+
+**Default**: `''`
+
 ### document.title
 
 **Description**: document title. It can be updated dynamically through [setDocument](../methods#setdocument). The mobile top navigation and the rename capability in the "More" panel both revolve around this field.
@@ -56,6 +65,8 @@ Compared with Umo Editor and Umo Editor Next, the mobile document configuration 
 ### document.content
 
 **Description**: initial document content. It can be an HTML string or a Tiptap-supported data structure. The content is transformed before being passed into Tiptap when the editor instance is created.
+
+In online collaboration mode, this field no longer acts as the content source. The actual content comes from the collaboration service and is synchronized through the Yjs document. <Badge theme="warning">Different in Collaboration Mode</Badge>
 
 **Type**: `String | Object`
 
@@ -156,6 +167,8 @@ Compared with Umo Editor and Umo Editor Next, the mobile document configuration 
 
 **Description**: auto-save configuration. When enabled, the save flow is triggered after content changes based on the configured interval.
 
+In online collaboration mode, mobile does not use the local auto-save state machine, so this configuration no longer drives automatic saving. <Badge theme="warning">Different in Collaboration Mode</Badge>
+
 **Type**: `Object`
 
 **Default**: `{ enabled: true, interval: 300000 }`
@@ -167,6 +180,7 @@ Compared with Umo Editor and Umo Editor Next, the mobile document configuration 
 
 ## Key Differences from Desktop
 
+- `id` is used by the basic collaboration workflow on mobile to identify the collaboration document. <Badge theme="primary">Collaboration-Related</Badge>
 - `autofocus` is not supported on mobile because auto focus in mobile browsers and WebViews is often limited by soft keyboard strategy, host container behavior, and user gesture requirements, which can cause autofocus to fail. <Badge theme="danger">Not Supported</Badge>
 - `enableBlockMenu` is not supported on mobile because mobile does not provide the desktop-style block menu capability. <Badge theme="danger">Not Supported</Badge>
 - `readOnly` has greater importance on mobile, because many interactions are built directly around switching between reading mode and editing mode. <Badge theme="primary">Mobile-Only</Badge>

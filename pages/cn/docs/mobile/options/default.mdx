@@ -51,6 +51,7 @@ const defaultOptions = {
     },
   },
   document: {
+    id: '',
     title: '',
     content: '',
     placeholder: {
@@ -90,8 +91,17 @@ const defaultOptions = {
     allowedMimeTypes: [],
     maxSize: 1024 * 1024 * 100,
   },
+  server: {
+    host: '',
+    ssl: false,
+    token: '',
+  },
   user: {},
   users: [],
+  collaboration: {
+    enabled: false,
+    provider: {},
+  },
   extensions: [],
   disableExtensions: [],
   translations: {
@@ -130,10 +140,22 @@ const defaultOptions = {
 - `templates`：模板配置，详见[文档模板配置](./templates)。
 - `cdnUrl` / `shareUrl`：资源地址与分享地址配置。
 - `file`：文件上传与预览配置，详见[文件上传配置](./file)。
+- `server`：协作服务连接配置，详见[服务配置](./server)。
 - `user` / `users`：用户信息配置，详见[用户配置](./user) 与 [相关用户配置](./users)。
+- `collaboration`：在线协作配置，详见[在线协作](./collaboration)。
 - `extensions` / `disableExtensions`：扩展增删配置，详见[功能及扩展配置](./extensions)。
 - `translations`：多语言覆盖配置，详见[本地化语言配置](./locale)。
 - `onLeave` / `onSave` / `onRename` / `onFileUpload` / `onFileDelete`：回调方法配置，详见[方法配置](./methods)。
+
+## 协作模式补充说明
+
+- `document.id`：协作场景下必填，用于唯一标识当前文档，并参与生成内部协作文档名。
+- `server`：用于提供协作服务端地址、协议和鉴权令牌。
+- `collaboration.enabled`：设为 `true` 后启用基础在线协作能力。
+- `collaboration.provider`：用于向底层协作提供者追加自定义配置，例如 `parameters`。
+- `document.content`：在协作模式下不再作为正文来源，内容以服务端同步的协作文档为准。
+- `document.autoSave`：在协作模式下不会驱动本地自动保存状态机。
+- `onSave`：在协作模式下仍然保留，可用于业务侧执行手动保存快照或显式入库。
 
 ## 与桌面端的主要差异
 

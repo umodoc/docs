@@ -57,6 +57,8 @@ This is a very important callback in mobile document integration and is usually 
 
 **Description**: configures the document save method; it is called when the user saves manually or when auto-save is triggered.
 
+In online collaboration mode, this callback is still preserved, but it is more suitable for business-side manual snapshot saves or explicit persistence. In this mode, mobile no longer drives local auto-save through `document.autoSave`. <Badge theme="warning">Different in Collaboration Mode</Badge>
+
 **Type**: `AsyncFunction`
 
 **Parameters**:
@@ -116,3 +118,4 @@ This is typically triggered from the rename entry in the "More" panel. <Badge th
 - `onLeave` <Badge theme="primary">Mobile-Only</Badge>: desktop documentation usually does not treat page leaving as a core callback configuration item.
 - `onRename` <Badge theme="primary">Mobile-Only</Badge>: used together with the rename flow in the "More" panel.
 - Mobile save flow depends more heavily on `onSave` <Badge theme="primary">Mobile-Only</Badge>: auto-save, unsaved-change reminders, and leave guards are built in, and `onSave` is the core callback of the entire state machine.
+- `onSave` has different semantics in collaboration mode <Badge theme="warning">Different in Collaboration Mode</Badge>: it no longer represents persisting local unsaved changes, but an explicit business-side save action.

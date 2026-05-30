@@ -57,6 +57,8 @@ import { Badge } from '/components/badge'
 
 **说明**：配置文档保存方法；在用户手动保存或自动保存触发时调用。
 
+在线协作模式下，该回调仍然保留，但更适合用于“手动保存快照”或“显式入库”；此时移动端不会再由 `document.autoSave` 驱动本地自动保存。<Badge theme="warning">协作模式不同</Badge>
+
 **类型**：`AsyncFunction`
 
 **参数**：
@@ -116,3 +118,4 @@ import { Badge } from '/components/badge'
 - `onLeave` <Badge theme="primary">移动端特有</Badge>：桌面端文档通常不把离开页面作为核心回调配置项。
 - `onRename` <Badge theme="primary">移动端特有</Badge>：用于配合“更多”面板中的重命名流程。
 - 保存链路更依赖 `onSave` <Badge theme="primary">移动端特有</Badge>：移动端内置自动保存、未保存提醒和返回守卫，`onSave` 是整套状态机的核心回调。
+- 协作模式下的 `onSave` 语义不同 <Badge theme="warning">协作模式不同</Badge>：它不再代表本地“未保存变更”的落盘，而是业务侧的主动保存动作。

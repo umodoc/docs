@@ -15,4 +15,6 @@ export default {
   locale: 'Localization Configuration',
   theme: 'Theme Configuration',
   methods: 'Method Configuration',
+  server: 'Server Configuration',
+  collaboration: 'Online Collaboration',
 }
