@@ -17,7 +17,7 @@ import { Badge } from '/components/badge'
   async onLeave({ leaveSteps = 1 } = {}) {
     window.history.go(-Math.max(1, Number(leaveSteps) || 1))
   },
-  async onSave(content, page, document) {
+  async onSave(content, page, document, comments) {
     throw new Error('Key "onSave": Please set the save method')
   },
   async onRename(title) {
@@ -66,6 +66,7 @@ import { Badge } from '/components/badge'
 - `content`：文档内容集合
 - `page`：页面信息
 - `document`：文档信息
+- `comments`：评论线程列表；当评论功能未启用时为 `[]`
 
 **返回值**：
 

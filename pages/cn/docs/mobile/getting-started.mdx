@@ -114,8 +114,8 @@ const options = ref({
     title: '移动端示例文档',
     content: '<p>欢迎使用 Umo Editor Mobile</p>',
   },
-  async onSave(content, page, document) {
-    console.log('save', { content, page, document })
+  async onSave(content, page, document, comments) {
+    console.log('save', { content, page, document, comments })
     return '保存成功'
   },
 })

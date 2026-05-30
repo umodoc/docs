@@ -1,0 +1,320 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,评论,批注,comments,线程评论,移动端审阅
+description: 本节介绍 Umo Editor Mobile 的评论功能，包括线程数据结构、配置项、可选回调、实例方法，以及与协作模式、保存链路的关系。
+---
+
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# 文档批注（评论）
+
+Umo Editor Mobile 支持与 `Umo Editor Next` 语义一致的批注/评论能力，用于在文档中围绕某个范围创建线程、回复、编辑、删除以及标记已解决/未解决。
+
+## 特点及优势
+
+- 支持线程评论与回复，适合移动端快速补充意见
+- 支持与协作编辑同时使用，评论线程可随正文一起参与多人讨论
+- 支持已解决 / 未解决状态切换，便于移动端跟进处理进度
+- 支持引用回复与线程定位，适合边看边处理审阅意见
+- 保留与 `Umo Editor Next` 一致的数据结构，便于多端共用业务接口
+
+## 核心概念
+
+**线程（Thread）**：与文档某个位置绑定的一组评论集合。
+
+**评论（Comment）**：线程中的单条消息；如果带有 `replyId`，表示它是一条回复评论。
+
+一个典型的线程数据如下：
+
+```js showLineNumbers
+{
+  id: 'thread_001',
+  data: {
+    user: { id: 'u_1', name: '张三', color: '#5b8cff' },
+    ref: '被评论的正文片段',
+  },
+  comments: [
+    {
+      id: 'comment_001',
+      data: {
+        user: { id: 'u_1', name: '张三', color: '#5b8cff' },
+      },
+      content: '<p>这里建议进一步说明限制条件。</p>',
+      createdAt: '2026-05-30T08:00:00.000Z',
+    },
+    {
+      id: 'comment_002',
+      data: {
+        user: { id: 'u_2', name: '李四', color: '#10b981' },
+        replyId: 'comment_001',
+      },
+      content: '<p>收到，我会补充到下一版。</p>',
+      createdAt: '2026-05-30T08:03:00.000Z',
+    },
+  ],
+  createdAt: '2026-05-30T08:00:00.000Z',
+  resolvedAt: '',
+}
+```
+
+接口格式与桌面端保持一致：
+
+```ts
+interface Thread {
+  id: string
+  data: any
+  comments: Comment[]
+  createdAt: string
+  updatedAt?: string
+  resolvedAt?: string
+}
+
+interface Comment {
+  id: string
+  data: any
+  content: string
+  createdAt: string
+  updatedAt?: string
+}
+```
+
+## 默认配置
+
+当前移动端源码中的默认值如下：
+
+```js showLineNumbers
+const defaultOptions = {
+  comments: {
+    enabled: false,
+    threads: [],
+  },
+}
+```
+
+## 配置说明
+
+### comments.enabled
+
+**说明**：是否启用评论能力。关闭后不会注册评论相关扩展，评论线程高亮、评论面板以及评论实例方法都不可用。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### comments.threads
+
+**说明**：评论线程的初始数据，适用于单机模式或业务自行注入初始评论数据的场景。
+
+在开启了[在线协作](./collaboration)后，评论线程会优先从协作提供者同步，通常不再依赖该初始值。<Badge theme="warning">协作模式不同</Badge>
+
+**类型**：`Array<Thread>`
+
+**默认值**：`[]`
+
+## 可选回调
+
+虽然默认配置中未显式展开，移动端评论提供者仍支持以下可选回调，便于业务侧感知评论数据变化：
+
+```js showLineNumbers
+const options = {
+  comments: {
+    enabled: true,
+    threads: [],
+    onGetThreads: undefined,
+    onSetThreads: undefined,
+    onCreateThread: undefined,
+    onUpdateThread: undefined,
+    onDeleteThread: undefined,
+    onCreateComment: undefined,
+    onUpdateComment: undefined,
+    onDeleteComment: undefined,
+  },
+}
+```
+
+### comments.onGetThreads
+
+**说明**：读取线程列表后触发。
+
+**类型**：`Function`
+
+**参数**：`threads`
+
+### comments.onSetThreads
+
+**说明**：业务主动重设线程列表后触发。
+
+**类型**：`Function`
+
+**参数**：`threads`
+
+> 提示：移动端当前回调名为 `onSetThreads`（复数），与部分桌面端文档中的 `onSetThread` 不同，接入时请以移动端实际实现为准。
+
+### comments.onCreateThread
+
+**说明**：创建线程后触发。
+
+**类型**：`Function`
+
+**参数**：`thread`
+
+### comments.onUpdateThread
+
+**说明**：更新线程后触发，例如标记已解决 / 未解决。
+
+**类型**：`Function`
+
+**参数**：`thread`
+
+### comments.onDeleteThread
+
+**说明**：删除线程后触发。
+
+**类型**：`Function`
+
+**参数**：`threadId`
+
+### comments.onCreateComment
+
+**说明**：创建评论或回复后触发。
+
+**类型**：`Function`
+
+**参数**：`comment`
+
+### comments.onUpdateComment
+
+**说明**：编辑评论后触发。
+
+**类型**：`Function`
+
+**参数**：`comment`
+
+### comments.onDeleteComment
+
+**说明**：删除评论后触发。
+
+**类型**：`Function`
+
+**参数**：`{ threadId, commentId }`
+
+## 实例方法
+
+实例方法的基础调用方式请参考[方法配置](./methods)。
+
+### getComments
+
+**说明**：获取当前评论状态快照。
+
+**参数**：无
+
+**返回值**：`Object | undefined`
+
+返回对象包含：
+
+- `connect`：是否已连接评论协作数据源
+- `threads`：当前线程列表
+
+### openCommentPanel
+
+**说明**：打开评论面板，并切换到评论页签。
+
+**参数**：无
+
+**返回值**：无
+
+### closeCommentPanel
+
+**说明**：关闭评论面板；关闭后编辑器会尝试恢复焦点，便于继续输入。<Badge theme="primary">移动端交互</Badge>
+
+**参数**：无
+
+**返回值**：无
+
+### focusCommentThread
+
+**说明**：聚焦指定线程，并滚动文档到对应评论位置；若评论面板未打开，会一并打开。
+
+**参数**：
+
+- `threadId`：线程 ID
+
+**返回值**：`Boolean`
+
+### openReviewPanel
+
+**说明**：打开统一审阅面板。传入 `'comments'` 时会直接进入评论页签。
+
+**参数**：
+
+- `tab`：`'comments' | 'revisions'`
+
+**返回值**：无
+
+### closeReviewPanel
+
+**说明**：关闭统一审阅面板。
+
+**参数**：无
+
+**返回值**：无
+
+## 协作与保存说明
+
+### 在线协作
+
+- 评论功能可与[在线协作](./collaboration)一起使用
+- 协作模式下，线程数据通过协作提供者内部的评论映射同步
+- 为了让评论作者显示准确，建议传入完整的 `user.id`、`user.name` 与 `user.color`
+
+### 保存链路
+
+移动端与 `Umo Editor Next` 对齐，`onSave` 会接收第 4 个参数 `comments`：
+
+```js showLineNumbers
+const handleSave = async (payload, page, document, comments) => {
+  await saveDocument({ payload, page, document, comments })
+  return '保存成功'
+}
+```
+
+保存前，组件内部会先同步一份最新的 `document.content`，再执行 `onSave`，避免业务侧通过第 3 个参数读取到旧内容。
+
+## 使用示例
+
+```js showLineNumbers
+const options = {
+  user: {
+    id: 'u_1',
+    name: '张三',
+    color: '#5b8cff',
+  },
+  comments: {
+    enabled: true,
+    threads: [
+      {
+        id: 'thread_001',
+        data: {
+          user: { id: 'u_1', name: '张三', color: '#5b8cff' },
+          ref: '合同金额部分',
+        },
+        comments: [
+          {
+            id: 'comment_001',
+            data: {
+              user: { id: 'u_1', name: '张三', color: '#5b8cff' },
+            },
+            content: '<p>请再次确认税率是否正确。</p>',
+            createdAt: '2026-05-30T08:00:00.000Z',
+          },
+        ],
+        createdAt: '2026-05-30T08:00:00.000Z',
+      },
+    ],
+    onCreateThread(thread) {
+      console.log('create thread', thread)
+    },
+  },
+}
+```

@@ -17,4 +17,6 @@ export default {
   methods: '方法配置',
   server: '服务配置',
   collaboration: '在线协作',
+  comments: '文档批注/评论',
+  revision: '文档修订',
 }

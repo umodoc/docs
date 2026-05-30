@@ -1,0 +1,248 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,修订,revision,track changes,审阅,移动端审阅
+description: 本节介绍 Umo Editor Mobile 的修订功能，包括配置项、标记模式、实例方法、协作前置条件以及与桌面端的差异。
+---
+
+import { Callout } from 'nextra/components'
+import { Badge } from '/components/badge'
+
+# 修订功能
+
+Umo Editor Mobile 支持与 `Umo Editor Next` 语义一致的修订能力，用于记录正文中的新增与删除痕迹，并提供移动端可用的审阅面板、接受/拒绝和标记模式切换能力。
+
+## 功能说明
+
+- 记录新增 / 删除修订
+- 展示修订列表并支持定位到文档位置
+- 支持接受 / 拒绝单条修订或全部修订
+- 支持四种标记视图模式
+- 支持按修订人过滤
+
+## 默认配置
+
+```js showLineNumbers
+const defaultOptions = {
+  revision: {
+    enabled: false,
+    defaultEnabled: false,
+    allowAcceptReject: true,
+    defaultMarkupMode: 'final-markup',
+    defaultReviewers: ['all'],
+  },
+}
+```
+
+## 配置项说明
+
+### revision.enabled
+
+**说明**：是否启用修订能力。关闭后不会注册修订扩展，修订标记、修订面板和修订实例方法都不可用。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### revision.defaultEnabled
+
+**说明**：初始化时是否默认开启“记录修订模式”。开启后，输入和删除会自动写入修订标记。
+
+> 注意：只有在 `revision.enabled = true` 时，该配置才会生效。
+
+**类型**：`Boolean`
+
+**默认值**：`false`
+
+### revision.allowAcceptReject
+
+**说明**：是否允许执行“接受 / 拒绝”操作。关闭后仍可查看修订与切换标记模式，但不能定稿。
+
+**类型**：`Boolean`
+
+**默认值**：`true`
+
+### revision.defaultMarkupMode
+
+**说明**：默认修订显示模式。
+
+可选值：
+
+- `final-markup`
+- `final`
+- `original-markup`
+- `original`
+
+**类型**：`String`
+
+**默认值**：`final-markup`
+
+### revision.defaultReviewers
+
+**说明**：默认修订过滤人列表。
+
+可选值示例：
+
+- `['all']`：不过滤
+- `['u_1', 'u_2']`：按修订人 ID 过滤
+- `['张三', '李四']`：按修订人名称过滤
+
+**类型**：`Array<string>`
+
+**默认值**：`['all']`
+
+## 标记模式说明
+
+四种模式只影响显示方式，不会自动移除修订本身：
+
+- `final-markup`：显示最终内容，并保留修订标记
+- `final`：显示最终内容，不展示修订标记
+- `original-markup`：显示原始内容，并保留修订标记
+- `original`：显示原始内容，不展示修订标记
+
+定稿时仍需调用接受 / 拒绝相关方法。
+
+## 实例方法
+
+实例方法的基础调用方式请参考[方法配置](./methods)。
+
+### getRevisions
+
+**说明**：获取当前文档中的修订列表。
+
+**参数**：无
+
+**返回值**：`Array`
+
+常用字段包括：
+
+- `id` / `revisionId`：修订 ID
+- `from` / `to`：修订范围
+- `type`：`'insertion' | 'deletion'`
+- `userId` / `userName`：修订人信息
+- `date`：修订时间
+- `isNodeChange`：是否为节点修订
+- `nodeType`：节点类型
+
+### getRevisionState
+
+**说明**：获取当前修订运行时状态。
+
+**参数**：无
+
+**返回值**：`Object`
+
+通常包含：
+
+- `enabled`：当前是否开启记录修订
+- `panelVisible`：修订面板是否显示
+- `markupMode`：当前标记模式
+- `userFilter`：当前过滤用户
+
+### setRevisionMarkupMode
+
+**说明**：设置修订标记模式。
+
+**参数**：
+
+- `mode`：`'final-markup' | 'final' | 'original-markup' | 'original'`
+
+**返回值**：`Boolean`
+
+### setRevisionUsers
+
+**说明**：设置修订过滤用户。
+
+**参数**：
+
+- `users`：`Array<string>`
+
+**返回值**：`Boolean`
+
+> 提示：传入空数组 `[]` 会让修订全部被过滤；恢复不过滤请传 `['all']`。
+
+### setRevisionEnabled
+
+**说明**：显式开启或关闭记录修订模式。
+
+**参数**：
+
+- `enabled`：`Boolean`
+
+**返回值**：`Boolean`
+
+### toggleRevisionEnabled
+
+**说明**：切换记录修订模式。
+
+**参数**：无
+
+**返回值**：`Boolean`
+
+### getCurrentRevisionChange
+
+**说明**：获取当前光标所在位置命中的修订信息。
+
+**参数**：无
+
+**返回值**：`Object | null`
+
+### goToNextRevisionChange / goToPrevRevisionChange
+
+**说明**：跳转到下一条 / 上一条修订。
+
+**参数**：无
+
+**返回值**：`Boolean`
+
+### acceptRevision / rejectRevision
+
+**说明**：接受或拒绝指定修订。
+
+**参数**：
+
+- `id`：修订 ID，可来自 `getRevisions()` 的 `id` 或 `revisionId`
+
+**返回值**：`Boolean`
+
+### acceptAllRevisions / rejectAllRevisions
+
+**说明**：接受或拒绝全部修订。
+
+**参数**：无
+
+**返回值**：`Boolean`
+
+### openReviewPanel / closeReviewPanel
+
+**说明**：打开或关闭统一审阅面板。传入 `'revisions'` 可直接进入修订页签。
+
+**参数**：
+
+- `tab`：`'comments' | 'revisions'`
+
+**返回值**：无
+
+## 协作与用户信息说明
+
+- 修订功能不依赖在线协作，单机模式即可使用
+- 协作模式下，修订标记会作为正文内容的一部分同步给其他协作者
+- 多端协同时，建议桌面端与移动端统一修订模式和用户字段，避免审阅结果理解不一致
+
+## 使用示例
+
+```js showLineNumbers
+const options = {
+  user: {
+    id: 'u_1',
+    name: '张三',
+    color: '#5b8cff',
+  },
+  revision: {
+    enabled: true,
+    defaultEnabled: true,
+    allowAcceptReject: true,
+    defaultMarkupMode: 'final-markup',
+    defaultReviewers: ['all'],
+  },
+}
+```

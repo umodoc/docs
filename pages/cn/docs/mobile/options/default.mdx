@@ -102,6 +102,17 @@ const defaultOptions = {
     enabled: false,
     provider: {},
   },
+  comments: {
+    enabled: false,
+    threads: [],
+  },
+  revision: {
+    enabled: false,
+    defaultEnabled: false,
+    allowAcceptReject: true,
+    defaultMarkupMode: 'final-markup',
+    defaultReviewers: ['all'],
+  },
   extensions: [],
   disableExtensions: [],
   translations: {
@@ -143,6 +154,8 @@ const defaultOptions = {
 - `server`：协作服务连接配置，详见[服务配置](./server)。
 - `user` / `users`：用户信息配置，详见[用户配置](./user) 与 [相关用户配置](./users)。
 - `collaboration`：在线协作配置，详见[在线协作](./collaboration)。
+- `comments`：评论线程与评论回调配置，详见[评论功能](./comments)。
+- `revision`：修订记录、标记模式与审阅能力配置，详见[修订功能](./revision)。
 - `extensions` / `disableExtensions`：扩展增删配置，详见[功能及扩展配置](./extensions)。
 - `translations`：多语言覆盖配置，详见[本地化语言配置](./locale)。
 - `onLeave` / `onSave` / `onRename` / `onFileUpload` / `onFileDelete`：回调方法配置，详见[方法配置](./methods)。

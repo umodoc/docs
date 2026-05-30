@@ -17,4 +17,6 @@ export default {
   methods: 'Method Configuration',
   server: 'Server Configuration',
   collaboration: 'Online Collaboration',
+  comments: 'Document Comments',
+  revision: 'Document Revision',
 }

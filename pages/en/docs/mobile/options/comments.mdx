@@ -1,0 +1,325 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,comments,annotations,comment threads,mobile review
+description: This section introduces the comments feature in Umo Editor Mobile, including thread data structures, configuration items, optional callbacks, instance methods, and how comments relate to collaboration and saving.
+---
+
+import { Badge } from '/components/badge'
+
+# Document Comments
+
+Umo Editor Mobile supports comments with the same semantics as `Umo Editor Next`. You can create a thread for a document range, reply, edit, delete, and mark the thread as resolved or unresolved.
+
+## Features and Benefits
+
+- Supports threaded comments and replies, making it suitable for quick mobile feedback
+- Works together with collaboration so comment threads can participate in multi-user discussion
+- Supports resolved and unresolved states, which helps track progress on mobile
+- Supports quoted replies and thread positioning for review workflows
+- Keeps a data structure aligned with `Umo Editor Next`, making it easier to share business-side APIs across platforms
+
+## Core Concepts
+
+**Thread**: a group of comments bound to a document position.
+
+**Comment**: a single message inside a thread. If it contains `replyId`, it is a reply comment.
+
+Typical thread data:
+
+```js showLineNumbers
+{
+  id: 'thread_001',
+  data: {
+    user: { id: 'u_1', name: 'Alice', color: '#5b8cff' },
+    ref: 'The selected document text',
+  },
+  comments: [
+    {
+      id: 'comment_001',
+      data: {
+        user: { id: 'u_1', name: 'Alice', color: '#5b8cff' },
+      },
+      content: '<p>Please explain the constraint more clearly here.</p>',
+      createdAt: '2026-05-30T08:00:00.000Z',
+    },
+    {
+      id: 'comment_002',
+      data: {
+        user: { id: 'u_2', name: 'Bob', color: '#10b981' },
+        replyId: 'comment_001',
+      },
+      content: '<p>Got it. I will update this in the next revision.</p>',
+      createdAt: '2026-05-30T08:03:00.000Z',
+    },
+  ],
+  createdAt: '2026-05-30T08:00:00.000Z',
+  resolvedAt: '',
+}
+```
+
+The interface shape matches desktop:
+
+```ts
+interface Thread {
+  id: string
+  data: any
+  comments: Comment[]
+  createdAt: string
+  updatedAt?: string
+  resolvedAt?: string
+}
+
+interface Comment {
+  id: string
+  data: any
+  content: string
+  createdAt: string
+  updatedAt?: string
+}
+```
+
+## Default Configuration
+
+Current defaults in the mobile source code:
+
+```js showLineNumbers
+const defaultOptions = {
+  comments: {
+    enabled: false,
+    threads: [],
+  },
+}
+```
+
+## Configuration
+
+### comments.enabled
+
+**Description**: whether to enable comments. When disabled, comment-related extensions are not registered, and comment highlighting, the comment panel, and comment instance methods are unavailable.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### comments.threads
+
+**Description**: initial comment threads. This is useful in standalone mode or when the business layer injects initial comment data.
+
+When [Online Collaboration](./collaboration) is enabled, threads are usually synced from the collaboration provider instead of relying on this initial value. <Badge theme="warning">Different in Collaboration Mode</Badge>
+
+**Type**: `Array<Thread>`
+
+**Default**: `[]`
+
+## Optional Callbacks
+
+Although they are not expanded in the default configuration snippet, the mobile comment provider currently supports the following optional callbacks:
+
+```js showLineNumbers
+const options = {
+  comments: {
+    enabled: true,
+    threads: [],
+    onGetThreads: undefined,
+    onSetThreads: undefined,
+    onCreateThread: undefined,
+    onUpdateThread: undefined,
+    onDeleteThread: undefined,
+    onCreateComment: undefined,
+    onUpdateComment: undefined,
+    onDeleteComment: undefined,
+  },
+}
+```
+
+### comments.onGetThreads
+
+**Description**: called after the thread list is read.
+
+**Type**: `Function`
+
+**Parameters**: `threads`
+
+### comments.onSetThreads
+
+**Description**: called after the business layer resets the thread list.
+
+**Type**: `Function`
+
+**Parameters**: `threads`
+
+> Note: mobile currently uses `onSetThreads` in plural form. This differs from `onSetThread` in some desktop documents, so use the actual mobile implementation as the source of truth.
+
+### comments.onCreateThread
+
+**Description**: called after a thread is created.
+
+**Type**: `Function`
+
+**Parameters**: `thread`
+
+### comments.onUpdateThread
+
+**Description**: called after a thread is updated, for example when it is marked resolved or unresolved.
+
+**Type**: `Function`
+
+**Parameters**: `thread`
+
+### comments.onDeleteThread
+
+**Description**: called after a thread is deleted.
+
+**Type**: `Function`
+
+**Parameters**: `threadId`
+
+### comments.onCreateComment
+
+**Description**: called after a comment or reply is created.
+
+**Type**: `Function`
+
+**Parameters**: `comment`
+
+### comments.onUpdateComment
+
+**Description**: called after a comment is edited.
+
+**Type**: `Function`
+
+**Parameters**: `comment`
+
+### comments.onDeleteComment
+
+**Description**: called after a comment is deleted.
+
+**Type**: `Function`
+
+**Parameters**: `{ threadId, commentId }`
+
+## Instance Methods
+
+For the basic calling pattern of instance methods, see [Method Configuration](./methods).
+
+### getComments
+
+**Description**: gets the current comment state snapshot.
+
+**Parameters**: none
+
+**Return value**: `Object | undefined`
+
+Returned object:
+
+- `connect`: whether the comment data source is connected
+- `threads`: current thread list
+
+### openCommentPanel
+
+**Description**: opens the comment panel and switches to the comments tab.
+
+**Parameters**: none
+
+**Return value**: none
+
+### closeCommentPanel
+
+**Description**: closes the comment panel. After it closes, the editor tries to restore focus so the user can continue typing. <Badge theme="primary">Mobile Interaction</Badge>
+
+**Parameters**: none
+
+**Return value**: none
+
+### focusCommentThread
+
+**Description**: focuses a specific thread and scrolls the document to the corresponding comment location. If the comment panel is not open, it opens as well.
+
+**Parameters**:
+
+- `threadId`: thread ID
+
+**Return value**: `Boolean`
+
+### openReviewPanel
+
+**Description**: opens the unified review panel. Pass `'comments'` to switch directly to the comments tab.
+
+**Parameters**:
+
+- `tab`: `'comments' | 'revisions'`
+
+**Return value**: none
+
+### closeReviewPanel
+
+**Description**: closes the unified review panel.
+
+**Parameters**: none
+
+**Return value**: none
+
+## Collaboration and Save Flow
+
+### Online Collaboration
+
+- Comments can be used together with [Online Collaboration](./collaboration)
+- In collaboration mode, thread data is synced through the internal comment map managed by the collaboration provider
+- To make author display accurate, pass complete `user.id`, `user.name`, and `user.color`
+
+### Save Flow
+
+Mobile is now aligned with `Umo Editor Next`, and `onSave` receives `comments` as the 4th argument:
+
+```js showLineNumbers
+const handleSave = async (payload, page, document, comments) => {
+  await saveDocument({ payload, page, document, comments })
+  return 'Saved successfully'
+}
+```
+
+Before `onSave` is executed, the component first syncs the latest `document.content`, so the 3rd `document` argument does not contain stale content.
+
+## Usage Example
+
+```js showLineNumbers
+const options = {
+  user: {
+    id: 'u_1',
+    name: 'Alice',
+    color: '#5b8cff',
+  },
+  comments: {
+    enabled: true,
+    threads: [
+      {
+        id: 'thread_001',
+        data: {
+          user: { id: 'u_1', name: 'Alice', color: '#5b8cff' },
+          ref: 'Contract amount section',
+        },
+        comments: [
+          {
+            id: 'comment_001',
+            data: {
+              user: { id: 'u_1', name: 'Alice', color: '#5b8cff' },
+            },
+            content: '<p>Please double-check whether the tax rate is correct.</p>',
+            createdAt: '2026-05-30T08:00:00.000Z',
+          },
+        ],
+        createdAt: '2026-05-30T08:00:00.000Z',
+      },
+    ],
+    onCreateThread(thread) {
+      console.log('create thread', thread)
+    },
+  },
+}
+```
+
+## Key Differences from Desktop
+
+- Input flow is lighter <Badge theme="primary">Mobile Interaction</Badge>: create, reply, and edit all use modal-style input instead of an always-expanded editor area in the panel
+- Panel form is different <Badge theme="primary">Mobile Interaction</Badge>: the comments list is shown in a bottom popup rather than a desktop side panel with connectors
+- Callback naming differs <Badge theme="warning">Current Implementation Difference</Badge>: mobile currently uses `onSetThreads`

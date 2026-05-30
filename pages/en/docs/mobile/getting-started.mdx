@@ -115,8 +115,8 @@ const options = ref({
     title: 'Test Document',
     content: '<p>Hello Umo Editor Mobile</p>',
   },
-  async onSave(content, page, document) {
-    console.log('save', { content, page, document })
+  async onSave(content, page, document, comments) {
+    console.log('save', { content, page, document, comments })
     return 'Saved successfully'
   },
 })

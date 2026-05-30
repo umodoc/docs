@@ -1,0 +1,253 @@
+---
+target: Umo Editor Mobile
+keywords: Umo Editor Mobile,revision,track changes,review,mobile review
+description: This section introduces the revision feature in Umo Editor Mobile, including configuration items, markup modes, instance methods, collaboration notes, and differences from desktop.
+---
+
+import { Badge } from '/components/badge'
+
+# Document Revision
+
+Umo Editor Mobile supports revision with semantics aligned to `Umo Editor Next`. It records insertions and deletions in the document and provides a mobile-friendly review panel, accept/reject actions, and markup mode switching.
+
+## Capabilities
+
+- Records inserted and deleted revisions
+- Displays a revision list and supports locating the change in the document
+- Supports accepting or rejecting a single revision or all revisions
+- Supports four markup view modes
+- Supports filtering by reviewer
+
+## Default Configuration
+
+```js showLineNumbers
+const defaultOptions = {
+  revision: {
+    enabled: false,
+    defaultEnabled: false,
+    allowAcceptReject: true,
+    defaultMarkupMode: 'final-markup',
+    defaultReviewers: ['all'],
+  },
+}
+```
+
+## Configuration
+
+### revision.enabled
+
+**Description**: whether to enable revision. When disabled, revision-related extensions are not registered, and revision marks, the revision panel, and revision instance methods are unavailable.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### revision.defaultEnabled
+
+**Description**: whether revision recording is enabled by default on initialization. When enabled, typing and deletion automatically create revision marks.
+
+> Note: this only takes effect when `revision.enabled = true`.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### revision.allowAcceptReject
+
+**Description**: whether accept and reject operations are allowed. When disabled, revisions can still be viewed and markup modes can still be switched, but finalization is not allowed.
+
+**Type**: `Boolean`
+
+**Default**: `true`
+
+### revision.defaultMarkupMode
+
+**Description**: the default revision display mode.
+
+Available values:
+
+- `final-markup`
+- `final`
+- `original-markup`
+- `original`
+
+**Type**: `String`
+
+**Default**: `final-markup`
+
+### revision.defaultReviewers
+
+**Description**: default reviewer filter list.
+
+Examples:
+
+- `['all']`: no filter
+- `['u_1', 'u_2']`: filter by user ID
+- `['Alice', 'Bob']`: filter by user name
+
+**Type**: `Array<string>`
+
+**Default**: `['all']`
+
+## Markup Modes
+
+These four modes only affect how revisions are displayed. They do not remove the revisions themselves:
+
+- `final-markup`: shows final content and keeps revision markup visible
+- `final`: shows final content without revision markup
+- `original-markup`: shows original content and keeps revision markup visible
+- `original`: shows original content without revision markup
+
+Finalization still requires the accept or reject methods.
+
+## Instance Methods
+
+For the basic calling pattern of instance methods, see [Method Configuration](./methods).
+
+### getRevisions
+
+**Description**: gets the revision list in the current document.
+
+**Parameters**: none
+
+**Return value**: `Array`
+
+Common fields:
+
+- `id` / `revisionId`: revision ID
+- `from` / `to`: revision range
+- `type`: `'insertion' | 'deletion'`
+- `userId` / `userName`: revision author information
+- `date`: revision time
+- `isNodeChange`: whether it is a node-level revision
+- `nodeType`: node type
+
+### getRevisionState
+
+**Description**: gets the current revision runtime state.
+
+**Parameters**: none
+
+**Return value**: `Object`
+
+Usually includes:
+
+- `enabled`: whether revision recording is currently enabled
+- `panelVisible`: whether the revision panel is visible
+- `markupMode`: current markup mode
+- `userFilter`: current user filter
+
+### setRevisionMarkupMode
+
+**Description**: sets the revision markup mode.
+
+**Parameters**:
+
+- `mode`: `'final-markup' | 'final' | 'original-markup' | 'original'`
+
+**Return value**: `Boolean`
+
+### setRevisionUsers
+
+**Description**: sets the revision user filter.
+
+**Parameters**:
+
+- `users`: `Array<string>`
+
+**Return value**: `Boolean`
+
+> Tip: passing an empty array `[]` hides all revisions. To restore no filtering, pass `['all']`.
+
+### setRevisionEnabled
+
+**Description**: explicitly enables or disables revision recording mode.
+
+**Parameters**:
+
+- `enabled`: `Boolean`
+
+**Return value**: `Boolean`
+
+### toggleRevisionEnabled
+
+**Description**: toggles revision recording mode.
+
+**Parameters**: none
+
+**Return value**: `Boolean`
+
+### getCurrentRevisionChange
+
+**Description**: gets the revision data hit by the current cursor position.
+
+**Parameters**: none
+
+**Return value**: `Object | null`
+
+### goToNextRevisionChange / goToPrevRevisionChange
+
+**Description**: jumps to the next or previous revision.
+
+**Parameters**: none
+
+**Return value**: `Boolean`
+
+### acceptRevision / rejectRevision
+
+**Description**: accepts or rejects a specific revision.
+
+**Parameters**:
+
+- `id`: revision ID, which can come from `getRevisions().id` or `getRevisions().revisionId`
+
+**Return value**: `Boolean`
+
+### acceptAllRevisions / rejectAllRevisions
+
+**Description**: accepts or rejects all revisions.
+
+**Parameters**: none
+
+**Return value**: `Boolean`
+
+### openReviewPanel / closeReviewPanel
+
+**Description**: opens or closes the unified review panel. Pass `'revisions'` to switch directly to the revisions tab.
+
+**Parameters**:
+
+- `tab`: `'comments' | 'revisions'`
+
+**Return value**: none
+
+## Collaboration and User Info
+
+- Revision does not depend on online collaboration and can be used in standalone mode
+- In collaboration mode, revision marks are synced as part of the document content
+- In multi-platform scenarios, keep revision mode and user fields consistent between desktop and mobile to avoid review inconsistencies
+
+## Usage Example
+
+```js showLineNumbers
+const options = {
+  user: {
+    id: 'u_1',
+    name: 'Alice',
+    color: '#5b8cff',
+  },
+  revision: {
+    enabled: true,
+    defaultEnabled: true,
+    allowAcceptReject: true,
+    defaultMarkupMode: 'final-markup',
+    defaultReviewers: ['all'],
+  },
+}
+```
+
+## Key Differences from Desktop
+
+- The panel is lighter <Badge theme="primary">Mobile Interaction</Badge>: mobile uses a bottom popup instead of a desktop side panel
+- Entry points are more focused <Badge theme="primary">Mobile Interaction</Badge>: the main flows are tapping revision content in the document, using the more menu, or using the insert panel
+- The default UI is simplified <Badge theme="primary">Mobile Interaction</Badge>: the main panel does not keep previous and next buttons visible

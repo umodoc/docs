@@ -102,6 +102,17 @@ const defaultOptions = {
     enabled: false,
     provider: {},
   },
+  comments: {
+    enabled: false,
+    threads: [],
+  },
+  revision: {
+    enabled: false,
+    defaultEnabled: false,
+    allowAcceptReject: true,
+    defaultMarkupMode: 'final-markup',
+    defaultReviewers: ['all'],
+  },
   extensions: [],
   disableExtensions: [],
   translations: {
@@ -143,6 +154,8 @@ const defaultOptions = {
 - `server`: collaboration service connection configuration. See [Server Configuration](./server).
 - `user` / `users`: user information configuration. See [User Configuration](./user) and [Related Users Configuration](./users).
 - `collaboration`: online collaboration configuration. See [Online Collaboration](./collaboration).
+- `comments`: comment thread and comment callback configuration. See [Document Comments](./comments).
+- `revision`: revision record, markup mode, and review capability configuration. See [Document Revision](./revision).
 - `extensions` / `disableExtensions`: extension add/remove configuration. See [Feature and Extension Configuration](./extensions).
 - `translations`: localization override configuration. See [Localization Configuration](./locale).
 - `onLeave` / `onSave` / `onRename` / `onFileUpload` / `onFileDelete`: callback method configuration. See [Method Configuration](./methods).
