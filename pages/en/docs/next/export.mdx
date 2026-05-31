@@ -32,6 +32,11 @@ This feature allows you to export content from Umo Editor as Word, PDF, HTML, im
 - Finalize (accept/reject) before external export to avoid shipping revision marks: [Track Changes](./revision)
 - Export a “marked review copy” during review, then export a clean final after finalization
 
+### Document Comments
+
+- Word export can optionally include comments, which is useful for review drafts with feedback: [Document Comments](./comments)
+- Exported comments preserve the comment and reply relationships within a thread for continued review in Word
+
 ### Version History
 
 - Export files at milestone versions for archiving and delivery: [Version History](./versions)
@@ -92,22 +97,32 @@ This option is required for export to work properly. `styleURL` must be a fully 
 
 Export the content of Umo Editor as a Word document. Most node types and page configurations are supported, and we are continuously improving this feature.
 
-The exported file is in `docx` format, which can be opened and edited in Microsoft Word and similar software.
+The exported file is in `docx` format, which can be opened and edited in Microsoft Word, WPS Office, and similar software.
 
-**Parameters:** `{ content, download, filename, docxOption }`
+**Parameters:** `{ content, download, filename, docxOptions, exportComments, exportRevisions }`
 
 - `content`: Valid [Tiptap document JSON format]. Defaults to all content in the editor, or you can specify a subset.
 - `download`: `Boolean`, whether to download the file. Default is `true`.
 - `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
-- `docxOption`: Options for document generation (optional), including:
-  - `id`: `String` Unique identifier for the current image.
-  - `src`: `String` Image loading path.
-  - `nodeType`: `String` Type of image to retrieve, `image` for images, `echarts` for charts.
-  - `node`: `Tiptap node (JSON format)`.
-  - `docxOption.page.backColor`: `String`, Document background color, e.g. `#FFFFFF`.
-  - `docxOption.page.orientation`: `String`, Page orientation, `landscape` for horizontal, `portrait` for vertical.
-  - `docxOption.page.size.height`: `Number`, Page height in centimeters (`cm`).
-  - `docxOption.page.size.width`: `Number`, Page width in centimeters (`cm`).
+- `exportComments`: `Boolean`, whether to export comments. Default is `false`. <Badge theme="success">Added in v11.2.0</Badge>
+- `exportRevisions`: `Boolean`, whether to export revisions. Default is `false`. <Badge theme="success">Added in v11.2.0</Badge>
+- `docxOptions`: Options for document generation (optional), including:
+  - `docxOptions.getImageBase64`: `Async Function`, a custom image-reading method that returns a valid `base64` string. Optional. It receives:
+    - `id`: `String` Unique identifier for the current image.
+    - `src`: `String` Image loading path.
+    - `nodeType`: `String` Type of image to retrieve, `image` for images and `echarts` for charts.
+    - `node`: `Tiptap node (JSON format)`.
+  - `docxOptions.page.backColor`: `String`, document background color, such as `#FFFFFF`.
+  - `docxOptions.page.orientation`: `String`, page orientation, `landscape` for horizontal and `portrait` for vertical.
+  - `docxOptions.page.size.height`: `Number`, page height in centimeters (`cm`).
+  - `docxOptions.page.size.width`: `Number`, page width in centimeters (`cm`).
+
+> Note:
+>
+> - When you click `Word` in the toolbar, an export settings dialog appears first. Comments and revisions are unchecked by default and are exported based on the user's one-time selection.
+> - When calling `exportDocx()`, no dialog is shown; export starts directly based on the provided parameters.
+> - Current Word export supports revisions for text content only. If the document contains more complex node-level revisions, we recommend finalizing it in the editor before export.
+> - Different office suites vary in how they display revision marks. If you need to verify revision results, we recommend opening the exported `docx` file in Microsoft Word first.
 
 **Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.
 

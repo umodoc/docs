@@ -34,6 +34,11 @@ import { Badge } from '/components/badge'
 - 对外导出前先接受/拒绝定稿，避免导出稿携带修订标记：[文档修订](./revision)
 - 审阅阶段导出“带标记的审阅稿”，定稿后导出“最终稿”
 
+### 文档批注（comments）
+
+- Word 导出支持按需包含批注，适合输出带审阅意见的评审稿：[文档批注](./comments)
+- 导出的批注会保留线程中的评论与回复关系，便于在 Word 中继续审阅
+
 ### 文档历史版本（versions）
 
 - 在里程碑版本节点导出成文件，便于归档与对外交付：[文档历史版本](./versions)
@@ -96,21 +101,30 @@ Umo Editor Server 中，提供了 `/static` 路由，用于返回 Umo Editor Nex
 
 导出的 Word 文档为 `docx` 格式，您可以在 Microsoft Word 或者 WPS Office 等办公软件中打开和编辑。
 
-**参数**：`{ content, download, filename, docxOption }`
+**参数**：`{ content, download, filename, docxOptions, exportComments, exportRevisions }`
 
 - `content`：合法的[Tiptap 文档 JSON 格式]，默认为当前编辑器的所有内容，您也可以通过修改此项导出部分内容。
 - `download`：`Boolean`，是否下载，默认值为 `true`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
-- `docxOption`：控制文档生成过程的配置信息，可选，包含以下配置项：
-  - `docxOption.getImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
+- `exportComments`：`Boolean`，是否导出批注，默认值为 `false`。<Badge theme="success">v11.2.0 新增</Badge>
+- `exportRevisions`：`Boolean`，是否导出修订，默认值为 `false`。<Badge theme="success">v11.2.0 新增</Badge>
+- `docxOptions`：控制文档生成过程的配置信息，可选，包含以下配置项：
+  - `docxOptions.getImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
     - `id`：`String` 标记当前图片的唯一标识。
     - `src`：`String` 图片加载读取路径。
     - `nodeType`：`String` 需要获取的图片类型，`image` 图片、`echarts` 图表。
     - `node`：`Tiptap 节点 (JSON 格式)`。
-  - `docxOption.page.backColor`：`String`，导出文档背景色，如 `#FFFFFF`。
-  - `docxOption.page.orientation`：`String`，导出纸张方向，`landscape` 横向、`portrait` 纵向。
-  - `docxOption.page.size.height`：`Number`，纸张尺寸中的纸张高度，单位`cm`。
-  - `docxOption.page.size.width`：`Number`，纸张尺寸中的纸张宽度，单位`cm`。
+  - `docxOptions.page.backColor`：`String`，导出文档背景色，如 `#FFFFFF`。
+  - `docxOptions.page.orientation`：`String`，导出纸张方向，`landscape` 横向、`portrait` 纵向。
+  - `docxOptions.page.size.height`：`Number`，纸张尺寸中的纸张高度，单位`cm`。
+  - `docxOptions.page.size.width`：`Number`，纸张尺寸中的纸张宽度，单位`cm`。
+
+> 说明：
+>
+> - 通过工具栏点击“Word”时，会先弹出导出配置框；批注和修订默认不勾选，按用户当次选择导出。
+> - 通过 `exportDocx()` 方法调用时，不会弹框，直接按传入参数导出。
+> - 当前 Word 导出的修订仅支持文本内容；若文档包含更复杂的节点级修订，建议先在编辑器内完成定稿后再导出。
+> - 不同办公软件对修订标记的显示兼容性存在差异，如需核对修订结果，建议优先使用 Microsoft Word 打开导出的 `docx` 文件。
 
 **返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。
 

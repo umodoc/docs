@@ -39,9 +39,15 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 
 - 修订标记属于正文内容的一部分：默认保存/导出（HTML、JSON、DOCX 等）会携带修订标记。
 - `final` / `original` 仅是“显示隐藏”，不会自动移除修订标记。
+- 导出 Word 时，可在工具栏弹框中取消勾选“导出修订”，也可以通过 `exportDocx({ exportRevisions: false })` 关闭修订导出。
 
 如果你要导出“真正的最终稿”（不包含修订标记），建议导出前先完成定稿：
 
 ```js
 editorRef.value.acceptAllRevisions()
 ```
+
+## 7. 为什么导出的 Word 修订显示不完整？
+
+- 当前 Word 导出的修订仅支持文本内容。
+- 不同办公软件对修订标记的显示兼容性存在差异；如需核对修订结果，建议优先使用 Microsoft Word 打开导出的 `docx` 文件。

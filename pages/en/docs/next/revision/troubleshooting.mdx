@@ -42,9 +42,15 @@ Make sure each client sets:
 
 - Revision marks are part of the document content, so exports (HTML/JSON/DOCX, etc.) can include them.
 - `final` / `original` are view-only modes and won’t remove marks.
+- When exporting to Word, you can uncheck `Export revisions` in the toolbar dialog, or disable revision export with `exportDocx({ exportRevisions: false })`.
 
 Finalize before exporting if you need a clean output:
 
 ```js
 editorRef.value.acceptAllRevisions()
 ```
+
+## Why are revisions incomplete in the exported Word file?
+
+- Current Word export supports revisions for text content only.
+- Different office suites vary in how they display revision marks. If you need to verify revision results, we recommend opening the exported `docx` file in Microsoft Word first.
