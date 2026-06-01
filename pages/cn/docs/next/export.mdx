@@ -101,14 +101,14 @@ Umo Editor Server 中，提供了 `/static` 路由，用于返回 Umo Editor Nex
 
 导出的 Word 文档为 `docx` 格式，您可以在 Microsoft Word 或者 WPS Office 等办公软件中打开和编辑。
 
-**参数**：`{ content, download, filename, docxOptions, exportComments, exportRevisions }`
+**参数**：`{ content, download, filename, docxOptions, exportComments, exportRevisions, onDiagnostics, onExportResult }`
 
 - `content`：合法的[Tiptap 文档 JSON 格式]，默认为当前编辑器的所有内容，您也可以通过修改此项导出部分内容。
 - `download`：`Boolean`，是否下载，默认值为 `true`。
 - `filename`：`String`，下载文件的文件名，不包含文件后缀名，默认使用文档名称。
 - `exportComments`：`Boolean`，是否导出批注，默认值为 `false`。<Badge theme="success">v11.2.0 新增</Badge>
 - `exportRevisions`：`Boolean`，是否导出修订，默认值为 `false`。<Badge theme="success">v11.2.0 新增</Badge>
-- `docxOptions`：控制文档生成过程的配置信息，可选，包含以下配置项：
+- `docxOptions`：控制文档生成过程的配置信息，可选，常用配置项包括：
   - `docxOptions.getImageBase64`：`Async Function`，自定义图片读取方法，返回值为合法的 `base64` 字符串。可选，包含以下参数：
     - `id`：`String` 标记当前图片的唯一标识。
     - `src`：`String` 图片加载读取路径。
@@ -116,14 +116,20 @@ Umo Editor Server 中，提供了 `/static` 路由，用于返回 Umo Editor Nex
     - `node`：`Tiptap 节点 (JSON 格式)`。
   - `docxOptions.page.backColor`：`String`，导出文档背景色，如 `#FFFFFF`。
   - `docxOptions.page.orientation`：`String`，导出纸张方向，`landscape` 横向、`portrait` 纵向。
+  - `docxOptions.page.margin`：`Object`，导出纸张页边距。
   - `docxOptions.page.size.height`：`Number`，纸张尺寸中的纸张高度，单位`cm`。
   - `docxOptions.page.size.width`：`Number`，纸张尺寸中的纸张宽度，单位`cm`。
+  - `docxOptions.page.pageNumber`：`Object`，导出页码配置。
+  - `docxOptions.page.borders`：`Object`，导出页边框配置。
+  - `docxOptions.documentMeta`：`Object`，导出文档元数据，如标题、主题、关键词等。
+- `onDiagnostics`：`Function`，导出诊断回调，可用于接收导出过程中的 `success` / `warning` 状态。<Badge theme="success">v11.3.0 新增</Badge>
+- `onExportResult`：`Function`，导出完成回调，可用于接收最终导出的 `Blob`、文件名、大小及诊断结果。<Badge theme="success">v11.3.0 新增</Badge>
 
 > 说明：
 >
 > - 通过工具栏点击“Word”时，会先弹出导出配置框；批注和修订默认不勾选，按用户当次选择导出。
 > - 通过 `exportDocx()` 方法调用时，不会弹框，直接按传入参数导出。
-> - 当前 Word 导出的修订仅支持文本内容；若文档包含更复杂的节点级修订，建议先在编辑器内完成定稿后再导出。
+> - 当前 Word 导出可直接承接文本修订，并支持部分常见节点级修订；更复杂的节点修订会降级为普通内容，建议先在编辑器内完成定稿后再导出。<Badge theme="success">v11.3.0 新增</Badge>
 > - 不同办公软件对修订标记的显示兼容性存在差异，如需核对修订结果，建议优先使用 Microsoft Word 打开导出的 `docx` 文件。
 
 **返回值**：`Blob | undefined`，`download` 为 `false` 时，返回 `Blob`，当 `download` 为 `true` 时，返回 `undefined`。

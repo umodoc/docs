@@ -99,14 +99,14 @@ Export the content of Umo Editor as a Word document. Most node types and page co
 
 The exported file is in `docx` format, which can be opened and edited in Microsoft Word, WPS Office, and similar software.
 
-**Parameters:** `{ content, download, filename, docxOptions, exportComments, exportRevisions }`
+**Parameters:** `{ content, download, filename, docxOptions, exportComments, exportRevisions, onDiagnostics, onExportResult }`
 
 - `content`: Valid [Tiptap document JSON format]. Defaults to all content in the editor, or you can specify a subset.
 - `download`: `Boolean`, whether to download the file. Default is `true`.
 - `filename`: `String`, the name of the downloaded file (without extension). Defaults to the document name.
 - `exportComments`: `Boolean`, whether to export comments. Default is `false`. <Badge theme="success">Added in v11.2.0</Badge>
 - `exportRevisions`: `Boolean`, whether to export revisions. Default is `false`. <Badge theme="success">Added in v11.2.0</Badge>
-- `docxOptions`: Options for document generation (optional), including:
+- `docxOptions`: Options for document generation (optional). Common options include:
   - `docxOptions.getImageBase64`: `Async Function`, a custom image-reading method that returns a valid `base64` string. Optional. It receives:
     - `id`: `String` Unique identifier for the current image.
     - `src`: `String` Image loading path.
@@ -114,14 +114,20 @@ The exported file is in `docx` format, which can be opened and edited in Microso
     - `node`: `Tiptap node (JSON format)`.
   - `docxOptions.page.backColor`: `String`, document background color, such as `#FFFFFF`.
   - `docxOptions.page.orientation`: `String`, page orientation, `landscape` for horizontal and `portrait` for vertical.
+  - `docxOptions.page.margin`: `Object`, page margin configuration for the exported document.
   - `docxOptions.page.size.height`: `Number`, page height in centimeters (`cm`).
   - `docxOptions.page.size.width`: `Number`, page width in centimeters (`cm`).
+  - `docxOptions.page.pageNumber`: `Object`, page number configuration.
+  - `docxOptions.page.borders`: `Object`, page border configuration.
+  - `docxOptions.documentMeta`: `Object`, document metadata such as title, subject, and keywords.
+- `onDiagnostics`: `Function`, a callback for export diagnostics. It can be used to receive `success` / `warning` states during export. <Badge theme="success">Added in v11.3.0</Badge>
+- `onExportResult`: `Function`, a callback invoked after export completes. It can be used to receive the final `Blob`, filename, size, and diagnostics. <Badge theme="success">Added in v11.3.0</Badge>
 
 > Note:
 >
 > - When you click `Word` in the toolbar, an export settings dialog appears first. Comments and revisions are unchecked by default and are exported based on the user's one-time selection.
 > - When calling `exportDocx()`, no dialog is shown; export starts directly based on the provided parameters.
-> - Current Word export supports revisions for text content only. If the document contains more complex node-level revisions, we recommend finalizing it in the editor before export.
+> - Current Word export can directly carry text revisions and supports some common node-level revisions. More complex node revisions are downgraded to plain content, so we recommend finalizing them in the editor before export. <Badge theme="success">Added in v11.3.0</Badge>
 > - Different office suites vary in how they display revision marks. If you need to verify revision results, we recommend opening the exported `docx` file in Microsoft Word first.
 
 **Return Value:** `Blob | undefined`. Returns a Blob if `download` is `false`, otherwise returns `undefined`.

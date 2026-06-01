@@ -8,6 +8,29 @@ import { Callout } from 'nextra/components'
 
 # Changelog
 
+## 🚀 v11.3.0
+
+This release focuses on improving the stability, observability, and fidelity of Word export. Common export scenarios such as images, tables, bookmarks, page numbers, comments, and revisions now produce more complete results, and programmatic usage is easier to integrate.
+
+1. Improved export stability, making fallback easier when something fails instead of failing the entire export;
+2. Improved export status feedback, with support for success, failure, and degraded states;
+3. Added `onDiagnostics` and `onExportResult` to the component `exportDocx()` method;
+4. Enhanced image export, with support for floating, wrapping, rotation, flipping, and failure fallback;
+5. Improved image alternative text export, now supporting `alt`, `title`, and `name`;
+6. Enhanced table export, with better handling for more border styles, striped backgrounds, row height, and column width;
+7. Improved stability for merged-cell table export;
+8. Enhanced bookmark and internal link export;
+9. Improved page number and field export, with support for total pages and starting page number;
+10. Added support for configuring page borders through `docxOptions.page.borders`;
+11. Added support for configuring document metadata through `docxOptions.documentMeta`;
+12. Improved export for comment threads and comment replies;
+13. Enhanced export for text-level and paragraph-level revisions;
+14. Refined details such as default font size, list positioning, and code block styles;
+15. Continued fixing regressions in complex scenarios such as floating images, tables, and multi-column layouts;
+16. Files, audio, video, and web pages are currently exported as link placeholders rather than native embedded objects;
+17. Export for images, icons, and charts is still affected by the browser environment;
+18. Complex non-text revisions still prioritize preserving content and do not guarantee the full native revision appearance.
+
 ## 🚀 v11.2.0
 
 1. Word document export now supports exporting comment records and revision records together;
