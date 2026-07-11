@@ -14,35 +14,61 @@ Umo Editor Server 提供了通过 Docker 镜像部署的能力（位于 `docker/
 
 安装 [Docker](https://www.docker.com/) 并登录。
 
-## 1. 构建 Docker 镜像
+如果需要构建多架构镜像，请额外确认本机已启用 `docker buildx`。
+
+## 1. 本地构建 Docker 镜像
+
+默认会构建 `linux/amd64` 单架构镜像，并导出为 tar 文件：
 
 ```sh npm2yarn
 npm run build:docker
 ```
 
-打包后的 Docker 镜像位于 `docker/umo-editor-server:latest`，后续您可以使用该镜像在本机或者服务器上进行部署。
+构建完成后：
 
-## 2. 加载 Docker 镜像
+- 本地镜像名称默认为 `umo-editor-server:latest`
+- 导出的镜像文件默认为 `./docker/umo-editor-server.tar`
+
+如果您需要显式构建某一种架构，也可以执行：
+
+```bash
+npm run docker:build:amd64
+npm run docker:build:arm64
+```
+
+## 2. 构建并推送多架构镜像
+
+如果需要同时兼容 `x86_64` 和 `arm64`，可以使用：
+
+```bash
+DOCKER_IMAGE=your-registry/umo-editor-server:latest npm run docker:build:multiarch
+```
+
+该命令会基于 `docker buildx` 构建 `linux/amd64` 和 `linux/arm64` 两种架构，并直接推送到镜像仓库。
+
+## 3. 加载本地导出的 Docker 镜像
 
 ```bash
 # 在项目根目录下执行
 docker load -i ./docker/umo-editor-server.tar
 ```
 
-## 3.启动容器
+## 4. 启动容器
 
 ```bash
 # 在项目根目录下执行
 docker run -d --name umo-editor-server -p 1235:1235 umo-editor-server:latest
 ```
 
-## 4.验证容器运行状态
+如果您修改了端口映射，例如 `-p 8080:1235`，则宿主机访问地址也会变为 `http://127.0.0.1:8080`。
+
+## 5. 验证容器运行状态
 
 ```bash
 # 查看容器运行状态
 docker ps | grep umo-editor-server
 ```
 
-## 5.访问 Umo Editor Server
+## 6. 访问 Umo Editor Server
 
-通过浏览器访问 `http://127.0.0.1:1235` 查看服务是否正常运行。
+容器内服务默认监听 `0.0.0.0:1235`。如果使用 `-p 1235:1235` 启动容器，则可以通过浏览器访问 `http://127.0.0.1:1235` 查看服务是否正常运行。

@@ -14,15 +14,39 @@ Docker deployment simplifies the installation process and is especially suitable
 
 Install [Docker](https://www.docker.com/) and log in.
 
-## 2. Build the Docker Image
+If you need multi-architecture images, make sure `docker buildx` is enabled on your machine.
+
+## 1. Build a Local Docker Image
+
+By default, this builds a single-architecture `linux/amd64` image and exports it as a tar file:
 
 ```sh npm2yarn
 npm run build:docker
 ```
 
-The built Docker image will be available at `docker/umo-editor-server:latest`. You can use this image for deployment on your local machine or server.
+After the build finishes:
 
-## 3. Load the Docker Image
+- The default local image name is `umo-editor-server:latest`
+- The exported image file is `./docker/umo-editor-server.tar`
+
+If you want to build a specific architecture explicitly, run:
+
+```bash
+npm run docker:build:amd64
+npm run docker:build:arm64
+```
+
+## 2. Build and Push a Multi-Architecture Image
+
+If you want to support both `x86_64` and `arm64`, run:
+
+```bash
+DOCKER_IMAGE=your-registry/umo-editor-server:latest npm run docker:build:multiarch
+```
+
+This command uses `docker buildx` to build both `linux/amd64` and `linux/arm64`, then pushes the result directly to your image registry.
+
+## 3. Load the Exported Local Docker Image
 
 ```bash
 # Execute in the project root directory
@@ -36,6 +60,8 @@ docker load -i ./docker/umo-editor-server.tar
 docker run -d --name umo-editor-server -p 1235:1235 umo-editor-server:latest
 ```
 
+If you change the port mapping, for example `-p 8080:1235`, then the host access URL becomes `http://127.0.0.1:8080`.
+
 ## 5. Verify Container Status
 
 ```bash
@@ -45,4 +71,4 @@ docker ps | grep umo-editor-server
 
 ## 6. Access Umo Editor Server
 
-Open your browser and navigate to `http://127.0.0.1:1235` to verify that the service is running properly.
+The service listens on `0.0.0.0:1235` inside the container by default. If you start the container with `-p 1235:1235`, open `http://127.0.0.1:1235` in your browser to verify that the service is running properly.
