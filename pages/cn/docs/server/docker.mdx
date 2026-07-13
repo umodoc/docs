@@ -16,9 +16,13 @@ Umo Editor Server 提供了通过 Docker 镜像部署的能力（位于 `docker/
 
 如果需要构建多架构镜像，请额外确认本机已启用 `docker buildx`。
 
+> 注意
+>
+> 当前 `arm64` 架构镜像暂不支持 PDF 和图片导出功能。如果您的部署场景需要使用 `/export/pdf`、`/export/image/:format` 或 `/export/thumbnail`，请使用 `amd64` 镜像。
+
 ## 1. 本地构建 Docker 镜像
 
-默认会构建 `linux/amd64` 单架构镜像，并导出为 tar 文件：
+默认会根据当前机器架构自动构建对应的单架构镜像，并导出为 tar 文件：
 
 ```sh npm2yarn
 npm run build:docker
@@ -29,12 +33,30 @@ npm run build:docker
 - 本地镜像名称默认为 `umo-editor-server:latest`
 - 导出的镜像文件默认为 `./docker/umo-editor-server.tar`
 
+如果您需要检查当前本地镜像的实际架构，可以执行：
+
+```bash
+npm run docker:inspect
+```
+
 如果您需要显式构建某一种架构，也可以执行：
 
 ```bash
 npm run docker:build:amd64
 npm run docker:build:arm64
 ```
+
+如果您希望构建并导出指定架构的 tar 包，可以执行：
+
+```bash
+npm run build:docker:amd64
+npm run build:docker:arm64
+```
+
+其中：
+
+- `amd64` 镜像支持 PDF 和图片导出
+- `arm64` 镜像目前不支持 PDF 和图片导出
 
 ## 2. 构建并推送多架构镜像
 
@@ -45,6 +67,8 @@ DOCKER_IMAGE=your-registry/umo-editor-server:latest npm run docker:build:multiar
 ```
 
 该命令会基于 `docker buildx` 构建 `linux/amd64` 和 `linux/arm64` 两种架构，并直接推送到镜像仓库。
+
+请注意，多架构镜像中的 `arm64` 变体同样不支持 PDF 和图片导出功能。
 
 ## 3. 加载本地导出的 Docker 镜像
 
