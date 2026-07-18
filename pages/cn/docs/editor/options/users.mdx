@@ -15,10 +15,13 @@ import { Badge } from '/components/badge'
 ```js
 {
   users: [],
+  onMentionSearch: null,
 }
 ```
 
 ## 配置项说明
+
+### users
 
 **说明**：相关用户数据。
 
@@ -33,3 +36,18 @@ import { Badge } from '/components/badge'
 - `users[].avatar`：`String`，头像地址。
 - `users[].color`：`String`，用户颜色，用于快速区分不同用户。
 - `users[].name` / `users[].nickname`：业务自定义名称字段，可按需扩展。
+- `users[].bio`：`String`：用户简介或其他附加信息。 <Badge>v11.0.0 新增</Badge>
+
+### onMentionSearch
+
+**说明**：自定义提及用户搜索方法。<Badge>v11.0.0 新增</Badge>
+
+**类型**：`function`
+
+**默认值**：`null`
+
+**参数**：
+
+- `query`：`String`，用户输入的提及查询字符串。
+
+**返回值**：`Promise`，解析为用户列表。

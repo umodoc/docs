@@ -11,6 +11,71 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next/changelog
 
+## 🎉 v11.0.0 <Badge>July 19, 2026</Badge>
+
+This release focuses on improving editor stability and the overall editing experience.
+
+- It includes concentrated fixes for core issues around page layout, content APIs, read-only mode, web page insertion, and atomic node selection, making editing more reliable;
+- It refactors the image extension with support for image descriptions, cropping, and better error-state handling, while also improving file and resource recognition to reduce accidental operations and editing interruptions;
+- It also improves mentions, footnotes, Office/web paste parsing, column and block interactions, outline sidebar performance, and list capabilities, making complex document scenarios more stable, consistent, and easier to use.
+
+### 🛠 Core Stability and API Fixes
+
+1. Fixed issues that could occur when page layout was set to the web layout only;
+2. Fixed an error in [`setContent`](./methods#setcontent) where an invalid selection could lead to an out-of-range position;
+3. Fixed an issue where `setOptions` could fail to update some configuration items dynamically;
+4. Fixed the typo in the `getOpitons` method name; the correct name is [`getOptions`](./methods#getoptions);
+5. Fixed errors that could occur when inserting web pages, and added error hints;
+6. Fixed an issue where resizable drag handles were still shown and could still be used in read-only mode for draggable nodes such as images, videos, and web pages;
+7. Fixed reverse drag selection issues for atomic nodes such as tag, datetime, optionBox, and mentions;
+8. Fixed an issue where the bubble menu would not appear when the document contained no text.
+
+### 🖼 Image, File, and Resource Handling
+
+1. Refactored the image extension to support entering and displaying image descriptions;
+2. Added image cropping and reset-all-settings actions;
+3. When an image fails to load, the bubble menu now shows a delete action so users can quickly remove it;
+4. Limited image width so it does not exceed the outer container size, preventing layout breakage, for example when inserting an image into a table cell;
+5. Added selected-state highlighting when an image fails to load;
+6. Fixed an issue where inserting Mermaid diagrams, flowcharts, and similar images could trigger upload twice;
+7. Fixed an error caused by the `attrs.src` immediate watcher in the image extension running too early;
+8. Fixed an issue with abnormal image container height;
+9. Non-image files such as Mermaid diagrams are no longer converted into file nodes, preventing users from losing the ability to edit them again;
+10. Fixed mistaken file deletion during file node unmounting and consolidated the shared logic;
+11. File deletion is no longer executed in read-only mode to prevent accidental file removal.
+
+### 💬 Mentions, Footnotes, and Supporting Information
+
+1. The mention (`@user`) feature now supports loading user lists from configuration or remote sources, adds the [`onMentionSearch`](./options/users#onmentionsearch) option, and adds a `bio` field to `users` for displaying user bios or other extra information;
+2. The mention dropdown is now always visible and has improved presentation;
+3. Fixed an issue where the mention extension displayed only plain text in read-only mode;
+4. Mentions and footnote tooltips in documents now use the native HTML `title` attribute to avoid the tooltip being obscured;
+5. The footnote list is now hidden when it is empty.
+
+### 📋 Paste and Content Parsing Compatibility
+
+1. Fixed an issue where Excel/Word preview images from Office paste could be misidentified as images and trigger a prompt;
+2. When pasting Word documents, the table of contents is now replaced with the page outline;
+3. Improved handling for incorrect line height when pasting Office documents;
+4. Added support for parsing rich text formatting in Feishu Sheets cells.
+
+### 📐 Layout, Columns, and Editing Experience
+
+1. Fixed an issue where clicking the add-column button could mistakenly trigger column width dragging;
+2. Fixed an issue where deleting the last column could leave an extra blank line in the previous column;
+3. After inserting columns, focus is now placed in the first column;
+4. Added quick insertion of a new line after block nodes so users can continue editing more easily;
+5. Fixed an issue where line height could be lost when inserting a heading block into an empty line, contributed by @ohmua in [(#397)](https://github.com/umodoc/editor/pull/455);
+6. Changed the minimum height of the main editor container to `200px` to prevent content from being obscured;
+7. Added a custom placeholder extension to provide more accurate placeholder hints under different document structures;
+8. Fixed an issue in presentation mode where the laser pointer could fall back to a normal cursor when encountering certain nodes.
+
+### 📑 Lists, Outline, and Other Improvements
+
+1. Refactored the list extension so ordered lists now support continuing numbering, restarting numbering, and changing the starting number;
+2. Optimized the outline sidebar to reduce lag that could occur while resizing it;
+3. Other minor refinements and adjustments.
+
 ## 🚀 v10.2.0 <Badge>June 6, 2026</Badge>
 
 1. Text indentation now supports custom indentation units and improved indentation handling logic.

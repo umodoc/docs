@@ -8,6 +8,48 @@ import { Callout } from 'nextra/components'
 
 # Changelog
 
+## 🎉 v13.0.0
+
+This release syncs the latest changes from Umo Editor v11.0.0, with major improvements to tables, import/export experience, and large-document performance, along with fixes for collaboration, comments, and menu behavior. For details, see: [Umo Editor Changelog](../editor/changelog).
+
+### 📊 Tables
+
+1. Fixed alignment issues between the left row handles, top column handles, and row height/column width;
+2. Row height and column width drag handles are now hidden in presentation mode;
+3. Fixed issues where table height auto-sizing behaved incorrectly or could be unintentionally fixed after dragging row height;
+4. Fixed an issue where the row height drag handle could stop working;
+5. Optimized the visibility of row height and column width drag handles in read-only and editable states;
+6. Wide tables that exceed the page width can now be viewed using a scrollbar;
+7. Improved performance and interaction for tables in large documents and multi-table scenarios;
+8. Focus is now automatically placed in the first cell when a table is created;
+9. Fixed an issue where the number of column handles was not updated after adding table columns;
+10. Significantly optimized table rendering performance to improve large-document loading speed.
+
+### 📥 Import/Export
+
+1. Optimized Word import results across different document structures;
+2. Word export now supports exporting image descriptions;
+3. Improved handling for incorrect line height when importing Office documents;
+4. Added a prompt for large Office paste content;
+5. Fixed incorrect block wrapping of inline nodes in annotations;
+6. Fixed errors in Word export caused by color conversion issues;
+7. Fixed issues that could occur when pasting Excel tables;
+8. Optimized image export by reading rendered images directly from the DOM instead of loading them remotely, improving both speed and stability;
+9. Improved Markdown table import with support for cell alignment.
+
+### ⚡ Performance
+
+1. Significantly optimized rendering performance for large documents, improving loading speed.
+
+### 🧩 Other Fixes and Adjustments
+
+1. Fixed an issue where collaboration parameters passed through the URL could fail;
+2. Offline storage for collaboration is now disabled by default and can be enabled through [`collaboration.provider.enableIndexedDB`](./collaboration#);
+3. Fixed an issue where menu items might occasionally fail to update dynamically;
+4. Fixed an issue where saving could fail after closing comments;
+5. Fixed an issue where the sticky tool menu could extend beyond the editor container;
+6. Other minor refinements and adjustments.
+
 ## 🚀 v12.0.1
 
 1. Added `preserveWhitespace` configuration for office word document import to prevent extra whitespace characters from appearing after import.

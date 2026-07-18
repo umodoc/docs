@@ -15,10 +15,13 @@ Used to configure data for related users, including user IDs, user names, etc., 
 ```js
 {
   users: [],
+  onMentionSearch: null,
 }
 ```
 
 ## Configuration Description
+
+### users
 
 **Description**: Data for related users.
 
@@ -30,3 +33,21 @@ Used to configure data for related users, including user IDs, user names, etc., 
 
 - `users[].id`: `String`, user ID.
 - `users[].label`: `String`, user name.
+- `users[].avatar`: `String`, avatar URL.
+- `users[].color`: `String`, user color, used to quickly distinguish different users.
+- `users[].name` / `users[].nickname`: Business-specific name fields that can be extended as needed.
+- `users[].bio`: `String`, user bio or other additional information. <Badge>Added in v11.0.0</Badge>
+
+### onMentionSearch
+
+**Description**: Custom search method for mention users. <Badge>Added in v11.0.0</Badge>
+
+**Type**: `function`
+
+**Default Value**: `null`
+
+**Parameters**:
+
+- `query`: `String`, the mention query string entered by the user.
+
+**Return Value**: `Promise`, resolved with a user list.
