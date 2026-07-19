@@ -11,7 +11,14 @@ import { Badge } from '/components/badge'
 
 Umo Editor Next's changelog can be found at: https://dev.umodoc.com/en/docs/next/changelog
 
-## 🚀 v11.0.1 <Badge>July 19, 2026</Badge>
+## 🚀 v11.0.2
+
+1. Fixed an issue where image crop handles could sometimes not be dragged;
+2. During image cropping, cropping is now applied only when the crop area is double-clicked; exiting crop mode through other actions will no longer apply the crop;
+3. Added cropping to the history stack so it can be undone back to the state before cropping;
+4. Fixed regression issues introduced in v11.0.1.
+
+## 🚀 v11.0.1
 
 1. Fixed an incorrect display issue in the unordered list menu;
 2. Added numbering type menu items to both ordered list and unordered list menus;
@@ -86,11 +93,11 @@ This release focuses on improving editor stability and the overall editing exper
 2. Optimized the outline sidebar to reduce lag that could occur while resizing it;
 3. Other minor refinements and adjustments.
 
-## 🚀 v10.2.0 <Badge>June 6, 2026</Badge>
+## 🚀 v10.2.0
 
 1. Text indentation now supports custom indentation units and improved indentation handling logic.
 
-## 🚀 v10.2.0 <Badge>May 23, 2026</Badge>
+## 🚀 v10.2.0
 
 1. Fixed an issue where the toolbar menu state was not immediately reset correctly when switching the editor to read-only mode;
 2. Fixed incorrect slot prop passing in toolbar mode;
@@ -107,14 +114,14 @@ This release focuses on improving editor stability and the overall editing exper
 13. The image extension now supports reading width/height from `style`, @wuyuejiang482 [(#445)](https://github.com/umodoc/editor/issues/445);
 14. Other minor tweaks and optimizations.
 
-## 🚀 v10.1.0 <Badge>April 18, 2026</Badge>
+## 🚀 v10.1.0
 
 1. Added an error notice when the save callback returns no value;
 2. Added project skill docs and AI assistant docs to help AI better understand this project and assist development;
 3. Added font download and auto-enable support. See [Dict Configuration](./options/dicts#fonts);
 4. Added title placeholder support for the heading-body structure, and forced the TrailingNode extension to use paragraph nodes.
 
-## 🚀 v10.0.7 <Badge>April 12, 2026</Badge>
+## 🚀 v10.0.7
 
 1. Simplified toolbar scrolling logic;
 2. Added rotation menu to image bubble menu;
@@ -123,21 +130,21 @@ This release focuses on improving editor stability and the overall editing exper
 5. Refined document styling;
 6. Other minor tweaks and optimizations.
 
-## 🚀 v10.0.6 <Badge>April 2, 2026</Badge>
+## 🚀 v10.0.6
 
 1. Fixed an issue where the confirm button might not appear when selecting date and time;
 2. Improved the copy feature by adding a failure notice;
 3. Minor optimizations and adjustments.
 
-## 🚀 v10.0.5 <Badge>March 14, 2026</Badge>
+## 🚀 v10.0.5
 
 1. Optimized Mermaid rendering and updated it to the latest Mermaid version.
 
-## 🚀 v10.0.4 <Badge>March 12, 2026</Badge>
+## 🚀 v10.0.4
 
 1. Improved Chinese language support in Mermaid v9.
 
-## 🚀 v10.0.3 <Badge>March 5, 2026</Badge>
+## 🚀 v10.0.3
 
 1. Fixed the issue where nodes could not be dragged due to a bug in the official Tiptap extension, @BOKE2014 [(#433)](https://github.com/umodoc/editor/issues/433).
 
@@ -279,7 +286,7 @@ Major upgrade—see [Umo Editor Next v10 changelog](../next/changelog#-v1000) fo
 3. Removed whitelist support.  
 4. Other minor optimizations.
 
-## 🚀 v9.0.1 <Badge>December 5, 2025</Badge>
+## 🚀 v9.0.1
 
 1. Bug fixes.
 
@@ -311,7 +318,7 @@ Major upgrade—see [Umo Editor Next v10 changelog](../next/changelog#-v1000) fo
 24. Added default ProseMirror styles so documents render consistently outside the editor.
 25. Miscellaneous refinements and optimizations.
 
-## 🚀 Version 8.1.0 <Badge>September 6, 2025</Badge>
+## 🚀 Version 8.1.0
 
 1. Added page settings and page watermark operations to history records, supporting undo and redo, submitted by @china-wangxu in [(#336)](https://github.com/umodoc/editor/issues/258);
 2. Fixed the issue where echarts charts could not be displayed when opening chart editor, submitted by @china-wangxu in [(#336)](https://github.com/umodoc/editor/issues/258);
@@ -372,7 +379,7 @@ For more information, see: [Umo Viewer Documentation](../viewer).
 18. Optimized Word document import functionality;
 19. For Nuxt users, [Umo Editor Nuxt](https://www.npmjs.com/package/@umoteam/umo-editor-nuxt) has been released.
 
-## 🚀 Version 6.1.1 <Badge>April 23, 2025</Badge>
+## 🚀 Version 6.1.1
 
 1. Add `showToc` and `showLineNumber` configuration items, see [Page Configuration](./options/page);
 2. Roll back the modification of node alignment, which fixes the issue where node alignment fails [#254](https://github.com/umodoc/editor/issues/254) [#259](https://github.com/umodoc/editor/issues/259);
@@ -380,7 +387,7 @@ For more information, see: [Umo Viewer Documentation](../viewer).
 4. Fix the issue where pasting and inserting images would automatically scroll to the start position, submitted by @china-wangxu in [(#258)](https://github.com/umodoc/editor/issues/258);
 5. Fix the issue where ordered list uppercase sorting does not take effect [#257](https://github.com/umodoc/editor/issues/257).
 
-## 🚀 Version 6.1.0 <Badge>April 22, 2025</Badge>
+## 🚀 Version 6.1.0
 
 1. Lock version dependencies to prevent errors caused by inconsistent `prosemirror-model` versions @BOKE2014 [(#257)](https://github.com/umodoc/editor/issues/257);
 2. Add bubble menu for link nodes;
@@ -491,15 +498,15 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 10. Removed unused functional modules to reduce the package size;
 11. Other minor adjustments and optimizations.
 
-## 🚀 Version 4.6.2 <Badge>February 7, 2025</Badge>
+## 🚀 Version 4.6.2
 
 1. Bug fixes;
 
-## 🚀 Version 4.6.1 <Badge>January 15, 2025</Badge>
+## 🚀 Version 4.6.1
 
 1. Bug fixes;
 
-## 🚀 Version 4.6.0 <Badge>January 15, 2025</Badge>
+## 🚀 Version 4.6.0
 
 1. Simplified the `placeholder` extension by implementing it through CSS.
 2. Fixed the issue where text selection flickered when the mouse moved over the block handler, resolved by @ChenErik in [(#72)](https://github.com/umodoc/editor/pull/72).
@@ -541,7 +548,7 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 38. Fixed issues where exiting and re-entering preview mode was not possible.
 39. Various other adjustments, optimizations, and bug fixes.
 
-## 🚀 Version 4.5.0 <Badge>September 4, 2024</Badge>
+## 🚀 Version 4.5.0
 
 1. Enhanced support for TypeScript;
 2. Fixed an issue where images did not display when floating, by @ChenErik [(#54)](https://github.com/umodoc/editor/issues/54);
@@ -559,19 +566,19 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 14. Upgraded tiptap dependencies to 2.2.6 to resolve some known issues.
 15. Other detail adjustments, optimizations, and bug fixes.
 
-## 🚀 Version 4.1.2 <Badge>August 21, 2024</Badge>
+## 🚀 Version 4.1.2
 
 1. Added prefix to class names to prevent style pollution that could cause components to display incorrectly;
 2. Added lazy loading for images and videos @shenghui-shan [(#31)](https://github.com/umodoc/editor/issues/31);
 3. Added pagination calculation configuration for custom nodes, optimizing the internal logic of pagination;
 4. Other detail adjustments and optimizations.
 
-## 🚀 Version 4.1.1 <Badge>August 20, 2024</Badge>
+## 🚀 Version 4.1.1
 
 1. Fixed a logic error with the toolbar's show/hide header button;
 2. Resolved a problem where headers and footers were not showing after inserting saved document content.
 
-## 🚀 Version 4.1.0 <Badge>August 19, 2024</Badge>
+## 🚀 Version 4.1.0
 
 1. Added header and footer slots, which allow for customizing headers and footers through these slots; see the [slots](./slots) for more details;
 2. Added a page break feature, which allows you to move directly to the next page by inserting a page break, eliminating the need to repeatedly press enter;
@@ -595,15 +602,15 @@ Starting from v6.0.0, Umo Editor has launched Umo Editor Next, providing a more 
 5. Resolved a problem where the page would scroll when clicking on the page outline.
 6. Various other adjustments and optimizations.
 
-## 🚀 Version 3.1.2 <Badge>August 12, 2024</Badge>
+## 🚀 Version 3.1.2
 
 Fix the issue of import errors in `mammoth.js`.
 
-## 🚀 Version 3.1.1 <Badge>August 10, 2024</Badge>
+## 🚀 Version 3.1.1
 
 Fix the issue of custom methods being called by default when importing Word documents.
 
-## 🚀 Version 3.1.0 <Badge>August 10, 2024</Badge>
+## 🚀 Version 3.1.0
 
 1. Added the import Word feature, now you can directly import Word documents from your local machine, see [Toolbar Configuration](./options/toolbar);
 2. Added a simple format painter feature;
@@ -635,12 +642,12 @@ Fix the issue of custom methods being called by default when importing Word docu
 17. Adjust dependencies and simplify the NPM package installation method;
 18. Other detail adjustments.
 
-## 🚀 Version 2.3.1 <Badge>July 22, 2024</Badge>
+## 🚀 Version 2.3.1
 
 1. The `setContent` method triggers the update method by default, @qtch [(#24)](https://github.com/umodoc/editor/issues/25), see [setContent Method](./methods#setcontent);
 2. Fixed math formula style error @GhostyCHEN [(#25)](https://github.com/umodoc/editor/issues/25).
 
-## 🚀 Version 2.3.0 <Badge>July 22, 2024</Badge>
+## 🚀 Version 2.3.0
 
 1. Added support for 6 levels of headings @shenghui-shan [(#23)](https://github.com/umodoc/editor/issues/23);
 2. Fixed an issue where `.page-content` did not exist when updating page height @shenghui-shan [(#22)](https://github.com/umodoc/editor/issues/22);
@@ -652,7 +659,7 @@ Fix the issue of custom methods being called by default when importing Word docu
 8. Updated dependencies;
 9. Various minor adjustments.
 
-## 🚀 Version 2.2.0 <Badge>July 16, 2024</Badge>
+## 🚀 Version 2.2.0
 
 1. Add parameters to the `focus` method, see [focus method](./methods#focus);
 2. The `setContent` method now provides more configuration options to control behavior after setting content, see [setContent method](./methods#setcontent) @shenghui-shan [(#15)](https://github.com/umodoc/editor/issues/15);
@@ -662,7 +669,7 @@ Fix the issue of custom methods being called by default when importing Word docu
 6. Update some dependencies;
 7. Bug fixes and code optimization.
 
-## 🚀 Version 2.1.0 <Badge>July 6, 2024</Badge>
+## 🚀 Version 2.1.0
 
 Add support for dark mode, see https://www.umodoc.com/en/demo?theme=dark 。
 
@@ -681,44 +688,44 @@ Add support for dark mode, see https://www.umodoc.com/en/demo?theme=dark 。
 6. Fixed several bugs and issues;
 7. Optimized some details.
 
-## 🚀 Version 1.4.1 ~ 2 <Badge>June 13, 2024</Badge>
+## 🚀 Version 1.4.1 ~ 2
 
 New instructions for `npm` installation, etc. @abclaboratory [(#2)](https://github.com/umodoc/editor/issues/5).
 
-## 🚀 Version 1.4.0 <Badge>June 3, 2024</Badge>
+## 🚀 Version 1.4.0
 
 1. Added support for custom extensions, see [`extensions`](./options/extensions);
 2. Added auto-save parameters, see [`document.autoSave`](./options/document#autosave);
 3. Fixed the bug where the page outline display was messy when there was too much content @tenglongwentian [(#2)](https://github.com/umodoc/editor/issues/2).
 
-## 🚀 Version 1.3.1 <Badge>June 2, 2024</Badge>
+## 🚀 Version 1.3.1
 
 Optimized styles and display related to the block menu.
 
-## 🚀 Version 1.3.0 <Badge>June 1, 2024</Badge>
+## 🚀 Version 1.3.0
 
 1. Added support for the block menu;
 2. Fixed the bug where "Increase Indent" and "Decrease Indent" did not work;
 3. Added "Quote" style;
 4. Minor adjustments and optimizations.
 
-## 🚀 Version 1.2.2 <Badge>May 24, 2024</Badge>
+## 🚀 Version 1.2.2
 
 1. Printing settings now use local caching;
 2. Restored the default value of [`cdnUrl`](./options/cdn);
 3. Simplified menu button configuration to improve response speed;
 4. Updated dependencies.
 
-## 🚀 Version 1.2.1 <Badge>May 24, 2024</Badge>
+## 🚀 Version 1.2.1
 
 Synchronized version numbers with `@umoteam/editor-external`.
 
-## 🚀 Version 1.2.0 <Badge>May 24, 2024</Badge>
+## 🚀 Version 1.2.0
 
 1. Added printing settings;
 2. Reduced bundle size.
 
-## 🚀 Version 1.2.0-beta.0 ~ 1 <Badge>May 23, 2024</Badge>
+## 🚀 Version 1.2.0-beta.0 ~ 1
 
 1. Updated dependencies;
 2. Added confirmation dialog for deleting tables, table rows, and table columns;
@@ -728,30 +735,24 @@ Synchronized version numbers with `@umoteam/editor-external`.
 6. Modified the default value of [`cdnUrl`](./options/cdn);
 7. Optimized details.
 
-## 🚀 Version 1.1.2 <Badge>May 22, 2024</Badge>
+## 🚀 Version 1.1.2
 
 Fixed the bug where the print page style could not be loaded, etc.
 
-## 🚀 Version 1.1.1 <Badge>May 22, 2024</Badge>
+## 🚀 Version 1.1.1
 
 Optimized some details.
 
-## 🚀 Version 1.1.0 <Badge>May 22, 2024</Badge>
+## 🚀 Version 1.1.0
 
 1. Added document preview functionality;
 2. Added document printing functionality;
 3. Released some third-party modules that Umo Editor depends on as a separate [@umoteam/editor-external](https://www.npmjs.com/package/@umoteam/editor-external) package;
 4. Optimized some details.
 
-## 🚀 Version 1.0.1 <Badge>May 13, 2024</Badge>
+## 🚀 Version 1.0.1
 
 The first official release of Umo Editor.
-
-## 🚀 Version 1.0.0-beta.2 ~ 7 <Badge>May 12, 2024</Badge>
-
-1. Packaging tests;
-2. Minor adjustments and optimizations;
-3. Bug fixes.
 
 ## 🎉 Version 1.0.0-beta.1 <Badge>May 10, 2024</Badge>
 
