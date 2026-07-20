@@ -54,6 +54,15 @@ import { Callout } from 'nextra/components'
 5. 修复 sticky tool 菜单可能跑到编辑器容器外的问题；
 6. 其他细节优化和调整。
 
+### 🗄️ Umo Editor Server
+
+1. 更新协作示例；
+2. 修复版本还原时提示请求过于频繁的问题；
+3. Dockerfile 中 Node 版本更新到 20.19.0
+4. 导入 Word 文档时，将目录替换为 Umo Editor 支持的页面大纲元素；
+5. 导入 Word 文档接口返回值中增加文档标题字段
+6. 构建 Docker 镜像支持多架构，包括 amd64、arm64 等。
+
 ## 🚀 v12.0.1
 
 1. 在 Word 导入时添加 preserveWhitespace 配置，避免导入后出现多余的空白字符。

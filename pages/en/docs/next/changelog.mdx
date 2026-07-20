@@ -54,6 +54,15 @@ This release syncs the latest changes from Umo Editor v11.0.0, with major improv
 5. Fixed an issue where the sticky tool menu could extend beyond the editor container;
 6. Other minor refinements and adjustments.
 
+### 🗄️ Umo Editor Server
+
+1. Updated the collaboration example;
+2. Fixed an issue where restoring a version could trigger a "requests too frequent" prompt;
+3. Updated the Node version in the Dockerfile to `20.19.0`;
+4. When importing Word documents, the table of contents is now replaced with page outline elements supported by Umo Editor;
+5. Added a document title field to the response returned by the Word document import API;
+6. Building Docker images now supports multiple architectures, including `amd64` and `arm64`.
+
 ## 🚀 v12.0.1
 
 1. Added `preserveWhitespace` configuration for office word document import to prevent extra whitespace characters from appearing after import.
