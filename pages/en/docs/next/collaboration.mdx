@@ -77,7 +77,11 @@ const defaultOptions = {
   },
   collaboration: {
     enabled: false,
+    showLoading: true,
     provider: {},
+  },
+  onCollaborationEvent(name, payload, context) {
+    console.log('onCollaborationEvent', { name, payload, context })
   },
 }
 ```
@@ -122,13 +126,74 @@ Configuration related to collaborative editing. For implementation principles an
 
 **Configuration**: Options follow the Hocuspocus Server configuration, see: https://tiptap.dev/docs/hocuspocus/provider/configuration.
 
+- `collaboration.showLoading`
+
+**Description**: Whether to show the first-sync loading state for collaboration. When enabled, a loading overlay is displayed and the editor is temporarily switched to read-only while document content is not yet available. The loading overlay is removed automatically once the initial remote sync completes, or once local cache is restored when `collaboration.provider.enableIndexedDB` is enabled. <Badge>Added in v13.0.2</Badge>
+
+**Type**: Boolean
+
+**Default Value**: `true`
+
 - `collaboration.provider.enableIndexedDB`
 
-**Description**: Whether to enable offline storage for collaboration. <Badge>Added in v13.0.0</Badge>
+**Description**: Whether to enable offline storage for collaboration. When enabled, previously cached documents can be restored from local storage on the next visit. If the local cache is restored successfully, the editor is no longer blocked by the first-sync loading overlay even when the remote server is temporarily unavailable. <Badge>Added in v13.0.0</Badge>
 
 **Type**: Boolean
 
 **Default Value**: `false`
+
+### onCollaborationEvent
+
+**Description**: Listen to collaboration provider events through a single callback. This hook runs after the internal collaboration state is updated, making it suitable for business logging, connection indicators, analytics, or custom error handling. <Badge>Added in v13.0.2</Badge>
+
+**Type**: Function
+
+**Parameters**:
+
+- `name`: String, the event name.
+- `payload`: Any, the original event payload.
+- `context`: Object, the current collaboration context, including `provider`, `editor`, and `collaboration`.
+
+**Example**:
+
+```js
+const options = {
+  collaboration: {
+    enabled: true,
+    provider: {
+      parameters: {
+        documentId: '1',
+      },
+    },
+  },
+  onCollaborationEvent(name, payload, context) {
+    console.log('onCollaborationEvent', {
+      name,
+      payload,
+      provider: context.provider,
+      loading: context.collaboration?.loading,
+      synced: context.collaboration?.synced,
+    })
+  },
+}
+```
+
+**Supported Events**:
+
+- `open`: Fired when the WebSocket connection is created.
+- `connect`: Fired when the provider successfully connects to the server.
+- `authenticated`: Fired when the client is authenticated successfully.
+- `authenticationFailed`: Fired when client authentication fails.
+- `status`: Fired when the connection status changes.
+- `message`: Fired when an incoming message is received.
+- `outgoingMessage`: Fired when a message is about to be sent to the server.
+- `synced`: Fired when the Y.js document completes its initial sync.
+- `close`: Fired when the WebSocket connection is closed.
+- `disconnect`: Fired when the provider disconnects.
+- `destroy`: Fired when the provider is about to be destroyed.
+- `awarenessUpdate`: Fired when awareness data is updated.
+- `awarenessChange`: Fired when awareness state changes.
+- `stateless`: Fired when a stateless message is received.
 
 ## Method List
 
@@ -143,5 +208,9 @@ For examples of method usage, see: [Method List](../editor/methods).
 **Return Value**: `Object` or `undefined`. The returned object contains the following information:
 
 - `connect`: Boolean — whether the connection to the provider was successful.
-- `user`: Array — the list of users currently collaborating on the document.
+- `users`: Array — the list of users currently collaborating on the document.
+- `loading`: Boolean — whether the collaboration is still in the initial sync phase. When `collaboration.showLoading !== false` and this value is `true`, the editor shows a loading overlay and is temporarily switched to read-only to prevent accidental actions. <Badge>Added in v13.0.2</Badge>
+- `synced`: Boolean — whether collaboration data has completed the initial sync. <Badge>Added in v13.0.2</Badge>
+- `localReady`: Boolean — whether the local IndexedDB cache has been restored. When `collaboration.provider.enableIndexedDB` is enabled and this value is `true`, local cached content is available. <Badge>Added in v13.0.2</Badge>
+- `connectionFailed`: Boolean — whether the collaboration connection failed during the initial loading phase. When this value is `true` and no local cache is available yet, the editor shows a “Not connected to the server” message. <Badge>Added in v13.0.2</Badge>
 - `provider`: Object — the service provider information. With this information, you can listen to relevant events to implement custom features. See: https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding.

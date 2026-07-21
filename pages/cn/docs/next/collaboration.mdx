@@ -77,7 +77,11 @@ const defaultOptions = {
   },
   collaboration: {
     enabled: false,
+    showLoading: true,
     provider: {},
+  },
+  onCollaborationEvent(name, payload, context) {
+    console.log('onCollaborationEvent', { name, payload, context })
   },
 }
 ```
@@ -122,13 +126,74 @@ const defaultOptions = {
 
 **配置**：同 Hocuspocus Server 的配置，见 https://tiptap.dev/docs/hocuspocus/provider/configuration 。
 
+- `collaboration.showLoading`
+
+**说明**：是否开启协作首屏 loading。开启后，编辑区在文档内容尚不可用时会显示 loading 遮罩；当远端首屏同步完成，或开启 `collaboration.provider.enableIndexedDB` 后本地缓存已恢复时，loading 会自动消失。 <Badge>v13.0.2 新增</Badge>
+
+**类型**：Boolean
+
+**默认值**：`true`
+
 - `collaboration.provider.enableIndexedDB`
 
-**说明**：是否开启协同离线存储。<Badge>v13.0.0 新增</Badge>
+**说明**：是否开启协同离线存储。开启后，已缓存过的文档在下次进入时可优先从本地恢复；若本地缓存已恢复，即使远端服务暂时未连接，编辑区也不会继续被首屏 loading 遮罩。<Badge>v13.0.0 新增</Badge>
 
 **类型**：Boolean
 
 **默认值**：`false`
+
+### onCollaborationEvent
+
+**说明**：统一监听协作 provider 事件。该回调会在内部协同状态更新后触发，适合用来接入业务日志、连接状态提示、自定义埋点或异常告警。 <Badge>v13.0.2 新增</Badge>
+
+**类型**：Function
+
+**参数**：
+
+- `name`：String，事件名称；
+- `payload`：Any，事件原始参数；
+- `context`：Object，当前协作上下文，包含 `provider`、`editor`、`collaboration`。
+
+**示例**：
+
+```js
+const options = {
+  collaboration: {
+    enabled: true,
+    provider: {
+      parameters: {
+        documentId: '1',
+      },
+    },
+  },
+  onCollaborationEvent(name, payload, context) {
+    console.log('onCollaborationEvent', {
+      name,
+      payload,
+      provider: context.provider,
+      loading: context.collaboration?.loading,
+      synced: context.collaboration?.synced,
+    })
+  },
+}
+```
+
+**支持的事件名称**：
+
+- `open`：当 WebSocket 连接被创建时触发。
+- `connect`：当 provider 成功连接到服务端时触发。
+- `authenticated`：当客户端鉴权成功时触发。
+- `authenticationFailed`：当客户端鉴权失败时触发。
+- `status`：当连接状态发生变化时触发。
+- `message`：当收到服务端消息时触发。
+- `outgoingMessage`：当消息即将发送到服务端时触发。
+- `synced`：当 Y.js 文档首次完成同步时触发。
+- `close`：当 WebSocket 连接关闭时触发。
+- `disconnect`：当 provider 断开连接时触发。
+- `destroy`：当 provider 即将被销毁时触发。
+- `awarenessUpdate`：当 awareness 信息更新时触发。
+- `awarenessChange`：当 awareness 状态发生变化时触发。
+- `stateless`：当收到无状态消息时触发。
 
 ## 方法列表
 
@@ -143,5 +208,9 @@ const defaultOptions = {
 **返回值**：`Object` 或 `undefined`，Object 包含以下信息：
 
 - `connect`：Boolean，是否与服务商连接成功；
-- `user`：Array，当前文档协作用户列表；
+- `users`：Array，当前文档协作用户列表；
+- `loading`：Boolean，是否仍处于协作首屏同步阶段；当 `collaboration.showLoading !== false` 且值为 `true` 时，编辑区会显示 loading，并将编辑器临时切换为只读，避免误操作； <Badge>v13.0.2 新增</Badge>
+- `synced`：Boolean，协作数据是否已完成首屏同步； <Badge>v13.0.2 新增</Badge>
+- `localReady`：Boolean，本地 IndexedDB 缓存是否已恢复；当开启 `collaboration.provider.enableIndexedDB` 且值为 `true` 时，表示本地缓存已可用。 <Badge>v13.0.2 新增</Badge>
+- `connectionFailed`：Boolean，协作首屏阶段是否出现连接失败；当值为 `true` 且本地缓存尚未恢复时，编辑区会显示“未连接到服务器”提示。 <Badge>v13.0.2 新增</Badge>
 - `provider`：Object，服务商信息，获得服务商信息后，可以通过监听相关事件，来实现更多个性化需求，参考：https://tiptap.dev/docs/hocuspocus/provider/events#option-2-binding 。
