@@ -12,6 +12,7 @@ export default {
   comments: 'Comments',
   revision: 'Track Changes (BETA)',
   versions: 'Version History',
+  form: 'Document Forms',
   annotation: 'Annotation',
   import: 'Import',
   export: 'Export',

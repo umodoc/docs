@@ -1,0 +1,244 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Core Concepts
+
+Document forms in Umo Editor Next can be understood as three core capabilities. In practice, they usually work together rather than replace one another.
+
+## What This Page Covers
+
+1. What the three core document form capabilities are
+2. How to understand the four modes: `design / fill / result / autofill`
+3. Where the boundaries are between `result`, `autofill`, and `fillFormValues()`
+4. Why rich text variables exist, and where their risk boundaries are
+
+## The Three Core Capabilities
+
+### 1. Template Design
+
+Template design is for template authors or business rule maintainers.
+
+Its goal is not to let the final user edit the entire document freely. Instead, it lets you design the document skeleton first and predefine, in a form-like way, exactly which parts need to be filled in later.
+
+**Typical practices**
+
+- Insert variables into the document body as placeholders for names, departments, dates, amounts, projects, explanations, and similar information
+- Configure the variable name, unique key, description, required flag, date format, option list, and related properties
+- Turn contracts, notices, reports, and approval forms into reusable templates
+
+**What this solves**
+
+- Rebuilding standard templates again and again
+- Inconsistent formatting when multiple people draft the same type of document
+- Unclear boundaries around what can and cannot be edited
+
+**Recommended companion features**
+
+- [Template Management](../template): template categorization, retrieval, and maintenance
+- [Content Locking](../locked): lock fixed clauses or fixed sections
+- [Track Changes](../revision): preserve a change trail while evolving templates
+
+### 2. Programmatic Population
+
+Programmatic population is for business systems and backend services.
+
+It allows external variable values to be passed into a document template so the system can generate different result documents automatically, rather than forcing the frontend or backend to assemble large chunks of HTML or perform string replacement manually.
+
+**Typical practices**
+
+- The backend generates formal documents from order data, application forms, approval flows, CRM, HR, or ERP data
+- The same template produces different content for different users, departments, projects, or customers
+- Automatic generation of notices, agreements, certificates, and similar documents
+- Chaining the result into Umo Editor Next export capabilities so the system can continue to batch-produce Word, PDF, and other deliverables
+
+**What this solves**
+
+- Fragmented field replacement logic that is disconnected from the template itself
+- The difficulty of maintaining complex layouts through raw string replacement
+- Low efficiency when generating many similar documents
+- Inconsistent layout and fragmented export pipelines during batch output
+
+**There are two main ways to integrate programmatic population**
+
+1. Configure `form.mode: 'autofill'` together with `form.values` at initialization
+2. Call the instance method `fillFormValues(values, options)` only when you truly need to regenerate results at runtime
+
+When using programmatic population, the editor generates the final content based on template variables. Any variable nodes that are left unfilled are removed from the final output so placeholders do not leak into formal documents.
+
+If your business goal is to **batch-produce formal files**, the recommended end-to-end chain is:
+
+1. Define the document skeleton and variable placeholders through a template
+2. Prefer initializing `form.values` from business data
+3. Generate each finalized document result
+4. When runtime regeneration is truly needed, call `fillFormValues()`
+5. Continue by exporting the results in batch as Word, PDF, or image files through Umo Editor Next
+
+This keeps template design, variable population, and result export inside a single document model instead of splitting the template and export chains apart.
+
+### 3. Form Capability
+
+The form capability is for **manual filling and result validation**.
+
+It lets end users enter content in the form panel on the right while reusing the rules defined by the variable configuration, so the filling result stays as correct, complete, and submittable as possible.
+
+**Core abilities include**
+
+- Required-field constraints
+- Validation rules mapped to variable types
+- Custom rule type extension
+- Structured data collection
+- Submission callbacks
+- Access to the current field values and variable definitions
+
+**What this solves**
+
+- Missing values, incorrect values, and invalid formats
+- The high cost of filling when editable fields are scattered across the document
+- The inability to send structured field values directly back into business systems
+- The lack of a structured result payload at submission time
+
+Beyond validation and submission, there is another crucial role here: **data collection**.
+
+In other words, document forms are not only about showing variables and letting users fill them in. More importantly, once the user finishes, the system can collect those fields back as structured business data. This allows the business layer to directly receive:
+
+- The current variable values
+- The variable definitions
+- The final document result
+
+**Then continue to use them for:**
+
+- Saving drafts or official records
+- Launching approval workflows
+- Building ledgers or records
+- Running analytics and reporting
+- Serving as the base data for later population, version snapshots, and archiving
+
+## The Four Working Modes
+
+The current public capability can be understood through these four modes:
+
+| Mode | Main Goal | For Whom | Typical Use |
+| --- | --- | --- | --- |
+| `design` | Design templates and variables | Template authors | Insert variables, configure fields, maintain the template skeleton |
+| `fill` | Manual filling and submission | Business users / fillers | Enter values, validate, and submit structured results |
+| `result` | View the final result | Reviewers / readers | Read-only result view, export confirmation, result browsing |
+| `autofill` | Generate automatically | Business systems / backend services | Batch output, auto-generation, result production |
+
+### `design` Mode
+
+- The document body remains editable
+- Best for inserting variables, configuring them, and maintaining template structure
+
+### `fill` Mode
+
+- The document body is no longer used for free-form editing
+- Users enter data through the form panel
+- Supports validation, submission, reset, and uploads for image-like variables
+- Especially suitable for business data-entry flows that need both field collection and structured result return
+
+### `result` Mode
+
+- The body is rendered into result form using the current variable values
+- Best for previewing or viewing the final filled result in a read-only way
+
+This mode is especially suitable when:
+
+- You need to review the final result before approval
+- You need a read-only result display after generation
+- Users should not continue entering data and only need to review the result
+
+### `autofill` Mode
+
+- Designed for automatic system generation
+- In normal scenarios, prefer passing values in batch through `form.values`
+- Use `fillFormValues()` only when you need to switch data and regenerate at runtime
+- Better suited to "template -> final document" generation than to manual input workflows
+
+## How Result Generation Capabilities Differ
+
+| Approach | Best For | One-Line Interpretation |
+| --- | --- | --- |
+| `result` | Viewing the result | I already have values and only want to display the result |
+| `autofill + form.values` | Generate immediately at initialization | The template and data are ready, so generate as soon as the page loads |
+| `fillFormValues()` | Generate again at runtime | The editor is already on the page, and now I need to regenerate using new data |
+| `fillFormValues(values, { disableForm: true })` | Continue editing as a normal document | Generate a draft first, then continue treating it as a standard document |
+
+## Design-Time Preview vs. Result Mode
+
+During template design, the toolbar's preview entry is best for quickly checking how the template looks in fill mode, for example:
+
+- Whether the variable areas are arranged appropriately
+- Whether the form items in the right-hand panel are complete
+- Whether required markers, descriptions, and field order match expectations
+
+This is best for quick checks during template authoring, while `result` mode is better suited to viewing the final document when variable values are already available.
+
+## The Role of Rich Text Variables
+
+Rich text variables exist mainly so **programmatic population** can inject complex structured content, such as:
+
+- Tables
+- Multi-paragraph explanations
+- Formatted clause content
+- Lists, headings, block quotes, and similar structures
+
+This means a template is not limited to replacing simple text values. It can also inject complex layout content into localized regions.
+
+Their real purpose is to **extend beyond the expressive boundary of fixed node types**.
+
+Ordinary variables are a better fit for values like:
+
+- A name
+- A date
+- An amount
+- An option value
+- An image
+
+But in many real business scenarios, what the system needs to generate is not a single value. It is an entire block of structured content. For example:
+
+- A detail table may need an unknown number of rows
+- Each row may be generated from a loop
+- A section may need to output multiple explanatory paragraphs conditionally
+- Clauses, lists, or appendix notes may need to be assembled dynamically from business data
+
+If you try to force these into multiple ordinary variables, you usually run into several problems:
+
+- Template maintenance becomes expensive
+- The number of nodes and structure cannot be fixed in advance
+- Loops, conditions, and complex layout are hard to model naturally
+
+That is why rich text variables are better understood as a **complex content slot**:
+
+- Ordinary variables handle simple value replacement
+- Rich text variables handle structured generation that ordinary variables are not good at expressing
+
+In complex programmatic document-generation scenarios, such as generating tables dynamically, looping through detail entries, or conditionally outputting sections, rich text variables are often the right tool.
+
+**Why rich text variables are not recommended for manual user entry**
+
+Even though rich text variables can appear in fill flows, they inherently carry more uncertainty:
+
+- The input may contain deeply nested structures
+- Content coming from different sources is harder to normalize safely
+- The result may affect neighboring layout or generation stability
+
+Because of that, the recommended principle is:
+
+- **Manual filling**: prefer controlled types such as text, number, date, and options
+- **Programmatic population**: use rich text variables only when necessary, and let the backend or another trusted content source generate them
+
+If the rich text content cannot be safely accepted by the current document model, the population flow will report it through `form.onFillError(errors, context)` so the business layer can apply fallback logic.
+
+## Recommended Feature Combination Order
+
+If your goal is "long-term template maintenance + business generation + external delivery", the recommended sequence is:
+
+1. Design the template in `design` mode
+2. Manage template versions and entry points through [Template Management](../template)
+3. Protect the fixed skeleton through [Content Locking](../locked)
+4. Use `fill` for manual entry, and `autofill` for system generation
+5. After confirmation, export the final copy through [Export](../export)
+6. During ongoing template maintenance, retain the change process through [Track Changes](../revision) and [Version History](../versions)

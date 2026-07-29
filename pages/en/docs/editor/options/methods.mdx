@@ -37,6 +37,11 @@ This section is used to configure methods for Umo Editor, including document sav
 - `page`: Page information.
 - `document`: Document metadata.
 
+In Umo Editor Next, if features such as comments or document forms are enabled at the same time, `onSave` will append the corresponding structured data in later arguments. For example:
+
+- The 4th parameter, `comments`: the current comment thread list
+- The 5th parameter, `form`: the current structured form data
+
 \*\*Return Value`:
 Return `true`if the save is successful, otherwise return`false` or throw an error.
 

@@ -57,6 +57,11 @@ The document comment feature allows users to add comments within a document, and
 - When exporting to Word, you can optionally include comments, which is useful for review drafts with feedback: [Document Export](./export)
 - Exported Word files preserve the comment and reply relationships within a thread for continued review
 
+### Document Forms
+
+- Use comment threads to discuss filling instructions, exceptions, approval notes, and other form-related issues: [Document Forms](./form)
+- When saving a document, comments and form data can also be collected together through `onSave`, which is useful for approval and review workflows around forms
+
 ### Version History
 
 - Create versions at key milestones and keep comments as part of the review record: [Version History](./versions)
@@ -149,12 +154,14 @@ const defaultOptions = {
 
 Starting from v10, Umo Editor Next’s document save option `onSave` method includes an additional `comments` parameter, which is used to save comment threads.
 
+If document forms are enabled at the same time, `onSave` will also append a fifth parameter, `form`, which is used to collect the current structured form data.
+
 See the `onSave` method in [Document Save Options](../editor/options/methods#onsave).
 
 Below is a simple example of an `onSave` method:
 
 ```js
-const onSave = async (content, page, document, comments) => {
+const onSave = async (content, page, document, comments, form) => {
   // Save the document and comment threads to localStorage
   localStorage.setItem('document.content', content)
   localStorage.setItem('document.comments', JSON.stringify(comments))
@@ -162,7 +169,7 @@ const onSave = async (content, page, document, comments) => {
   // Simulate a save delay
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('onSave', { content, page, document, comments })
+      console.log('onSave', { content, page, document, comments, form })
       resolve('Operation successful')
     }, 1000)
   })

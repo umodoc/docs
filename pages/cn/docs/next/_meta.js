@@ -12,6 +12,7 @@ export default {
   comments: '文档批注/评论',
   revision:'文档修订(BETA)',
   versions: '文档历史版本',
+  form: '文档表单',
   annotation: '文档标注',
   import: '文档导入',
   export: '文档导出',

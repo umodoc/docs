@@ -1,0 +1,311 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Use Cases
+
+Document forms work best for business workflows built around "standardized documents + variable information + final output". The examples below focus on practical cases that appear frequently in real deployments.
+
+Beyond document generation, this capability is also a strong fit for "fill while collecting structured data" workflows such as registration, application intake, approval entry, questionnaires, medical record intake, and interview notes.
+
+## Reading Guide
+
+You can read this page based on the outcome you care about most:
+
+- Want template design and manual filling: start with Cases 1, 3, 4, 10, 11, 12
+- Want programmatic document generation: start with Cases 1, 2, 5, 8, 14, 15
+- Want result display, archiving, and collaboration: start with Cases 7, 9, 13, 14
+
+## Case 1: Contract and Agreement Generation
+
+This is a common fit for employment contracts, procurement contracts, NDAs, service agreements, and similar documents.
+
+Common pain points:
+
+- The contract structure stays fixed, but parties, amounts, periods, signing dates, and attachments keep changing
+- Business teams edit Word files directly and often change clauses or miss fields by accident
+- Rendering contracts directly from backend HTML becomes expensive to maintain when the layout gets complex
+
+Recommended approach:
+
+- Let the template owner build the contract template in `design` mode
+- Define variables for company names, parties, amounts, dates, and attachment notes
+- Protect fixed clauses with [Content Locking](../locked)
+- For batch output, prefer `autofill + form.values`
+- Send the final result into [Export](../export) for Word or PDF delivery
+
+## Case 2: HR Documents and Employment Certifications
+
+This works well for offer letters, onboarding commitments, employment certificates, resignation certificates, and role change notices.
+
+Common pain points:
+
+- HR teams generate the same document types frequently, while field values live in multiple HR systems
+- The same document often goes through review across departments with strict formatting requirements
+
+Recommended approach:
+
+- Define variables for name, department, role, start date, ID number, and similar fields
+- Let the program pull values from the HR system and generate formal documents automatically
+- Use [Comments](../comments) for review feedback
+- Use [Track Changes](../revision) when template clauses are updated
+
+## Case 3: Procurement, Reimbursement, and Approval Documents
+
+This is a good fit for purchase requests, payment requests, expense explanations, and project approval forms.
+
+Common pain points:
+
+- The document body mixes fixed text with dynamic business fields
+- Amounts, dates, options, and explanations need validation before submission
+
+Recommended approach:
+
+- Use text, number, date, radio, checkbox, and select variables to model business fields
+- Let applicants fill the form manually in `fill` mode
+- Add rules for amounts, dates, phone numbers, and similar fields
+- Use `form.onSubmit` to collect structured values and connect them to workflows, storage, or analytics
+
+## Case 4: Registration, Intake, and Reporting
+
+This fits registration forms, data collection sheets, questionnaires, interview records, follow-up forms, and electronic medical record intake.
+
+Common pain points:
+
+- The business needs both a readable document result and structured data collected back into the system
+- Traditional online forms collect fields well, but do not handle rich document structure or final archived text well
+
+Recommended approach:
+
+- Use a document template to define fixed instructions, filling rules, and variable areas
+- Let users complete the document in `fill` mode
+- Collect structured values through `form.onSubmit`
+- Keep the generated document result for viewing, archiving, or export
+
+## Case 5: Project Delivery and Client Reports
+
+This works well for weekly reports, monthly reports, acceptance reports, inspection reports, and project summaries.
+
+Common pain points:
+
+- The layout is complex, with fixed chapters plus project-specific content
+- Reports often need tables, explanations, screenshots, signatures, or stamps replaced
+
+Recommended approach:
+
+- Turn fixed sections into a template
+- Use variables for project name, client name, date range, owner, and similar metadata
+- Use rich text variables only for programmatically generated complex sections
+- Use image-like variables for images, QR codes, signatures, and stamps
+- Export the final document as PDF or Word for external delivery
+
+## Case 6: Notices, Announcements, and Acknowledgment Slips
+
+This is suitable for internal notices, training acknowledgments, policy sign-offs, and event instructions.
+
+Common pain points:
+
+- Most of the content is fixed, while signer, department, and confirmation date still need input
+- The document body should stay protected while leaving a small editable area
+
+Recommended approach:
+
+- Protect the fixed content with [Content Locking](../locked)
+- Expose only variable areas for input
+- Use signature or stamp variables when electronic sign-off is required
+
+## Case 7: Legal, Compliance, and Risk Template Maintenance
+
+This is a strong fit for long-lived policy templates, legal clause templates, and compliance notices.
+
+Common pain points:
+
+- Templates evolve over time, but the review trail is hard to preserve
+- Published versions and draft versions easily get mixed together
+
+Recommended approach:
+
+- Keep [Track Changes](../revision) enabled during template maintenance
+- Save [Version History](../versions) before publishing
+- Combine published templates with [Content Locking](../locked)
+
+## Case 8: Backend-Driven Batch Generation of Personalized Documents
+
+This is ideal for batch letters, notifications, certificates, agreements, and other personalized documents.
+
+Common pain points:
+
+- One template needs to generate different outputs for different users, organizations, or business records
+- Frontend and backend teams often end up maintaining separate templates that eventually drift apart
+
+Recommended approach:
+
+- Use the document template as the single source of truth
+- Let the backend provide variable values only, instead of maintaining a second string template
+- Generate final documents through `autofill + form.values`
+- Use rich text variables only when tables, repeated sections, or complex layouts must be generated
+- Chain the result into Umo Editor Next export workflows to batch-produce Word, PDF, and other formal deliverables
+
+This is especially useful for:
+
+- Batch contract generation, quotations, authorization letters, and notices
+- Batch project reports, customer notifications, and settlement confirmations
+- Any high-volume workflow that needs archived or externally delivered Word/PDF output
+
+## Case 9: Collaborative Template Authoring
+
+This fits cases where product, legal, operations, and HR teams all contribute to the same template.
+
+Common pain points:
+
+- Multiple roles edit field labels, instructions, and clauses at the same time
+- The boundary between template maintenance and template release is often unclear
+
+Recommended approach:
+
+- Use [Collaboration](../collaboration) during template design
+- Use [Comments](../comments) for discussion
+- Use [Track Changes](../revision) to converge clause updates
+- Use [Version History](../versions) at release time
+
+## Case 10: System Prefill Followed by Manual Completion
+
+This is common for approval initiation, customer onboarding, hospital admission intake, project kickoff, and sales setup flows.
+
+Common pain points:
+
+- Some fields already exist in business systems, while others still need manual input
+- Starting from a blank form forces people to re-enter information the system already has
+- Fully generating the final document removes the manual confirmation and completion step
+
+Recommended approach:
+
+- Run the editor in `fill` mode and prefill existing fields through `form.values`
+- Let users complete only the missing data
+- Collect the full result in one submission through `form.onSubmit`
+- When users reset the form, values return to the prefetched defaults instead of clearing completely
+
+This is especially useful when:
+
+- CRM, HR, HIS, ERP, and similar systems can prefill base information
+- Staff still need to add notes, supporting details, signatures, or attachments manually
+
+## Case 11: Rejected Resubmission, Draft Restore, and Continued Filling
+
+This fits approval resubmission, supplemental registration, continued medical record entry, and interrupted questionnaires.
+
+Common pain points:
+
+- After a failed submission or rejection, users need to continue from existing results
+- Without value restoration, users have to enter everything again
+- Reset, reopen, and continue scenarios often blur the boundary of what the default values should be
+
+Recommended approach:
+
+- Write historical submission results or draft values back into `form.values`
+- Continue the workflow in `fill` mode
+- Use `form.onSubmit` to collect the full updated result
+- If the template or current document also needs saving, use `onSave` to read both `form.values` and `form.definitions`
+
+Why this works well:
+
+- Users continue from existing data instead of starting over
+- Reset returns the form to the current restored values, which is exactly what "edit after rejection" usually needs
+
+## Case 12: Previewing and Verifying a Template Before Release
+
+This is useful before legal templates go live, administrative notices are published, or business forms are released.
+
+Common pain points:
+
+- In design mode, template authors only see placeholders and cannot easily judge the real filling experience
+- Field order, helper text, required rules, and right-side panel layout are easy to miss before launch
+
+Recommended approach:
+
+- Finish template design in `design` mode
+- Use the toolbar preview ability to switch into the filling view
+- Verify field order, descriptions, required rules, and side-panel layout
+- Publish the template only after the experience is confirmed
+
+## Case 13: Online Read-Only Display of Final Results
+
+This is a strong fit for approval review, archive lookup, announcement result viewing, medical record browsing, and customer confirmation pages.
+
+Common pain points:
+
+- The business page only wants to show the final result without allowing more edits
+- Traditional form views show field values, but not the full document meaning and layout
+- Showing the raw template body directly may expose placeholders or filling controls
+
+Recommended approach:
+
+- When variable values are already available, use `form.mode = 'result'`
+- Let the page display the final rendered document instead of the editable filling view
+- Combine this with export when you need PDF or Word files for lookup or external delivery
+
+This is especially useful for:
+
+- Final-document review at approval stages
+- Read-only detail pages inside business systems
+- Result views for electronic medical records, informed consent forms, and confirmations
+
+## Case 14: Pre-Export Confirmation and Online Preview
+
+This fits contract issuance checks, report review before delivery, notice approval before publishing, and spot checks in batch generation workflows.
+
+Common pain points:
+
+- Teams need to confirm layout, field values, and local content before export
+- Exporting first and correcting later creates unnecessary rework and version confusion
+
+Recommended approach:
+
+- Preview the result online first through `result` mode or a programmatically generated result document
+- Verify values, rich text sections, signatures, stamps, and QR codes
+- Enter the Word/PDF/image export flow only after the result is confirmed
+
+This is especially useful for:
+
+- Human review before formal issuance
+- Sampling checks after batch generation
+- Workflows that require "preview first, export second"
+
+## Case 15: Converting a Programmatically Generated Result into a Normal Editable Document
+
+This is useful for auto-generated drafts, batch-generated documents that still need manual polishing, and system-generated documents that need small final edits.
+
+Common pain points:
+
+- The program has already generated a near-final document, but a user still needs to adjust a few parts
+- Staying inside the form flow keeps the later editing process tied to variables
+
+Recommended approach:
+
+- First generate the result through `fillFormValues(values, { disableForm: true })`
+- After generation, exit the form flow and write the result back into the editor body
+- Continue editing, saving, commenting on, or exporting it as a normal document
+
+This is especially useful for:
+
+- Contracts, reports, and letters generated as first drafts by the system
+- Business users adding personalized notes, attachment text, or minor edits afterward
+- Final delivery workflows that still end in save, archive, or export
+
+## How It Works with Other Features
+
+- **Template Management**: document forms define variables and filling rules inside the template, while [Template Management](../template) handles how templates are stored, listed, maintained, and delivered to business systems.
+- **Content Locking**: when a template contains both fixed clauses and variable areas, lock the fixed content and expose only the fields that users should fill.
+- **Comments**: comments are best for filling instructions, exception discussion, approval notes, and requests for missing materials, while document forms define the actual values that must be provided.
+- **Track Changes**: track changes are more useful during template maintenance than final filling. Use them when clauses, field labels, or instructions are updated.
+- **Version History**: for long-lived templates, save each release as a version. For critical generated results, save versions at process milestones so they can be traced later.
+- **Document Export**: after manual filling or programmatic population is complete, the document usually moves into export:
+  - Word: for offline circulation or archive
+  - PDF: for fixed-layout external delivery
+  - Images: for poster-style notices, snapshots, or mobile sharing
+- **Batch Export**: if your business generates documents in volume, treat "programmatic population + export" as one standardized pipeline:
+  1. Loop through business data and generate different variable values
+  2. Fill the same template repeatedly with each dataset
+  3. Export each result to Word, PDF, or images

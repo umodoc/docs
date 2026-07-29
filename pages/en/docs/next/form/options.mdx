@@ -1,0 +1,577 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Configuration
+
+The configuration entry point for document forms is `options.form`.
+
+## Reading Guide
+
+If this is your first time configuring document forms, start with these:
+
+- `form.mode`: decide whether the page is for design, filling, result viewing, or programmatic generation
+- `form.values`: define initial values, backfilled values, or programmatic input values
+- `form.types`: extend business-specific validation rule types
+- `form.onSubmit / onSubmitted / onFillError`: connect submission, notifications, and fallback handling
+
+## Configuration Quick Reference
+
+| Option | Primary Purpose | When to Read It First |
+| --- | --- | --- |
+| `form.mode` | Controls the current working mode | At the very beginning of integration |
+| `form.values` | Supplies initial values, backfilled values, and generated values | When implementing backfill, refill, or programmatic output |
+| `form.types` | Extends business-specific rule types | When built-in validation is not enough |
+| `form.finalContentFormat` | Decides the returned format of the final content | When storing, exporting, or processing text |
+| `form.onSubmit` | Handles manual submission | For manual filling flows |
+| `form.onSubmitted` | Listens for submission completion | When you need redirect, messaging, or logging after submission |
+| `form.onFillError` | Handles population failures | For rich text population or batch generation |
+
+## Example Configuration
+
+```js
+const defaultOptions = {
+  form: {
+    enabled: true,
+    mode: 'fill',
+    values: {},
+    types: {},
+    finalContentFormat: 'json',
+    async onSubmit(result, context) {},
+    async onSubmitted(status, payload) {},
+    async onFillError(errors, context) {},
+  },
+}
+```
+
+## Configuration Reference
+
+### form.enabled
+
+**Description**: Whether to enable document forms.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+**Detailed explanation**
+
+- This is the master switch for the entire document form capability
+- When disabled, the full chain is turned off, including template design, manual filling, programmatic population, variable panels, and form submission
+- Settings such as `form.mode`, `form.values`, `form.types`, and `form.onSubmit` only become meaningful when `form.enabled = true`
+
+**When to enable it**
+
+- When you want to turn the document body into a template with variable placeholders
+- When you want to collect structured field values
+- When you want to generate documents from variables in batch
+
+**Related pages**
+
+- [Introduction](./index): understand the overall boundary of document forms
+- [Getting Started](./getting-started): see the minimum enablement path
+- [Use Cases](./scenarios): decide whether it fits your business
+
+### form.mode
+
+**Description**: The form runtime mode.
+
+**Type**: `String`
+
+**Allowed values**
+
+- `design`: template design mode
+- `fill`: manual filling mode
+- `result`: result viewing mode
+- `autofill`: programmatic population mode
+
+**Default**: `design`
+
+**Usage guidance**
+
+- `design`: for template authors to define variables and template structure
+- `fill`: for collecting field values from users
+- `result`: for result viewing, read-only display, and pre-export confirmation
+- `autofill`: for backend or business systems to generate result documents in batch
+
+`result` is more about **displaying an already-generated result**, while `autofill` is more about **having the system generate the document automatically**.
+
+**Detailed explanation**
+
+- `mode` does more than change the UI. It determines the goal of the page itself
+- The same template can serve completely different roles depending on the selected mode:
+  - in `design`, it defines the template and variables
+  - in `fill`, it supports manual entry and validation
+  - in `result`, it shows the final outcome
+  - in `autofill`, it generates the document automatically
+- Choosing the wrong mode often leads to integration confusion such as "it displays, but cannot submit" or "it generates, but cannot continue editing"
+
+**Selection advice**
+
+- Start by asking what this page is supposed to do
+- If the answer is "users need to fill it out", look at `fill`
+- If the answer is "the page should generate the document immediately on load", look at `autofill`
+- If the answer is "this page only shows the result", look at `result`
+
+**Related pages**
+
+- [Core Concepts](./concepts): the full explanation of the four modes
+- [Getting Started](./getting-started): the three shortest integration paths
+- [Methods](./methods): how `result`, `autofill`, and `fillFormValues` relate to one another
+
+### form.values
+
+**Description**: The variable value object.
+
+**Type**: `Object`
+
+**Default**: `{}`
+
+Keys in `values` should match the keys used by variables. Recommended value shapes by type:
+
+- Text / Number / Date / Radio / Select: `String` or `Number`
+- Date range / Time range / Checkbox: `Array`
+- Image-like variables: `String` (image URL) or `Object`
+- Rich text variables: valid Tiptap HTML or JSON fragments
+
+An image-like object may include:
+
+```js
+{
+  url: 'https://example.com/image.png',
+  name: 'Attachment Image',
+  size: 1024,
+  type: 'image/png',
+  content: null,
+  width: 300,
+  height: 160,
+}
+```
+
+During manual filling, `form.values` is just as important. In `fill` mode it participates in runtime form-state construction and acts both as the initial displayed values and the value source that Reset restores to.
+
+This makes it especially suitable for:
+
+- Draft restore
+- Backfilling historical submission results
+- Refilling after rejection
+- Prefilling part of the known fields before handing the rest over to users
+
+If you do not pass `form.values`, the user typically starts from a blank state. If you do pass matching values, the form panel on the right shows them first.
+
+Keep in mind that `form.values` behaves more like an **initial value source / default value source**. User edits during filling move into runtime form state and submission results. If the business side wants to persist those edits long-term, it should collect and store them through `form.onSubmit`, `form.onSubmitted`, or `onSave`.
+
+If the page goal is simply to show the generated result, `form.values` is also commonly used together with `form.mode = 'result'` or `form.mode = 'autofill'`.
+
+**Detailed explanation**
+
+- `form.values` is one of the most important inputs in the entire form flow
+- It can represent programmatic input values, manual filling defaults, or historical backfill values
+- In `fill` mode, it affects:
+  - initial display
+  - draft restoration
+  - refill after rejection
+  - the values restored by Reset
+- In `autofill` or `result` mode, it directly participates in generating the result content
+
+**Integration advice**
+
+- In production, prefer passing values by stable variable `key`
+- If the document should be generated immediately at initialization, prefer `form.values`
+- Only consider `fillFormValues()` when you need to regenerate after the instance already exists
+
+**Related pages**
+
+- [Getting Started](./getting-started): minimum examples for `fill` and `autofill`
+- [Methods](./methods): how it differs from `fillFormValues()`
+- [Field Design](./field-design): stable key and value-shape design
+- [Troubleshooting](./troubleshooting): value-shape errors, key mismatches, and image/rich-text population issues
+
+### form.types
+
+**Description**: Custom variable type configuration used to extend available rule types and validation rules in the variable panel.
+
+**Type**: `Object`
+
+**Default**: `{}`
+
+The currently supported grouping keys are:
+
+- `text`
+- `number`
+- `date`
+- `radio`
+- `checkbox`
+- `select`
+- `richtext`
+
+Each group is an array, and each item in the array has the following structure:
+
+```js
+{
+  type: 'contract_code',
+  text: {
+    zh_CN: '合同编号',
+    en_US: 'Contract Code',
+  },
+  rules: [
+    {
+      pattern: /^HT-\d{6}$/,
+      message: {
+        zh_CN: '合同编号格式不正确',
+        en_US: 'Invalid contract code format',
+      },
+    },
+  ],
+}
+```
+
+For image-like variables, the practical recommendation is to at least provide `url`. If you need to preserve more file metadata for download, display, or backfill, you can also include `name`, `size`, `type`, `width`, and `height`.
+
+Although rich text variables support complex content, they are still best generated by the backend or another trusted source. If the incoming content cannot be accepted by the current document model, the programmatic population flow will surface the problem through `form.onFillError`.
+
+Where:
+
+- `type`: the rule type identifier
+- `text`: the label shown in the panel, either a string or a multilingual object
+- `rules`: the validation rule array
+
+**Use cases**
+
+- Standardizing internal field conventions
+- Reusing the same rules for phone numbers, codes, dates, and amounts
+- Allowing template authors to pick business rule types directly from the panel
+
+**This is especially useful when**
+
+- Your organization has standardized field conventions shared across multiple templates
+- Your domain uses fixed formats such as contract numbers, patient numbers, student numbers, employee IDs, or customer codes
+- You want validation to be defined at the template design level instead of waiting for backend errors after submission
+
+**Detailed explanation**
+
+- `form.types` does not introduce a new base node type. It adds **selectable rule types** on top of existing variable types
+- Its value is that template authors do not need to write regular expressions themselves. They simply choose from business-approved rule types
+- That allows validation rules to be pulled out of scattered business code and turned into a unified template capability
+
+When it is worth introducing:
+
+- Multiple templates share the same field rules
+- Business fields have stable formats such as contract codes, patient numbers, employee numbers, or customer identifiers
+- You want template authors to configure rules without changing code every time
+
+**How to define custom validation rules**
+
+The most common approach is to append rule types to `form.types` by variable group:
+
+```js
+const defaultOptions = {
+  form: {
+    enabled: true,
+    types: {
+      text: [
+        {
+          type: 'patient_no',
+          text: {
+            zh_CN: '病例号',
+            en_US: 'Patient No.',
+          },
+          rules: [
+            {
+              pattern: /^MR-\d{8}$/,
+              message: {
+                zh_CN: '病例号格式应为 MR-20260729',
+                en_US: 'Patient No. must be like MR-20260729',
+              },
+            },
+          ],
+        },
+      ],
+    },
+  },
+}
+```
+
+Document forms reuse the validation capability of TDesign Vue Next Form. If you want to extend more rule types quickly, the most direct reference is the official TDesign Form documentation: https://tdesign.tencent.com/vue-next/components/form
+
+If you want more stable template maintenance, it is a good idea to standardize commonly used rule-type names such as:
+
+- `contract_code`
+- `employee_no`
+- `patient_no`
+- `invoice_amount`
+
+That way template authors do not need to remember regex details. They just pick a rule type from the variable panel.
+
+**Related pages**
+
+- [Getting Started](./getting-started): minimum example for custom rules
+- [Field Design](./field-design): choose the right field type before adding rules
+- [Troubleshooting](./troubleshooting): when rules do not take effect or value types do not match
+
+### form.finalContentFormat
+
+**Description**: The return format of the final content.
+
+**Type**: `String`
+
+**Allowed values**: `all`, `auto`, `html`, `json`, `text`
+
+**Default**: `auto`
+
+**Behavior**
+
+- `html`: return only HTML
+- `json`: return only JSON
+- `text`: return only plain text
+- `all`: return `html / json / text` together
+- `auto`: follow `document.contentType` if it is `html / json / text`; otherwise fall back to `json`
+
+**Use cases**
+
+- Continue storing structured content on the backend: prefer `json`
+- Integrate with an existing HTML rendering pipeline: prefer `html`
+- Full-text search, summaries, or text review: use `text`
+
+**Detailed explanation**
+
+- This setting decides the format in which final document content is returned inside submission results or generated results
+- It does not change how the template itself is edited. It changes how downstream systems receive and process the result
+- If you need to do things like:
+  - structured persistence
+  - downstream processing
+  - text review
+  - integration with other content services
+  then this format choice matters a lot
+
+**Selection advice**
+
+- If you are not sure, start with `json`
+- Use `html` when you already have an HTML-based rendering chain
+- Use `text` for full-text retrieval, summaries, or moderation workflows
+
+**Related pages**
+
+- [Getting Started](./getting-started): example `onSubmit` result payload
+- [Methods](./methods): result structure returned by `fillFormValues()`
+
+### form.onSubmit
+
+**Description**: Submission callback in manual filling mode.
+
+**Type**: `Function | Async Function | null`
+
+**Default**: `null`
+
+**Parameters**
+
+- `result`: the current submission result object
+- `context`: the form submission context
+
+Main fields currently included in `result`:
+
+- `values`: the current filled values, keeping only non-empty items by default
+- `definitions`: the variable definition list
+- `finalContent`: the final document content generated according to `finalContentFormat`
+- `valid`: whether validation passed
+
+Each item in `definitions` includes:
+
+- `id`
+- `type`
+- `ruleType`
+- `format`
+- `separator`
+- `name`
+- `key`
+- `description`
+- `required`
+- `options`
+- `defaultValue`
+- `value`
+- `props`
+
+**Return value**
+
+It is recommended to return:
+
+```js
+{
+  success: true,
+  message: 'Submitted successfully',
+}
+```
+
+Or:
+
+```js
+{
+  success: false,
+  message: 'Reason for submission failure',
+}
+```
+
+**Use cases**
+
+- Submit filled values to the backend
+- Collect structured field data
+- Start approval workflows
+- Save drafts or final records
+- Trigger secondary processing after business-specific validation
+
+**Detailed explanation**
+
+- `onSubmit` is the single most important outward-facing hook in manual filling flows
+- It does not just return a "submission success" status. It returns all of the following in one place:
+  - the current field values
+  - the current variable definitions
+  - the current result document
+- Because of that, it is an excellent place to unify form submission, structured data collection, and document result collection
+
+**Integration advice**
+
+- In manual filling scenarios, design the business submission flow around `onSubmit`
+- Avoid splitting "read field values" and "get the final document result" into multiple parallel paths. Prefer collecting everything here
+
+**Related pages**
+
+- [Getting Started](./getting-started): minimum manual filling example
+- [Methods](./methods): how to use `result.values / result.definitions / result.finalContent`
+- [Use Cases](./scenarios): approvals, registrations, intake flows, medical records, and other submission scenarios
+
+### form.onSubmitted
+
+**Description**: Notification callback that runs after `onSubmit` completes.
+
+**Type**: `Function | Async Function | null`
+
+**Default**: `null`
+
+**Parameters**
+
+- `status`: `success` or `error`
+- `payload`: additional data describing how the submission finished
+
+In the current flow, `payload` always includes at least:
+
+- `result`: the structured result of the current submission
+
+And depending on the outcome, one of the following is also included:
+
+- `submitResult`: the return value from `onSubmit`
+- `error`: the error thrown by `onSubmit`
+
+**Use cases**
+
+- Redirect after success
+- Refresh a business list after success
+- Log failures or show business-level messages
+
+**Detailed explanation**
+
+- `onSubmitted` is best suited to post-submission actions
+- It does not generate submission results. Instead, it reacts to the success or failure of the submission and lets the business layer trigger UI feedback or workflow side effects
+- You can think of it like this:
+  - `onSubmit` performs the actual submission
+  - `onSubmitted` handles the notification and cleanup after it completes
+
+**Recommended uses**
+
+- Redirect to a detail page or list page after success
+- Close dialogs, refresh data, or show success messages after success
+- Report logs, record telemetry, or show a unified error message after failure
+
+**Related pages**
+
+- [Getting Started](./getting-started): minimum setup for `onSubmit / onSubmitted`
+- [Methods](./methods): recommended callback combination for manual filling
+
+### form.onFillError
+
+**Description**: Error callback for the programmatic population flow.
+
+**Type**: `Function | Async Function | null`
+
+**Default**: `null`
+
+**Parameters**
+
+- `errors`: the error list
+- `context`: the current population context
+
+Based on the current implementation, each item in `errors` may look like:
+
+```js
+{
+  code: 'invalid-richtext-content',
+  key: 'variable_key',
+  item: {},
+}
+```
+
+`context` includes:
+
+- `values`: the variable values passed in for this population run
+- `format`: the output format for this generation run
+- `disableForm`: whether form mode is turned off after generation
+- `sourceContent`: the original document content before population
+- `invalidItems`: the invalid variable item list
+- `filledContent`: the generated result content
+
+**Use cases**
+
+- Raise alerts when rich text variable content is invalid
+- Fall back before or after generation
+- Report failed population attempts
+
+**Detailed explanation**
+
+- `onFillError` is the main exception outlet for programmatic population
+- The most important current use case is invalid rich text content
+- If your business involves:
+  - rich text slots
+  - dynamic tables
+  - batch generation
+  - server-side assembly of complex content
+  then this should be treated as a real integration point, not just a debug hook
+
+**Recommended uses**
+
+- Record failed items in batch generation
+- Fall back to another template or downgrade to plain text when errors occur
+- Report alerts to operations, logging systems, or business monitoring systems
+
+**Related pages**
+
+- [Getting Started](./getting-started): minimum programmatic population example
+- [Methods](./methods): how it works together with `fillFormValues()`
+- [Troubleshooting](./troubleshooting): fallback strategies and common failure cases
+
+## Built-in Type Capabilities
+
+Built-in rule types already cover a set of common business fields, for example:
+
+- Text-like: URL, email, mobile number, ID card number, Chinese full name, postal code, license plate number, bank card number, unified social credit code, and hyphen-separated strings
+- Number-like: positive integer, non-negative integer, integer, two-decimal number, percentage, year, month, and day
+- Date-like: date, date range, time, and time range
+
+If these built-in rules are not enough, you can extend them through `form.types`.
+
+## Guidance on Rich Text Variable Configuration
+
+Rich text variables are better suited to complex structured content generated by the server or another trusted source, such as tables, explanation blocks, or clause bodies.
+
+Their real purpose is not to turn a normal input field into a "big editable text area". Instead, they compensate for the limitations of regular variables when the generated content is structurally complex. For example:
+
+- Tables with an unknown number of rows generated from loops
+- Multiple explanation blocks generated from business data
+- Combined structures such as lists, headings, and block quotes that need to be injected into one variable region
+
+In these cases, ordinary text, number, date, and option variables are often not expressive enough.
+
+They are not recommended as freeform input fields for regular users. The better rule of thumb is:
+
+- Manual filling: prefer text, number, date, and option-based variables
+- Programmatic population: use rich text variables only when necessary, together with `onFillError` as a fallback channel

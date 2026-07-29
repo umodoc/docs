@@ -1,0 +1,301 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+---
+
+# 快速开始
+
+这一页给出最小接入方式，帮助你快速跑通链路。
+
+## 阅读方式
+
+- **第一部分：快速接入**
+   适合第一次接入，只关心怎么把模板、填写、程序出文先跑通
+- **第二部分：进阶说明**
+   适合已经跑通基础链路，想进一步理解回填、运行时生成、富文本边界和结果展示
+
+## 第一部分：快速接入
+
+### 三条最短接入路径
+
+| 目标 | 最小配置 |
+| --- | --- |
+| 做模板 | `form.enabled = true` + `form.mode = 'design'` |
+| 做人工填写 | `form.enabled = true` + `form.mode = 'fill'` + `form.onSubmit` |
+| 做程序出文 | `form.enabled = true` + `form.mode = 'autofill'` + `form.values` |
+
+### 1. 启用文档表单
+
+只要开启 `options.form.enabled`，Umo Editor Next 就会进入表单功能链路。
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'design',
+    values: {},
+  },
+}
+```
+
+这里先记住一点：`form.values` 不只用于程序填充，在用户填写阶段也可以作为初始值和回填值。更完整的说明见后文“进阶说明”。
+
+### 2. 模板设计模式
+
+模板设计模式用于由模板制定人定义变量位。
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'design',
+  },
+}
+```
+
+**推荐流程：**
+
+1. 进入 `design` 模式
+2. 在工具栏的表单菜单中按所需类型插入变量
+3. 在右侧变量面板中配置名称、唯一键、描述、必填、选项、日期格式等属性
+4. 结合[内容锁定](../locked)保护固定模板骨架
+5. 保存模板内容，后续供填写或程序生成
+
+### 3. 人工填写模式
+
+人工填写模式用于把模板交给业务人员填写。
+
+除了“填写一份文档”，它也很适合做文档化的数据收集：用户在填写完成后，系统可以同步拿到结构化变量值与最终文档结果。
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'fill',
+    values: {
+      applicant_name: '张三',
+      applicant_department: '采购部',
+      apply_date: '2026-07-29',
+    },
+    finalContentFormat: 'json',
+    async onSubmit(result, context) {
+      console.log('提交结果', result)
+      console.log('提交上下文', context)
+      return {
+        success: true,
+        message: '提交成功',
+      }
+    },
+    async onSubmitted(status, payload) {
+      console.log('提交结束', status, payload)
+    },
+  },
+}
+```
+
+`onSubmit` 中拿到的 `result` 已经是结构化结果，适合直接提交到业务系统。当前返回结果会包含：
+
+```js
+{
+  values: {
+    // 当前填写值，默认只保留非空项
+  },
+  definitions: [
+    // 当前变量定义列表
+  ],
+  finalContent: {
+    // 根据 finalContentFormat 返回 html / json / text
+  },
+  valid: true,
+}
+```
+
+适合的业务动作包括：
+
+- 保存填写结果
+- 回收结构化字段数据
+- 发起审批流
+- 调用后端生成正式文档
+- 触发导出或归档
+
+这种能力特别适合：
+
+- 在线申请、审批录入、登记上报
+- 电子病历、随访记录、信息采集表等既要保留文档，又要回收字段数据的业务
+- 需要把文档填写结果同步入库、同步流程、同步统计分析的系统
+- 先完成填写，再据此生成 PDF / Word 正式件的场景
+
+### 4. 程序填充模式
+
+程序填充模式用于系统自动出文。
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'autofill',
+    finalContentFormat: 'json',
+    values: {
+      applicant_name: '张三',
+      applicant_department: '采购部',
+      apply_date: '2026-07-29',
+    },
+    async onFillError(errors, context) {
+      console.log('程序填充异常', errors, context)
+    },
+  },
+}
+```
+
+适合的场景：
+
+- 后端一次性传入字段值生成文档
+- 根据订单、申请单、合同数据自动出正式文件
+- 根据不同数据批量生成多份文档
+
+如果你的业务是在编辑器初始化时就已经拿到了变量值，更推荐直接通过 `form.values` 进入程序填充链路。
+
+## 第二部分：进阶说明
+
+### 5. `form.values` 在填写阶段的作用
+
+`form.values` 不只是程序填充模式使用。在用户填写阶段，它同样有明确作用：
+
+- 作为 `fill` 模式下的初始表单值
+- 用于回填历史保存的填写结果
+- 用于草稿恢复、二次编辑、驳回后重新填写等场景
+- 在用户点击“重置”时，作为恢复目标值
+
+也就是说，`fill` 模式下的用户不是一定从空白开始填写，业务系统完全可以先传入一份已有数据，让用户在此基础上继续补充或修改。
+
+它特别适合这些场景：
+
+- 打开一份已保存草稿，继续填写
+- 打开一份被退回的单据，按原值修改后重新提交
+- 由系统先预填姓名、部门、日期等已知信息，再由用户补充剩余字段
+- 只允许用户修改少数字段，其余字段作为默认值展示
+
+### 6. 自定义校验规则
+
+如果内置规则不能满足业务需求，可以通过 `form.types` 扩展自定义规则类型，再让模板制定人在变量设置面板中直接选择。
+
+当前表单校验规则复用了 [TDesign Vue Next - Form 表单](https://tdesign.tencent.com/vue-next/components/form) 的校验能力，因此很多规则写法都可以直接沿用其约定。对于需要快速扩展校验规则的场景，建议直接结合 TDesign 官方文档一起使用：
+
+文档及示例见：[TDesign Vue Next - Form 表单](https://tdesign.tencent.com/vue-next/components/form)
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'design',
+    types: {
+      text: [ // 文本类变量扩展的校验规则
+        {
+          type: 'contract_code',
+          text: {
+            zh_CN: '合同编号',
+            en_US: 'Contract Code',
+          },
+          rules: [
+            {
+              pattern: /^HT-\d{6}$/,
+              message: {
+                zh_CN: '合同编号格式应为 HT-123456',
+                en_US: 'Contract code must be like HT-123456',
+              },
+            },
+          ],
+        },
+      ],
+      number: [], // 数字类变量扩展的校验规则
+      date: [], // 日期类变量扩展的校验规则
+      radio: [], // 单选类变量扩展的校验规则
+      checkbox: [], // 多选类变量扩展的校验规则
+      select: [], // 下拉类变量扩展的校验规则
+      richtext: [], // 富文本类变量扩展的校验规则
+    },
+  },
+}
+```
+
+配置完成后，模板制定人在变量设置面板中就能为对应字段选择这些规则类型。
+
+**常见适用场景：**
+
+- 合同编号、工号、学号、病例号等固定格式字段
+- 手机号、邮箱、网址、身份证号等标准格式字段
+- 金额、数量、比例、年份等需要统一约束的数字字段
+- 企业内部特有的编码规范、单据号规范、客户编号规范
+
+**规则编写建议：**
+
+- 文本、编号类字段优先使用 `pattern`
+- 长度限制可使用 `maxlength`
+- 错误提示建议始终配置 `message`
+- 如果是多语言项目，`message` 和 `text` 推荐使用多语言对象
+
+### 7. 运行时调用 `fillFormValues`
+
+如果变量值不是初始化时就能拿到，或者你需要在实例运行过程中按新数据重新生成结果，也可以动态调用：
+
+```js
+const editorRef = ref(null)
+
+const generateDocument = async () => {
+  await editorRef.value.fillFormValues(
+    {
+      applicant_name: '张三',
+      applicant_department: '采购部',
+      apply_date: '2026-07-29',
+    },
+    {
+      format: 'json',
+      disableForm: true,
+    },
+  )
+}
+```
+
+其中：
+
+- `format` 对应最终内容格式，可选 `auto / html / json / text`
+- `disableForm` 默认为 `true`，表示生成后关闭表单态，直接把结果内容写回编辑器
+
+如果把 `disableForm` 设为 `false`，则会在保留表单能力的前提下，把本次生成结果写回当前实例。它更适合这类场景：
+
+- 编辑器实例已经创建，需要按新数据重新生成
+- 前端切换不同单据时复用同一模板
+- 在正式提交前，由程序先生成一版结果供业务侧继续处理
+
+更推荐的用法是：把它作为 `autofill` 模式下的运行时补充入口，而不是默认入口。也就是说，**如果你的目标是“按变量生成正式结果文档”**，优先建议通过 `form.values` 传入数据；在运行时需要重新生成时，再调用该方法。
+
+### 8. 富文本变量的使用建议
+
+富文本变量更推荐用于**程序填充**，例如后端把复杂表格、带格式说明、分段内容塞进模板中的制定区域。
+
+更准确地说，它的设计初衷是为了弥补普通变量的能力边界。因为很多复杂场景下，程序要生成的不是一个简单字段值，而是一整段结构化内容。例如：
+
+- 根据循环数据动态生成表格行
+- 根据明细列表动态生成多个条目段落
+- 根据条件决定是否输出某个章节、列表或说明块
+
+这类需求如果只依赖普通变量，通常会让模板结构变得很别扭，也不利于维护。
+
+**不建议把富文本变量作为普通用户的手工填写项，原因是：**
+
+- 输入内容复杂，结果可控性差
+- 更容易引入结构性错误
+- 业务上通常也不需要填写人去编辑复杂排版内容
+
+如果程序传入的富文本内容不合法，`onFillError` 会收到错误列表，业务侧可以选择回退、告警或改用普通文本兜底。
+
+### 9. 结果查看模式的适用场景
+
+当你已经拿到一份变量值，并且当前页面的目标是“展示结果而不是继续填写”时，可以直接使用 `form.mode = 'result'`。
+
+**它适合的场景：**
+
+- 审批、归档、签发前查看最终效果
+- 生成完成后的只读展示页
+- 在线预览最终结果，再决定是否导出 Word、PDF 等正式文件

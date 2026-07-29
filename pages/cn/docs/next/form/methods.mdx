@@ -1,0 +1,272 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,文档编辑,协同办公
+description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+---
+
+# 方法列表
+
+表单能力除了文档生成之外，还有一个很核心的作用，就是把填写结果作为结构化数据回收到业务系统。
+
+## 本页重点
+
+- 哪些入口属于实例方法，哪些入口属于回调
+- 人工填写、程序生成、模板保存分别该看哪一段
+- `fillFormValues` 应该在什么场景下使用
+- `result`、`autofill`、`fillFormValues` 应该怎么选
+
+## 使用入口概览
+
+表单相关能力主要通过四类入口对外提供：
+
+| 入口 | 类型 | 适合场景 |
+| --- | --- | --- |
+| `fillFormValues(values, options)` | 编辑器实例方法 | 实例创建后按新数据重新生成结果 |
+| `form.onSubmit(result, context)` | 配置回调 | 人工填写后的提交与数据回收 |
+| `form.onSubmitted(status, payload)` | 配置回调 | 提交结束后的收尾动作 |
+| `form.onFillError(errors, context)` | 配置回调 | 程序填充异常兜底 |
+| `onSave(content, page, document, comments, form)` | 编辑器整体保存回调 | 保存模板或文档时同步回收表单数据 |
+
+如果你只是第一次接入，建议先看：
+
+- 人工填写：`form.onSubmit`
+- 程序生成：`fillFormValues` 与 `form.onFillError`
+- 模板维护：`onSave`
+
+## 编辑器实例方法
+
+### fillFormValues
+
+**说明**：运行时按变量值填充当前文档模板，并生成结果内容。
+
+它更适合作为运行时补充入口：当编辑器已经创建完成，而你又需要根据新数据重新生成结果时，再使用它。若变量值在初始化阶段就已经准备好，优先建议直接配置 `form.values`。
+
+**调用示例**：
+
+```js
+const editorRef = ref(null)
+
+const generateDocument = async () => {
+  const result = await editorRef.value.fillFormValues(
+    {
+      contract_name: '采购框架协议',
+      customer_name: '某某科技有限公司',
+      sign_date: '2026-07-29',
+    },
+    {
+      format: 'json',
+      disableForm: true,
+    },
+  )
+
+  console.log(result)
+}
+```
+
+**参数**：
+
+- `values`：`Object`，要填充的变量值对象，key 应与模板中的变量 `key` 或 `id` 对应
+- `options`：`Object`
+  - `format`：`auto | html | json | text`
+  - `disableForm`：`Boolean`，默认 `true`
+
+**参数说明**：
+
+- `disableForm = true`：生成后退出表单态，直接把结果写回正文
+- `disableForm = false`：保留表单能力，适合实例已创建后的运行时再生成
+
+**返回值**：
+
+返回程序填充后的结果对象，可能包含：
+
+- `format`
+- `html`
+- `json`
+- `text`
+- `invalidItems`
+- `errors`
+
+如果没有成功生成内容，则可能返回 `null`。
+
+**适合场景**：
+
+- 编辑器实例已存在，需要按新数据重新生成结果
+- 用户切换不同业务单据时，复用同一模板重新生成内容
+- 前端异步取数后，再触发正式出文
+- 审批流节点按当前数据生成归档文档
+
+**相关页面**：
+
+- [快速开始](./getting-started)：查看最小接入示例
+- [配置项](./options)：查看 `form.values`、`form.finalContentFormat`、`form.onFillError`
+- [排障指南](./troubleshooting)：查看填充失败时的排查与兜底
+
+## 人工填写相关回调
+
+### form.onSubmit
+
+**说明**：人工填写模式下的提交回调。
+
+对于人工填写场景，更推荐通过 `form.onSubmit(result, context)` 获取结果，而不是额外封装读取逻辑。
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'fill',
+    async onSubmit(result) {
+      console.log(result.values)
+      console.log(result.definitions)
+      console.log(result.finalContent)
+      return {
+        success: true,
+      }
+    },
+  },
+}
+```
+
+**参数**：
+
+- `result`：当前提交结果对象
+- `context`：表单提交上下文
+
+`result` 中最常用的字段包括：
+
+- `result.values`：当前填写值，默认已过滤空值
+- `result.definitions`：当前变量定义与当前值
+- `result.finalContent`：最终结果文档
+
+**适合场景**：
+
+- 表单提交保存
+- 填写结果校验通过后的业务入库
+- 问卷、登记、采集场景中的结构化数据回收
+- 发起审批或工作流
+
+**相关页面**：
+
+- [快速开始](./getting-started)：查看人工填写最小示例
+- [配置项](./options)：查看 `form.onSubmit` 的返回值结构
+- [使用场景](./scenarios)：查看审批、登记、采集、病历等提交类场景
+
+### form.onSubmitted
+
+**说明**：`onSubmit` 结束后的通知回调。
+
+它更适合承担“提交结束后的后置动作”，例如跳转、提示、刷新、上报日志。
+
+**参数**：
+
+- `status`：`success` 或 `error`
+- `payload`：提交结束时的附加数据
+
+`payload` 至少会包含：
+
+- `result`：本次提交的结构化结果
+
+并根据提交结果附带以下其中之一：
+
+- `submitResult`：`onSubmit` 的返回值
+- `error`：`onSubmit` 抛出的错误对象
+
+**适合场景**：
+
+- 成功后跳转页面
+- 成功后刷新业务列表
+- 失败后上报日志或弹出业务提示
+
+**相关页面**：
+
+- [配置项](./options)：查看 `form.onSubmitted` 的完整说明
+- [快速开始](./getting-started)：查看 `onSubmit / onSubmitted` 配合示例
+
+## 程序生成异常回调
+
+### form.onFillError
+
+**说明**：程序填充链路的错误回调。
+
+程序填充时，如果富文本变量内容不合法，或者某些变量无法安全落入文档模型，当前链路会触发该回调。
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'autofill',
+    async onFillError(errors, context) {
+      console.log(errors, context)
+    },
+  },
+}
+```
+
+**参数**：
+
+- `errors`：错误列表
+- `context`：本次填充上下文
+
+**适合场景**：
+
+- 富文本内容由后端生成，需要监控失败率
+- 生成失败时自动切换兜底模板
+- 批量出文时记录失败项和告警
+
+**相关页面**：
+
+- [配置项](./options)：查看 `errors` 和 `context` 的详细字段
+- [排障指南](./troubleshooting)：查看异常兜底和常见问题排查
+- [快速开始](./getting-started)：查看程序填充最小示例
+
+## 保存文档时获取表单数据
+
+### onSave
+
+**说明**：编辑器整体保存回调，可在保存模板或文档时同步拿到表单信息。
+
+当同时开启批注与表单能力时，`onSave` 的回调参数顺序可理解为：
+
+```js
+async function onSave(content, page, document, comments, form) {}
+```
+
+其中：
+
+- `comments`：当前批注线程列表
+- `form`：当前表单结构化数据
+
+`form` 中通常会包含：
+
+```js
+{
+  values: {},
+  definitions: [],
+}
+```
+
+**适合场景**：
+
+- 保存模板时同步保存变量定义
+- 保存文档时同步保存变量值与字段描述
+- 在一次保存中同时回收正文、评论与表单数据
+
+**相关页面**：
+
+- [配置项](./options)：查看 `form.values` 和字段定义相关说明
+- [字段设计](./field-design)：查看 `key / name / description / required` 的设计建议
+
+## 方法使用建议
+
+这个页面更适合解决“有哪些方法 / 回调可用、参数是什么、返回什么”的问题。
+
+如果你当前想解决的是“整条链路应该怎么选”，建议直接看下面这些页面：
+
+- [核心概念](./concepts)：理解 `result`、`autofill`、`fillFormValues` 的边界
+- [快速开始](./getting-started)：按模板设计、人工填写、程序出文三条路径快速接入
+- [使用场景](./scenarios)：按业务目标判断该走哪条链路
+
+可以先这样记：
+
+- 人工填写：优先看 `form.onSubmit`、`form.onSubmitted`
+- 程序生成：优先看 `form.values`、`form.onFillError`
+- 模板维护：优先看 `onSave`

@@ -1,0 +1,301 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Getting Started
+
+This page focuses on the minimum setup you need to get the flow running.
+
+## How to Read This Page
+
+- **Part 1: Quick Start**
+  Best for first-time integration, when you only care about getting template design, manual filling, or programmatic generation working
+- **Part 2: Advanced Notes**
+  Best after the baseline flow already works and you want to understand prefilling, runtime generation, rich-text boundaries, and result viewing
+
+## Part 1: Quick Start
+
+### Three Shortest Integration Paths
+
+| Goal | Minimum Setup |
+| --- | --- |
+| Build templates | `form.enabled = true` + `form.mode = 'design'` |
+| Let users fill the document | `form.enabled = true` + `form.mode = 'fill'` + `form.onSubmit` |
+| Generate documents programmatically | `form.enabled = true` + `form.mode = 'autofill'` + `form.values` |
+
+### 1. Enable Document Forms
+
+As soon as you enable `options.form.enabled`, Umo Editor Next enters the document form flow.
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'design',
+    values: {},
+  },
+}
+```
+
+One thing to remember up front: `form.values` is not only for programmatic population. During manual filling, it can also act as the initial value set and the value source for backfilling. A fuller explanation appears later in "Advanced Notes".
+
+### 2. Template Design Mode
+
+Template design mode is for template authors to define variable placeholders.
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'design',
+  },
+}
+```
+
+**Recommended flow:**
+
+1. Enter `design` mode
+2. Use the form menu in the toolbar to insert variables of the required types
+3. Configure the variable name, unique key, description, required flag, option list, date format, and related properties in the panel on the right
+4. Use [Content Locking](../locked) to protect the fixed template skeleton
+5. Save the template so it can later be filled manually or populated by code
+
+### 3. Manual Filling Mode
+
+Manual filling mode is for handing the template over to business users for completion.
+
+It is useful not only for "filling out a document", but also for document-based data collection. After the user completes the document, the system can collect both the structured variable values and the final document result.
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'fill',
+    values: {
+      applicant_name: 'John Doe',
+      applicant_department: 'Procurement',
+      apply_date: '2026-07-29',
+    },
+    finalContentFormat: 'json',
+    async onSubmit(result, context) {
+      console.log('submit result', result)
+      console.log('submit context', context)
+      return {
+        success: true,
+        message: 'Submitted successfully',
+      }
+    },
+    async onSubmitted(status, payload) {
+      console.log('submit finished', status, payload)
+    },
+  },
+}
+```
+
+The `result` you get in `onSubmit` is already structured and is ready to be sent to your business system. It currently includes:
+
+```js
+{
+  values: {
+    // current filled values, keeping only non-empty items by default
+  },
+  definitions: [
+    // current variable definition list
+  ],
+  finalContent: {
+    // returns html / json / text depending on finalContentFormat
+  },
+  valid: true,
+}
+```
+
+Typical business actions include:
+
+- Saving the filled result
+- Collecting structured field data
+- Starting an approval workflow
+- Calling backend services to generate a formal document
+- Triggering export or archiving
+
+This is especially useful for:
+
+- Online applications, approval forms, and registration/reporting flows
+- Electronic medical records, follow-up records, information collection sheets, and similar scenarios that need both a document and structured field data
+- Systems that need to persist filled results into storage, workflows, and analytics at the same time
+- Scenarios where users fill the document first, then generate a formal PDF or Word file from it
+
+### 4. Programmatic Population Mode
+
+Programmatic population mode is for automatic document generation by the system.
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'autofill',
+    finalContentFormat: 'json',
+    values: {
+      applicant_name: 'John Doe',
+      applicant_department: 'Procurement',
+      apply_date: '2026-07-29',
+    },
+    async onFillError(errors, context) {
+      console.log('population errors', errors, context)
+    },
+  },
+}
+```
+
+Typical scenarios:
+
+- The backend passes field values once and generates the document
+- Formal documents are generated automatically from orders, applications, or contract data
+- Multiple documents are generated in batch from different data sets
+
+If your application already has the variable values when the editor is initialized, using `form.values` directly is usually the preferred way to enter the programmatic population flow.
+
+## Part 2: Advanced Notes
+
+### 5. What `form.values` Does During Manual Filling
+
+`form.values` is not only used in programmatic population mode. It also has a clear role during manual filling:
+
+- It acts as the initial form values in `fill` mode
+- It can backfill previously saved filling results
+- It supports draft restore, second-pass editing, and refilling after rejection
+- It is the target state when the user clicks Reset
+
+In other words, users in `fill` mode do not have to start from a blank state. The business system can pass in an existing data set first, and users can then continue completing or adjusting it.
+
+This is especially useful for:
+
+- Reopening a saved draft and continuing from there
+- Reopening a rejected request and submitting it again after editing the original values
+- Letting the system prefill known fields such as name, department, and date, while the user fills the rest
+- Showing certain values as defaults while only allowing the user to edit a small subset of fields
+
+### 6. Custom Validation Rules
+
+If the built-in rules do not meet your business requirements, you can extend `form.types` with custom rule types, then let template authors select those rule types directly in the variable settings panel.
+
+Document form validation reuses the validation capabilities of [TDesign Vue Next - Form](https://tdesign.tencent.com/vue-next/components/form), so many rule definitions can follow the same conventions. If you need to extend validation quickly, the TDesign docs are the best companion reference:
+
+Documentation and examples: [TDesign Vue Next - Form](https://tdesign.tencent.com/vue-next/components/form)
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'design',
+    types: {
+      text: [
+        {
+          type: 'contract_code',
+          text: {
+            zh_CN: '合同编号',
+            en_US: 'Contract Code',
+          },
+          rules: [
+            {
+              pattern: /^HT-\d{6}$/,
+              message: {
+                zh_CN: '合同编号格式应为 HT-123456',
+                en_US: 'Contract code must be like HT-123456',
+              },
+            },
+          ],
+        },
+      ],
+      number: [],
+      date: [],
+      radio: [],
+      checkbox: [],
+      select: [],
+      richtext: [],
+    },
+  },
+}
+```
+
+After configuration, template authors can choose these rule types directly for the corresponding field in the variable settings panel.
+
+**Common use cases:**
+
+- Fixed-format fields such as contract numbers, employee IDs, student IDs, and medical record numbers
+- Standard-format fields such as phone numbers, email addresses, URLs, and ID numbers
+- Numeric fields such as amounts, quantities, percentages, and years that need consistent validation
+- Internal business formats such as custom numbering rules, document codes, and customer IDs
+
+**Rule-writing suggestions:**
+
+- Prefer `pattern` for text and code-like fields
+- Use `maxlength` for length limits
+- Always configure a `message` for validation failures
+- In multilingual projects, prefer multi-language objects for both `message` and `text`
+
+### 7. Calling `fillFormValues` at Runtime
+
+If the variable values are not available at initialization time, or if you need to regenerate the result with new data while the editor is already running, you can call the method dynamically:
+
+```js
+const editorRef = ref(null)
+
+const generateDocument = async () => {
+  await editorRef.value.fillFormValues(
+    {
+      applicant_name: 'John Doe',
+      applicant_department: 'Procurement',
+      apply_date: '2026-07-29',
+    },
+    {
+      format: 'json',
+      disableForm: true,
+    },
+  )
+}
+```
+
+Where:
+
+- `format` controls the final content format and can be `auto / html / json / text`
+- `disableForm` defaults to `true`, which means the form mode is closed after generation and the generated result is written back into the editor
+
+If `disableForm` is set to `false`, the generated result is written back into the current instance while preserving form capability. This fits scenarios such as:
+
+- The editor instance already exists and must regenerate using new data
+- The frontend reuses the same template while switching between different business records
+- The system wants to generate a result first before formal submission, while still allowing further business-side handling
+
+The preferred approach is to treat `fillFormValues` as a runtime supplement for `autofill`, not as the default entry point. In other words, **if your goal is to generate a formal result document from variables**, prefer passing data through `form.values`; call this method only when you truly need to regenerate at runtime.
+
+### 8. Guidance on Rich Text Variables
+
+Rich text variables are best used for **programmatic population**, for example when the backend needs to inject complex tables, formatted explanations, or structured multi-paragraph content into a predefined area of the template.
+
+More precisely, they exist to extend beyond the boundaries of regular variables. In many real-world scenarios, the system needs to generate not a simple field value, but an entire block of structured content. For example:
+
+- Generating table rows dynamically from looped data
+- Generating multiple line items from a detail list
+- Deciding whether to output certain sections, lists, or explanation blocks based on conditions
+
+If you try to model these cases using only ordinary variables, the template often becomes awkward and difficult to maintain.
+
+**Rich text variables are not recommended as a manual input type for regular end users because:**
+
+- The content is more complex, so the result is less predictable
+- It is easier to introduce structural errors
+- In most business scenarios, end users should not be editing complex layout structures directly
+
+If the system passes invalid rich text content, `onFillError` will receive the error list so the business layer can choose to fall back, raise an alert, or switch to plain text as a safer fallback.
+
+### 9. When to Use Result Mode
+
+If you already have a set of variable values and the page goal is to **show the result rather than continue filling**, you can use `form.mode = 'result'`.
+
+**Typical scenarios:**
+
+- Reviewing the final effect before approval, archiving, or signature
+- Read-only result pages after generation is complete
+- Online preview of the final result before deciding whether to export Word, PDF, or other formal deliverables

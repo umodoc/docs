@@ -1,0 +1,276 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Methods
+
+Beyond document generation, document forms have another core responsibility: returning filled results back to your business system as structured data.
+
+## What This Page Covers
+
+- Which entry points are instance methods and which are callbacks
+- Where to look for manual filling, programmatic generation, and template-saving flows
+- In what situations `fillFormValues` should be used
+- How `result`, `autofill`, and `fillFormValues` differ
+
+## Entry Points at a Glance
+
+Document form capabilities are mainly exposed through the following entry points:
+
+| Entry Point | Type | Best For |
+| --- | --- | --- |
+| `fillFormValues(values, options)` | Editor instance method | Regenerating results with new data after the instance has already been created |
+| `form.onSubmit(result, context)` | Config callback | Submission and data collection after manual filling |
+| `form.onSubmitted(status, payload)` | Config callback | Post-submission cleanup actions |
+| `form.onFillError(errors, context)` | Config callback | Programmatic population fallback and error handling |
+| `onSave(content, page, document, comments, form)` | Global editor save callback | Collecting form data when saving a template or a document |
+
+If this is your first integration, start here:
+
+- Manual filling: `form.onSubmit`
+- Programmatic generation: `fillFormValues` and `form.onFillError`
+- Template maintenance: `onSave`
+
+## Editor Instance Method
+
+### fillFormValues
+
+**Description**: Populate the current document template with variable values at runtime and generate the result content.
+
+This method is best treated as a runtime supplement. Use it when the editor has already been created and you need to regenerate the result from a new set of data. If the variable values are already available during initialization, prefer passing them through `form.values`.
+
+**Example**
+
+```js
+const editorRef = ref(null)
+
+const generateDocument = async () => {
+  const result = await editorRef.value.fillFormValues(
+    {
+      contract_name: 'Master Procurement Agreement',
+      customer_name: 'Example Technology Ltd.',
+      sign_date: '2026-07-29',
+    },
+    {
+      format: 'json',
+      disableForm: true,
+    },
+  )
+
+  console.log(result)
+}
+```
+
+**Parameters**
+
+- `values`: `Object`, the variable value object to populate; keys should match the variable `key` or `id` used in the template
+- `options`: `Object`
+  - `format`: `auto | html | json | text`
+  - `disableForm`: `Boolean`, default `true`
+
+**Parameter notes**
+
+- `disableForm = true`: exit form mode after generation and write the generated result directly back into the document body
+- `disableForm = false`: keep form capability enabled, which is better suited to regenerating at runtime while staying inside the form flow
+
+**Returns**
+
+Returns the generated result object, which may include:
+
+- `format`
+- `html`
+- `json`
+- `text`
+- `invalidItems`
+- `errors`
+
+If no content could be generated successfully, it may return `null`.
+
+**Best-fit scenarios**
+
+- The editor instance already exists and needs to regenerate from new data
+- Reusing the same template while switching between business records
+- Triggering formal document generation after asynchronous data loading on the frontend
+- Generating archived documents at approval workflow nodes
+
+**See also**
+
+- [Getting Started](./getting-started): minimum integration example
+- [Configuration](./options): `form.values`, `form.finalContentFormat`, and `form.onFillError`
+- [Troubleshooting](./troubleshooting): population failure checks and fallback strategies
+
+## Manual Filling Callbacks
+
+### form.onSubmit
+
+**Description**: Submission callback for manual filling mode.
+
+For manual filling scenarios, `form.onSubmit(result, context)` is the recommended way to retrieve the result, rather than building a separate readback path.
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'fill',
+    async onSubmit(result) {
+      console.log(result.values)
+      console.log(result.definitions)
+      console.log(result.finalContent)
+      return {
+        success: true,
+      }
+    },
+  },
+}
+```
+
+**Parameters**
+
+- `result`: the current submission result object
+- `context`: the form submission context
+
+The most commonly used fields inside `result` are:
+
+- `result.values`: the current filled values, with empty items filtered out by default
+- `result.definitions`: the current variable definitions together with their current values
+- `result.finalContent`: the final result document
+
+**Best-fit scenarios**
+
+- Submitting and saving a filled form
+- Writing validated data into backend systems
+- Collecting structured data in questionnaires, registrations, or intake flows
+- Launching approvals or workflows
+
+**See also**
+
+- [Getting Started](./getting-started): minimum manual filling example
+- [Configuration](./options): detailed structure of `form.onSubmit`
+- [Use Cases](./scenarios): submission-oriented scenarios such as approvals, registrations, intake, and medical records
+
+### form.onSubmitted
+
+**Description**: Notification callback that runs after `onSubmit` finishes.
+
+It is better suited to post-submission actions such as navigation, user feedback, refresh, telemetry, and logging.
+
+**Parameters**
+
+- `status`: `success` or `error`
+- `payload`: additional data describing how the submission finished
+
+`payload` always includes at least:
+
+- `result`: the structured result of the current submission
+
+And depending on outcome, it also includes one of the following:
+
+- `submitResult`: the value returned from `onSubmit`
+- `error`: the error thrown by `onSubmit`
+
+**Best-fit scenarios**
+
+- Redirect after a successful submission
+- Refresh the business list after success
+- Log failures or show business-level error messages
+
+**See also**
+
+- [Configuration](./options): full reference for `form.onSubmitted`
+- [Getting Started](./getting-started): how `onSubmit` and `onSubmitted` work together
+
+## Error Callback for Programmatic Generation
+
+### form.onFillError
+
+**Description**: Error callback for the programmatic population flow.
+
+This callback is triggered when rich text content is invalid, or when some variable content cannot be safely written into the current document model during population.
+
+```js
+const editorOptions = {
+  form: {
+    enabled: true,
+    mode: 'autofill',
+    async onFillError(errors, context) {
+      console.log(errors, context)
+    },
+  },
+}
+```
+
+**Parameters**
+
+- `errors`: the error list
+- `context`: the current population context
+
+**Best-fit scenarios**
+
+- Monitoring failure rates when rich text content is generated by the backend
+- Automatically switching to fallback templates when generation fails
+- Recording failed items and alerts in batch generation flows
+
+**See also**
+
+- [Configuration](./options): detailed fields inside `errors` and `context`
+- [Troubleshooting](./troubleshooting): fallback and common failure patterns
+- [Getting Started](./getting-started): minimum programmatic population example
+
+## Collecting Form Data During Save
+
+### onSave
+
+**Description**: Global editor save callback. It can be used to collect form data while saving templates or documents.
+
+When both comments and forms are enabled, the callback signature can be understood as:
+
+```js
+async function onSave(content, page, document, comments, form) {}
+```
+
+Where:
+
+- `comments`: the current comment thread list
+- `form`: the current structured form payload
+
+`form` typically contains:
+
+```js
+{
+  values: {},
+  definitions: [],
+}
+```
+
+**Best-fit scenarios**
+
+- Saving variable definitions together with the template
+- Saving variable values and field descriptions together with the document
+- Collecting body content, comments, and form data in a single save operation
+
+**See also**
+
+- [Configuration](./options): `form.values` and variable definition details
+- [Field Design](./field-design): design guidance for `key / name / description / required`
+
+## How to Use This Page
+
+This page is best for questions like:
+
+- What methods and callbacks are available?
+- What parameters do they receive?
+- What do they return?
+
+If what you need is broader flow selection guidance, go to these pages instead:
+
+- [Core Concepts](./concepts): understand the boundaries between `result`, `autofill`, and `fillFormValues`
+- [Getting Started](./getting-started): start from the three main entry paths
+- [Use Cases](./scenarios): choose the flow by business objective
+
+As a quick rule of thumb:
+
+- Manual filling: look first at `form.onSubmit` and `form.onSubmitted`
+- Programmatic generation: look first at `form.values` and `form.onFillError`
+- Template maintenance: look first at `onSave`

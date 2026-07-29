@@ -1,0 +1,314 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+# Troubleshooting
+
+This page is organized around "recommended approach -> fallback strategy -> common issues". It focuses on integration paths involving `autofill`, `form.values`, `fillFormValues()`, and `onFillError()`.
+
+## Recommended Debugging Order
+
+When something goes wrong, check these points in order:
+
+1. Whether the current mode is correct: `fill / result / autofill`
+2. Whether the variable `key` values are stable and match the incoming data
+3. Whether each value matches the expected field shape
+4. Whether rich text content exceeds what the current document model can safely accept
+5. Whether the issue happens during population or during export
+
+## Quick Triage Table
+
+| Symptom | Check First |
+| --- | --- |
+| No result after calling the API | Mode, input object, and matching variable `key` values |
+| Some fields were not replaced | Empty values, or unstable / mismatched field keys |
+| Checkbox groups or date ranges display incorrectly | Whether the value shape is an array |
+| Image-like variables do not render | Whether a valid `url` is present |
+| Rich text generation fails | Whether the content structure is valid and should be handled by `onFillError` |
+
+## 1. Recommended Programmatic Population Flow
+
+If your goal is "generate formal documents in batch from a template", this is the recommended path:
+
+1. Let the template owner finish the template first
+2. Prepare a variable-value object in the backend or business system
+3. Prefer `form.mode = 'autofill'` with `form.values`
+4. Generate the final content
+5. Chain the result into Word, PDF, or image export
+
+`fillFormValues(values, options)` is better suited to runtime scenarios where the result must be regenerated after the editor instance already exists, such as switching business records, switching data sources, or clicking a "Regenerate" action.
+
+Benefits of this approach:
+
+- Templates and programs share the same document model
+- Manual filling and programmatic population share the same field definitions
+- Layout stays more stable when generating at scale
+
+## 2. Best Practices Before Population
+
+### 1. Do Not Depend on Variable `id`
+
+In production integrations, always pass values through stable `key` values. Do not depend on the automatically generated `id` from template editing.
+
+Why:
+
+- `id` is closer to an internal editor node identifier
+- It is not stable enough after template changes
+- It is not a good long-term mapping contract for backend systems
+
+### 2. Normalize Data on the Service Side First
+
+Before calling the editor, reshape business data into values that already match the target field type:
+
+- Text: string
+- Multi-select: array
+- Date range: array with two items
+- Image-like fields: an object with `url`, or a URL string
+- Rich text: trusted document content
+
+Do not make the editor runtime the main place where value cleanup happens.
+
+### 3. Prefer Structured Fields Over Rich Text
+
+Rich text variables are meant for complex content blocks, not for carrying many ordinary fields.
+
+If the content can be expressed as:
+
+- date
+- amount
+- option
+- text
+
+then keep it as structured variables instead of building one large rich text payload first.
+
+### 4. Separate Population from Export in Batch Pipelines
+
+Use a two-layer flow:
+
+- Layer 1: populate the template and produce each result document
+- Layer 2: export the result to Word, PDF, or images
+
+This makes debugging much easier because you can tell whether the failure belongs to population or export.
+
+### 5. Treat `onFillError` as a Real Integration Capability
+
+Do not treat `onFillError` as a temporary debugging log.
+
+It is better used for:
+
+- recording generation failures
+- identifying invalid variable items
+- triggering business alerts
+- choosing fallback templates or downgrade strategies
+
+## 3. Recommended Fallback Strategies
+
+### Strategy 1: Record the Error and Stop the Document Flow
+
+This is appropriate for contracts, agreements, certificates, and other serious documents.
+
+```js
+form: {
+  enabled: true,
+  mode: 'autofill',
+  async onFillError(errors, context) {
+    console.error('Document population failed', errors, context)
+    throw new Error('Variable population failed. Please check the template or incoming data.')
+  },
+}
+```
+
+Best for:
+
+- formal contracts
+- legal documents
+- compliance archive documents
+
+### Strategy 2: Record the Error and Downgrade to Plain Text
+
+This is appropriate for non-critical sections such as supplemental explanations or narrative report content.
+
+The idea is:
+
+- detect a rich text variable failure
+- downgrade that part to plain text
+- regenerate the document
+
+Best for:
+
+- supplemental report explanations
+- auto-generated notice bodies
+- lower-risk display documents
+
+### Strategy 3: Record the Error and Fall Back to Manual Handling
+
+This is useful for workflows that generate in batch but still allow a human to finish the last step.
+
+For example:
+
+- generate 90% of the content in batch first
+- route failed records into a manual review queue
+
+## 4. What Triggers `onFillError`
+
+Based on the current source implementation, `onFillError(errors, context)` is primarily meant to handle cases where **rich text variable content is invalid**.
+
+The current error `code` is:
+
+```txt
+invalid-richtext-content
+```
+
+That means the most important cases to defend against are:
+
+- the rich text structure is invalid
+- the rich text cannot be safely written into the current document model
+
+## 5. Common Issues and How to Check Them
+
+### 1. Why Does `fillFormValues()` Seem to Do Nothing?
+
+Check these first:
+
+- whether `values` is really an object
+- whether the keys match the template variable `key` values
+- whether those variables actually exist in the template
+
+Also, if your goal is the formal programmatic population path, it is better to run the editor in `form.mode = 'autofill'` and then call the method.
+
+### 2. Why Were Some Variables Not Replaced?
+
+Common causes:
+
+- the incoming key does not match
+- the value is empty
+- the variable does not have a stable `key`, so the flow depends on `id`
+
+Recommended fix:
+
+- define explicit keys for all production fields in the template
+- keep a centralized field mapping table on the program side
+
+### 3. Why Does a Checkbox Field Not Show Its Result?
+
+Checkbox groups expect an array. If you pass a string or another shape, the runtime will not treat it as a proper multi-select value.
+
+Recommended example:
+
+```js
+{
+  notify_channels: ['sms', 'email'],
+}
+```
+
+### 4. Why Does a Date Range Not Show Correctly?
+
+Date ranges and time ranges should be passed as an array with two items. If only one side is provided, or the value is empty, the runtime treats it as an empty range.
+
+Recommended example:
+
+```js
+{
+  service_period: ['2026-08-01', '2026-08-31'],
+}
+```
+
+### 5. Why Is an Image-Like Variable Still Empty After Population?
+
+Based on the current implementation, image-like variables need at least a valid `url`.
+
+Both of these are valid:
+
+```js
+{
+  sign_image: 'https://example.com/sign.png',
+}
+```
+
+or:
+
+```js
+{
+  sign_image: {
+    url: 'https://example.com/sign.png',
+    name: 'Signature',
+  },
+}
+```
+
+If the object does not contain `url`, the value is treated as empty.
+
+### 6. Why Did a Rich Text Variable Trigger `onFillError`?
+
+The most common reasons are:
+
+- the content is not in a structure the editor can recognize
+- the nesting is invalid
+- the payload is only a partially assembled business-side draft
+
+Recommended debugging order:
+
+1. Confirm whether you really need a rich text variable
+2. If the content is just a normal field, switch back to text, number, date, or options
+3. If rich text is truly required, generate and validate it in one place on the service side
+4. On failure, record both `errors` and `invalidItems` through `onFillError`
+
+### 7. Why Are Unfilled Variables Missing from the Final Result?
+
+In the `autofill` flow, variable nodes that do not receive values are removed from the final content. This is expected behavior in the current implementation because it prevents placeholders from leaking into formal output.
+
+So if some fields should remain visible even when empty, do not rely on unfilled placeholders. Instead:
+
+- write fallback copy directly into the template body, or
+- fill default values on the program side before generation
+
+### 8. Why Did `onFillError` Not Fire Even Though the Result Is Still Empty?
+
+You need to distinguish between two different cases:
+
+- `onFillError` mainly handles invalid rich text variables
+- if no valid final result was produced at all, `fillFormValues()` may return `null` directly
+
+In that case, check these first:
+
+- whether the source template content is usable
+- whether the requested `format` is correct
+- whether the outer business flow handles the return value correctly
+
+### 9. Why Does Batch Generation Sometimes Succeed and Sometimes Fail?
+
+This usually does not mean the editor is randomly failing. It usually means the incoming data is inconsistent.
+
+Check these first:
+
+- whether different batches use different field keys
+- whether rich text content comes from inconsistent sources
+- whether some image URLs are empty or invalid
+- whether fields that should be arrays were sent as strings
+
+## 6. Recommended Pattern for Batch Document Generation
+
+If your goal is to batch-generate PDF or Word files, organize the flow like this:
+
+1. Maintain one stable template
+2. Normalize variable data on the service side
+3. Populate one result at a time
+4. Export each result
+5. Record the population and export status for every document
+
+Do not collapse population, export, upload, and archiving into one black-box step. Keeping them separate makes issues much easier to locate.
+
+## 7. One Simple Integration Rule
+
+If programmatic population becomes increasingly hard to maintain, the problem usually is not that the editor is not "smart enough". More often, the field design has not been made stable enough yet.
+
+Go back and check:
+
+- whether keys are stable
+- whether types were chosen correctly
+- whether rich text is overused
+- whether business data was normalized first
+
+Once these are stable, programmatic population, batch generation, and PDF/Word export all become much more predictable.

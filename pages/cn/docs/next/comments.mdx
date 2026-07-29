@@ -57,6 +57,11 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 - 导出 Word 时可按需包含批注，适合输出带审阅意见的评审稿：[文档导出](./export)
 - 导出的 Word 会保留线程中的评论与回复关系，便于后续继续审阅
 
+### 文档表单（form）
+
+- 对填写说明、异常项、审批意见等内容，可通过评论线程沉淀讨论过程：[文档表单](./form)
+- 保存文档时，评论与表单数据也可以在 `onSave` 中一起回收，适合表单审批与审阅场景
+
 ### 历史版本（versions）
 
 - 在关键节点创建版本，并将评论作为验收记录的一部分沉淀：[文档历史版本](./versions)
@@ -149,12 +154,14 @@ const defaultOptions = {
 
 自 v10 开始，Umo Editor Next 文档保存配置 `onSave` 方法新增了 `comments` 参数，用于保存文档批注线程。
 
+如果同时开启了文档表单能力，`onSave` 还会继续追加第 5 个参数 `form`，用于回收当前表单结构化数据。
+
 `onSave` 方法见 [文档保存配置](../editor/options/methods#onsave)
 
 以下是一个简单的 `onSave` 方法示例：
 
 ```js
-const onSave = async (content, page, document, comments) => {
+const onSave = async (content, page, document, comments, form) => {
   // 将文档和评论线程保存到 localStorage
   localStorage.setItem('document.content', content)
   localStorage.setItem('document.comments', JSON.stringify(comments))
@@ -162,7 +169,7 @@ const onSave = async (content, page, document, comments) => {
   // 模拟保存等待过程
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('onSave', { content, page, document, comments })
+      console.log('onSave', { content, page, document, comments, form })
       resolve('操作成功')
     }, 1000)
   })

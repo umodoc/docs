@@ -41,6 +41,11 @@ import { Tabs } from 'nextra/components'
 - `page`：页面信息。
 - `document`：文档信息。
 
+在 Umo Editor Next 中，如果同时开启了批注或文档表单等能力，`onSave` 还会在后续参数中追加对应的结构化数据。例如：
+
+- 第 4 个参数 `comments`：当前批注线程列表
+- 第 5 个参数 `form`：当前表单结构化数据
+
 **返回值**：保存成功则返回 `true`，否则返回 `false` 或者抛出错误。
 
 **示例**：
