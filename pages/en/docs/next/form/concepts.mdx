@@ -132,6 +132,19 @@ The current public capability can be understood through these four modes:
 - The document body remains editable
 - Best for inserting variables, configuring them, and maintaining template structure
 
+In `design` mode, there are two very practical details that are easy to overlook:
+
+- **Text-like variables support formatting**: a text variable is not limited to being a plain placeholder. It preserves the inline formatting at the insertion point, and the generated result keeps those styles as well. That means you can style it like normal text with bold, italic, underline, color, and background highlight.
+- **Image-like variables support attribute settings**: beyond `name / key / description / required`, image variables can also be configured with width, height, auto height, equal proportion scaling, and floating drag behavior. `stamp` variables additionally support common size presets.
+
+This means document forms are not just about fields. Template authors can settle all of the following during the design phase:
+
+- The business meaning and validation boundary of each field value
+- How a field should appear inside the document body
+- The size and placement behavior of image variables in the page layout
+
+For formal documents such as contracts, request forms, receipts, seal pages, and signature pages, this matters a lot because it directly affects the final document appearance, not just the filling experience.
+
 ### `fill` Mode
 
 - The document body is no longer used for free-form editing

@@ -54,6 +54,31 @@ These are a good fit for:
 - Single-choice states, multi-choice values, and selects
 - Localized complex content through rich text
 
+#### Text-like Variables Also Support Formatting
+
+This is an important point: text-like variables are not just data slots that get replaced with a value. They can directly inherit the inline formatting already present in the document body.
+
+Based on the current implementation, text variables preserve the text marks on the current node when they are inserted and updated, and those marks are also preserved in the generated result. In practice, that means you can treat a text variable as styled dynamic text rather than a plain placeholder.
+
+This is especially useful for:
+
+- Bold, italic, underline, and strikethrough
+- Text color and background highlight
+- Keeping the variable visually aligned with the surrounding font, size, and inline styles
+
+Typical high-value scenarios include:
+
+- Dynamic fields in a contract title need to keep the same emphasis as the fixed title text
+- Amounts, dates, and risk notices need stronger visual emphasis
+- In notices, letters, and certificates, variable values should match the surrounding layout rather than looking like foreign placeholders
+
+It also helps to separate two different concerns:
+
+- **Body styling**: applied directly in the document, best for controlling final appearance
+- **Field rules**: configured in the right-side variable panel, best for controlling validation, date formatting, range separators, options, and similar behavior
+
+In short, text variables support both value constraints and display formatting.
+
 ### Image-like Variables
 
 The supported base types include:
@@ -71,6 +96,32 @@ These are a good fit for:
 - Official stamps
 - Business QR codes
 - Barcodes
+
+#### Image-like Variables Support Attribute Settings
+
+Image-like variables are not just places to drop in an image. In design mode, the variable panel on the right supports a second layer of configuration beyond the basic field metadata.
+
+The currently available attribute settings include:
+
+- Width and height
+- Auto height
+- Equal proportion scaling
+- Floating drag behavior
+- Common size presets for `stamp` variables
+
+These settings are highly practical because image-like variables often determine how professional the final page layout looks. For example:
+
+- Attachment screenshots usually work best with a fixed width plus auto height so they do not stretch out of shape
+- Signature areas are often better at a smaller size so they do not take over the surrounding paragraph
+- Seal areas often need a stable visual size so the template can reserve enough room in advance
+- QR codes and barcodes usually need deliberate size control to keep printing and scanning reliable
+
+From a template-design perspective, image variables should always be considered from at least two angles:
+
+- What business meaning they carry, such as attachment, signature, seal, QR code, or barcode
+- What size and layout behavior they should have inside the document
+
+That is why image-variable attribute settings are so useful in real business documents. They directly affect the final document appearance and export quality.
 
 ## 2. Choose by Business Meaning First
 
