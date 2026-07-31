@@ -13,6 +13,7 @@ Beyond document generation, document forms have another core responsibility: ret
 - Which entry points are instance methods and which are callbacks
 - Where to look for manual filling, programmatic generation, and template-saving flows
 - In what situations `fillFormValues` should be used
+- What problems `setFormMode` is designed to solve
 - How `result`, `autofill`, and `fillFormValues` differ
 
 ## Entry Points at a Glance
@@ -21,6 +22,7 @@ Document form capabilities are mainly exposed through the following entry points
 
 | Entry Point | Type | Best For |
 | --- | --- | --- |
+| `setFormMode(mode)` | Editor instance method | Switching between design, fill, result, and other form modes after the instance has already been created |
 | `fillFormValues(values, options)` | Editor instance method | Regenerating results with new data after the instance has already been created |
 | `form.onSubmit(result, context)` | Config callback | Submission and data collection after manual filling |
 | `form.onSubmitted(status, payload)` | Config callback | Post-submission cleanup actions |
@@ -34,6 +36,71 @@ If this is your first integration, start here:
 - Template maintenance: `onSave`
 
 ## Editor Instance Method
+
+### setFormMode
+
+**Description**: Switch the current form mode at runtime without recreating the editor instance.
+
+Use this method when the editor is already mounted and your business flow needs to move between different form modes. Typical examples include moving from template design to manual filling, switching to result view after filling, or returning to design mode to adjust variables.
+
+**Example**
+
+```js
+const editorRef = ref(null)
+
+const enterFillMode = () => {
+  editorRef.value.setFormMode('fill')
+}
+
+const previewResult = () => {
+  editorRef.value.setFormMode('result')
+}
+
+const backToDesign = () => {
+  editorRef.value.setFormMode('design')
+}
+```
+
+**Parameters**
+
+- `mode`: `design | fill | result | autofill`
+
+**Parameter notes**
+
+- `design`: template design mode, suitable for inserting and adjusting variables
+- `fill`: manual filling mode, suitable for entering values and submitting
+- `result`: result display mode, suitable for reviewing generated content
+- `autofill`: programmatic population mode, suitable for generating results together with `form.values` or `fillFormValues()`
+
+**Returns**
+
+Returns the latest form runtime state object, which typically includes:
+
+- `enabled`
+- `rawMode`
+- `mode`
+- `isDesignMode`
+- `isFillMode`
+- `isResultMode`
+- `isAutofillMode`
+
+**Best-fit scenarios**
+
+- Switching between design, filling, and result modes within the same editor instance
+- Driving form mode changes step by step in control panels, wizards, or approval flows
+- Avoiding editor reloads when changing form modes in demos or business systems
+
+**Usage tips**
+
+- This method is only meaningful when `form.enabled = true`
+- If the mode is already known during initialization, configure `form.mode` directly
+- If you still need to regenerate content with new data after switching to `autofill`, combine it with `fillFormValues()`
+
+**See also**
+
+- [Configuration](./options): details for `form.mode`
+- [Getting Started](./getting-started): minimum setup for each form mode
+- [Concepts](./concepts): understand the boundaries between `result`, `autofill`, and `fillFormValues()`
 
 ### fillFormValues
 

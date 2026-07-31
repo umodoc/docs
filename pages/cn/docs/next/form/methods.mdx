@@ -13,6 +13,7 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 - 哪些入口属于实例方法，哪些入口属于回调
 - 人工填写、程序生成、模板保存分别该看哪一段
 - `fillFormValues` 应该在什么场景下使用
+- `setFormMode` 适合解决什么问题
 - `result`、`autofill`、`fillFormValues` 应该怎么选
 
 ## 使用入口概览
@@ -21,6 +22,7 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 
 | 入口 | 类型 | 适合场景 |
 | --- | --- | --- |
+| `setFormMode(mode)` | 编辑器实例方法 | 实例创建后切换设计、填写、结果等表单模式 |
 | `fillFormValues(values, options)` | 编辑器实例方法 | 实例创建后按新数据重新生成结果 |
 | `form.onSubmit(result, context)` | 配置回调 | 人工填写后的提交与数据回收 |
 | `form.onSubmitted(status, payload)` | 配置回调 | 提交结束后的收尾动作 |
@@ -34,6 +36,71 @@ description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含
 - 模板维护：`onSave`
 
 ## 编辑器实例方法
+
+### setFormMode
+
+**说明**：运行时切换当前表单模式，而不需要重新创建编辑器实例。
+
+当编辑器已经挂载在页面上，而你又希望按业务流程在不同模式之间切换时，优先使用它。例如“先设计模板，再进入填写态”“填写完成后切到结果态”“切回设计态继续调整变量”等场景。
+
+**调用示例**：
+
+```js
+const editorRef = ref(null)
+
+const enterFillMode = () => {
+  editorRef.value.setFormMode('fill')
+}
+
+const previewResult = () => {
+  editorRef.value.setFormMode('result')
+}
+
+const backToDesign = () => {
+  editorRef.value.setFormMode('design')
+}
+```
+
+**参数**：
+
+- `mode`：`design | fill | result | autofill`
+
+**参数说明**：
+
+- `design`：模板设计态，适合插入和调整变量
+- `fill`：人工填写态，适合录入变量值并提交
+- `result`：结果展示态，适合查看填充后的结果
+- `autofill`：程序填充态，适合结合 `form.values` 或 `fillFormValues()` 生成结果
+
+**返回值**：
+
+返回当前最新的表单运行时状态对象，通常会包含：
+
+- `enabled`
+- `rawMode`
+- `mode`
+- `isDesignMode`
+- `isFillMode`
+- `isResultMode`
+- `isAutofillMode`
+
+**适合场景**：
+
+- 同一编辑器实例内在设计、填写、结果之间来回切换
+- 控制面板、分页向导、审批流节点中按步骤切换表单工作模式
+- 在线演示或业务系统中避免切模式时重载编辑器
+
+**使用建议**：
+
+- 只有在 `form.enabled = true` 时，这个方法才有实际意义
+- 如果只是初始化时确定模式，直接配置 `form.mode` 即可
+- 如果切到 `autofill` 后还需要按新数据重新生成结果，再配合 `fillFormValues()` 使用
+
+**相关页面**：
+
+- [配置项](./options)：查看 `form.mode` 的模式说明
+- [快速开始](./getting-started)：查看不同表单模式的最小接入方式
+- [核心概念](./concepts)：理解 `result`、`autofill`、`fillFormValues()` 的边界
 
 ### fillFormValues
 
