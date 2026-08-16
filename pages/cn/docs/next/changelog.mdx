@@ -4,9 +4,26 @@ keywords: Umo Editor Next,Umo Editor 官网,富文本编辑器,文档编辑器,�
 description: Umo Editor Next 是开源软件 Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout } from "nextra/components";
 
 # 更新日志
+
+## 🎉 v14.1.0
+
+1. 添加了“业务对象”功能，详见: [业务对象](./biz-block)；
+2. 优化 flowchart/mermaid/plantuml 等 SVG 图表节点的插入和导出效果；
+3. 提高图片节点导出到 Word 文档的清晰度；
+4. 修复菜单里切换编号类型时，子列表没有同步更新类型的问题；
+5. 优化 Mermaid 等 SVG 图片节点的插入效果；
+6. 修复因为工具栏因为滚动过多而导致某些菜单项始终无法显示的问题；
+7. 其他细节优化。
+
+## 🎉 v14.0.1
+
+1. 优化协作模式下连接失败与连接断开的逻辑；
+2. 修复块级菜单图标显示不正确的问题；
+3. 补全文件相关文案并修正超限提示补全；
+4. 优化 FlowChart 渲染的错误提示。
 
 ## 🎉 v14.0.0
 
@@ -127,7 +144,6 @@ import { Callout } from 'nextra/components'
 
 1. 同步 Umo Editor v10.2.0 的更改，详细更新日志见：[Umo Editor 更新日志](../editor/changelog)。
 
-
 ## 🎉 v11.0.0
 
 1. 增加文档修订功能，详见：[文档修订](./revision)；
@@ -146,18 +162,18 @@ import { Callout } from 'nextra/components'
 14. 修正页面最佳宽度计算方法；
 15. 修复工具栏插槽模式和组件顺序问题；
 16. 修复 Word 导出中提及扩展未找到的错误；
-17. 细节优化及调整。 
+17. 细节优化及调整。
 
 ## 🚀 v10.3.0
 
 1. 同步 Umo Editor v10.0.7 及 v10.1.0 的更改，详细更新日志见：[Umo Editor 更新日志](../editor/changelog)；
-2. 细节优化及调整。 
+2. 细节优化及调整。
 
 ## 🚀 v10.2.1
 
 1. 修复选择日期时间时确定按钮可能不显示的问题；
 2. 优化复制功能，增加失败提示；
-3. 细节优化及调整。 
+3. 细节优化及调整。
 
 ## 🚀 v10.2.0
 
@@ -209,6 +225,7 @@ import { Callout } from 'nextra/components'
 本次更新经历了 300 多次代码提交，优化和修复了大量的问题，推荐所有用户升级。
 
 需要注意的是，如果您需要升级到 v10，`cdnUrl` 配置所引用的 [`@umoteam/editor-external`](https://www.npmjs.com/package/@umoteam/editor-external) CDN 资源也需要升级到 v10。
+
 </Callout>
 
 ### 重磅升级
@@ -300,8 +317,8 @@ import { Callout } from 'nextra/components'
 ## 🎉 v7.0.0
 
 <Callout type="warning" emoji="❗">
-  为了和 Umo Editor 的代码保持同步，Umo Editor Next 采用和 Umo Editor
-  大版本号，直接从 v7.0.0 开始发布。
+  为了和 Umo Editor 的代码保持同步，Umo Editor Next 采用和 Umo Editor 大版本号，直接从 v7.0.0
+  开始发布。
 </Callout>
 
 1. 增加多人协作编辑功能；

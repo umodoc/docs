@@ -21,6 +21,7 @@ export default {
   locked: 'Content Locking',
   template: 'Template Management',
   'file-picker': 'Asset Library',
+  'biz-block': 'Business Objects',
   other: 'Other Configurations',
   methods: 'Methods',
 }

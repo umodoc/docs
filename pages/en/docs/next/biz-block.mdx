@@ -1,0 +1,383 @@
+---
+target: Umo Editor Next
+keywords: Umo Editor Next,Umo Editor Official Website,Rich Text Editor,Document Editor,Document Editing,Collaborative Office
+description: Umo Editor is a localized open-source document editor based on Vue3 and Tiptap. It offers powerful document editing and AI creation features, supporting pagination, Markdown syntax, rich text editing, various node insertions, page styling, document exporting and printing. Additionally, Umo Editor supports custom extensions, multilingual settings, and a dark theme.
+---
+
+import { Callout } from "nextra/components";
+
+# Business Object (`biz-block`)
+
+Business Object is used to elevate a block of document content into an identifiable, synchronizable, and updatable business unit. It preserves the rich-text editing experience while connecting the content to external business systems, which makes it suitable for enterprise scenarios such as approvals, tasks, risk control, clause management, and knowledge management.
+
+Compared with a normal paragraph, a Business Object works more like a "business container inside the document":
+
+- it can still contain any rich-text content;
+- its header can show a business identifier, name, and status;
+- it supports refreshing business info, opening business details, deleting, and rolling back to a normal node;
+- it can sync its content to external systems at `bind / update / blur / save` trigger points.
+
+## Screenshot
+
+![Umo Editor Business Object](https://s2.umodoc.com/demos/biz-block-cn.png)
+
+## Use Cases
+
+Business Object is well suited to bridge "document editing + business workflow".
+
+- **Approval workflow units**: convert approval notes, decisions, or clause conclusions in a document into Business Objects linked to approval forms, workflow instances, or external tasks.
+- **Risk control and issue tracking**: extract risk descriptions, issue findings, and remediation suggestions into Business Objects that can be synced to risk systems, ticket systems, or remediation ledgers.
+- **Contract and policy clause management**: elevate key clauses from the main body into Business Objects, then associate them with clause libraries, legal reviews, clause statuses, or version information.
+- **Task and action tracking**: convert action items from meeting minutes or solution documents into Business Objects so external systems can generate tasks, owners, due dates, and statuses.
+- **Knowledge curation**: consolidate definitions, standards, conclusions, and best practices from the document body into Business Objects and sync them into a knowledge base or rule base.
+- **Structured collection and archiving**: preserve the normal writing experience while syncing key paragraphs as Business Objects to archive systems, ledgers, or master-data systems.
+- **AI processing units**: send a specific Business Object to an external service for extraction, classification, validation, or summary generation, then write the result back to node attributes.
+
+## Works Well With
+
+### Template Management (`template`)
+
+- Preconfigure Business Object areas inside templates, then let business users fill and sync them to external systems: [Template Management](./template)
+
+### Content Locking (`locked`)
+
+- Lock the template skeleton and keep only Business Object areas editable to prevent accidental structural changes: [Content Locking](./locked)
+
+### Document Forms (`form`)
+
+- Forms handle structured fields, while Business Objects carry long-form business units. They work well together for complex approvals, reports, and operational documents: [Document Forms](./form)
+
+### Track Changes / Comments / Collaboration
+
+- Comments are good for discussion, Track Changes is good for audit trail, and Business Objects are good for final business units. Together they fit enterprise review and finalization workflows well: [Track Changes](./revision), [Comments](./comments), [Collaborative Editing](./collaboration)
+
+## Interaction Rules
+
+- **Without selection**: insert an empty `biz-block`
+- **With selection**: elevate the current selection into a `biz-block`
+- **Convert full blocks only**: if only part of a paragraph is selected, the editor still converts the whole block node instead of splitting the paragraph
+- **Header area**: the left side shows `# bizId name`, and status is shown only when `status` is provided; the right side provides refresh, rollback, and delete actions
+- **Focus highlight**: the node shows an outer highlight border when focused
+
+<Callout type="info" emoji="ℹ️">
+  The internal <code>id</code> of a Business Object is automatically generated in sequence as{" "}
+  <code>BIZ-001</code>, <code>BIZ-002</code>, and so on. The displayed <code>bizId</code> comes from
+  the external business system and can be filled later.
+</Callout>
+
+## Configuration Example
+
+```js
+const defaultOptions = {
+  bizBlock: {
+    enabled: true,
+    types: [
+      { label: "Approval Item", value: "approval" },
+      { label: "Risk Item", value: "risk" },
+      { label: "Task Item", value: "task" },
+    ],
+    triggers: ["bind", "update", "blur", "save"],
+  },
+
+  async onGetBizInfo(attrs) {
+    return {
+      bizId: "AP-20260816-001",
+      status: {
+        value: "running",
+        label: "In Progress",
+        color: "#0052d9",
+      },
+      meta: {
+        owner: "Shared Finance Center",
+      },
+    };
+  },
+
+  async onGetBizBlock(block) {
+    console.log("sync biz block", block);
+  },
+
+  async onOpenBizBlock(block) {
+    console.log("open biz block", block);
+  },
+
+  async onDeleteBizBlock(block) {
+    console.log("delete biz block", block);
+  },
+};
+```
+
+## Configuration Reference
+
+### bizBlock.enabled
+
+**Description**: Whether to enable Business Object capability. When disabled, the extension is not registered and related entries are hidden.
+
+**Type**: `Boolean`
+
+**Default**: `false`
+
+### bizBlock.types
+
+**Description**: The Business Object type list shown to users when inserting or converting.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+**Example**:
+
+```js
+[
+  { label: "Approval Item", value: "approval" },
+  { label: "Risk Item", value: "risk" },
+];
+```
+
+When `types` is empty:
+
+- the type selector is hidden
+- the node `type` defaults to `'default'`
+
+### bizBlock.triggers
+
+**Description**: Controls when the rich-text content inside Business Objects is synced to external systems.
+
+**Type**: `Array`
+
+**Default**: `[]`
+
+**Available values**:
+
+- `bind`: sync immediately after creating or converting into a `biz-block`
+- `update`: sync when Business Object content changes, with debounce
+- `blur`: sync when the editor loses focus
+- `save`: sync before saving the document
+
+## Callback Reference
+
+### onGetBizInfo
+
+**Description**: Fetches or refreshes business information for a Business Object. It is called when the user clicks the refresh button in the node header. It is also called once automatically after node creation if a `bizId` already exists, so the latest business info can be loaded.
+
+**Type**: `Async Function`
+
+**Parameters**: current node `attrs`
+
+```js
+{
+  id,
+  name,
+  type,
+  bizId,
+  status,
+  meta,
+}
+```
+
+**Returns**: an object that can be written back to node attributes. Typical fields include:
+
+- `bizId`
+- `status`
+- `meta`
+
+`status` is optional. If it is not provided, the node header does not show status.
+
+`status` is an object:
+
+```js
+{
+  value: 'running',
+  label: 'In Progress',
+  color: '#0052d9',
+}
+```
+
+### onGetBizBlock
+
+**Description**: Syncs the rich-text content of a Business Object to external systems at the configured trigger points. This is useful for archiving, saving, structured extraction, and workflow synchronization.
+
+**Type**: `Async Function`
+
+**Parameters**:
+
+```js
+{
+  id,
+  trigger,
+  attrs,
+  content: { html, json, text },
+}
+```
+
+Where:
+
+- `trigger`: `bind | update | blur | save | manual`
+- `attrs`: current node attributes
+- `content`: current rich-text content inside the Business Object
+
+### onOpenBizBlock
+
+**Description**: Triggered when clicking `# bizId` in the node header. This is suitable for opening a detail page, showing a business card, or launching a side panel.
+
+**Type**: `Async Function`
+
+**Parameters**: same as [`onGetBizBlock`](#ongetbizblock), except `trigger` is always `open`.
+
+### onDeleteBizBlock
+
+**Description**: Triggered when the user deletes a `biz-block` or rolls it back to a normal node. This is useful for business-side cleanup, unbinding, or logging.
+
+**Type**: `Async Function`
+
+**Parameters**: same as [`onGetBizBlock`](#ongetbizblock).
+
+**trigger**:
+
+- `delete`: the user deletes the node directly
+- `rollback`: the user rolls the node back to a normal node
+
+## Methods
+
+For method call patterns, see [Methods](./methods).
+
+### setBizBlock
+
+**Description**: Insert or convert a Business Object. With selection, it converts; without selection, it inserts.
+
+**Parameters**: `attrs` (optional)
+
+- `id`
+- `name`
+- `type`
+- `bizId`
+- `status`
+- `meta`
+
+**Returns**: `Promise<Boolean>`
+
+### getBizBlock
+
+**Description**: Gets the node information and content payload of a specific Business Object.
+
+**Parameters**:
+
+- `id`: internal Business Object node ID
+
+**Returns**:
+
+```js
+{
+  id,
+  pos,
+  attrs,
+  node,
+  content: { html, json, text },
+}
+```
+
+### getBizBlocks
+
+**Description**: Gets all Business Object nodes in the current document.
+
+**Parameters**: none
+
+**Returns**: `Array`
+
+### updateBizBlock
+
+**Description**: Updates a specific Business Object. Business-side attribute writeback, reverse content sync, and manual content sync are all unified under this method.
+
+**Parameters**:
+
+```js
+{
+  id,
+  attrs,
+  content,
+  sync,
+  trigger,
+  silent,
+}
+```
+
+Where:
+
+- `id`: internal Business Object node ID
+- `attrs`: optional attribute patch, typically used for `bizId / status / meta`
+- `content`: optional content update, supports:
+  - `content: { html, json, text }` returned by `getBizBlock`
+  - direct `html` string
+  - direct `json` content
+- `sync`: optional, whether to trigger `onGetBizBlock` immediately after local update, default `false`
+- `trigger`: optional trigger name passed to `onGetBizBlock`, default `manual`
+- `silent`: optional, whether to suppress sync errors, default `true`
+
+When `content` contains `json / html / text` at the same time, `json` takes priority.
+
+**Returns**: `Promise<Boolean>`
+
+### refreshBizBlock
+
+**Description**: Actively refreshes the business info of a specific Business Object by calling `onGetBizInfo`.
+
+**Parameters**:
+
+- `id`: internal Business Object node ID
+
+**Returns**: `Promise<Boolean>`
+
+### openBizBlock
+
+**Description**: Actively triggers the Business Object open action by calling `onOpenBizBlock`.
+
+**Parameters**:
+
+- `id`: internal Business Object node ID
+
+**Returns**: `Promise<Boolean>`
+
+### deleteBizBlock
+
+**Description**: Deletes a specific Business Object node and triggers `onDeleteBizBlock`.
+
+**Parameters**:
+
+- `id`: internal Business Object node ID
+
+**Returns**: `Boolean`
+
+### rollbackBizBlock
+
+**Description**: Rolls a Business Object back to a normal node, keeps its inner body content, and triggers `onDeleteBizBlock`.
+
+**Parameters**:
+
+- `id`: internal Business Object node ID
+
+**Returns**: `Boolean`
+
+## Integration Suggestions
+
+If you plan to adopt `biz-block` in an enterprise system, the following responsibility boundary is recommended:
+
+1. The editor is responsible for:
+   - inserting, converting, displaying, editing, and triggering sync for nodes
+   - organizing Business Object content into a unified payload
+
+2. The business system is responsible for:
+   - generating or filling back `bizId`
+   - maintaining status transitions, permissions, routing targets, and business details
+   - handling business actions inside `onGetBizInfo / onGetBizBlock / onOpenBizBlock / onDeleteBizBlock`
+
+3. Recommended rollout path:
+   - enable `bizBlock.enabled` first
+   - start only with `onGetBizInfo` and `onOpenBizBlock`
+   - enable `bizBlock.triggers` after the business flow stabilizes
+   - finally connect `onDeleteBizBlock` into cleanup or archival processes
+
+<Callout type="warning" emoji="⚠️">
+  If your business system uses <code>bizId</code> as the only primary key, do not mix the internal
+  node <code>id</code> with external <code>bizId</code>. Treat the internal <code>id</code> as the
+  editor node identifier, and <code>bizId</code> as the business primary key.
+</Callout>
