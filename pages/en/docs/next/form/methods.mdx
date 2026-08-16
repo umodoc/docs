@@ -20,14 +20,14 @@ Beyond document generation, document forms have another core responsibility: ret
 
 Document form capabilities are mainly exposed through the following entry points:
 
-| Entry Point | Type | Best For |
-| --- | --- | --- |
-| `setFormMode(mode)` | Editor instance method | Switching between design, fill, result, and other form modes after the instance has already been created |
-| `fillFormValues(values, options)` | Editor instance method | Regenerating results with new data after the instance has already been created |
-| `form.onSubmit(result, context)` | Config callback | Submission and data collection after manual filling |
-| `form.onSubmitted(status, payload)` | Config callback | Post-submission cleanup actions |
-| `form.onFillError(errors, context)` | Config callback | Programmatic population fallback and error handling |
-| `onSave(content, page, document, comments, form)` | Global editor save callback | Collecting form data when saving a template or a document |
+| Entry Point                                       | Type                        | Best For                                                                                                 |
+| ------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `setFormMode(mode)`                               | Editor instance method      | Switching between design, fill, result, and other form modes after the instance has already been created |
+| `fillFormValues(values, options)`                 | Editor instance method      | Regenerating results with new data after the instance has already been created                           |
+| `form.onSubmit(result, context)`                  | Config callback             | Submission and data collection after manual filling                                                      |
+| `form.onSubmitted(status, payload)`               | Config callback             | Post-submission cleanup actions                                                                          |
+| `form.onFillError(errors, context)`               | Config callback             | Programmatic population fallback and error handling                                                      |
+| `onSave(content, page, document, comments, form)` | Global editor save callback | Collecting form data when saving a template or a document                                                |
 
 If this is your first integration, start here:
 
@@ -46,19 +46,19 @@ Use this method when the editor is already mounted and your business flow needs 
 **Example**
 
 ```js
-const editorRef = ref(null)
+const editorRef = ref(null);
 
 const enterFillMode = () => {
-  editorRef.value.setFormMode('fill')
-}
+  editorRef.value.setFormMode("fill");
+};
 
 const previewResult = () => {
-  editorRef.value.setFormMode('result')
-}
+  editorRef.value.setFormMode("result");
+};
 
 const backToDesign = () => {
-  editorRef.value.setFormMode('design')
-}
+  editorRef.value.setFormMode("design");
+};
 ```
 
 **Parameters**
@@ -111,23 +111,23 @@ This method is best treated as a runtime supplement. Use it when the editor has 
 **Example**
 
 ```js
-const editorRef = ref(null)
+const editorRef = ref(null);
 
 const generateDocument = async () => {
   const result = await editorRef.value.fillFormValues(
     {
-      contract_name: 'Master Procurement Agreement',
-      customer_name: 'Example Technology Ltd.',
-      sign_date: '2026-07-29',
+      contract_name: "Master Procurement Agreement",
+      customer_name: "Example Technology Ltd.",
+      sign_date: "2026-07-29",
     },
     {
-      format: 'json',
+      format: "json",
       disableForm: true,
     },
-  )
+  );
 
-  console.log(result)
-}
+  console.log(result);
+};
 ```
 
 **Parameters**
@@ -180,17 +180,17 @@ For manual filling scenarios, `form.onSubmit(result, context)` is the recommende
 const editorOptions = {
   form: {
     enabled: true,
-    mode: 'fill',
+    mode: "fill",
     async onSubmit(result) {
-      console.log(result.values)
-      console.log(result.definitions)
-      console.log(result.finalContent)
+      console.log(result.values);
+      console.log(result.definitions);
+      console.log(result.finalContent);
       return {
         success: true,
-      }
+      };
     },
   },
-}
+};
 ```
 
 **Parameters**
@@ -260,12 +260,12 @@ This callback is triggered when rich text content is invalid, or when some varia
 const editorOptions = {
   form: {
     enabled: true,
-    mode: 'autofill',
+    mode: "autofill",
     async onFillError(errors, context) {
-      console.log(errors, context)
+      console.log(errors, context);
     },
   },
-}
+};
 ```
 
 **Parameters**
@@ -334,7 +334,7 @@ If what you need is broader flow selection guidance, go to these pages instead:
 
 - [Core Concepts](./concepts): understand the boundaries between `result`, `autofill`, and `fillFormValues`
 - [Getting Started](./getting-started): start from the three main entry paths
-- [Use Cases](./scenarios): choose the flow by business objective
+- [Use Cases](./scenarios): choose the flow by business blockive
 
 As a quick rule of thumb:
 

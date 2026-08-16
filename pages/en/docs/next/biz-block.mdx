@@ -6,11 +6,11 @@ description: Umo Editor is a localized open-source document editor based on Vue3
 
 import { Callout } from "nextra/components";
 
-# Business Object (`biz-block`)
+# Business Block (`biz-block`)
 
-Business Object is used to elevate a block of document content into an identifiable, synchronizable, and updatable business unit. It preserves the rich-text editing experience while connecting the content to external business systems, which makes it suitable for enterprise scenarios such as approvals, tasks, risk control, clause management, and knowledge management.
+Business Block is used to elevate a block of document content into an identifiable, synchronizable, and updatable business unit. It preserves the rich-text editing experience while connecting the content to external business systems, which makes it suitable for enterprise scenarios such as approvals, tasks, risk control, clause management, and knowledge management.
 
-Compared with a normal paragraph, a Business Object works more like a "business container inside the document":
+Compared with a normal paragraph, a Business Block works more like a "business container inside the document":
 
 - it can still contain any rich-text content;
 - its header can show a business identifier, name, and status;
@@ -19,37 +19,37 @@ Compared with a normal paragraph, a Business Object works more like a "business 
 
 ## Screenshot
 
-![Umo Editor Business Object](https://s2.umodoc.com/demos/biz-block-cn.png)
+![Umo Editor Business Block](https://s2.umodoc.com/demos/biz-block-cn.png)
 
 ## Use Cases
 
-Business Object is well suited to bridge "document editing + business workflow".
+Business Block is well suited to bridge "document editing + business workflow".
 
-- **Approval workflow units**: convert approval notes, decisions, or clause conclusions in a document into Business Objects linked to approval forms, workflow instances, or external tasks.
-- **Risk control and issue tracking**: extract risk descriptions, issue findings, and remediation suggestions into Business Objects that can be synced to risk systems, ticket systems, or remediation ledgers.
-- **Contract and policy clause management**: elevate key clauses from the main body into Business Objects, then associate them with clause libraries, legal reviews, clause statuses, or version information.
-- **Task and action tracking**: convert action items from meeting minutes or solution documents into Business Objects so external systems can generate tasks, owners, due dates, and statuses.
-- **Knowledge curation**: consolidate definitions, standards, conclusions, and best practices from the document body into Business Objects and sync them into a knowledge base or rule base.
-- **Structured collection and archiving**: preserve the normal writing experience while syncing key paragraphs as Business Objects to archive systems, ledgers, or master-data systems.
-- **AI processing units**: send a specific Business Object to an external service for extraction, classification, validation, or summary generation, then write the result back to node attributes.
+- **Approval workflow units**: convert approval notes, decisions, or clause conclusions in a document into Business Blocks linked to approval forms, workflow instances, or external tasks.
+- **Risk control and issue tracking**: extract risk descriptions, issue findings, and remediation suggestions into Business Blocks that can be synced to risk systems, ticket systems, or remediation ledgers.
+- **Contract and policy clause management**: elevate key clauses from the main body into Business Blocks, then associate them with clause libraries, legal reviews, clause statuses, or version information.
+- **Task and action tracking**: convert action items from meeting minutes or solution documents into Business Blocks so external systems can generate tasks, owners, due dates, and statuses.
+- **Knowledge curation**: consolidate definitions, standards, conclusions, and best practices from the document body into Business Blocks and sync them into a knowledge base or rule base.
+- **Structured collection and archiving**: preserve the normal writing experience while syncing key paragraphs as Business Blocks to archive systems, ledgers, or master-data systems.
+- **AI processing units**: send a specific Business Block to an external service for extraction, classification, validation, or summary generation, then write the result back to node attributes.
 
 ## Works Well With
 
 ### Template Management (`template`)
 
-- Preconfigure Business Object areas inside templates, then let business users fill and sync them to external systems: [Template Management](./template)
+- Preconfigure Business Block areas inside templates, then let business users fill and sync them to external systems: [Template Management](./template)
 
 ### Content Locking (`locked`)
 
-- Lock the template skeleton and keep only Business Object areas editable to prevent accidental structural changes: [Content Locking](./locked)
+- Lock the template skeleton and keep only Business Block areas editable to prevent accidental structural changes: [Content Locking](./locked)
 
 ### Document Forms (`form`)
 
-- Forms handle structured fields, while Business Objects carry long-form business units. They work well together for complex approvals, reports, and operational documents: [Document Forms](./form)
+- Forms handle structured fields, while Business Blocks carry long-form business units. They work well together for complex approvals, reports, and operational documents: [Document Forms](./form)
 
 ### Track Changes / Comments / Collaboration
 
-- Comments are good for discussion, Track Changes is good for audit trail, and Business Objects are good for final business units. Together they fit enterprise review and finalization workflows well: [Track Changes](./revision), [Comments](./comments), [Collaborative Editing](./collaboration)
+- Comments are good for discussion, Track Changes is good for audit trail, and Business Blocks are good for final business units. Together they fit enterprise review and finalization workflows well: [Track Changes](./revision), [Comments](./comments), [Collaborative Editing](./collaboration)
 
 ## Interaction Rules
 
@@ -60,7 +60,7 @@ Business Object is well suited to bridge "document editing + business workflow".
 - **Focus highlight**: the node shows an outer highlight border when focused
 
 <Callout type="info" emoji="ℹ️">
-  The internal <code>id</code> of a Business Object is automatically generated in sequence as{" "}
+  The internal <code>id</code> of a Business Block is automatically generated in sequence as{" "}
   <code>BIZ-001</code>, <code>BIZ-002</code>, and so on. The displayed <code>bizId</code> comes from
   the external business system and can be filled later.
 </Callout>
@@ -111,7 +111,7 @@ const defaultOptions = {
 
 ### bizBlock.enabled
 
-**Description**: Whether to enable Business Object capability. When disabled, the extension is not registered and related entries are hidden.
+**Description**: Whether to enable Business Block capability. When disabled, the extension is not registered and related entries are hidden.
 
 **Type**: `Boolean`
 
@@ -119,7 +119,7 @@ const defaultOptions = {
 
 ### bizBlock.types
 
-**Description**: The Business Object type list shown to users when inserting or converting.
+**Description**: The Business Block type list shown to users when inserting or converting.
 
 **Type**: `Array`
 
@@ -141,7 +141,7 @@ When `types` is empty:
 
 ### bizBlock.triggers
 
-**Description**: Controls when the rich-text content inside Business Objects is synced to external systems.
+**Description**: Controls when the rich-text content inside Business Blocks is synced to external systems.
 
 **Type**: `Array`
 
@@ -150,7 +150,7 @@ When `types` is empty:
 **Available values**:
 
 - `bind`: sync immediately after creating or converting into a `biz-block`
-- `update`: sync when Business Object content changes, with debounce
+- `update`: sync when Business Block content changes, with debounce
 - `blur`: sync when the editor loses focus
 - `save`: sync before saving the document
 
@@ -158,7 +158,7 @@ When `types` is empty:
 
 ### onGetBizInfo
 
-**Description**: Fetches or refreshes business information for a Business Object. It is called when the user clicks the refresh button in the node header. It is also called once automatically after node creation if a `bizId` already exists, so the latest business info can be loaded.
+**Description**: Fetches or refreshes business information for a Business Block. It is called when the user clicks the refresh button in the node header. It is also called once automatically after node creation if a `bizId` already exists, so the latest business info can be loaded.
 
 **Type**: `Async Function`
 
@@ -195,7 +195,7 @@ When `types` is empty:
 
 ### onGetBizBlock
 
-**Description**: Syncs the rich-text content of a Business Object to external systems at the configured trigger points. This is useful for archiving, saving, structured extraction, and workflow synchronization.
+**Description**: Syncs the rich-text content of a Business Block to external systems at the configured trigger points. This is useful for archiving, saving, structured extraction, and workflow synchronization.
 
 **Type**: `Async Function`
 
@@ -214,7 +214,7 @@ Where:
 
 - `trigger`: `bind | update | blur | save | manual`
 - `attrs`: current node attributes
-- `content`: current rich-text content inside the Business Object
+- `content`: current rich-text content inside the Business Block
 
 ### onOpenBizBlock
 
@@ -243,7 +243,7 @@ For method call patterns, see [Methods](./methods).
 
 ### setBizBlock
 
-**Description**: Insert or convert a Business Object. With selection, it converts; without selection, it inserts.
+**Description**: Insert or convert a Business Block. With selection, it converts; without selection, it inserts.
 
 **Parameters**: `attrs` (optional)
 
@@ -258,11 +258,11 @@ For method call patterns, see [Methods](./methods).
 
 ### getBizBlock
 
-**Description**: Gets the node information and content payload of a specific Business Object.
+**Description**: Gets the node information and content payload of a specific Business Block.
 
 **Parameters**:
 
-- `id`: internal Business Object node ID
+- `id`: internal Business Block node ID
 
 **Returns**:
 
@@ -278,7 +278,7 @@ For method call patterns, see [Methods](./methods).
 
 ### getBizBlocks
 
-**Description**: Gets all Business Object nodes in the current document.
+**Description**: Gets all Business Block nodes in the current document.
 
 **Parameters**: none
 
@@ -286,7 +286,7 @@ For method call patterns, see [Methods](./methods).
 
 ### updateBizBlock
 
-**Description**: Updates a specific Business Object. Business-side attribute writeback, reverse content sync, and manual content sync are all unified under this method.
+**Description**: Updates a specific Business Block. Business-side attribute writeback, reverse content sync, and manual content sync are all unified under this method.
 
 **Parameters**:
 
@@ -303,7 +303,7 @@ For method call patterns, see [Methods](./methods).
 
 Where:
 
-- `id`: internal Business Object node ID
+- `id`: internal Business Block node ID
 - `attrs`: optional attribute patch, typically used for `bizId / status / meta`
 - `content`: optional content update, supports:
   - `content: { html, json, text }` returned by `getBizBlock`
@@ -319,41 +319,41 @@ When `content` contains `json / html / text` at the same time, `json` takes prio
 
 ### refreshBizBlock
 
-**Description**: Actively refreshes the business info of a specific Business Object by calling `onGetBizInfo`.
+**Description**: Actively refreshes the business info of a specific Business Block by calling `onGetBizInfo`.
 
 **Parameters**:
 
-- `id`: internal Business Object node ID
+- `id`: internal Business Block node ID
 
 **Returns**: `Promise<Boolean>`
 
 ### openBizBlock
 
-**Description**: Actively triggers the Business Object open action by calling `onOpenBizBlock`.
+**Description**: Actively triggers the Business Block open action by calling `onOpenBizBlock`.
 
 **Parameters**:
 
-- `id`: internal Business Object node ID
+- `id`: internal Business Block node ID
 
 **Returns**: `Promise<Boolean>`
 
 ### deleteBizBlock
 
-**Description**: Deletes a specific Business Object node and triggers `onDeleteBizBlock`.
+**Description**: Deletes a specific Business Block node and triggers `onDeleteBizBlock`.
 
 **Parameters**:
 
-- `id`: internal Business Object node ID
+- `id`: internal Business Block node ID
 
 **Returns**: `Boolean`
 
 ### rollbackBizBlock
 
-**Description**: Rolls a Business Object back to a normal node, keeps its inner body content, and triggers `onDeleteBizBlock`.
+**Description**: Rolls a Business Block back to a normal node, keeps its inner body content, and triggers `onDeleteBizBlock`.
 
 **Parameters**:
 
-- `id`: internal Business Object node ID
+- `id`: internal Business Block node ID
 
 **Returns**: `Boolean`
 
@@ -363,7 +363,7 @@ If you plan to adopt `biz-block` in an enterprise system, the following responsi
 
 1. The editor is responsible for:
    - inserting, converting, displaying, editing, and triggering sync for nodes
-   - organizing Business Object content into a unified payload
+   - organizing Business Block content into a unified payload
 
 2. The business system is responsible for:
    - generating or filling back `bizId`
